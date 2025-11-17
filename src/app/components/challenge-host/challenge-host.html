@@ -1,0 +1,44 @@
+<!-- Modal Overlay -->
+<div class="modal-overlay" (click)="onClose()">
+  <!-- Modal Content -->
+  <div
+    class="modal-content w-full h-full sm:w-auto sm:h-auto sm:max-w-2xl lg:max-w-4xl sm:rounded-2xl"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Header with Close Button -->
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-2xl sm:text-3xl font-bold text-text">Day {{ dayConfig.day }}</h2>
+      <button (click)="onClose()" class="btn btn-outline p-2 min-w-0" aria-label="Close">
+        <lucide-icon [img]="X" class="w-6 h-6" [strokeWidth]="2"></lucide-icon>
+      </button>
+    </div>
+
+    <!-- Challenge Content Area -->
+    @if (!showFunFact) {
+    <div class="challenge-content">
+      <!-- Placeholder for dynamic challenge component -->
+      <div class="text-center py-12">
+        <p class="text-lg text-text-muted mb-4">
+          Challenge type: <span class="text-gold font-semibold">{{ dayConfig.challengeType }}</span>
+        </p>
+        <button class="btn btn-primary" (click)="onChallengeComplete()">
+          Complete Challenge (Demo)
+        </button>
+      </div>
+    </div>
+    } @else {
+    <!-- Fun Fact Display -->
+    <div class="fun-fact-content text-center py-12">
+      <div class="mb-6">
+        <div class="text-6xl mb-4">🎉</div>
+        <h3 class="text-2xl font-bold text-accent-green mb-4">Congratulations!</h3>
+        <p class="text-lg text-text mb-2">Fun Fact:</p>
+        <p class="text-text-muted italic">
+          {{ dayConfig.funFactKey }}
+        </p>
+      </div>
+      <button class="btn btn-primary" (click)="onCloseFunFact()">Continue</button>
+    </div>
+    }
+  </div>
+</div>

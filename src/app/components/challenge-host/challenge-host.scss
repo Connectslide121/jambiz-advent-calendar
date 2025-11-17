@@ -1,0 +1,21 @@
+.challenge-content,
+.fun-fact-content {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+// Mobile full-screen adjustments
+@media (max-width: 640px) {
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .challenge-content,
+  .fun-fact-content {
+    flex: 1;
+    min-height: 0;
+  }
+}

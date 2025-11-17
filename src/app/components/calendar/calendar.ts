@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LucideAngularModule, Check } from 'lucide-angular';
 import { CALENDAR_DAYS } from '../../config/calendar-config';
 import { CalendarStateService } from '../../services/calendar-state.service';
 import { CalendarDayConfig } from '../../models/calendar.models';
+import { ChallengeHost } from '../challenge-host/challenge-host';
 
 @Component({
   selector: 'app-calendar',
-  imports: [CommonModule],
+  imports: [CommonModule, ChallengeHost, LucideAngularModule],
   templateUrl: './calendar.html',
   styleUrl: './calendar.scss',
 })
 export class Calendar implements OnInit {
+  readonly Check = Check;
   calendarDays: CalendarDayConfig[] = CALENDAR_DAYS;
   selectedDay: CalendarDayConfig | null = null;
 
@@ -20,8 +23,16 @@ export class Calendar implements OnInit {
 
   onDaySelected(day: CalendarDayConfig): void {
     this.selectedDay = day;
-    // TODO: Open challenge modal
-    console.log('Selected day:', day);
+  }
+
+  onCloseChallenge(): void {
+    this.selectedDay = null;
+  }
+
+  onChallengeCompleted(): void {
+    if (this.selectedDay) {
+      this.stateService.markDayComplete(this.selectedDay.day);
+    }
   }
 
   isDayCompleted(day: number): boolean {

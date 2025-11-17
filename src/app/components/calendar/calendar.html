@@ -15,20 +15,12 @@
 
       <!-- Completion Indicator -->
       @if (isDayCompleted(dayConfig.day)) {
-      <div class="absolute top-2 right-2 bg-accent-green rounded-full p-1">
-        <svg
-          class="w-4 h-4 sm:w-5 sm:h-5 text-white"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="3"
-            d="M5 13l4 4L19 7"
-          />
-        </svg>
+      <div class="absolute top-2 right-2 bg-accent-green rounded-full p-1.5">
+        <lucide-icon
+          [img]="Check"
+          class="w-3 h-3 sm:w-4 sm:h-4 text-white"
+          [strokeWidth]="3"
+        ></lucide-icon>
       </div>
       }
 
@@ -39,4 +31,13 @@
     </button>
     }
   </div>
+
+  <!-- Challenge Modal -->
+  @if (selectedDay) {
+  <app-challenge-host
+    [dayConfig]="selectedDay"
+    (close)="onCloseChallenge()"
+    (challengeCompleted)="onChallengeCompleted()"
+  ></app-challenge-host>
+  }
 </div>
