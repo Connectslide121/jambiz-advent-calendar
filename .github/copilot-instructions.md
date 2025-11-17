@@ -186,9 +186,27 @@ Each challenge emits a `challengeCompleted` event upon successful completion.
 
 ### Responsive Design
 
-- Mobile-first approach
-- Test breakpoints: 640px (sm), 768px (md), 1024px (lg), 1280px (xl)
-- Ensure touch targets are minimum 44x44px
+- **Mobile-first approach** - Always start with mobile layout, then enhance for larger screens
+- **Breakpoints**:
+  - Mobile: < 640px (default, no prefix)
+  - Tablet: 640px+ (`sm:`)
+  - Desktop: 1024px+ (`lg:`)
+  - Wide: 1280px+ (`xl:`)
+- **Touch targets**: Minimum 44x44px on mobile devices
+- **Calendar Grid**:
+  - Mobile: 3 columns
+  - Tablet (sm:): 4 columns
+  - Desktop (lg:): 6 columns
+- **Header**:
+  - Mobile: Stacked logo and language switcher
+  - Tablet+: Horizontal layout with space-between
+- **Modals/Challenges**:
+  - Mobile: Full-screen overlay
+  - Tablet+: Centered modal with max-width
+- **Typography**: Use responsive text sizes (text-sm sm:text-base lg:text-lg)
+- **Spacing**: Adjust padding/margins for different screen sizes
+- **Images**: Use object-fit and responsive sizing (h-12 sm:h-16 lg:h-20)
+- **Test on real devices**: iOS, Android, tablets, and various desktop sizes
 
 ### Testing
 

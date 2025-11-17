@@ -241,9 +241,12 @@ module.exports = {
 - [x] Create data models and calendar configuration
 - [x] Set up CalendarStateService
 
-### Phase 2: Core Components
-- [ ] Implement AppComponent with header and layout
-- [ ] Create language switcher
+### Phase 2: Core Components ✅ COMPLETED
+- [x] Implement AppComponent with header and layout
+- [x] Create language switcher with fixed-width buttons
+- [x] Add logo with white container for better integration
+- [x] Add animated snowfall effect to header
+- [x] Convert all styling to Tailwind CSS utilities
 - [ ] Implement CalendarComponent with grid layout
 - [ ] Implement DayTileComponent
 - [ ] Implement ChallengeHostComponent with dynamic loading
@@ -589,6 +592,47 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
 - Desktop: 6 columns, modal-style challenges
 - Touch-friendly buttons and inputs
 
+### Detailed Responsive Requirements
+
+**Calendar Grid Layout:**
+- Mobile (< 640px): `grid-cols-3` - 3 columns for compact display
+- Tablet (640px+): `sm:grid-cols-4` - 4 columns for better use of space
+- Desktop (1024px+): `lg:grid-cols-6` - 6 columns for optimal viewing
+- Gap: `gap-3 sm:gap-4 lg:gap-6` - Responsive spacing between tiles
+
+**Day Tiles:**
+- Size: Scale proportionally with grid
+- Text: `text-base sm:text-lg lg:text-xl` for day numbers
+- Padding: `p-4 sm:p-6 lg:p-8` - More padding on larger screens
+- Touch target: Minimum 44x44px on mobile
+
+**Header:**
+- Layout: Stacked on mobile (`flex-col`), horizontal on tablet+ (`sm:flex-row`)
+- Logo: `h-12 w-12 sm:h-16 sm:w-16` - Smaller on mobile
+- Title: `text-2xl sm:text-3xl lg:text-4xl` - Responsive typography
+- Language buttons: Fixed width (`w-24`) to prevent layout shift
+
+**Challenge Modals:**
+- Mobile: Full-screen (`w-full h-full`), no rounded corners
+- Tablet+: Centered modal (`max-w-2xl lg:max-w-4xl`), rounded corners
+- Padding: `p-4 sm:p-6 lg:p-8`
+- Close button: Top-right, minimum 44x44px touch target
+
+**Typography Scale:**
+- Headings: `text-xl sm:text-2xl lg:text-3xl`
+- Body: `text-sm sm:text-base lg:text-lg`
+- Small text: `text-xs sm:text-sm`
+
+**Spacing System:**
+- Container padding: `px-4 sm:px-6 lg:px-8`
+- Vertical spacing: `py-4 sm:py-6 lg:py-8`
+- Gaps: `gap-2 sm:gap-3 lg:gap-4`
+
+**Interactive Elements:**
+- Buttons: Larger on mobile for touch (`py-3 px-4 sm:py-2 sm:px-3`)
+- Input fields: Full width on mobile, constrained on desktop
+- Form elements: Stack on mobile, inline on desktop where appropriate
+
 ### Accessibility
 - Semantic HTML (button, nav, main, article)
 - ARIA labels for icons and interactive elements
@@ -750,4 +794,31 @@ If you add analytics later:
 - Development server running successfully at http://localhost:4200/
 - No compilation errors
 - Ready to proceed to Phase 2: Core Components
+
+## Phase 2 Status: 🚧 IN PROGRESS
+
+**Started:** November 17, 2025
+
+**Completed:**
+- ✅ AppComponent with header layout using Tailwind utilities
+- ✅ Bilingual language switcher (Swedish/English) with fixed-width buttons
+- ✅ Logo integration with white container background
+- ✅ Animated snowfall effect in header (30 snowflakes with randomized properties)
+- ✅ Full Tailwind CSS conversion (removed custom SCSS)
+- ✅ Responsive header design (mobile-first approach)
+- ✅ Global button styles (btn, btn-primary, btn-outline)
+- ✅ Angular assets configuration updated for i18n and images
+
+**Next Steps:**
+1. **CalendarComponent** - Create 24-day grid layout
+2. **DayTileComponent** - Individual day card with completion state
+3. **ChallengeHostComponent** - Modal/panel with dynamic challenge loading
+4. **FunFactRevealComponent** - Fun fact display after challenge completion
+
+**Notes:**
+- Header features smooth gradient background and festive snowfall animation
+- All translations loading correctly from assets
+- Fixed assets configuration to include src/assets folder
+- Using Tailwind's responsive classes throughout (sm:, md:, lg:, xl:)
+
 
