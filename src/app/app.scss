@@ -1,0 +1,15 @@
+// Snowfall animation
+@keyframes snowfall {
+  0% {
+    transform: translateY(-10px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(150px) rotate(360deg);
+  }
+}
+
+.snowflake {
+  animation: snowfall linear infinite;
+  top: -10px;
+  user-select: none;
+}
