@@ -243,15 +243,26 @@ module.exports = {
 
 ### Phase 2: Core Components ✅ COMPLETED
 - [x] Implement AppComponent with header and layout
-- [x] Create language switcher with fixed-width buttons
-- [x] Add logo with white container for better integration
-- [x] Add animated snowfall effect to header
+- [x] Create language switcher (single toggle button showing opposite language)
+- [x] Add Jambiz logo with landscape orientation (h-16 w-32)
+- [x] Add animated snowfall effect (100 snowflakes across entire page)
 - [x] Convert all styling to Tailwind CSS utilities
-- [ ] Implement CalendarComponent with grid layout
-- [ ] Implement DayTileComponent
-- [ ] Implement ChallengeHostComponent with dynamic loading
-- [ ] Implement FunFactRevealComponent
-- [ ] Add basic routing/modal logic for challenges
+- [x] Implement CalendarComponent with responsive grid (3/4/6 columns)
+- [x] Implement day tiles with completion indicators (Lucide Check icon)
+- [x] Implement ChallengeHostComponent with modal overlay
+- [x] Implement fun fact display within ChallengeHost
+- [x] Add modal logic with close/complete event handling
+- [x] Integrate Lucide icons (Check, X)
+- [x] Optimize mobile responsiveness
+- [x] Set Jambiz logo as favicon
+
+**Implementation Notes:**
+- Calendar uses 3 columns on mobile, 4 on tablet (sm:), 6 on desktop (lg:)
+- Day tiles have aspect-ratio, hover effects, and completion checkmarks
+- ChallengeHost modal is full-screen on mobile, centered on desktop
+- Snowflakes use fixed positioning with z-0 to appear behind content
+- State persists via CalendarStateService with localStorage
+- Fun facts display after challenge completion (demo mode currently)
 
 ### Phase 3: Challenge Components - Batch 1
 - [ ] RiddleChallengeComponent (text input, simple validation)
@@ -346,38 +357,38 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 ### Component Checklist
 
-#### AppComponent
-- [ ] Header with app title (translated)
-- [ ] Language switcher (sv/en toggle)
-- [ ] Main content area with CalendarComponent
-- [ ] Background gradient/styling
-- [ ] Lucide icons in header
+#### AppComponent ✅ COMPLETED
+- [x] Header with app title (translated)
+- [x] Language switcher (single toggle button showing opposite language code)
+- [x] Main content area with CalendarComponent
+- [x] Dark Christmas theme background
+- [x] 100 animated snowflakes with staggered delays
+- [x] Jambiz logo (landscape h-16 w-32) with favicon
+- [x] Fully Tailwind-based styling
 
-#### CalendarComponent
-- [ ] Import CALENDAR_DAYS config
-- [ ] Inject CalendarStateService
-- [ ] Create 24-day grid (CSS Grid or Tailwind grid)
-- [ ] Render DayTileComponent for each day
-- [ ] Handle day selection
-- [ ] Show/hide ChallengeHostComponent
-- [ ] Pass selected day config to challenge host
-- [ ] Responsive layout (mobile: 4 cols, tablet: 6 cols, desktop: 6 cols)
+#### CalendarComponent ✅ COMPLETED
+- [x] Import CALENDAR_DAYS config
+- [x] Inject CalendarStateService
+- [x] Create 24-day grid with Tailwind (grid-cols-3 sm:grid-cols-4 lg:grid-cols-6)
+- [x] Render day tiles inline (no separate component needed)
+- [x] Handle day selection (onDaySelected)
+- [x] Show/hide ChallengeHostComponent modal
+- [x] Pass selected day config to challenge host
+- [x] Responsive layout (mobile: 3 cols, tablet: 4 cols, desktop: 6 cols)
+- [x] Completion indicators with Lucide Check icon
+- [x] Hover effects on day tiles
 
-#### DayTileComponent
-- [ ] @Input() dayNumber
-- [ ] @Input() completed
-- [ ] @Output() daySelected
-- [ ] Card styling (rounded, hover effects)
-- [ ] Completed indicator (checkmark icon)
-- [ ] Day number display
-- [ ] Click handler
-- [ ] Disabled state for future days (optional)
+**Note:** DayTileComponent was not created as a separate component - day tiles are rendered inline within CalendarComponent template for simplicity.
 
-#### ChallengeHostComponent
-- [ ] @Input() dayConfig: CalendarDayConfig
-- [ ] @Output() close
-- [ ] Dynamic component loading (ngComponentOutlet or ComponentFactoryResolver)
-- [ ] Map challengeType to component class
+#### ChallengeHostComponent ✅ COMPLETED
+- [x] @Input() dayConfig: CalendarDayConfig
+- [x] @Output() close
+- [x] @Output() challengeCompleted
+- [x] Modal overlay with responsive sizing (full-screen mobile, max-w-2xl desktop)
+- [x] Close button with Lucide X icon
+- [x] Challenge content area (currently demo placeholder)
+- [x] Fun fact display after challenge completion
+- [x] Click-outside-to-close functionality
 - [ ] Handle (completed) event from challenge
 - [ ] Show FunFactRevealComponent after completion
 - [ ] Close button
@@ -778,47 +789,3 @@ If you add analytics later:
 - Better for small apps with limited languages
 
 ---
-
-**Last Updated:** 2025-11-17  
-**Project Start:** 2025-11-17  
-**Target Launch:** December 1, 2025
-
-## Phase 1 Status: ✅ COMPLETE
-
-**Completion Date:** November 17, 2025
-
-**Notes:**
-- Initial setup used Tailwind CSS v4 which had compatibility issues with Angular
-- Downgraded to Tailwind CSS v3 for better Angular compatibility
-- All core infrastructure files created and verified
-- Development server running successfully at http://localhost:4200/
-- No compilation errors
-- Ready to proceed to Phase 2: Core Components
-
-## Phase 2 Status: 🚧 IN PROGRESS
-
-**Started:** November 17, 2025
-
-**Completed:**
-- ✅ AppComponent with header layout using Tailwind utilities
-- ✅ Bilingual language switcher (Swedish/English) with fixed-width buttons
-- ✅ Logo integration with white container background
-- ✅ Animated snowfall effect in header (30 snowflakes with randomized properties)
-- ✅ Full Tailwind CSS conversion (removed custom SCSS)
-- ✅ Responsive header design (mobile-first approach)
-- ✅ Global button styles (btn, btn-primary, btn-outline)
-- ✅ Angular assets configuration updated for i18n and images
-
-**Next Steps:**
-1. **CalendarComponent** - Create 24-day grid layout
-2. **DayTileComponent** - Individual day card with completion state
-3. **ChallengeHostComponent** - Modal/panel with dynamic challenge loading
-4. **FunFactRevealComponent** - Fun fact display after challenge completion
-
-**Notes:**
-- Header features smooth gradient background and festive snowfall animation
-- All translations loading correctly from assets
-- Fixed assets configuration to include src/assets folder
-- Using Tailwind's responsive classes throughout (sm:, md:, lg:, xl:)
-
-

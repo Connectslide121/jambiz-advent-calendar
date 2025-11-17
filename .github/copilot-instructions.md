@@ -4,6 +4,16 @@
 
 This is a **Jambiz Advent Calendar** - a front-end-only Angular application featuring 24 days of interactive Christmas challenges for Jambiz colleagues. The app is bilingual (Swedish/English) with a dark Christmas theme.
 
+## Project Plan Tracking
+
+**IMPORTANT**: This project has a detailed implementation roadmap in `PROJECT_PLAN.md` at the root of the repository.
+
+- **Always check** `PROJECT_PLAN.md` before starting new work to understand the current phase and pending tasks
+- **Update the checklist** in `PROJECT_PLAN.md` after completing features or components
+- Mark tasks as complete with `[x]` and add implementation notes when finishing a phase
+- The plan is organized in phases (Phase 1-7) with detailed checklists for each component
+- Keep the plan synchronized with actual implementation progress
+
 ## Tech Stack
 
 - **Angular 20.3.0** - Standalone components architecture
