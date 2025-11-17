@@ -36,6 +36,7 @@
   @if (selectedDay) {
   <app-challenge-host
     [dayConfig]="selectedDay"
+    [isCompleted]="isDayCompleted(selectedDay.day)"
     (close)="onCloseChallenge()"
     (challengeCompleted)="onChallengeCompleted()"
   ></app-challenge-host>

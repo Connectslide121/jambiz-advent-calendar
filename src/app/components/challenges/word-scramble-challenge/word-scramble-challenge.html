@@ -1,0 +1,96 @@
+<div class="word-scramble-container">
+  <!-- Title -->
+  <h3 class="text-xl sm:text-2xl font-bold text-gold mb-6 text-center">
+    {{ 'challenges.wordScramble.title' | translate }}
+  </h3>
+
+  <!-- Instructions -->
+  <p class="text-center text-text-muted mb-6">
+    {{ 'challenges.wordScramble.instruction' | translate }}
+  </p>
+
+  <!-- Clue -->
+  <div class="bg-bg rounded-lg p-4 mb-6">
+    <p class="text-sm text-text-muted mb-1 text-center">
+      {{ 'challenges.wordScramble.clue' | translate }}
+    </p>
+    <p class="text-lg sm:text-xl text-text text-center italic">
+      {{ config.clueKey | translate }}
+    </p>
+  </div>
+
+  <!-- Scrambled Word Display -->
+  <div class="bg-surface border-2 border-gold rounded-lg p-6 mb-6">
+    <div class="flex items-center justify-center gap-2 flex-wrap">
+      @for (letter of scrambledWord.split(''); track $index) {
+      <div
+        class="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center bg-bg border-2 border-gray-600 rounded-lg text-2xl sm:text-3xl font-bold text-gold uppercase"
+      >
+        {{ letter }}
+      </div>
+      }
+    </div>
+  </div>
+
+  <!-- Reshuffle Button -->
+  <div class="mb-4 text-center">
+    <button class="btn btn-outline text-sm" (click)="reshuffleWord()">
+      🔄 {{ 'challenges.wordScramble.reshuffle' | translate }}
+    </button>
+  </div>
+
+  <!-- Hint Button (if available) -->
+  @if (config.hintKey) {
+  <div class="mb-4 text-center">
+    <button class="btn btn-outline text-sm" (click)="toggleHint()">
+      {{
+        (showHint ? 'challenges.wordScramble.hideHint' : 'challenges.wordScramble.showHint')
+          | translate
+      }}
+    </button>
+  </div>
+  } @if (showHint && config.hintKey) {
+  <div class="bg-accent-green bg-opacity-10 border border-accent-green rounded-lg p-4 mb-6">
+    <p class="text-sm sm:text-base text-text text-center">💡 {{ config.hintKey | translate }}</p>
+  </div>
+  }
+
+  <!-- Answer Input -->
+  <div class="mb-6">
+    <label for="scramble-answer" class="block text-sm font-medium text-text-muted mb-2">
+      {{ 'challenges.wordScramble.answerLabel' | translate }}
+    </label>
+    <input
+      id="scramble-answer"
+      type="text"
+      class="input"
+      [(ngModel)]="userAnswer"
+      (keypress)="onKeyPress($event)"
+      [placeholder]="'challenges.wordScramble.placeholder' | translate"
+      autocomplete="off"
+    />
+  </div>
+
+  <!-- Error Message -->
+  @if (showError) {
+  <div class="mb-4 p-3 bg-accent-red bg-opacity-20 border border-accent-red rounded-lg">
+    <p class="text-text text-center text-sm sm:text-base">
+      ❌ {{ 'challenges.wordScramble.incorrect' | translate }}
+    </p>
+  </div>
+  }
+
+  <!-- Submit Button -->
+  <div class="text-center">
+    <button
+      class="btn btn-primary w-full sm:w-auto px-8"
+      (click)="onSubmit()"
+      [disabled]="!userAnswer.trim()"
+    >
+      {{
+        (isCompleted ? 'challenges.wordScramble.showFunFact' : 'challenges.wordScramble.submit')
+          | translate
+      }}
+    </button>
+  </div>
+</div>

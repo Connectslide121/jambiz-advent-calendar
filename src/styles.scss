@@ -84,7 +84,7 @@ body {
   }
 
   .modal-content {
-    @apply bg-surface rounded-2xl p-6 max-w-2xl w-full;
+    @apply bg-surface rounded-2xl p-6 w-full;
     @apply shadow-2xl border border-gray-700;
     @apply max-h-[90vh] overflow-y-auto;
   }

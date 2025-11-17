@@ -264,10 +264,19 @@ module.exports = {
 - State persists via CalendarStateService with localStorage
 - Fun facts display after challenge completion (demo mode currently)
 
-### Phase 3: Challenge Components - Batch 1
-- [ ] RiddleChallengeComponent (text input, simple validation)
-- [ ] MiniQuizChallengeComponent (multiple choice)
-- [ ] WordScrambleChallengeComponent (drag & drop or text input)
+### Phase 3: Challenge Components - Batch 1 ✅ COMPLETED
+- [x] RiddleChallengeComponent (text input, simple validation)
+- [x] MiniQuizChallengeComponent (multiple choice)
+- [x] WordScrambleChallengeComponent (drag & drop or text input)
+
+**Implementation Notes:**
+- Created reusable challenge components with @Output() completed event
+- Implemented dynamic component loading in ChallengeHost using ViewContainerRef
+- Added translation keys for all challenge content (riddles, quiz questions, word scramble clues)
+- Each challenge has proper validation, error handling, and responsive design
+- Challenge data is stored in calendar-config.ts for easy content management
+- Added hint functionality to riddle and word scramble challenges
+- Quiz component supports 3-4 options with instant feedback and retry capability
 
 ### Phase 4: Challenge Components - Batch 2
 - [ ] HangmanChallengeComponent (letter selection, visual hangman)

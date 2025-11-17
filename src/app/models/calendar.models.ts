@@ -11,6 +11,7 @@ export interface CalendarDayConfig {
   day: number;
   challengeType: ChallengeType;
   funFactKey: string;
+  challengeData?: any; // Type varies by challenge type
 }
 
 export interface DayState {

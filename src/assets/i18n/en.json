@@ -14,13 +14,38 @@
     "completedCount": "{{count}} of 24 completed"
   },
   "challenges": {
+    "success": {
+      "title": "Congratulations!",
+      "funFactLabel": "Fun Fact:"
+    },
     "riddle": {
       "title": "Riddle Challenge",
-      "instruction": "Solve the riddle!",
-      "placeholder": "Your answer...",
-      "submit": "Submit",
+      "instruction": "Your answer:",
+      "placeholder": "Type your answer here...",
+      "submit": "Submit Answer",
+      "showFunFact": "Show Fun Fact",
       "correct": "Correct! Well done!",
-      "incorrect": "Try again!"
+      "incorrect": "Not quite right. Try again!",
+      "showHint": "Show Hint",
+      "hideHint": "Hide Hint",
+      "day1": {
+        "question": "I'm tall when I'm young, and I'm short when I'm old. What am I?",
+        "hint": "You light me during celebrations and power outages."
+      },
+      "day5": {
+        "question": "I have branches, but no fruit, trunk, or leaves. What am I?"
+      },
+      "day11": {
+        "question": "What do you get when you cross a snowman with a vampire?"
+      },
+      "day17": {
+        "question": "I hang from the roof and I'm made of frozen water. What am I?",
+        "hint": "I grow when it's cold and drip when it gets warm."
+      },
+      "day24": {
+        "question": "Who wears a red suit and brings joy to children around the world on Christmas Eve?",
+        "hint": "He has a white beard and says 'Ho ho ho!'"
+      }
     },
     "hangman": {
       "title": "Hangman",
@@ -31,9 +56,26 @@
     },
     "wordScramble": {
       "title": "Word Scramble",
-      "instruction": "Unscramble the word!",
-      "hint": "Hint",
-      "placeholder": "Unscrambled word..."
+      "instruction": "Unscramble the letters to form a word!",
+      "clue": "Clue:",
+      "answerLabel": "Your answer:",
+      "placeholder": "Type the unscrambled word...",
+      "submit": "Submit Answer",
+      "showFunFact": "Show Fun Fact",
+      "incorrect": "Not quite right. Try again!",
+      "reshuffle": "Reshuffle Letters",
+      "showHint": "Show Hint",
+      "hideHint": "Hide Hint",
+      "day3": {
+        "clue": "A unique ice crystal that falls from the sky",
+        "hint": "It's often used to describe winter precipitation"
+      },
+      "day12": {
+        "clue": "Santa's sleigh-pulling animal"
+      },
+      "day19": {
+        "clue": "A spiced cookie often shaped like a person"
+      }
     },
     "wordSearch": {
       "title": "Word Search",
@@ -53,7 +95,37 @@
     "miniQuiz": {
       "title": "Mini Quiz",
       "instruction": "Choose the correct answer!",
-      "checkAnswer": "Check Answer"
+      "submit": "Submit Answer",
+      "showFunFact": "Show Fun Fact",
+      "correct": "Correct! Well done!",
+      "incorrect": "Not quite right. Try again!",
+      "tryAgain": "Try Again",
+      "day4": {
+        "question": "In which country did the tradition of decorating Christmas trees originate?",
+        "option1": "United States",
+        "option2": "Germany",
+        "option3": "England",
+        "option4": "France"
+      },
+      "day9": {
+        "question": "What is the name of the reindeer with a red nose?",
+        "option1": "Rudolph",
+        "option2": "Donner",
+        "option3": "Blitzen"
+      },
+      "day15": {
+        "question": "On which date is Christmas celebrated in most countries?",
+        "option1": "December 24th",
+        "option2": "December 26th",
+        "option3": "December 25th"
+      },
+      "day22": {
+        "question": "What do children traditionally leave out for Santa Claus on Christmas Eve?",
+        "option1": "Milk and cookies",
+        "option2": "Carrots and apples",
+        "option3": "Juice and candy",
+        "option4": "Water and bread"
+      }
     }
   },
   "funFacts": {

@@ -14,13 +14,38 @@
     "completedCount": "{{count}} av 24 klara"
   },
   "challenges": {
+    "success": {
+      "title": "Grattis!",
+      "funFactLabel": "Rolig fakta:"
+    },
     "riddle": {
       "title": "Gåta",
-      "instruction": "Lös gåtan!",
-      "placeholder": "Ditt svar...",
-      "submit": "Skicka",
+      "instruction": "Ditt svar:",
+      "placeholder": "Skriv ditt svar här...",
+      "submit": "Skicka svar",
+      "showFunFact": "Visa rolig fakta",
       "correct": "Rätt! Bra jobbat!",
-      "incorrect": "Försök igen!"
+      "incorrect": "Inte riktigt rätt. Försök igen!",
+      "showHint": "Visa ledtråd",
+      "hideHint": "Dölj ledtråd",
+      "day1": {
+        "question": "Jag är lång när jag är ung, och kort när jag är gammal. Vad är jag?",
+        "hint": "Du tänder mig under firanden och strömavbrott."
+      },
+      "day5": {
+        "question": "Jag har grenar, men ingen frukt, stam eller löv. Vad är jag?"
+      },
+      "day11": {
+        "question": "Vad får man om man korsar en snögubbe med en vampyr?"
+      },
+      "day17": {
+        "question": "Jag hänger från taket och är gjord av fruset vatten. Vad är jag?",
+        "hint": "Jag växer när det är kallt och droppar när det blir varmt."
+      },
+      "day24": {
+        "question": "Vem bär röd kostym och bringar glädje till barn runt om i världen på julafton?",
+        "hint": "Han har vitt skägg och säger 'Ho ho ho!'"
+      }
     },
     "hangman": {
       "title": "Hänga gubbe",
@@ -31,9 +56,26 @@
     },
     "wordScramble": {
       "title": "Ordpussel",
-      "instruction": "Sortera bokstäverna!",
-      "hint": "Ledtråd",
-      "placeholder": "Sorterat ord..."
+      "instruction": "Sortera bokstäverna för att bilda ett ord!",
+      "clue": "Ledtråd:",
+      "answerLabel": "Ditt svar:",
+      "placeholder": "Skriv det sorterade ordet...",
+      "submit": "Skicka svar",
+      "showFunFact": "Visa rolig fakta",
+      "incorrect": "Inte riktigt rätt. Försök igen!",
+      "reshuffle": "Blanda om bokstäver",
+      "showHint": "Visa ledtråd",
+      "hideHint": "Dölj ledtråd",
+      "day3": {
+        "clue": "En unik iskristall som faller från himlen",
+        "hint": "Det används ofta för att beskriva vinternederbörd"
+      },
+      "day12": {
+        "clue": "Tomtens släddragande djur"
+      },
+      "day19": {
+        "clue": "En kryddad kaka som ofta formas som en person"
+      }
     },
     "wordSearch": {
       "title": "Ordsök",
@@ -51,9 +93,39 @@
       "placeholder": "Ditt svar..."
     },
     "miniQuiz": {
-      "title": "Miniквиз",
+      "title": "Minifrågesport",
       "instruction": "Välj rätt svar!",
-      "checkAnswer": "Kontrollera svar"
+      "submit": "Skicka svar",
+      "showFunFact": "Visa rolig fakta",
+      "correct": "Rätt! Bra jobbat!",
+      "incorrect": "Inte riktigt rätt. Försök igen!",
+      "tryAgain": "Försök igen",
+      "day4": {
+        "question": "I vilket land uppstod traditionen att dekorera julgranar?",
+        "option1": "USA",
+        "option2": "Tyskland",
+        "option3": "England",
+        "option4": "Frankrike"
+      },
+      "day9": {
+        "question": "Vad heter renen med den röda näsan?",
+        "option1": "Rudolph",
+        "option2": "Donner",
+        "option3": "Blitzen"
+      },
+      "day15": {
+        "question": "Vilket datum firas jul i de flesta länder?",
+        "option1": "24 december",
+        "option2": "26 december",
+        "option3": "25 december"
+      },
+      "day22": {
+        "question": "Vad brukar barn ställa fram åt jultomten på julafton?",
+        "option1": "Mjölk och kakor",
+        "option2": "Morötter och äpplen",
+        "option3": "Juice och godis",
+        "option4": "Vatten och bröd"
+      }
     }
   },
   "funFacts": {

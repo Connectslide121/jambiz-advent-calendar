@@ -2,7 +2,7 @@
 <div class="modal-overlay" (click)="onClose()">
   <!-- Modal Content -->
   <div
-    class="modal-content w-full h-full sm:w-auto sm:h-auto sm:max-w-2xl lg:max-w-4xl sm:rounded-2xl"
+    class="modal-content w-full h-full sm:w-[1500px] sm:h-auto sm:rounded-2xl flex flex-col"
     (click)="$event.stopPropagation()"
   >
     <!-- Header with Close Button -->
@@ -15,30 +15,28 @@
 
     <!-- Challenge Content Area -->
     @if (!showFunFact) {
-    <div class="challenge-content">
-      <!-- Placeholder for dynamic challenge component -->
+    <div
+      class="challenge-content min-h-[300px] flex flex-col justify-center flex-1 sm:flex-none sm:min-h-[300px]"
+    >
+      <!-- Dynamic challenge component container -->
+      <ng-container #challengeContainer></ng-container>
+
+      <!-- Placeholder for unimplemented challenge types -->
+      @if (!challengeContainer) {
       <div class="text-center py-12">
         <p class="text-lg text-text-muted mb-4">
           Challenge type: <span class="text-gold font-semibold">{{ dayConfig.challengeType }}</span>
         </p>
-        <button class="btn btn-primary" (click)="onChallengeComplete()">
-          Complete Challenge (Demo)
-        </button>
+        <p class="text-sm text-text-muted">This challenge type is not yet implemented.</p>
       </div>
+      }
     </div>
     } @else {
     <!-- Fun Fact Display -->
-    <div class="fun-fact-content text-center py-12">
-      <div class="mb-6">
-        <div class="text-6xl mb-4">🎉</div>
-        <h3 class="text-2xl font-bold text-accent-green mb-4">Congratulations!</h3>
-        <p class="text-lg text-text mb-2">Fun Fact:</p>
-        <p class="text-text-muted italic">
-          {{ dayConfig.funFactKey }}
-        </p>
-      </div>
-      <button class="btn btn-primary" (click)="onCloseFunFact()">Continue</button>
-    </div>
+    <app-fun-fact-reveal
+      [funFactKey]="dayConfig.funFactKey"
+      (continue)="onCloseFunFact()"
+    ></app-fun-fact-reveal>
     }
   </div>
 </div>
