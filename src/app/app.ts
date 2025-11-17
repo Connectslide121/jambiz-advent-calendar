@@ -6,6 +6,7 @@ import { Calendar } from './components/calendar/calendar';
 interface Snowflake {
   left: number;
   animationDuration: number;
+  animationDelay: number;
   startY: number;
   fontSize: number;
   opacity: number;
@@ -38,13 +39,19 @@ export class App implements OnInit {
     localStorage.setItem('language', lang);
   }
 
+  toggleLanguage(): void {
+    const newLang = this.currentLanguage === 'sv' ? 'en' : 'sv';
+    this.switchLanguage(newLang);
+  }
+
   private generateSnowflakes(): void {
-    const count = 30;
+    const count = 100;
     for (let i = 0; i < count; i++) {
       this.snowflakes.push({
         left: Math.random() * 100,
         animationDuration: 10 + Math.random() * 20,
-        startY: -(Math.random() * 150),
+        animationDelay: Math.random() * 10,
+        startY: -(Math.random() * 100),
         fontSize: 10 + Math.random() * 20,
         opacity: 0.3 + Math.random() * 0.5,
       });
