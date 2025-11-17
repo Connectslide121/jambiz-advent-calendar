@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
+import { Calendar } from './components/calendar/calendar';
 
 interface Snowflake {
   left: number;
@@ -12,7 +13,7 @@ interface Snowflake {
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, Calendar],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

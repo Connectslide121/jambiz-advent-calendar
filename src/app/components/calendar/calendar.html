@@ -1,0 +1,42 @@
+<div class="calendar-container">
+  <!-- Calendar Grid -->
+  <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
+    @for (dayConfig of calendarDays; track dayConfig.day) {
+    <button
+      class="day-tile card relative overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl"
+      [class.completed]="isDayCompleted(dayConfig.day)"
+      (click)="onDaySelected(dayConfig)"
+      [attr.aria-label]="'Day ' + dayConfig.day"
+    >
+      <!-- Day Number -->
+      <div class="day-number text-2xl sm:text-3xl lg:text-4xl font-bold text-gold mb-2">
+        {{ dayConfig.day }}
+      </div>
+
+      <!-- Completion Indicator -->
+      @if (isDayCompleted(dayConfig.day)) {
+      <div class="absolute top-2 right-2 bg-accent-green rounded-full p-1">
+        <svg
+          class="w-4 h-4 sm:w-5 sm:h-5 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+            d="M5 13l4 4L19 7"
+          />
+        </svg>
+      </div>
+      }
+
+      <!-- Hover Effect Overlay -->
+      <div
+        class="absolute inset-0 bg-accent-red opacity-0 hover:opacity-10 transition-opacity duration-300 pointer-events-none"
+      ></div>
+    </button>
+    }
+  </div>
+</div>
