@@ -1,0 +1,28 @@
+﻿import { CalendarDayConfig } from '../models/calendar.models';
+
+export const CALENDAR_DAYS: CalendarDayConfig[] = [
+  { day: 1, challengeType: 'riddle', funFactKey: 'funFacts.day1' },
+  { day: 2, challengeType: 'hangman', funFactKey: 'funFacts.day2' },
+  { day: 3, challengeType: 'wordScramble', funFactKey: 'funFacts.day3' },
+  { day: 4, challengeType: 'miniQuiz', funFactKey: 'funFacts.day4' },
+  { day: 5, challengeType: 'riddle', funFactKey: 'funFacts.day5' },
+  { day: 6, challengeType: 'rebus', funFactKey: 'funFacts.day6' },
+  { day: 7, challengeType: 'wordSearch', funFactKey: 'funFacts.day7' },
+  { day: 8, challengeType: 'hangman', funFactKey: 'funFacts.day8' },
+  { day: 9, challengeType: 'miniQuiz', funFactKey: 'funFacts.day9' },
+  { day: 10, challengeType: 'spotTheDifference', funFactKey: 'funFacts.day10' },
+  { day: 11, challengeType: 'riddle', funFactKey: 'funFacts.day11' },
+  { day: 12, challengeType: 'wordScramble', funFactKey: 'funFacts.day12' },
+  { day: 13, challengeType: 'rebus', funFactKey: 'funFacts.day13' },
+  { day: 14, challengeType: 'hangman', funFactKey: 'funFacts.day14' },
+  { day: 15, challengeType: 'miniQuiz', funFactKey: 'funFacts.day15' },
+  { day: 16, challengeType: 'wordSearch', funFactKey: 'funFacts.day16' },
+  { day: 17, challengeType: 'riddle', funFactKey: 'funFacts.day17' },
+  { day: 18, challengeType: 'spotTheDifference', funFactKey: 'funFacts.day18' },
+  { day: 19, challengeType: 'wordScramble', funFactKey: 'funFacts.day19' },
+  { day: 20, challengeType: 'hangman', funFactKey: 'funFacts.day20' },
+  { day: 21, challengeType: 'rebus', funFactKey: 'funFacts.day21' },
+  { day: 22, challengeType: 'miniQuiz', funFactKey: 'funFacts.day22' },
+  { day: 23, challengeType: 'wordSearch', funFactKey: 'funFacts.day23' },
+  { day: 24, challengeType: 'riddle', funFactKey: 'funFacts.day24' },
+];

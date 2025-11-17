@@ -1,0 +1,92 @@
+﻿{
+  "app": {
+    "title": "Jambiz julkalender",
+    "subtitle": "En liten utmaning om dagen, en rolig Jambiz-faktabit som belöning",
+    "language": {
+      "en": "Engelska",
+      "sv": "Svenska"
+    }
+  },
+  "calendar": {
+    "dayLabel": "Dag {{day}}",
+    "completed": "Klar",
+    "locked": "Låst",
+    "completedCount": "{{count}} av 24 klara"
+  },
+  "challenges": {
+    "riddle": {
+      "title": "Gåta",
+      "instruction": "Lös gåtan!",
+      "placeholder": "Ditt svar...",
+      "submit": "Skicka",
+      "correct": "Rätt! Bra jobbat!",
+      "incorrect": "Försök igen!"
+    },
+    "hangman": {
+      "title": "Hänga gubbe",
+      "instruction": "Gissa ordet!",
+      "wrongGuesses": "Felgissningar: {{count}}",
+      "youWin": "Du vann!",
+      "youLose": "Game over!"
+    },
+    "wordScramble": {
+      "title": "Ordpussel",
+      "instruction": "Sortera bokstäverna!",
+      "hint": "Ledtråd",
+      "placeholder": "Sorterat ord..."
+    },
+    "wordSearch": {
+      "title": "Ordsök",
+      "instruction": "Hitta alla ord!",
+      "wordsFound": "{{found}} av {{total}} ord hittade"
+    },
+    "spotTheDifference": {
+      "title": "Hitta skillnaderna",
+      "instruction": "Hitta alla skillnader!",
+      "differencesFound": "{{found}} av {{total}} skillnader hittade"
+    },
+    "rebus": {
+      "title": "Rebus",
+      "instruction": "Lös rebuset!",
+      "placeholder": "Ditt svar..."
+    },
+    "miniQuiz": {
+      "title": "Miniквиз",
+      "instruction": "Välj rätt svar!",
+      "checkAnswer": "Kontrollera svar"
+    }
+  },
+  "funFacts": {
+    "title": "Rolig fakta!",
+    "day1": "Platshållar-fun fact för dag 1.",
+    "day2": "Platshållar-fun fact för dag 2.",
+    "day3": "Platshållar-fun fact för dag 3.",
+    "day4": "Platshållar-fun fact för dag 4.",
+    "day5": "Platshållar-fun fact för dag 5.",
+    "day6": "Platshållar-fun fact för dag 6.",
+    "day7": "Platshållar-fun fact för dag 7.",
+    "day8": "Platshållar-fun fact för dag 8.",
+    "day9": "Platshållar-fun fact för dag 9.",
+    "day10": "Platshållar-fun fact för dag 10.",
+    "day11": "Platshållar-fun fact för dag 11.",
+    "day12": "Platshållar-fun fact för dag 12.",
+    "day13": "Platshållar-fun fact för dag 13.",
+    "day14": "Platshållar-fun fact för dag 14.",
+    "day15": "Platshållar-fun fact för dag 15.",
+    "day16": "Platshållar-fun fact för dag 16.",
+    "day17": "Platshållar-fun fact för dag 17.",
+    "day18": "Platshållar-fun fact för dag 18.",
+    "day19": "Platshållar-fun fact för dag 19.",
+    "day20": "Platshållar-fun fact för dag 20.",
+    "day21": "Platshållar-fun fact för dag 21.",
+    "day22": "Platshållar-fun fact för dag 22.",
+    "day23": "Platshållar-fun fact för dag 23.",
+    "day24": "Platshållar-fun fact för dag 24."
+  },
+  "ui": {
+    "close": "Stäng",
+    "continue": "Fortsätt",
+    "reset": "Återställ",
+    "tryAgain": "Försök igen"
+  }
+}

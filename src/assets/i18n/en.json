@@ -1,0 +1,92 @@
+﻿{
+  "app": {
+    "title": "Jambiz Christmas Advent Calendar",
+    "subtitle": "One tiny challenge a day, one fun fact as a reward",
+    "language": {
+      "en": "English",
+      "sv": "Swedish"
+    }
+  },
+  "calendar": {
+    "dayLabel": "Day {{day}}",
+    "completed": "Completed",
+    "locked": "Locked",
+    "completedCount": "{{count}} of 24 completed"
+  },
+  "challenges": {
+    "riddle": {
+      "title": "Riddle Challenge",
+      "instruction": "Solve the riddle!",
+      "placeholder": "Your answer...",
+      "submit": "Submit",
+      "correct": "Correct! Well done!",
+      "incorrect": "Try again!"
+    },
+    "hangman": {
+      "title": "Hangman",
+      "instruction": "Guess the word!",
+      "wrongGuesses": "Wrong guesses: {{count}}",
+      "youWin": "You win!",
+      "youLose": "Game over!"
+    },
+    "wordScramble": {
+      "title": "Word Scramble",
+      "instruction": "Unscramble the word!",
+      "hint": "Hint",
+      "placeholder": "Unscrambled word..."
+    },
+    "wordSearch": {
+      "title": "Word Search",
+      "instruction": "Find all the words!",
+      "wordsFound": "{{found}} of {{total}} words found"
+    },
+    "spotTheDifference": {
+      "title": "Spot the Difference",
+      "instruction": "Find all the differences!",
+      "differencesFound": "{{found}} of {{total}} differences found"
+    },
+    "rebus": {
+      "title": "Rebus Puzzle",
+      "instruction": "Solve the rebus!",
+      "placeholder": "Your answer..."
+    },
+    "miniQuiz": {
+      "title": "Mini Quiz",
+      "instruction": "Choose the correct answer!",
+      "checkAnswer": "Check Answer"
+    }
+  },
+  "funFacts": {
+    "title": "Fun Fact!",
+    "day1": "Placeholder fun fact for day 1.",
+    "day2": "Placeholder fun fact for day 2.",
+    "day3": "Placeholder fun fact for day 3.",
+    "day4": "Placeholder fun fact for day 4.",
+    "day5": "Placeholder fun fact for day 5.",
+    "day6": "Placeholder fun fact for day 6.",
+    "day7": "Placeholder fun fact for day 7.",
+    "day8": "Placeholder fun fact for day 8.",
+    "day9": "Placeholder fun fact for day 9.",
+    "day10": "Placeholder fun fact for day 10.",
+    "day11": "Placeholder fun fact for day 11.",
+    "day12": "Placeholder fun fact for day 12.",
+    "day13": "Placeholder fun fact for day 13.",
+    "day14": "Placeholder fun fact for day 14.",
+    "day15": "Placeholder fun fact for day 15.",
+    "day16": "Placeholder fun fact for day 16.",
+    "day17": "Placeholder fun fact for day 17.",
+    "day18": "Placeholder fun fact for day 18.",
+    "day19": "Placeholder fun fact for day 19.",
+    "day20": "Placeholder fun fact for day 20.",
+    "day21": "Placeholder fun fact for day 21.",
+    "day22": "Placeholder fun fact for day 22.",
+    "day23": "Placeholder fun fact for day 23.",
+    "day24": "Placeholder fun fact for day 24."
+  },
+  "ui": {
+    "close": "Close",
+    "continue": "Continue",
+    "reset": "Reset",
+    "tryAgain": "Try Again"
+  }
+}
