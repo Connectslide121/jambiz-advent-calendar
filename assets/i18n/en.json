@@ -73,11 +73,11 @@
         "clue": "Hung by the chimney with care",
         "hint": "Santa fills it with treats and gifts"
       },
-      "day16": {
+      "day14": {
         "clue": "Santa's vehicle for snowy deliveries",
         "hint": "Pulled by reindeer across the sky"
       },
-      "day21": {
+      "day20": {
         "clue": "A soldier who cracks nuts in a famous ballet",
         "hint": "Featured in Tchaikovsky's famous Christmas ballet"
       }
@@ -138,7 +138,7 @@
         "puzzle": "🎄 + 🎁",
         "hint": "The most wonderful time of the year"
       },
-      "day20": {
+      "day21": {
         "puzzle": "❄️ + ⛷️",
         "hint": "The coldest season of the year"
       }

@@ -73,13 +73,13 @@
         "clue": "Hänger vid skorstenen med omsorg",
         "hint": "Tomten fyller den med godsaker och presenter"
       },
-      "day16": {
+      "day14": {
         "clue": "Tomtens fordon för snöiga leveranser",
-        "hint": "Dras av renar över himlen"
+        "hint": "Dragen av renar över himlen"
       },
-      "day21": {
+      "day20": {
         "clue": "En soldat som knäcker nötter i en berömd balett",
-        "hint": "Med i Tjajkovskijs berömda julbalett"
+        "hint": "Medverkar i Tjajkovskijs berömda julbalett"
       }
     },
     "wordScramble": {
@@ -136,11 +136,11 @@
       },
       "day13": {
         "puzzle": "🎄 + 🎁",
-        "hint": "Den mysigaste tiden på året"
+        "hint": "Den mest underbara tiden på året"
       },
-      "day20": {
+      "day21": {
         "puzzle": "❄️ + ⛷️",
-        "hint": "Årets kallaste årstid"
+        "hint": "Den kallaste årstiden"
       }
     },
     "memoryCard": {
