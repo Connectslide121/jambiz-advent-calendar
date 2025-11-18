@@ -239,6 +239,181 @@
     "tryAgain": "Try Again",
     "playAgain": "Play Again",
     "showHint": "Show Hint",
-    "hideHint": "Hide Hint"
+    "hideHint": "Hide Hint",
+    "back": "Back"
+  },
+  "extras": {
+    "button": "Extras",
+    "title": "Extra Challenges",
+    "levelsCompleted": "completed",
+    "games": {
+      "riddle": {
+        "title": "Riddles",
+        "levels": {
+          "extra-riddle-1": {
+            "name": "Easy Riddle",
+            "description": "A festive gift riddle"
+          },
+          "extra-riddle-2": {
+            "name": "Medium Riddle",
+            "description": "A cozy chimney riddle"
+          },
+          "extra-riddle-3": {
+            "name": "Hard Riddle",
+            "description": "A jingling riddle"
+          }
+        },
+        "extra-riddle-1": {
+          "question": "I'm wrapped in colorful paper and tied with a bow. You find me under the tree. What am I?",
+          "hint": "Santa brings lots of these on Christmas Eve"
+        },
+        "extra-riddle-2": {
+          "question": "I'm a tall brick tube on the roof where Santa enters. What am I?",
+          "hint": "Don't forget to leave it unlocked on Christmas Eve!"
+        },
+        "extra-riddle-3": {
+          "question": "I jingle when Santa's sleigh moves. What am I?",
+          "hint": "You might hear me ringing in Christmas songs"
+        }
+      },
+      "hangman": {
+        "title": "Hangman",
+        "levels": {
+          "extra-hangman-1": {
+            "name": "Easy Hangman",
+            "description": "A decorative Christmas word"
+          },
+          "extra-hangman-2": {
+            "name": "Medium Hangman",
+            "description": "A shiny decoration"
+          },
+          "extra-hangman-3": {
+            "name": "Hard Hangman",
+            "description": "A festive door decoration"
+          }
+        },
+        "extra-hangman-1": {
+          "clue": "Shiny decoration for the Christmas tree",
+          "hint": "Often made of glass or plastic and comes in many colors"
+        },
+        "extra-hangman-2": {
+          "clue": "Long, shiny strands that hang on the tree",
+          "hint": "It shimmers and reflects light"
+        },
+        "extra-hangman-3": {
+          "clue": "A circular decoration hung on doors",
+          "hint": "Made of evergreen branches and decorated with a bow"
+        }
+      },
+      "wordScramble": {
+        "title": "Word Scramble",
+        "levels": {
+          "extra-scramble-1": {
+            "name": "Easy Scramble",
+            "description": "A warm Christmas feature"
+          },
+          "extra-scramble-2": {
+            "name": "Medium Scramble",
+            "description": "A green tree type"
+          },
+          "extra-scramble-3": {
+            "name": "Hard Scramble",
+            "description": "A decorative string"
+          }
+        },
+        "extra-scramble-1": {
+          "clue": "A cozy place where you hang stockings",
+          "hint": "Santa enters through this on Christmas Eve"
+        },
+        "extra-scramble-2": {
+          "clue": "A type of tree that stays green all year",
+          "hint": "Pine and fir trees are types of these"
+        },
+        "extra-scramble-3": {
+          "clue": "A decorative chain or strand hung at Christmas",
+          "hint": "You drape this on the tree or around the house"
+        }
+      },
+      "memoryCard": {
+        "title": "Memory Match",
+        "levels": {
+          "extra-memory-1": {
+            "name": "Easy Match",
+            "description": "4x4 grid of Christmas icons"
+          },
+          "extra-memory-2": {
+            "name": "Medium Match",
+            "description": "4x4 grid with more pairs"
+          },
+          "extra-memory-3": {
+            "name": "Hard Match",
+            "description": "6x6 grid challenge"
+          }
+        }
+      },
+      "geometryDash": {
+        "title": "Santa's Sprint",
+        "levels": {
+          "extra-dash-1": {
+            "name": "Easy Sprint",
+            "description": "Gentle obstacles, slower pace"
+          },
+          "extra-dash-2": {
+            "name": "Medium Sprint",
+            "description": "More obstacles, faster pace"
+          },
+          "extra-dash-3": {
+            "name": "Expert Sprint",
+            "description": "Maximum challenge!"
+          }
+        }
+      },
+      "rebus": {
+        "title": "Rebus Puzzles",
+        "levels": {
+          "extra-rebus-1": {
+            "name": "Easy Rebus",
+            "description": "The jolly man himself"
+          },
+          "extra-rebus-2": {
+            "name": "Medium Rebus",
+            "description": "Santa's home base"
+          },
+          "extra-rebus-3": {
+            "name": "Hard Rebus",
+            "description": "A sweet striped treat"
+          }
+        },
+        "extra-rebus-1": {
+          "puzzle": "🎅 + 🏠",
+          "hint": "The person who brings presents on Christmas Eve"
+        },
+        "extra-rebus-2": {
+          "puzzle": "⬆️ + 🌍",
+          "hint": "Where Santa lives and makes toys"
+        },
+        "extra-rebus-3": {
+          "puzzle": "🍬 + 🦯",
+          "hint": "A red and white striped Christmas treat"
+        }
+      },
+      "wordSearch": {
+        "title": "Word Search",
+        "levels": {
+          "extra-wordsearch-1": {
+            "name": "Easy Search",
+            "description": "7x10 grid with Christmas words"
+          },
+          "extra-wordsearch-2": {
+            "name": "Medium Search",
+            "description": "10x11 grid with more words"
+          },
+          "extra-wordsearch-3": {
+            "name": "Hard Search",
+            "description": "11x12 grid - ultimate challenge"
+          }
+        }
+      }
+    }
   }
 }
