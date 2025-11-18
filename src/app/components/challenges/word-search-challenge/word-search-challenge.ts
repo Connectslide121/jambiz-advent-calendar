@@ -120,21 +120,15 @@ export class WordSearchChallenge implements OnInit {
     const touch = event.touches[0];
     const element = document.elementFromPoint(touch.clientX, touch.clientY) as HTMLElement;
 
-    if (element && element.tagName === 'BUTTON') {
-      const cellText = element.textContent?.trim();
-      if (cellText) {
-        // Find the cell in the grid
-        for (let r = 0; r < this.currentGrid.length; r++) {
-          for (let c = 0; c < this.currentGrid[r].length; c++) {
-            if (this.currentGrid[r][c] === cellText) {
-              // Check if this could be the right cell based on position
-              const alreadySelected = this.isCellSelected(r, c);
-              if (!alreadySelected) {
-                this.onMouseEnter(r, c);
-                return;
-              }
-            }
-          }
+    if (element && element.tagName === 'BUTTON' && element.hasAttribute('data-row')) {
+      const row = parseInt(element.getAttribute('data-row') || '', 10);
+      const col = parseInt(element.getAttribute('data-col') || '', 10);
+
+      if (!isNaN(row) && !isNaN(col)) {
+        // Check if this is a new cell we haven't processed yet
+        const lastCell = this.selectedCells[this.selectedCells.length - 1];
+        if (!lastCell || lastCell.row !== row || lastCell.col !== col) {
+          this.onMouseEnter(row, col);
         }
       }
     }

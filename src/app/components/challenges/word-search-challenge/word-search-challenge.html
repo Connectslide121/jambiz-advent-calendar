@@ -42,7 +42,7 @@
 
   <!-- Word Search Grid -->
   <div
-    class="flex justify-center mb-6"
+    class="flex justify-center mb-6 overflow-x-auto"
     (mouseup)="onMouseUp()"
     (mouseleave)="onMouseUp()"
     (touchend)="onTouchEnd($event)"
@@ -53,7 +53,10 @@
       <div class="flex">
         @for (cell of row; track colIndex; let colIndex = $index) {
         <button
-          class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center border border-gray-600 text-base sm:text-lg font-bold uppercase transition-all touch-manipulation"
+          #gridCell
+          [attr.data-row]="rowIndex"
+          [attr.data-col]="colIndex"
+          class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center border border-gray-600 text-sm sm:text-base md:text-lg font-bold uppercase transition-all touch-manipulation flex-shrink-0"
           [class.bg-accent-green]="isCellInFoundWord(rowIndex, colIndex)"
           [class.text-white]="isCellInFoundWord(rowIndex, colIndex)"
           [class.bg-gold]="
