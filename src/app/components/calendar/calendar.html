@@ -12,6 +12,13 @@
       (click)="onDaySelected(dayConfig)"
       [attr.aria-label]="'Day ' + dayConfig.day"
     >
+      <!-- Challenge Emoji - Tilted and Clipped -->
+      @if (dayConfig.challengeType) {
+      <div class="challenge-emoji" [class.grayscale]="!isDayCompleted(dayConfig.day)">
+        {{ getChallengeEmoji(dayConfig.challengeType) }}
+      </div>
+      }
+
       <!-- Day Number -->
       <div class="day-number text-2xl sm:text-3xl lg:text-4xl font-bold text-gold mb-2">
         {{ dayConfig.day }}

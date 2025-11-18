@@ -152,6 +152,16 @@
       "finalMoves": "Completed in {{moves}} moves",
       "showFunFact": "Show Fun Fact"
     },
+    "geometryDash": {
+      "title": "Santa's Sprint",
+      "instruction": "Jump over obstacles and reach the finish line!",
+      "controlsDesktop": "Press SPACE, W, ↑, or click to jump",
+      "controlsMobile": "Tap anywhere to jump",
+      "start": "Start Game",
+      "crashed": "Crashed! Try again!",
+      "victory": "You made it!",
+      "showFunFact": "Show Fun Fact"
+    },
     "miniQuiz": {
       "title": "Mini Quiz",
       "instruction": "Choose the correct answer!",

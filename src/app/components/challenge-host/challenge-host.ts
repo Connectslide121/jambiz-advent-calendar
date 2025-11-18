@@ -19,6 +19,7 @@ import { HangmanChallenge } from '../challenges/hangman-challenge/hangman-challe
 import { WordSearchChallenge } from '../challenges/word-search-challenge/word-search-challenge';
 import { RebusChallenge } from '../challenges/rebus-challenge/rebus-challenge';
 import { MemoryCardChallenge } from '../challenges/memory-card-challenge/memory-card-challenge';
+import { GeometryDashChallenge } from '../challenges/geometry-dash-challenge/geometry-dash-challenge';
 
 @Component({
   selector: 'app-challenge-host',
@@ -69,6 +70,9 @@ export class ChallengeHost implements OnInit {
         break;
       case 'memoryCard':
         componentType = MemoryCardChallenge;
+        break;
+      case 'geometryDash':
+        componentType = GeometryDashChallenge;
         break;
       default:
         // For unimplemented challenge types, show placeholder

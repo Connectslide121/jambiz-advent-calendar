@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LucideAngularModule, Check } from 'lucide-angular';
 import { CALENDAR_DAYS } from '../../config/calendar-config';
 import { CalendarStateService } from '../../services/calendar-state.service';
-import { CalendarDayConfig } from '../../models/calendar.models';
+import { CalendarDayConfig, ChallengeType } from '../../models/calendar.models';
 import { ChallengeHost } from '../challenge-host/challenge-host';
 
 @Component({
@@ -17,6 +17,20 @@ export class Calendar implements OnInit {
   readonly Check = Check;
   calendarDays: CalendarDayConfig[] = CALENDAR_DAYS;
   selectedDay: CalendarDayConfig | null = null;
+
+  // Emoji mapping for each challenge type
+  private challengeEmojiMap: Record<ChallengeType, string> = {
+    riddle: '🤔',
+    hangman: '🔤',
+    wordScramble: '🔀',
+    wordSearch: '🔍',
+    rebus: '🧩',
+    memoryCard: '🃏',
+    geometryDash: '🎮',
+    sokoban: '📦',
+    climber: '🧗',
+    mazeRunner: '🏃',
+  };
 
   constructor(public stateService: CalendarStateService) {}
 
@@ -41,5 +55,9 @@ export class Calendar implements OnInit {
 
   isDayCompleted(day: number): boolean {
     return this.stateService.isDayCompleted(day);
+  }
+
+  getChallengeEmoji(challengeType?: ChallengeType): string {
+    return challengeType ? this.challengeEmojiMap[challengeType] : '';
   }
 }

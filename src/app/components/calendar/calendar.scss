@@ -41,3 +41,38 @@
 .day-number {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
+
+.challenge-emoji {
+  position: absolute;
+  bottom: -10%;
+  right: -15%;
+  font-size: 4rem;
+  transform: rotate(15deg);
+  opacity: 0.8;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+
+  @media (min-width: 640px) {
+    font-size: 4.5rem;
+    bottom: -12%;
+    right: -18%;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 5rem;
+    bottom: -15%;
+    right: -20%;
+  }
+
+  &.grayscale {
+    filter: grayscale(100%) brightness(0.7) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+    opacity: 0.5;
+  }
+}
+
+// Add hover effect to emoji
+.day-tile:hover .challenge-emoji:not(.grayscale) {
+  transform: rotate(15deg) scale(1.1);
+  opacity: 1;
+}

@@ -102,6 +102,24 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 9,
+    challengeType: 'geometryDash',
+    challengeData: {
+      levelLength: 2400,
+      scrollSpeed: 240,
+      jumpForce: 800,
+      gravity: 1800,
+      obstacles: [
+        { x: 400, width: 40, height: 80, type: 'candy' },
+        { x: 650, width: 40, height: 100, type: 'candy' },
+        { x: 900, width: 80, height: 60, type: 'platform' },
+        { x: 1100, width: 100, height: 0, type: 'pit' },
+        { x: 1350, width: 40, height: 90, type: 'candy' },
+        { x: 1550, width: 60, height: 50, type: 'platform' },
+        { x: 1750, width: 80, height: 0, type: 'pit' },
+        { x: 2100, width: 60, height: 80, type: 'platform' },
+        { x: 2200, width: 40, height: 180, type: 'candy' },
+      ],
+    },
     funFactKey: 'funFacts.day9',
   },
   {
@@ -233,6 +251,27 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 22,
+    challengeType: 'geometryDash',
+    challengeData: {
+      levelLength: 3200,
+      scrollSpeed: 280,
+      jumpForce: 800,
+      gravity: 1800,
+      obstacles: [
+        { x: 500, width: 40, height: 80, type: 'candy' },
+        { x: 750, width: 90, height: 60, type: 'platform' },
+        { x: 1000, width: 40, height: 120, type: 'candy' },
+        { x: 1250, width: 120, height: 0, type: 'pit' },
+        { x: 1650, width: 40, height: 100, type: 'candy' },
+        { x: 2050, width: 140, height: 80, type: 'platform' },
+        { x: 2250, width: 40, height: 150, type: 'candy' },
+        { x: 2300, width: 100, height: 0, type: 'pit' },
+        { x: 2550, width: 60, height: 70, type: 'platform' },
+        { x: 2750, width: 40, height: 140, type: 'candy' },
+        { x: 2950, width: 80, height: 85, type: 'platform' },
+        { x: 3150, width: 40, height: 100, type: 'candy' },
+      ],
+    },
     funFactKey: 'funFacts.day22',
   },
   {
