@@ -245,6 +245,7 @@
   "extras": {
     "button": "Extra",
     "title": "Extrautmaningar",
+    "challengeTitle": "Extrautmaning",
     "levelsCompleted": "klara",
     "games": {
       "riddle": {
@@ -343,11 +344,11 @@
           },
           "extra-memory-2": {
             "name": "Medel matchning",
-            "description": "4x4 rutnät med fler par"
+            "description": "6x6 rutnät med fler par"
           },
           "extra-memory-3": {
             "name": "Svår matchning",
-            "description": "6x6 rutnätsutmaning"
+            "description": "8x8 rutnätsutmaning"
           }
         }
       },
@@ -415,5 +416,13 @@
         }
       }
     }
+  },
+  "admin": {
+    "markAllComplete": "Markera alla som klara",
+    "confirmMarkAll": "Är du säker på att du vill markera alla kalenderdagar och extranivåer som slutförda? Detta kan inte ångras.",
+    "allMarkedComplete": "Alla utmaningar har markerats som slutförda!",
+    "clearAll": "Rensa alla framsteg",
+    "confirmClearAll": "Är du säker på att du vill rensa alla framsteg? Detta återställer alla kalenderdagar och extranivåer. Detta kan inte ångras.",
+    "allCleared": "Alla framsteg har rensats!"
   }
 }

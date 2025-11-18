@@ -245,6 +245,7 @@
   "extras": {
     "button": "Extras",
     "title": "Extra Challenges",
+    "challengeTitle": "Extra Challenge",
     "levelsCompleted": "completed",
     "games": {
       "riddle": {
@@ -343,11 +344,11 @@
           },
           "extra-memory-2": {
             "name": "Medium Match",
-            "description": "4x4 grid with more pairs"
+            "description": "6x6 grid with more pairs"
           },
           "extra-memory-3": {
             "name": "Hard Match",
-            "description": "6x6 grid challenge"
+            "description": "8x8 grid challenge"
           }
         }
       },
@@ -415,5 +416,13 @@
         }
       }
     }
+  },
+  "admin": {
+    "markAllComplete": "Mark All Complete",
+    "confirmMarkAll": "Are you sure you want to mark all calendar days and extras as completed? This cannot be undone.",
+    "allMarkedComplete": "All challenges have been marked as completed!",
+    "clearAll": "Clear All Progress",
+    "confirmClearAll": "Are you sure you want to clear all progress? This will reset all calendar days and extras. This cannot be undone.",
+    "allCleared": "All progress has been cleared!"
   }
 }
