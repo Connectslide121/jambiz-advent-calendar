@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { LucideAngularModule, Check } from 'lucide-angular';
 
 export interface RiddleConfig {
   riddleKey: string;
@@ -11,7 +12,7 @@ export interface RiddleConfig {
 
 @Component({
   selector: 'app-riddle-challenge',
-  imports: [CommonModule, FormsModule, TranslateModule],
+  imports: [CommonModule, FormsModule, TranslateModule, LucideAngularModule],
   templateUrl: './riddle-challenge.html',
   styleUrl: './riddle-challenge.scss',
 })
@@ -23,6 +24,8 @@ export class RiddleChallenge implements OnInit {
   userAnswer = '';
   showError = false;
   showHint = false;
+
+  readonly Check = Check;
 
   ngOnInit(): void {
     if (this.isCompleted) {

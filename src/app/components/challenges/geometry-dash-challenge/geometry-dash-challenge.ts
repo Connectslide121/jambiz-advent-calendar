@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { LucideAngularModule, Check } from 'lucide-angular';
 import { GameService } from '../../../services/game.service';
 import { KeyboardService } from '../../../services/keyboard.service';
 import { SpriteService } from '../../../services/sprite.service';
@@ -30,7 +31,7 @@ export interface GeometryDashConfig {
 
 @Component({
   selector: 'app-geometry-dash-challenge',
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, LucideAngularModule],
   templateUrl: './geometry-dash-challenge.html',
   styleUrl: './geometry-dash-challenge.scss',
 })
@@ -40,6 +41,8 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
   @Input() day?: number;
   @Output() completed = new EventEmitter<void>();
   @ViewChild('gameCanvas') canvasRef!: ElementRef<HTMLCanvasElement>;
+
+  readonly Check = Check;
 
   canvas!: HTMLCanvasElement;
   ctx!: CanvasRenderingContext2D;

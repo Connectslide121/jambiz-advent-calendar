@@ -1,9 +1,18 @@
 <div class="memory-card-container">
   <!-- Header -->
-  <div class="header mb-4">
-    <h2 class="text-xl sm:text-2xl font-bold text-gold mb-2">
-      {{ 'challenges.memoryCard.title' | translate }}
-    </h2>
+  <div class="header mb-4 flex flex-col items-center">
+    <div class="flex items-center justify-center gap-3 mb-2">
+      <h2 class="text-xl sm:text-2xl font-bold text-gold">
+        🃏 {{ 'challenges.memoryCard.title' | translate }} 🃏
+      </h2>
+      <span
+        *ngIf="isCompleted"
+        class="bg-accent-green text-white text-xs px-2 py-1 rounded-full font-bold animate-in fade-in zoom-in flex items-center gap-1"
+      >
+        <lucide-icon [img]="Check" class="w-3 h-3" [strokeWidth]="4"></lucide-icon>
+        {{ 'calendar.completed' | translate }}
+      </span>
+    </div>
     <p class="text-sm sm:text-base text-text-muted mb-3">
       {{ 'challenges.memoryCard.instruction' | translate }}
     </p>

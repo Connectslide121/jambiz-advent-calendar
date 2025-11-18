@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { LucideAngularModule, Check } from 'lucide-angular';
 
 export interface QuizOption {
   textKey: string;
@@ -14,7 +15,7 @@ export interface MiniQuizConfig {
 
 @Component({
   selector: 'app-mini-quiz-challenge',
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, LucideAngularModule],
   templateUrl: './mini-quiz-challenge.html',
   styleUrl: './mini-quiz-challenge.scss',
 })
@@ -26,6 +27,8 @@ export class MiniQuizChallenge implements OnInit {
   selectedOption: number | null = null;
   showResult = false;
   isCorrect = false;
+
+  readonly Check = Check;
 
   ngOnInit(): void {
     if (this.isCompleted) {

@@ -26,7 +26,7 @@ export class Calendar implements OnInit {
     wordSearch: '🔍',
     rebus: '🧩',
     memoryCard: '🃏',
-    geometryDash: '🎮',
+    geometryDash: '🎅',
     sokoban: '🎁',
     climber: '🧗',
     mazeRunner: '🏃',

@@ -9,6 +9,16 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  LucideAngularModule,
+  ArrowUp,
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
+  RotateCcw,
+  Undo2,
+  Check,
+} from 'lucide-angular';
 import { CalendarStateService } from '../../../services/calendar-state.service';
 
 type CellType = 'empty' | 'wall' | 'player' | 'box' | 'target' | 'boxOnTarget' | 'playerOnTarget';
@@ -27,11 +37,19 @@ interface GameState {
 @Component({
   selector: 'app-sokoban-challenge',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, LucideAngularModule],
   templateUrl: './sokoban-challenge.html',
   styleUrls: ['./sokoban-challenge.scss'],
 })
 export class SokobanChallengeComponent implements OnInit, OnDestroy {
+  readonly ArrowUp = ArrowUp;
+  readonly ArrowDown = ArrowDown;
+  readonly ArrowLeft = ArrowLeft;
+  readonly ArrowRight = ArrowRight;
+  readonly RotateCcw = RotateCcw;
+  readonly Undo2 = Undo2;
+  readonly Check = Check;
+
   @Input() challengeData?: {
     level: string[][][]; // New format: [row][col][0]
   };
@@ -48,11 +66,6 @@ export class SokobanChallengeComponent implements OnInit, OnDestroy {
   isWon = false;
   savedMoves = 0;
 
-  // Touch/swipe handling
-  private touchStartX = 0;
-  private touchStartY = 0;
-  private readonly SWIPE_THRESHOLD = 50;
-
   constructor(private calendarStateService: CalendarStateService) {}
 
   ngOnInit(): void {
@@ -63,9 +76,10 @@ export class SokobanChallengeComponent implements OnInit, OnDestroy {
         const stats = this.calendarStateService.getGameStats(this.day);
         if (stats && stats.moves !== undefined) {
           this.savedMoves = stats.moves;
-          // Load the saved count directly into moveCount
           this.moveCount = this.savedMoves;
         }
+        // Mark as won so it shows the completed state initially
+        this.isWon = true;
       }
     }
   }
@@ -142,33 +156,6 @@ export class SokobanChallengeComponent implements OnInit, OnDestroy {
     if (direction) {
       event.preventDefault();
       this.move(direction);
-    }
-  }
-
-  onTouchStart(event: TouchEvent): void {
-    const touch = event.touches[0];
-    this.touchStartX = touch.clientX;
-    this.touchStartY = touch.clientY;
-  }
-
-  onTouchEnd(event: TouchEvent): void {
-    if (this.isWon) return;
-
-    const touch = event.changedTouches[0];
-    const deltaX = touch.clientX - this.touchStartX;
-    const deltaY = touch.clientY - this.touchStartY;
-
-    // Determine swipe direction
-    if (Math.abs(deltaX) > Math.abs(deltaY)) {
-      // Horizontal swipe
-      if (Math.abs(deltaX) > this.SWIPE_THRESHOLD) {
-        this.move(deltaX > 0 ? 'right' : 'left');
-      }
-    } else {
-      // Vertical swipe
-      if (Math.abs(deltaY) > this.SWIPE_THRESHOLD) {
-        this.move(deltaY > 0 ? 'down' : 'up');
-      }
     }
   }
 

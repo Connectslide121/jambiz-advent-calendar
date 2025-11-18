@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { LucideAngularModule, Shuffle, Lightbulb, LightbulbOff } from 'lucide-angular';
+import { LucideAngularModule, Shuffle, Lightbulb, LightbulbOff, Check } from 'lucide-angular';
 
 export interface WordScrambleConfig {
   word: string; // English word
@@ -25,6 +25,7 @@ export class WordScrambleChallenge implements OnInit {
   readonly ShuffleIcon = Shuffle;
   readonly LightbulbIcon = Lightbulb;
   readonly LightbulbOffIcon = LightbulbOff;
+  readonly Check = Check;
 
   scrambledWord = '';
   userAnswer = '';

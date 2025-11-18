@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { LucideAngularModule, Lightbulb, LightbulbOff } from 'lucide-angular';
+import { LucideAngularModule, Lightbulb, LightbulbOff, Check } from 'lucide-angular';
 import { CalendarStateService } from '../../../services/calendar-state.service';
 
 export interface HangmanConfig {
@@ -33,6 +33,7 @@ export class HangmanChallenge implements OnInit {
 
   readonly LightbulbIcon = Lightbulb;
   readonly LightbulbOffIcon = LightbulbOff;
+  readonly Check = Check;
 
   constructor(private translate: TranslateService, private calendarState: CalendarStateService) {}
 

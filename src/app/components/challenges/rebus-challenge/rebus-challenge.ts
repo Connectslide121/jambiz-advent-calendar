@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { LucideAngularModule, Check } from 'lucide-angular';
 
 export interface RebusConfig {
   rebusKey: string; // Translation key for the rebus display (could be emoji or text)
@@ -11,7 +12,7 @@ export interface RebusConfig {
 
 @Component({
   selector: 'app-rebus-challenge',
-  imports: [CommonModule, FormsModule, TranslateModule],
+  imports: [CommonModule, FormsModule, TranslateModule, LucideAngularModule],
   templateUrl: './rebus-challenge.html',
   styleUrl: './rebus-challenge.scss',
 })
@@ -23,6 +24,8 @@ export class RebusChallenge implements OnInit {
   userAnswer = '';
   showError = false;
   showHint = false;
+
+  readonly Check = Check;
 
   ngOnInit(): void {
     if (this.isCompleted) {

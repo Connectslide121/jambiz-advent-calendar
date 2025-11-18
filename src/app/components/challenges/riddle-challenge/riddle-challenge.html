@@ -1,8 +1,17 @@
 <div class="riddle-container">
   <!-- Title -->
-  <h3 class="text-xl sm:text-2xl font-bold text-gold mb-6 text-center">
-    🎄 {{ 'challenges.riddle.title' | translate }} 🎄
-  </h3>
+  <div class="flex items-center justify-center gap-3 mb-6">
+    <h3 class="text-xl sm:text-2xl font-bold text-gold text-center">
+      🧐 {{ 'challenges.riddle.title' | translate }} 🧐
+    </h3>
+    <span
+      *ngIf="isCompleted"
+      class="bg-accent-green text-white text-xs px-2 py-1 rounded-full font-bold animate-in fade-in zoom-in flex items-center gap-1"
+    >
+      <lucide-icon [img]="Check" class="w-3 h-3" [strokeWidth]="4"></lucide-icon>
+      {{ 'calendar.completed' | translate }}
+    </span>
+  </div>
 
   <!-- Riddle Text -->
   <div class="bg-bg rounded-lg p-6 mb-6">

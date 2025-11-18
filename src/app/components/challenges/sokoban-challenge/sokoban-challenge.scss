@@ -9,15 +9,11 @@
 }
 
 .sokoban-cell {
-  width: 40px;
-  height: 40px;
+  // Responsive cell sizing
+  width: clamp(20px, 5.5vmin, 45px);
+  height: clamp(20px, 5.5vmin, 45px);
   position: relative;
   transition: all 0.15s ease;
-
-  @media (max-width: 640px) {
-    width: 32px;
-    height: 32px;
-  }
 
   &.wall {
     background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);

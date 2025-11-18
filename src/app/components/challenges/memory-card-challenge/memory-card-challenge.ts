@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { LucideAngularModule, Check } from 'lucide-angular';
 import { CalendarStateService } from '../../../services/calendar-state.service';
 
 interface Card {
@@ -17,7 +18,7 @@ interface MemoryCardConfig {
 
 @Component({
   selector: 'app-memory-card-challenge',
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, LucideAngularModule],
   templateUrl: './memory-card-challenge.html',
   styleUrl: './memory-card-challenge.scss',
 })
@@ -34,6 +35,8 @@ export class MemoryCardChallenge implements OnInit {
   isChecking = false;
   gameWon = false;
   completedMoves = 0; // Store moves when game is won
+
+  readonly Check = Check;
 
   constructor(private stateService: CalendarStateService) {}
 

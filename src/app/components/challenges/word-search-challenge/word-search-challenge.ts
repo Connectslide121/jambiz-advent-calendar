@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LucideAngularModule, Check } from 'lucide-angular';
 
 export interface WordSearchConfig {
   grid: string[][]; // English 2D array of letters
@@ -16,7 +17,7 @@ interface FoundWord {
 
 @Component({
   selector: 'app-word-search-challenge',
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, LucideAngularModule],
   templateUrl: './word-search-challenge.html',
   styleUrl: './word-search-challenge.scss',
 })
@@ -24,6 +25,8 @@ export class WordSearchChallenge implements OnInit {
   @Input() config!: WordSearchConfig;
   @Input() isCompleted = false;
   @Output() completed = new EventEmitter<void>();
+
+  readonly Check = Check;
 
   currentGrid: string[][] = [];
   currentWords: string[] = [];

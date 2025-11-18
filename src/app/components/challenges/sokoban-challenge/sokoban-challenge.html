@@ -1,76 +1,133 @@
-<div class="flex flex-col items-center gap-6 p-4">
+<div class="flex flex-col items-center gap-4 p-2 w-full h-full max-h-full overflow-hidden">
   <!-- Title and Instructions -->
-  <div class="text-center">
-    <h2 class="text-2xl sm:text-3xl font-bold text-gold mb-2">
-      {{ 'challenges.sokoban.title' | translate }}
-    </h2>
-    <p class="text-text-muted text-sm sm:text-base">
+  <div class="text-center shrink-0">
+    <div class="flex items-center justify-center gap-3 mb-1">
+      <h2 class="text-xl sm:text-2xl font-bold text-gold">
+        🎁 {{ 'challenges.sokoban.title' | translate }} 🎁
+      </h2>
+      <span
+        *ngIf="isCompleted"
+        class="bg-accent-green text-white text-xs px-2 py-1 rounded-full font-bold animate-in fade-in zoom-in flex items-center gap-1"
+      >
+        <lucide-icon [img]="Check" class="w-3 h-3" [strokeWidth]="4"></lucide-icon>
+        {{ 'calendar.completed' | translate }}
+      </span>
+    </div>
+    <p class="text-text-muted text-xs sm:text-base hidden sm:block">
       {{ 'challenges.sokoban.instruction' | translate }}
     </p>
   </div>
 
-  <!-- Game Grid with Stats on the right -->
-  <div class="flex items-start gap-4">
-    <!-- Game Grid -->
-    <div
-      class="sokoban-grid bg-surface border-2 border-gray-700 rounded-lg p-2 sm:p-4"
-      (touchstart)="onTouchStart($event)"
-      (touchend)="onTouchEnd($event)"
-    >
-      <div *ngFor="let row of grid; let rowIndex = index" class="sokoban-row">
-        <div
-          *ngFor="let cell of row; let colIndex = index"
-          class="sokoban-cell"
-          [ngClass]="getCellClass(rowIndex, colIndex)"
-        ></div>
+  <!-- Game Area (Grid + Controls) -->
+  <div class="flex flex-col lg:flex-row items-center justify-center gap-4 w-full flex-1 min-h-0">
+    <!-- Game Grid Container -->
+    <div class="relative flex items-center justify-center max-w-full max-h-full overflow-auto p-2">
+      <div class="sokoban-grid bg-surface border-2 border-gray-700 rounded-lg p-1 sm:p-2">
+        <div *ngFor="let row of grid; let rowIndex = index" class="sokoban-row flex">
+          <div
+            *ngFor="let cell of row; let colIndex = index"
+            class="sokoban-cell"
+            [ngClass]="getCellClass(rowIndex, colIndex)"
+          ></div>
+        </div>
       </div>
     </div>
 
-    <!-- Stats on the right -->
-    <div class="flex flex-col gap-3">
-      <div class="bg-bg rounded-lg px-4 py-3 min-w-[100px]">
-        <div class="text-xs sm:text-sm text-text-muted text-center mb-1">
+    <!-- Sidebar (Stats + Controls) -->
+    <div class="flex flex-col gap-4 shrink-0 z-10">
+      <!-- Stats -->
+      <div class="bg-surface border border-gray-700 rounded-lg p-3 min-w-[120px] shadow-lg">
+        <div class="text-xs text-text-muted text-center mb-1">
           {{ 'challenges.sokoban.moves' | translate }}
         </div>
-        <div class="text-2xl sm:text-3xl font-bold text-gold text-center">{{ moveCount }}</div>
+        <div class="text-2xl font-bold text-gold text-center">{{ moveCount }}</div>
+      </div>
+
+      <!-- D-Pad Controls (Mobile/Touch) -->
+      <div
+        class="grid grid-cols-3 gap-2 p-2 bg-surface/50 rounded-xl border border-gray-700/50 lg:hidden"
+      >
+        <div></div>
+        <button
+          class="btn btn-secondary p-3 flex items-center justify-center active:scale-95 transition-transform touch-manipulation"
+          (click)="move('up')"
+          [disabled]="isWon"
+          aria-label="Move Up"
+        >
+          <lucide-icon [img]="ArrowUp" class="w-6 h-6"></lucide-icon>
+        </button>
+        <div></div>
+
+        <button
+          class="btn btn-secondary p-3 flex items-center justify-center active:scale-95 transition-transform touch-manipulation"
+          (click)="move('left')"
+          [disabled]="isWon"
+          aria-label="Move Left"
+        >
+          <lucide-icon [img]="ArrowLeft" class="w-6 h-6"></lucide-icon>
+        </button>
+        <button
+          class="btn btn-secondary p-3 flex items-center justify-center active:scale-95 transition-transform touch-manipulation"
+          (click)="move('down')"
+          [disabled]="isWon"
+          aria-label="Move Down"
+        >
+          <lucide-icon [img]="ArrowDown" class="w-6 h-6"></lucide-icon>
+        </button>
+        <button
+          class="btn btn-secondary p-3 flex items-center justify-center active:scale-95 transition-transform touch-manipulation"
+          (click)="move('right')"
+          [disabled]="isWon"
+          aria-label="Move Right"
+        >
+          <lucide-icon [img]="ArrowRight" class="w-6 h-6"></lucide-icon>
+        </button>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex gap-2 justify-center">
+        <ng-container *ngIf="!isWon">
+          <button
+            class="btn btn-outline p-2 flex-1 flex justify-center"
+            (click)="undo()"
+            [disabled]="moveHistory.length <= 1"
+            title="{{ 'challenges.sokoban.undo' | translate }}"
+          >
+            <lucide-icon [img]="Undo2" class="w-5 h-5"></lucide-icon>
+          </button>
+          <button
+            class="btn btn-outline p-2 flex-1 flex justify-center"
+            (click)="reset()"
+            title="{{ 'ui.reset' | translate }}"
+          >
+            <lucide-icon [img]="RotateCcw" class="w-5 h-5"></lucide-icon>
+          </button>
+        </ng-container>
+
+        <button *ngIf="isWon" class="btn btn-primary w-full" (click)="reset()">
+          {{ 'ui.playAgain' | translate }}
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- Controls Hint -->
-  <div class="text-center text-xs sm:text-sm text-text-muted max-w-md">
-    <p class="hidden lg:block">
-      {{ 'challenges.sokoban.controlsDesktop' | translate }}
-    </p>
-    <p class="lg:hidden">
-      {{ 'challenges.sokoban.controlsMobile' | translate }}
-    </p>
-  </div>
-
-  <!-- Action Buttons -->
-  <div class="flex flex-wrap gap-3 justify-center">
-    <button
-      class="btn btn-secondary"
-      (click)="undo()"
-      [disabled]="moveHistory.length <= 1 || isWon"
-    >
-      {{ 'challenges.sokoban.undo' | translate }}
-    </button>
-    <button class="btn btn-outline" (click)="reset()">
-      {{ 'ui.reset' | translate }}
-    </button>
-  </div>
-
-  <!-- Win Message -->
+  <!-- Win Message (Only show if not previously completed) -->
   <div
-    *ngIf="isWon"
-    class="text-center bg-accent-green bg-opacity-20 border-2 border-accent-green rounded-lg p-4 animate-pulse"
+    *ngIf="isWon && !isCompleted"
+    class="absolute inset-0 flex items-center justify-center bg-black/80 z-50 backdrop-blur-sm"
   >
-    <p class="text-lg sm:text-xl font-bold text-accent-green">
-      {{ 'challenges.sokoban.success' | translate }}
-    </p>
-    <p class="text-sm text-text-muted mt-1">
-      {{ 'challenges.sokoban.completedIn' | translate : { moves: moveCount } }}
-    </p>
+    <div
+      class="bg-surface border-2 border-accent-green rounded-xl p-8 text-center shadow-2xl transform scale-100 animate-in fade-in zoom-in duration-300"
+    >
+      <h3 class="text-3xl font-bold text-accent-green mb-2">
+        {{ 'challenges.sokoban.success' | translate }}
+      </h3>
+      <p class="text-text-muted mb-6">
+        {{ 'challenges.sokoban.completedIn' | translate : { moves: moveCount } }}
+      </p>
+      <button class="btn btn-primary w-full" (click)="completed.emit()">
+        {{ 'ui.continue' | translate }}
+      </button>
+    </div>
   </div>
 </div>

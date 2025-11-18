@@ -118,12 +118,15 @@ export class App implements OnInit {
   getGameIcon(gameType: string): string {
     const icons: Record<string, string> = {
       riddle: '🤔',
-      hangman: '🎄',
-      wordScramble: '🔤',
+      hangman: '🔤',
+      wordScramble: '🔀',
       wordSearch: '🔍',
-      rebus: '🖼️',
-      memoryCard: '🎴',
-      geometryDash: '🎮',
+      rebus: '🧩',
+      memoryCard: '🃏',
+      geometryDash: '🎅',
+      sokoban: '🎁',
+      climber: '🧗',
+      mazeRunner: '🏃',
     };
     return icons[gameType] || '🎁';
   }
