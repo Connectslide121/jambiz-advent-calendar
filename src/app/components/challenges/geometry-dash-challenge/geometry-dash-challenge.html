@@ -61,11 +61,11 @@
           {{ 'challenges.geometryDash.victory' | translate }}
         </p>
         <button
-          class="btn btn-primary px-12 py-4 text-lg hover:scale-105 transition-transform"
-          (click)="completed.emit()"
+          class="btn btn-outline px-12 py-4 text-lg hover:scale-105 transition-transform"
+          (click)="reset()"
           type="button"
         >
-          {{ 'challenges.geometryDash.showFunFact' | translate }}
+          {{ 'ui.playAgain' | translate }}
         </button>
       </div>
     </div>

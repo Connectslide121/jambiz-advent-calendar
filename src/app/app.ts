@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { Calendar } from './components/calendar/calendar';
+import { ChallengeHost } from './components/challenge-host/challenge-host';
+import { EXTRA_LEVELS, ExtraGameSection, ExtraLevel } from './config/extras-config';
+import { CalendarDayConfig } from './models/calendar.models';
+import { LucideAngularModule, X, ArrowLeft, Check, CheckCheck, XCircle } from 'lucide-angular';
+import { CalendarStateService } from './services/calendar-state.service';
 
 interface Snowflake {
   left: number;
@@ -14,19 +19,33 @@ interface Snowflake {
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, TranslateModule, Calendar],
+  imports: [CommonModule, TranslateModule, Calendar, ChallengeHost, LucideAngularModule],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App implements OnInit {
+  readonly X = X;
+  readonly ArrowLeft = ArrowLeft;
+  readonly Check = Check;
+  readonly CheckCheck = CheckCheck;
+  readonly XCircle = XCircle;
   currentLanguage: string;
   snowflakes: Snowflake[] = [];
+  showExtrasMenu = false;
+  showExtraChallenge = false;
+  selectedGame: ExtraGameSection | null = null;
+  selectedExtraConfig: CalendarDayConfig | null = null;
+  selectedExtraId: string | null = null;
+  extraLevels = EXTRA_LEVELS;
+  private readonly STORAGE_KEY = 'extras-completed';
+  private completedExtras = new Set<string>();
 
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService, private calendarState: CalendarStateService) {
     // Initialize language from localStorage or default to Swedish
     const savedLang = localStorage.getItem('language') || 'sv';
     this.currentLanguage = savedLang;
     this.translate.use(savedLang);
+    this.loadCompletedExtras();
   }
 
   ngOnInit(): void {
@@ -42,6 +61,118 @@ export class App implements OnInit {
   toggleLanguage(): void {
     const newLang = this.currentLanguage === 'sv' ? 'en' : 'sv';
     this.switchLanguage(newLang);
+  }
+
+  openExtras(): void {
+    this.showExtrasMenu = true;
+    this.selectedGame = null;
+  }
+
+  closeExtrasMenu(): void {
+    this.showExtrasMenu = false;
+    this.selectedGame = null;
+  }
+
+  selectGame(game: ExtraGameSection): void {
+    this.selectedGame = game;
+  }
+
+  backToGameSelection(): void {
+    this.selectedGame = null;
+  }
+
+  selectExtra(level: ExtraLevel): void {
+    this.selectedExtraId = level.id;
+    this.selectedExtraConfig = {
+      day: 0,
+      challengeType: level.challengeType,
+      funFactKey: '',
+      challengeData: level.challengeData,
+    };
+    this.showExtraChallenge = true;
+    this.showExtrasMenu = false;
+  }
+
+  closeExtraChallenge(): void {
+    this.showExtraChallenge = false;
+    this.selectedExtraConfig = null;
+    this.showExtrasMenu = true;
+  }
+
+  onExtraChallengeCompleted(): void {
+    if (this.selectedExtraId) {
+      this.completedExtras.add(this.selectedExtraId);
+      this.saveCompletedExtras();
+    }
+  }
+
+  isExtraCompleted(levelId: string): boolean {
+    return this.completedExtras.has(levelId);
+  }
+
+  getCompletionCount(game: ExtraGameSection): { completed: number; total: number } {
+    const completed = game.levels.filter((level) => this.isExtraCompleted(level.id)).length;
+    return { completed, total: game.levels.length };
+  }
+
+  getGameIcon(gameType: string): string {
+    const icons: Record<string, string> = {
+      riddle: '🤔',
+      hangman: '🎄',
+      wordScramble: '🔤',
+      wordSearch: '🔍',
+      rebus: '🖼️',
+      memoryCard: '🎴',
+      geometryDash: '🎮',
+    };
+    return icons[gameType] || '🎁';
+  }
+
+  markAllComplete(): void {
+    if (confirm(this.translate.instant('admin.confirmMarkAll'))) {
+      // Mark all calendar days (1-24) as completed
+      this.calendarState.markAllDaysComplete();
+
+      // Mark all extras as completed
+      EXTRA_LEVELS.forEach((game) => {
+        game.levels.forEach((level) => {
+          this.completedExtras.add(level.id);
+        });
+      });
+      this.saveCompletedExtras();
+
+      alert(this.translate.instant('admin.allMarkedComplete'));
+    }
+  }
+
+  clearAllProgress(): void {
+    if (confirm(this.translate.instant('admin.confirmClearAll'))) {
+      // Clear all calendar days
+      this.calendarState.clearAllProgress();
+
+      // Clear all extras
+      this.completedExtras.clear();
+      this.saveCompletedExtras();
+
+      alert(this.translate.instant('admin.allCleared'));
+    }
+  }
+
+  private loadCompletedExtras(): void {
+    const stored = localStorage.getItem(this.STORAGE_KEY);
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        this.completedExtras = new Set(parsed);
+      } catch {
+        this.completedExtras = new Set();
+      }
+    }
+  }
+
+  private saveCompletedExtras(): void {
+    const array = Array.from(this.completedExtras);
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(array));
   }
 
   private generateSnowflakes(): void {

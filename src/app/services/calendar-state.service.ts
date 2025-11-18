@@ -27,6 +27,14 @@ export class CalendarStateService {
     this.saveToStorage();
   }
 
+  markAllDaysComplete(): void {
+    // Mark days 1-24 as completed
+    for (let i = 1; i <= 24; i++) {
+      this.completedDays.add(i);
+    }
+    this.saveToStorage();
+  }
+
   clearAllProgress(): void {
     this.completedDays.clear();
     this.gameStats.clear();

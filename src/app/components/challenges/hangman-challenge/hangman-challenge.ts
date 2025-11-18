@@ -117,9 +117,6 @@ export class HangmanChallenge implements OnInit {
         this.calendarState.saveGameStats(this.day, {
           wrongGuesses: this.wrongGuesses,
         });
-        console.log('Saving hangman stats for day', this.day, ':', {
-          wrongGuesses: this.wrongGuesses,
-        });
       }
 
       setTimeout(() => {

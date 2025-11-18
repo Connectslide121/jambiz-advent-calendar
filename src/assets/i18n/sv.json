@@ -239,6 +239,190 @@
     "tryAgain": "Försök igen",
     "playAgain": "Spela igen",
     "showHint": "Visa Tips",
-    "hideHint": "Dölj Tips"
+    "hideHint": "Dölj Tips",
+    "back": "Tillbaka"
+  },
+  "extras": {
+    "button": "Extra",
+    "title": "Extrautmaningar",
+    "challengeTitle": "Extrautmaning",
+    "levelsCompleted": "klara",
+    "games": {
+      "riddle": {
+        "title": "Gåtor",
+        "levels": {
+          "extra-riddle-1": {
+            "name": "Lätt gåta",
+            "description": "En festlig presentgåta"
+          },
+          "extra-riddle-2": {
+            "name": "Medel gåta",
+            "description": "En mysig skorstengåta"
+          },
+          "extra-riddle-3": {
+            "name": "Svår gåta",
+            "description": "En klingende gåta"
+          }
+        },
+        "extra-riddle-1": {
+          "question": "Jag är inslagen i färgglatt papper och bunden med ett band. Du hittar mig under granen. Vad är jag?",
+          "hint": "Tomten tar med sig massor av dessa på julafton"
+        },
+        "extra-riddle-2": {
+          "question": "Jag är ett högt tegelrör på taket där tomten kommer in. Vad är jag?",
+          "hint": "Glöm inte att låsa upp den på julafton!"
+        },
+        "extra-riddle-3": {
+          "question": "Jag klingar när tomtens släde rör sig. Vad är jag?",
+          "hint": "Du kan höra mig ringa i julsånger"
+        }
+      },
+      "hangman": {
+        "title": "Hänga gubbe",
+        "levels": {
+          "extra-hangman-1": {
+            "name": "Lätt hänga gubbe",
+            "description": "Ett dekorativt julord"
+          },
+          "extra-hangman-2": {
+            "name": "Medel hänga gubbe",
+            "description": "En glänsande dekoration"
+          },
+          "extra-hangman-3": {
+            "name": "Svår hänga gubbe",
+            "description": "En festlig dörrdekoration"
+          }
+        },
+        "extra-hangman-1": {
+          "clue": "Glänsande dekoration för julgranen",
+          "hint": "Ofta gjord av glas eller plast och finns i många färger"
+        },
+        "extra-hangman-2": {
+          "clue": "Långa, glänsande trådar som hänger på granen",
+          "hint": "Den glimmar och reflekterar ljus"
+        },
+        "extra-hangman-3": {
+          "clue": "En cirkulär dekoration som hängs på dörrar",
+          "hint": "Gjord av grangrenar och dekorerad med rosett"
+        }
+      },
+      "wordScramble": {
+        "title": "Ordpussel",
+        "levels": {
+          "extra-scramble-1": {
+            "name": "Lätt pussel",
+            "description": "Ett varmt julkaraktär"
+          },
+          "extra-scramble-2": {
+            "name": "Medel pussel",
+            "description": "En grön trädtyp"
+          },
+          "extra-scramble-3": {
+            "name": "Svårt pussel",
+            "description": "En dekorativ sträng"
+          }
+        },
+        "extra-scramble-1": {
+          "clue": "En mysig plats där du hänger strumpor",
+          "hint": "Tomten kommer in genom denna på julafton"
+        },
+        "extra-scramble-2": {
+          "clue": "En typ av träd som förblir grönt hela året",
+          "hint": "Tall- och granträd är typer av dessa"
+        },
+        "extra-scramble-3": {
+          "clue": "En dekorativ kedja eller sträng som hängs på julen",
+          "hint": "Du draperar denna på granen eller runt huset"
+        }
+      },
+      "memoryCard": {
+        "title": "Minneslek",
+        "levels": {
+          "extra-memory-1": {
+            "name": "Lätt matchning",
+            "description": "4x4 rutnät med julikoner"
+          },
+          "extra-memory-2": {
+            "name": "Medel matchning",
+            "description": "6x6 rutnät med fler par"
+          },
+          "extra-memory-3": {
+            "name": "Svår matchning",
+            "description": "8x8 rutnätsutmaning"
+          }
+        }
+      },
+      "geometryDash": {
+        "title": "Tomtens sprint",
+        "levels": {
+          "extra-dash-1": {
+            "name": "Lätt sprint",
+            "description": "Milda hinder, långsammare tempo"
+          },
+          "extra-dash-2": {
+            "name": "Medel sprint",
+            "description": "Fler hinder, snabbare tempo"
+          },
+          "extra-dash-3": {
+            "name": "Expert sprint",
+            "description": "Maximal utmaning!"
+          }
+        }
+      },
+      "rebus": {
+        "title": "Rebuspussel",
+        "levels": {
+          "extra-rebus-1": {
+            "name": "Lätt rebus",
+            "description": "Den glada mannen själv"
+          },
+          "extra-rebus-2": {
+            "name": "Medel rebus",
+            "description": "Tomtens hembas"
+          },
+          "extra-rebus-3": {
+            "name": "Svår rebus",
+            "description": "En söt randig godis"
+          }
+        },
+        "extra-rebus-1": {
+          "puzzle": "🎅 + 🏠",
+          "hint": "Personen som tar med presenter på julafton"
+        },
+        "extra-rebus-2": {
+          "puzzle": "⬆️ + 🌍",
+          "hint": "Där tomten bor och tillverkar leksaker"
+        },
+        "extra-rebus-3": {
+          "puzzle": "🍬 + 🦯",
+          "hint": "En röd och vit randig julgodis"
+        }
+      },
+      "wordSearch": {
+        "title": "Ordsökning",
+        "levels": {
+          "extra-wordsearch-1": {
+            "name": "Lätt sökning",
+            "description": "7x10 rutnät med julord"
+          },
+          "extra-wordsearch-2": {
+            "name": "Medel sökning",
+            "description": "10x11 rutnät med fler ord"
+          },
+          "extra-wordsearch-3": {
+            "name": "Svår sökning",
+            "description": "11x12 rutnät - ultimat utmaning"
+          }
+        }
+      }
+    }
+  },
+  "admin": {
+    "markAllComplete": "Markera alla som klara",
+    "confirmMarkAll": "Är du säker på att du vill markera alla kalenderdagar och extranivåer som slutförda? Detta kan inte ångras.",
+    "allMarkedComplete": "Alla utmaningar har markerats som slutförda!",
+    "clearAll": "Rensa alla framsteg",
+    "confirmClearAll": "Är du säker på att du vill rensa alla framsteg? Detta återställer alla kalenderdagar och extranivåer. Detta kan inte ångras.",
+    "allCleared": "Alla framsteg har rensats!"
   }
 }

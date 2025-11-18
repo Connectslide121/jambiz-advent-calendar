@@ -1,0 +1,91 @@
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-content max-w-4xl" (click)="$event.stopPropagation()">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-2xl sm:text-3xl font-bold text-gold">
+        {{ 'extras.title' | translate }}
+      </h2>
+      <button class="btn btn-outline p-2 min-w-0" (click)="closeModal()" aria-label="Close">
+        <lucide-icon [img]="X" class="w-6 h-6" [strokeWidth]="2"></lucide-icon>
+      </button>
+    </div>
+
+    <!-- Game Selection View -->
+    @if (viewMode() === 'games') {
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+      @for (game of extraLevels; track game.type) {
+      <button
+        class="card hover:scale-105 transition-transform cursor-pointer text-left"
+        (click)="selectGame(game)"
+      >
+        <div class="text-4xl mb-2 text-center">{{ getGameIcon(game.type) }}</div>
+        <h3 class="text-lg font-bold mb-1 text-center text-accent-red">
+          {{ 'extras.games.' + game.type + '.title' | translate }}
+        </h3>
+        <p class="text-sm text-text-muted text-center">
+          {{ getCompletionCount(game).completed }}/{{ getCompletionCount(game).total }}
+          {{ 'extras.levelsCompleted' | translate }}
+        </p>
+      </button>
+      }
+    </div>
+    }
+
+    <!-- Level Selection View -->
+    @if (viewMode() === 'levels' && selectedGame()) {
+    <div>
+      <button class="btn btn-outline mb-4" (click)="backToGames()">
+        ← {{ 'ui.back' | translate }}
+      </button>
+
+      <h3 class="text-xl font-bold mb-4 text-accent-green">
+        {{ 'extras.games.' + selectedGame()!.type + '.title' | translate }}
+      </h3>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        @for (level of selectedGame()!.levels; track level.id) {
+        <button
+          class="card hover:scale-105 transition-transform cursor-pointer text-left"
+          [class.border-2]="isLevelCompleted(level.id)"
+          [class.border-accent-green]="isLevelCompleted(level.id)"
+          (click)="selectLevel(level)"
+        >
+          <div class="flex items-start justify-between mb-2">
+            <h4 class="font-bold text-accent-red">
+              {{
+                'extras.games.' + selectedGame()!.type + '.levels.' + level.id + '.name' | translate
+              }}
+            </h4>
+            @if (isLevelCompleted(level.id)) {
+            <span class="text-accent-green text-xl">✓</span>
+            }
+          </div>
+          <p class="text-sm text-text-muted">
+            {{
+              'extras.games.' + selectedGame()!.type + '.levels.' + level.id + '.description'
+                | translate
+            }}
+          </p>
+        </button>
+        }
+      </div>
+    </div>
+    }
+
+    <!-- Playing View -->
+    @if (viewMode() === 'playing' && selectedLevel() && currentDayConfig()) {
+    <div>
+      <div class="flex items-center justify-between mb-4">
+        <button class="btn btn-outline" (click)="backToLevels()">
+          ← {{ 'ui.back' | translate }}
+        </button>
+      </div>
+
+      <!-- Render challenge content only (not full modal) -->
+      <div class="challenge-content">
+        <ng-container #challengeContainer></ng-container>
+      </div>
+    </div>
+    }
+  </div>
+</div>

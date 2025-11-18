@@ -15,7 +15,9 @@
       class="flex items-center justify-between mb-4 sm:mb-6 flex-shrink-0 sticky top-0 bg-surface z-10 py-1 sm:py-0 sm:static"
     >
       <h2 class="text-sm sm:text-3xl font-bold text-text">
-        🎄 {{ 'calendar.dayLabel' | translate : { day: dayConfig.day } }} 🎁
+        @if (dayConfig.day > 0) { 🎄
+        {{ 'calendar.dayLabel' | translate : { day: dayConfig.day } }} 🎁 } @else { 🎁
+        {{ 'extras.challengeTitle' | translate }} 🎁 }
       </h2>
       <button
         (click)="onClose()"

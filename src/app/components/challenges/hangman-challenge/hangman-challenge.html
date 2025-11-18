@@ -238,10 +238,6 @@
     <button class="btn btn-secondary w-full sm:w-auto px-8" (click)="reset()">
       {{ 'challenges.hangman.tryAgain' | translate }}
     </button>
-    } @if (isWon) {
-    <button class="btn btn-primary w-full sm:w-auto px-8" (click)="showAnswer()">
-      {{ 'challenges.hangman.showFunFact' | translate }}
-    </button>
     } @if (isCompleted) {
     <button class="btn btn-outline w-full sm:w-auto px-8" (click)="reset()">
       {{ 'ui.playAgain' | translate }}

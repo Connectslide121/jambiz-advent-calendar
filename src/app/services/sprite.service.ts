@@ -26,6 +26,9 @@ export class SpriteService {
       return this.loadingPromises.get(name)!;
     }
 
+    // Resolve the path with base href
+    const resolvedPath = this.resolveAssetPath(path);
+
     // Create new loading promise
     const loadPromise = new Promise<HTMLImageElement>((resolve, reject) => {
       const img = new Image();
@@ -38,10 +41,10 @@ export class SpriteService {
 
       img.onerror = () => {
         this.loadingPromises.delete(name);
-        reject(new Error(`Failed to load sprite: ${path}`));
+        reject(new Error(`Failed to load sprite: ${resolvedPath}`));
       };
 
-      img.src = path;
+      img.src = resolvedPath;
     });
 
     this.loadingPromises.set(name, loadPromise);
@@ -64,6 +67,36 @@ export class SpriteService {
   }
 
   /**
+   * Get the base path for assets, accounting for deployment base href
+   */
+  private getBasePath(): string {
+    // Use document.baseURI or fall back to '/'
+    const base = document.baseURI || window.location.origin + '/';
+    return base.endsWith('/') ? base : base + '/';
+  }
+
+  /**
+   * Resolve asset path with base href
+   */
+  private resolveAssetPath(path: string): string {
+    // If path already starts with http/https, return as-is
+    if (path.startsWith('http://') || path.startsWith('https://')) {
+      return path;
+    }
+
+    // Remove leading slash if present
+    const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+
+    // Use the base element's href if available, otherwise construct from baseURI
+    const baseElement = document.querySelector('base');
+    if (baseElement && baseElement.href) {
+      return baseElement.href + cleanPath;
+    }
+
+    return this.getBasePath() + cleanPath;
+  }
+
+  /**
    * Preload common sprites used across multiple games
    * Call this during app initialization or before first game loads
    */
@@ -78,7 +111,11 @@ export class SpriteService {
     ];
 
     try {
-      await Promise.all(commonSprites.map((sprite) => this.loadSprite(sprite.name, sprite.path)));
+      await Promise.all(
+        commonSprites.map((sprite) =>
+          this.loadSprite(sprite.name, this.resolveAssetPath(sprite.path))
+        )
+      );
     } catch (error) {
       console.warn('Some sprites failed to preload:', error);
       // Don't throw - games can still load sprites individually

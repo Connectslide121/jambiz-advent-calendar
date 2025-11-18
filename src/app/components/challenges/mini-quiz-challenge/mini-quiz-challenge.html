@@ -78,17 +78,15 @@
       (click)="submitAnswer()"
       [disabled]="selectedOption === null"
     >
-      {{
-        (isCompleted ? 'challenges.miniQuiz.showFunFact' : 'challenges.miniQuiz.submit') | translate
-      }}
+      {{ 'challenges.miniQuiz.submit' | translate }}
     </button>
     } @else if (!isCorrect) {
     <button class="btn btn-secondary w-full sm:w-auto px-8" (click)="reset()">
       {{ 'challenges.miniQuiz.tryAgain' | translate }}
     </button>
     } @else if (isCompleted) {
-    <button class="btn btn-primary w-full sm:w-auto px-8" (click)="submitAnswer()">
-      {{ 'challenges.miniQuiz.showFunFact' | translate }}
+    <button class="btn btn-outline w-full sm:w-auto px-8" (click)="reset()">
+      {{ 'ui.playAgain' | translate }}
     </button>
     }
   </div>

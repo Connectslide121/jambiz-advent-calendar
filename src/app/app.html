@@ -49,6 +49,34 @@
         >
           {{ currentLanguage === 'sv' ? 'EN' : 'SV' }}
         </button>
+
+        <!-- Mark All Complete Button -->
+        <button
+          (click)="markAllComplete()"
+          class="btn btn-secondary shrink-0 text-xs sm:text-sm px-2 sm:px-3 py-1.5 sm:py-2"
+          [attr.aria-label]="'Mark all challenges as completed'"
+          title="{{ 'admin.markAllComplete' | translate }}"
+        >
+          <lucide-icon
+            [img]="CheckCheck"
+            class="w-4 h-4 sm:w-5 sm:h-5"
+            [strokeWidth]="2"
+          ></lucide-icon>
+        </button>
+
+        <!-- Clear All Progress Button -->
+        <button
+          (click)="clearAllProgress()"
+          class="btn btn-primary shrink-0 text-xs sm:text-sm px-2 sm:px-3 py-1.5 sm:py-2"
+          [attr.aria-label]="'Clear all progress'"
+          title="{{ 'admin.clearAll' | translate }}"
+        >
+          <lucide-icon
+            [img]="XCircle"
+            class="w-4 h-4 sm:w-5 sm:h-5"
+            [strokeWidth]="2"
+          ></lucide-icon>
+        </button>
       </div>
     </div>
   </header>
@@ -56,5 +84,136 @@
   <!-- Main Content -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
     <app-calendar></app-calendar>
+
+    <!-- Extras Button -->
+    <div class="mt-8 text-center">
+      <button class="btn btn-secondary px-8 py-3 text-lg font-bold" (click)="openExtras()">
+        🎁 {{ 'extras.button' | translate }} 🎁
+      </button>
+    </div>
   </main>
 </div>
+
+<!-- Extras Menu Modal -->
+@if (showExtrasMenu) {
+<div class="modal-overlay" (click)="closeExtrasMenu()">
+  <div
+    class="modal-content w-full h-full sm:w-[90vw] sm:max-w-5xl sm:max-h-[90vh] sm:rounded-2xl flex flex-col overflow-hidden"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6 flex-shrink-0">
+      <div class="flex items-center gap-4">
+        <h2 class="text-2xl sm:text-3xl font-bold text-text">
+          🎁 {{ 'extras.title' | translate }} 🎁
+        </h2>
+      </div>
+      <button (click)="closeExtrasMenu()" class="btn btn-outline p-2 min-w-0" aria-label="Close">
+        <lucide-icon [img]="X" class="w-6 h-6" [strokeWidth]="2"></lucide-icon>
+      </button>
+    </div>
+
+    <!-- Extras Content -->
+    <div class="flex-1 overflow-y-auto">
+      @if (!selectedGame) {
+      <!-- Game Selection View -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        @for (game of extraLevels; track game.type) {
+        <button
+          (click)="selectGame(game)"
+          class="card p-6 text-left hover:bg-opacity-80 transition-all cursor-pointer"
+          [class.border-2]="getCompletionCount(game).completed === getCompletionCount(game).total"
+          [class.border-accent-green]="
+            getCompletionCount(game).completed === getCompletionCount(game).total
+          "
+        >
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="text-5xl">{{ getGameIcon(game.type) }}</span>
+              <div>
+                <h3 class="text-xl font-bold text-text">
+                  {{ 'extras.games.' + game.type + '.title' | translate }}
+                </h3>
+                <p class="text-sm text-text-muted">
+                  {{ getCompletionCount(game).completed }}/{{ getCompletionCount(game).total }}
+                  {{ 'extras.levelsCompleted' | translate }}
+                </p>
+              </div>
+            </div>
+            @if (getCompletionCount(game).completed === getCompletionCount(game).total) {
+            <lucide-icon
+              [img]="Check"
+              class="w-8 h-8 text-accent-green"
+              [strokeWidth]="3"
+            ></lucide-icon>
+            }
+          </div>
+        </button>
+        }
+      </div>
+      } @else {
+      <!-- Level Selection View -->
+      <div class="mb-6 pb-6 border-b border-surface flex items-center gap-4">
+        <button
+          (click)="backToGameSelection()"
+          class="btn btn-outline p-2 min-w-0"
+          aria-label="Back"
+        >
+          <lucide-icon [img]="ArrowLeft" class="w-6 h-6" [strokeWidth]="2"></lucide-icon>
+        </button>
+
+        <span class="text-6xl">{{ getGameIcon(selectedGame.type) }}</span>
+        <div>
+          <h3 class="text-2xl font-bold text-text mb-2">
+            {{ 'extras.games.' + selectedGame.type + '.title' | translate }}
+          </h3>
+          <p class="text-text-muted">
+            {{ getCompletionCount(selectedGame).completed }}/{{
+              getCompletionCount(selectedGame).total
+            }}
+            {{ 'extras.levelsCompleted' | translate }}
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        @for (level of selectedGame.levels; track level.id) {
+        <button
+          (click)="selectExtra(level)"
+          class="card p-6 text-left hover:bg-opacity-80 transition-all"
+          [class.border-2]="isExtraCompleted(level.id)"
+          [class.border-accent-green]="isExtraCompleted(level.id)"
+        >
+          <div class="flex items-start justify-between mb-3">
+            <h4 class="text-lg font-bold text-text">
+              {{ level.nameKey | translate }}
+            </h4>
+            @if (isExtraCompleted(level.id)) {
+            <lucide-icon
+              [img]="Check"
+              class="w-6 h-6 text-accent-green"
+              [strokeWidth]="3"
+            ></lucide-icon>
+            }
+          </div>
+          <p class="text-sm text-text-muted">
+            {{ level.descriptionKey | translate }}
+          </p>
+        </button>
+        }
+      </div>
+      }
+    </div>
+  </div>
+</div>
+}
+
+<!-- Extra Challenge Modal (using ChallengeHost) -->
+@if (showExtraChallenge && selectedExtraConfig) {
+<app-challenge-host
+  [dayConfig]="selectedExtraConfig"
+  [isCompleted]="selectedExtraId ? isExtraCompleted(selectedExtraId) : false"
+  (close)="closeExtraChallenge()"
+  (challengeCompleted)="onExtraChallengeCompleted()"
+></app-challenge-host>
+}

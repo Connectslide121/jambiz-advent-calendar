@@ -56,14 +56,15 @@
 
   <!-- Submit Button -->
   <div class="text-center flex flex-col sm:flex-row gap-3 justify-center">
+    @if (!isCompleted) {
     <button
       class="btn btn-primary w-full sm:w-auto px-8"
       (click)="onSubmit()"
       [disabled]="!userAnswer.trim()"
     >
-      {{ (isCompleted ? 'challenges.rebus.showFunFact' : 'challenges.rebus.submit') | translate }}
+      {{ 'challenges.rebus.submit' | translate }}
     </button>
-    @if (isCompleted) {
+    } @else {
     <button class="btn btn-outline w-full sm:w-auto px-8" (click)="reset()">
       {{ 'ui.playAgain' | translate }}
     </button>

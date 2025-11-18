@@ -62,11 +62,7 @@
 
   <!-- Action Buttons -->
   <div class="actions flex flex-col sm:flex-row justify-center gap-3 mt-4">
-    @if (gameWon) {
-    <button class="btn btn-primary w-full sm:w-auto" (click)="completed.emit()" type="button">
-      {{ 'challenges.memoryCard.showFunFact' | translate }}
-    </button>
-    } @if (isCompleted) {
+    @if (isCompleted) {
     <button class="btn btn-outline w-full sm:w-auto" (click)="resetGame()" type="button">
       {{ 'ui.playAgain' | translate }}
     </button>
