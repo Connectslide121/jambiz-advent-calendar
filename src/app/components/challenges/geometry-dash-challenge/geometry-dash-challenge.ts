@@ -24,7 +24,7 @@ export interface GeometryDashConfig {
     x: number;
     width: number;
     height: number;
-    type: 'candy' | 'pit' | 'platform';
+    type: 'candy' | 'pit' | 'platform' | 'ceilingCandy';
   }>;
 }
 
@@ -46,10 +46,12 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
   gameLoopId?: number;
   playerSprite: HTMLImageElement | null = null;
   private jumpKeyPressed = false;
+  private isMobile = false;
+  private scale = 1;
 
   // Player state
   player = {
-    x: 100, // Fixed x position
+    x: 100, // Fixed x position (adjusted for mobile in initCanvas)
     y: 300,
     width: 40,
     height: 40,
@@ -114,14 +116,31 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
     // Set canvas size - fit to container with good aspect ratio
     const containerWidth = canvas.parentElement!.clientWidth;
     const targetWidth = containerWidth;
-    const targetHeight = containerWidth * 0.5625; // 16:9 aspect ratio
+
+    // Detect mobile and apply zoom-out scale
+    this.isMobile = containerWidth < 640;
+    this.scale = this.isMobile ? 0.5 : 1; // Zoom out 50% on mobile
+
+    const aspectRatio = 0.5625; // 16:9 aspect ratio
+    const targetHeight = containerWidth * aspectRatio;
 
     canvas.width = targetWidth;
     canvas.height = targetHeight;
 
-    // Adjust ground based on canvas height
-    this.groundY = canvas.height - 50;
+    // Set ground position based on device
+    if (this.isMobile) {
+      // On mobile, position ground at about 40% from top instead of bottom
+      // This reduces the teal ground area significantly
+      this.groundY = (canvas.height / this.scale) * 0.7;
+    } else {
+      // Desktop: standard bottom position
+      this.groundY = canvas.height - 50;
+    }
+
     this.player.y = this.groundY - this.player.height;
+
+    // Position player closer to left edge on mobile for better view distance
+    this.player.x = this.isMobile ? 60 : 100;
 
     this.gameService.scaleCanvasForRetina(canvas);
   }
@@ -244,6 +263,27 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
           this.player.velocityY = 0;
           this.player.isOnGround = true;
         }
+      } else if (obstacle.type === 'ceilingCandy') {
+        // Ceiling candy - hangs from top, need to duck under
+        const obstacleRect = {
+          x: screenX,
+          y: 0,
+          width: obstacle.width,
+          height: obstacle.height,
+        };
+
+        const playerRect = {
+          x: this.player.x,
+          y: this.player.y,
+          width: this.player.width,
+          height: this.player.height,
+        };
+
+        if (this.gameService.checkRectCollision(playerRect, obstacleRect)) {
+          this.gameLost = true;
+          this.stopGame();
+          return;
+        }
       } else {
         // Candy obstacle - normal collision
         const obstacleRect = {
@@ -268,8 +308,10 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
       }
     }
 
-    // Check win condition
-    if (this.cameraX >= this.config.levelLength) {
+    // Check win condition - player crosses the finish line (not camera)
+    const finishLineX = this.config.levelLength;
+    const playerFrontX = this.cameraX + this.player.x + this.player.width;
+    if (playerFrontX >= finishLineX) {
       this.gameWon = true;
       this.stopGame();
       setTimeout(() => {
@@ -285,20 +327,30 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
     this.ctx.fillStyle = '#06121f'; // Dark background
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
+    // Apply zoom scale for mobile
+    this.ctx.save();
+    this.ctx.scale(this.scale, this.scale);
+
+    // On mobile, shift the whole gameplay band down a bit
+    const offsetY = this.isMobile ? 40 : 0;
+    this.ctx.translate(0, offsetY);
+
     // Draw sky gradient
-    const gradient = this.ctx.createLinearGradient(0, 0, 0, this.canvas.height);
+    const logicalHeight = this.canvas.height / this.scale - offsetY;
+    const gradient = this.ctx.createLinearGradient(0, 0, 0, logicalHeight);
     gradient.addColorStop(0, '#1a2332');
     gradient.addColorStop(1, '#06121f');
     this.ctx.fillStyle = gradient;
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.fillRect(0, 0, this.canvas.width / this.scale, logicalHeight);
 
     // Draw ground
     this.ctx.fillStyle = '#2a9d8f'; // Christmas green
-    this.ctx.fillRect(0, this.groundY, this.canvas.width, this.canvas.height - this.groundY);
+    const groundHeight = logicalHeight - this.groundY;
+    this.ctx.fillRect(0, this.groundY, this.canvas.width / this.scale, groundHeight);
 
     // Draw ground decoration
     this.ctx.fillStyle = '#ffffff';
-    for (let x = 0; x < this.canvas.width; x += 40) {
+    for (let x = 0; x < this.canvas.width / this.scale; x += 40) {
       const offsetX = this.cameraX % 40;
       this.ctx.fillRect(x - offsetX, this.groundY, 30, 5);
     }
@@ -308,26 +360,17 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
       const screenX = obstacle.x - this.cameraX;
 
       // Only draw if on screen
-      if (screenX + obstacle.width > 0 && screenX < this.canvas.width) {
+      if (screenX + obstacle.width > 0 && screenX < this.canvas.width / this.scale) {
         if (obstacle.type === 'pit') {
           // Draw pit (dark void)
+          const pitHeight = logicalHeight - this.groundY;
           this.ctx.fillStyle = '#000000';
-          this.ctx.fillRect(
-            screenX,
-            this.groundY,
-            obstacle.width,
-            this.canvas.height - this.groundY
-          );
+          this.ctx.fillRect(screenX, this.groundY, obstacle.width, pitHeight);
 
           // Draw danger stripes at edges
           this.ctx.fillStyle = '#f4d35e';
-          this.ctx.fillRect(screenX, this.groundY, 5, this.canvas.height - this.groundY);
-          this.ctx.fillRect(
-            screenX + obstacle.width - 5,
-            this.groundY,
-            5,
-            this.canvas.height - this.groundY
-          );
+          this.ctx.fillRect(screenX, this.groundY, 5, pitHeight);
+          this.ctx.fillRect(screenX + obstacle.width - 5, this.groundY, 5, pitHeight);
         } else if (obstacle.type === 'platform') {
           // Draw platform (floating)
           const platformY = this.groundY - obstacle.height;
@@ -344,6 +387,24 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
           this.ctx.strokeStyle = '#1a7a6e';
           this.ctx.lineWidth = 2;
           this.ctx.strokeRect(screenX, platformY, obstacle.width, obstacle.height);
+        } else if (obstacle.type === 'ceilingCandy') {
+          // Draw ceiling candy (hangs from top)
+          this.ctx.fillStyle = '#e63946';
+          this.ctx.fillRect(screenX, 0, obstacle.width, obstacle.height);
+
+          // Add white stripes
+          this.ctx.fillStyle = '#ffffff';
+          for (let y = 0; y < obstacle.height; y += 20) {
+            this.ctx.fillRect(screenX, y, obstacle.width, 10);
+          }
+
+          // Draw chain/rope attachment at top
+          this.ctx.strokeStyle = '#ffffff';
+          this.ctx.lineWidth = 3;
+          this.ctx.beginPath();
+          this.ctx.moveTo(screenX + obstacle.width / 2, 0);
+          this.ctx.lineTo(screenX + obstacle.width / 2, -20);
+          this.ctx.stroke();
         } else {
           // Draw candy obstacle
           const obstacleY = this.groundY - obstacle.height;
@@ -362,13 +423,13 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
 
     // Draw finish line
     const finishX = this.config.levelLength - this.cameraX;
-    if (finishX > 0 && finishX < this.canvas.width) {
+    if (finishX > 0 && finishX < this.canvas.width / this.scale) {
       this.ctx.strokeStyle = '#f4d35e'; // Gold
       this.ctx.lineWidth = 4;
       this.ctx.setLineDash([10, 5]);
       this.ctx.beginPath();
       this.ctx.moveTo(finishX, 0);
-      this.ctx.lineTo(finishX, this.canvas.height);
+      this.ctx.lineTo(finishX, logicalHeight);
       this.ctx.stroke();
       this.ctx.setLineDash([]);
 
@@ -419,12 +480,18 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
 
     this.ctx.restore();
 
-    // Draw progress bar
+    // Restore scale before drawing UI
+    this.ctx.restore();
+
+    // Draw progress bar (outside scaled context)
     const progress = Math.min(this.cameraX / this.config.levelLength, 1);
-    const barWidth = this.canvas.width - 40;
+
+    // Keep left margin at 20, but reduce width to prevent overflow on the right
+    const barX = this.isMobile ? 10 : 20;
+    const barRightMargin = this.isMobile ? 300 : 20;
+    const barWidth = this.canvas.width - barX - barRightMargin;
     const barHeight = 10;
-    const barX = 20;
-    const barY = 20;
+    const barY = this.isMobile ? 10 : 20;
 
     this.ctx.fillStyle = '#102437';
     this.ctx.fillRect(barX, barY, barWidth, barHeight);
@@ -455,10 +522,12 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
   }
 
   jump(): void {
-    if (this.player.isOnGround) {
+    if (this.player.isOnGround && this.gameStarted && !this.gameWon && !this.gameLost) {
       this.player.velocityY = -this.config.jumpForce;
       this.player.isOnGround = false;
       this.jumpKeyPressed = true; // Immediately mark as pressed to prevent double jumps
+      // Render immediately for instant visual feedback
+      this.render();
     }
   }
 

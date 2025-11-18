@@ -157,6 +157,7 @@
       "instruction": "Jump over obstacles and reach the finish line!",
       "controlsDesktop": "Press SPACE, W, ↑, or click to jump",
       "controlsMobile": "Tap anywhere to jump",
+      "jumpButton": "JUMP",
       "start": "Start Game",
       "crashed": "Crashed! Try again!",
       "victory": "You made it!",

@@ -153,14 +153,15 @@
       "showFunFact": "Visa rolig fakta"
     },
     "geometryDash": {
-      "title": "Tomtens Språng",
+      "title": "Tomtens Sprint",
       "instruction": "Hoppa över hinder och nå mållinjen!",
-      "controlsDesktop": "Tryck SPACE, W, ↑, eller klicka för att hoppa",
+      "controlsDesktop": "Tryck MELLANSLAG, W, ↑, eller klicka för att hoppa",
       "controlsMobile": "Tryck var som helst för att hoppa",
-      "start": "Starta spel",
-      "crashed": "Kraschade! Försök igen!",
+      "jumpButton": "HOPPA",
+      "start": "Starta Spel",
+      "crashed": "Krasch! Försök igen!",
       "victory": "Du klarade det!",
-      "showFunFact": "Visa rolig fakta"
+      "showFunFact": "Visa Rolig Fakta"
     },
     "miniQuiz": {
       "title": "Minifrågesport",
