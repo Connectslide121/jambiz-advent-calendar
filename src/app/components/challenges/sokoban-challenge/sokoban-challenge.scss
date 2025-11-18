@@ -10,8 +10,8 @@
 
 .sokoban-cell {
   // Responsive cell sizing
-  width: clamp(20px, 5.5vmin, 45px);
-  height: clamp(20px, 5.5vmin, 45px);
+  width: clamp(15px, 4.5vmin, 40px);
+  height: clamp(15px, 4.5vmin, 40px);
   position: relative;
   transition: all 0.15s ease;
 
