@@ -21,6 +21,7 @@ import { WordSearchChallenge } from '../challenges/word-search-challenge/word-se
 import { RebusChallenge } from '../challenges/rebus-challenge/rebus-challenge';
 import { MemoryCardChallenge } from '../challenges/memory-card-challenge/memory-card-challenge';
 import { GeometryDashChallenge } from '../challenges/geometry-dash-challenge/geometry-dash-challenge';
+import { SokobanChallengeComponent } from '../challenges/sokoban-challenge/sokoban-challenge';
 
 type ViewMode = 'games' | 'levels' | 'playing';
 
@@ -120,6 +121,9 @@ export class ExtrasModalComponent {
       case 'geometryDash':
         componentType = GeometryDashChallenge;
         break;
+      case 'sokoban':
+        componentType = SokobanChallengeComponent;
+        break;
       default:
         return;
     }
@@ -206,6 +210,7 @@ export class ExtrasModalComponent {
       rebus: '🖼️',
       memoryCard: '🎴',
       geometryDash: '🎮',
+      sokoban: '📦',
     };
     return icons[gameType] || '🎁';
   }

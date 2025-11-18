@@ -453,6 +453,35 @@
             "description": "Maximal utmaning!"
           }
         }
+      },
+      "sokoban": {
+        "title": "Presentpussel",
+        "levels": {
+          "extra-sokoban-1": {
+            "name": "Komplex utmaning",
+            "description": "13 presenter att arrangera - planera noggrant!"
+          },
+          "extra-sokoban-2": {
+            "name": "Medel pussel",
+            "description": "Fler presenter att organisera"
+          },
+          "extra-sokoban-3": {
+            "name": "Knepigt pussel",
+            "description": "Strategiskt tänkande krävs"
+          },
+          "extra-sokoban-4": {
+            "name": "Svårt pussel",
+            "description": "Trånga utrymmen och många lådor"
+          },
+          "extra-sokoban-5": {
+            "name": "Expert pussel",
+            "description": "Presentarrangemang på mästarnivå"
+          },
+          "extra-sokoban-6": {
+            "name": "Ultimat pussel",
+            "description": "Den ultimata Sokoban-utmaningen"
+          }
+        }
       }
     }
   },

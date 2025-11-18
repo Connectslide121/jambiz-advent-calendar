@@ -453,6 +453,35 @@
             "description": "Maximum challenge!"
           }
         }
+      },
+      "sokoban": {
+        "title": "Gift Puzzle",
+        "levels": {
+          "extra-sokoban-1": {
+            "name": "Complex Challenge",
+            "description": "13 gifts to arrange - plan carefully!"
+          },
+          "extra-sokoban-2": {
+            "name": "Medium Puzzle",
+            "description": "More gifts to organize"
+          },
+          "extra-sokoban-3": {
+            "name": "Tricky Puzzle",
+            "description": "Strategic thinking required"
+          },
+          "extra-sokoban-4": {
+            "name": "Hard Puzzle",
+            "description": "Tight spaces and many boxes"
+          },
+          "extra-sokoban-5": {
+            "name": "Expert Puzzle",
+            "description": "Master-level gift arrangement"
+          },
+          "extra-sokoban-6": {
+            "name": "Ultimate Puzzle",
+            "description": "The ultimate Sokoban challenge"
+          }
+        }
       }
     }
   },
