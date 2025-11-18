@@ -163,6 +163,17 @@
       "victory": "You made it!",
       "showFunFact": "Show Fun Fact"
     },
+    "sokoban": {
+      "title": "Gift Puzzle",
+      "instruction": "Push all gifts onto the Christmas trees to win!",
+      "controlsDesktop": "Use arrow keys or WASD to move",
+      "controlsMobile": "Swipe to move",
+      "moves": "Moves",
+      "undo": "Undo",
+      "success": "Puzzle solved!",
+      "completedIn": "Completed in {{moves}} moves",
+      "previouslyCompleted": "Previously completed in {{moves}} moves"
+    },
     "miniQuiz": {
       "title": "Mini Quiz",
       "instruction": "Choose the correct answer!",

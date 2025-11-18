@@ -163,6 +163,17 @@
       "victory": "Du klarade det!",
       "showFunFact": "Visa Rolig Fakta"
     },
+    "sokoban": {
+      "title": "Presentpussel",
+      "instruction": "Skjut alla presenter till julgranen för att vinna!",
+      "controlsDesktop": "Använd piltangenterna eller WASD för att röra dig",
+      "controlsMobile": "Svep för att röra dig",
+      "moves": "Drag",
+      "undo": "Ångra",
+      "success": "Pusslel löst!",
+      "completedIn": "Klarat på {{moves}} drag",
+      "previouslyCompleted": "Tidigare klarat på {{moves}} drag"
+    },
     "miniQuiz": {
       "title": "Minifrågesport",
       "instruction": "Välj rätt svar!",

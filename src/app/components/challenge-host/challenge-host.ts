@@ -20,6 +20,7 @@ import { WordSearchChallenge } from '../challenges/word-search-challenge/word-se
 import { RebusChallenge } from '../challenges/rebus-challenge/rebus-challenge';
 import { MemoryCardChallenge } from '../challenges/memory-card-challenge/memory-card-challenge';
 import { GeometryDashChallenge } from '../challenges/geometry-dash-challenge/geometry-dash-challenge';
+import { SokobanChallengeComponent } from '../challenges/sokoban-challenge/sokoban-challenge';
 
 @Component({
   selector: 'app-challenge-host',
@@ -74,6 +75,9 @@ export class ChallengeHost implements OnInit {
       case 'geometryDash':
         componentType = GeometryDashChallenge;
         break;
+      case 'sokoban':
+        componentType = SokobanChallengeComponent;
+        break;
       default:
         // For unimplemented challenge types, show placeholder
         return;
@@ -83,7 +87,12 @@ export class ChallengeHost implements OnInit {
 
     // Pass config data to the challenge component
     if (this.dayConfig.challengeData) {
-      this.challengeComponentRef.instance.config = this.dayConfig.challengeData;
+      // Use 'challengeData' for Sokoban, 'config' for others
+      if (this.dayConfig.challengeType === 'sokoban') {
+        this.challengeComponentRef.instance.challengeData = this.dayConfig.challengeData;
+      } else {
+        this.challengeComponentRef.instance.config = this.dayConfig.challengeData;
+      }
     }
 
     // Pass completed state

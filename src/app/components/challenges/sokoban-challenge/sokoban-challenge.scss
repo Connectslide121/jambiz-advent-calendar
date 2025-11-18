@@ -1,0 +1,168 @@
+.sokoban-grid {
+  display: inline-block;
+  touch-action: none;
+  user-select: none;
+}
+
+.sokoban-row {
+  display: flex;
+}
+
+.sokoban-cell {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  transition: all 0.15s ease;
+
+  @media (max-width: 640px) {
+    width: 32px;
+    height: 32px;
+  }
+
+  &.wall {
+    background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+    border: 1px solid #1a202c;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  &.empty {
+    background: #0f1f33;
+    border: 1px solid #1a2942;
+  }
+
+  &.target {
+    background: #0f1f33;
+    border: 1px solid #1a2942;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 80%;
+      background-image: url('/assets/sprites/tree.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.6;
+    }
+  }
+
+  &.player {
+    background: #0f1f33;
+    border: 1px solid #1a2942;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 85%;
+      height: 85%;
+      background-image: url('/assets/sprites/player.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+
+  &.player-on-target {
+    background: #0f1f33;
+    border: 1px solid #1a2942;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 80%;
+      background-image: url('/assets/sprites/tree.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.6;
+      z-index: 0;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 85%;
+      height: 85%;
+      background-image: url('/assets/sprites/player.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      z-index: 1;
+    }
+  }
+
+  &.box {
+    background: #0f1f33;
+    border: 1px solid #1a2942;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 80%;
+      background-image: url('/assets/sprites/gift.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+
+  &.box-on-target {
+    background: #0f1f33;
+    border: 2px solid var(--color-accent-green);
+    box-shadow: 0 0 10px rgba(42, 157, 143, 0.5);
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 80%;
+      background-image: url('/assets/sprites/tree-completed.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      z-index: 0;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 80%;
+      background-image: url('/assets/sprites/gift.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      z-index: 1;
+      filter: brightness(1.2);
+    }
+  }
+}

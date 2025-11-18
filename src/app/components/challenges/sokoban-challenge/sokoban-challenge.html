@@ -1,0 +1,76 @@
+<div class="flex flex-col items-center gap-6 p-4">
+  <!-- Title and Instructions -->
+  <div class="text-center">
+    <h2 class="text-2xl sm:text-3xl font-bold text-gold mb-2">
+      {{ 'challenges.sokoban.title' | translate }}
+    </h2>
+    <p class="text-text-muted text-sm sm:text-base">
+      {{ 'challenges.sokoban.instruction' | translate }}
+    </p>
+  </div>
+
+  <!-- Game Grid with Stats on the right -->
+  <div class="flex items-start gap-4">
+    <!-- Game Grid -->
+    <div
+      class="sokoban-grid bg-surface border-2 border-gray-700 rounded-lg p-2 sm:p-4"
+      (touchstart)="onTouchStart($event)"
+      (touchend)="onTouchEnd($event)"
+    >
+      <div *ngFor="let row of grid; let rowIndex = index" class="sokoban-row">
+        <div
+          *ngFor="let cell of row; let colIndex = index"
+          class="sokoban-cell"
+          [ngClass]="getCellClass(rowIndex, colIndex)"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Stats on the right -->
+    <div class="flex flex-col gap-3">
+      <div class="bg-bg rounded-lg px-4 py-3 min-w-[100px]">
+        <div class="text-xs sm:text-sm text-text-muted text-center mb-1">
+          {{ 'challenges.sokoban.moves' | translate }}
+        </div>
+        <div class="text-2xl sm:text-3xl font-bold text-gold text-center">{{ moveCount }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls Hint -->
+  <div class="text-center text-xs sm:text-sm text-text-muted max-w-md">
+    <p class="hidden lg:block">
+      {{ 'challenges.sokoban.controlsDesktop' | translate }}
+    </p>
+    <p class="lg:hidden">
+      {{ 'challenges.sokoban.controlsMobile' | translate }}
+    </p>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="flex flex-wrap gap-3 justify-center">
+    <button
+      class="btn btn-secondary"
+      (click)="undo()"
+      [disabled]="moveHistory.length <= 1 || isWon"
+    >
+      {{ 'challenges.sokoban.undo' | translate }}
+    </button>
+    <button class="btn btn-outline" (click)="reset()">
+      {{ 'ui.reset' | translate }}
+    </button>
+  </div>
+
+  <!-- Win Message -->
+  <div
+    *ngIf="isWon"
+    class="text-center bg-accent-green bg-opacity-20 border-2 border-accent-green rounded-lg p-4 animate-pulse"
+  >
+    <p class="text-lg sm:text-xl font-bold text-accent-green">
+      {{ 'challenges.sokoban.success' | translate }}
+    </p>
+    <p class="text-sm text-text-muted mt-1">
+      {{ 'challenges.sokoban.completedIn' | translate : { moves: moveCount } }}
+    </p>
+  </div>
+</div>

@@ -338,7 +338,7 @@ module.exports = {
 - Touch controls emit directionChange, jump, and action events for games to consume
 - Ready for minigame implementation - all foundation infrastructure complete
 
-### Phase 6: Complex Minigames - Batch 1 🎮
+### Phase 6: Complex Minigames - Batch 1 ✅ COMPLETED
 - [x] **MemoryCardChallengeComponent** - Advanced Christmas-themed memory
   - [x] 4x4 grid of cards with flip animations
   - [x] Match validation and win detection
@@ -358,14 +358,15 @@ module.exports = {
   - [x] Use shared player sprite
   - [x] Beat level by reaching the end
   
-- [ ] **SokobanChallengeComponent** - Box-pushing puzzle
-  - Grid-based movement (arrow keys/WASD)
-  - **Mobile:** Swipe gestures or virtual D-pad
-  - Push gift boxes onto target spots
-  - Undo move functionality
-  - Multiple levels (easy to hard)
-  - Win when all boxes on targets
-  - Sprite-based rendering
+- [x] **SokobanChallengeComponent** - Box-pushing puzzle
+  - [x] Grid-based movement (arrow keys/WASD)
+  - [x] **Mobile:** Swipe gestures for movement
+  - [x] Push gift boxes onto target spots
+  - [x] Undo move functionality
+  - [x] Win when all boxes on targets
+  - [x] Emoji-based rendering (🎅 player, 🎁 boxes, ✦ targets)
+  - [x] Move counter tracking
+  - [x] Replay functionality
 
 **MemoryCard Implementation Notes:**
 - Created with CSS 3D flip animations and responsive grid
@@ -385,15 +386,6 @@ module.exports = {
   - Use shared player sprite
   - Christmas-themed platform graphics
   
-- [ ] **MemoryCardChallengeComponent** - Advanced memory game
-  - 4x4 or 6x6 grid of cards
-  - **Mobile:** Touch-optimized card flipping
-  - Christmas-themed icons/images
-  - Flip two cards to match
-  - Timer and move counter
-  - Special cards with power-ups (peek, hint)
-  - Responsive card sizing
-
 ### Phase 8: Complex Minigames - Batch 3 🎮
 - [ ] **MazeRunnerChallengeComponent** - Navigate Christmas maze
   - Top-down view maze navigation
@@ -1013,16 +1005,16 @@ interface MazeConfig {
 - Day 5: Riddle
 - Day 6: Rebus
 - Day 7: Word Search
-- Day 8: Hangman
+- Day 8: **Sokoban** 🎮 (puzzle challenge)
 - Day 9: **Geometry Dash** 🎮 (rhythm challenge)
 - Day 10: Riddle
-- Day 11: **Sokoban** 🎮 (puzzle challenge)
+- Day 11: Hangman
 - Day 12: Word Scramble
 - Day 13: Rebus
-- Day 14: Hangman
+- Day 14: Riddle
 - Day 15: **Climber** 🎮 (action builds)
-- Day 16: Word Search
-- Day 17: Riddle
+- Day 16: Hangman
+- Day 17: Word Search
 - Day 18: **Maze Runner** 🎮 (exploration)
 - Day 19: Word Scramble
 - Day 20: Hangman
