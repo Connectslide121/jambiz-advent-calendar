@@ -73,11 +73,11 @@
         "clue": "Hung by the chimney with care",
         "hint": "Santa fills it with treats and gifts"
       },
-      "day14": {
+      "day16": {
         "clue": "Santa's vehicle for snowy deliveries",
         "hint": "Pulled by reindeer across the sky"
       },
-      "day20": {
+      "day21": {
         "clue": "A soldier who cracks nuts in a famous ballet",
         "hint": "Featured in Tchaikovsky's famous Christmas ballet"
       }
@@ -138,7 +138,7 @@
         "puzzle": "🎄 + 🎁",
         "hint": "The most wonderful time of the year"
       },
-      "day21": {
+      "day20": {
         "puzzle": "❄️ + ⛷️",
         "hint": "The coldest season of the year"
       }
@@ -157,6 +157,7 @@
       "instruction": "Jump over obstacles and reach the finish line!",
       "controlsDesktop": "Press SPACE, W, ↑, or click to jump",
       "controlsMobile": "Tap anywhere to jump",
+      "jumpButton": "JUMP",
       "start": "Start Game",
       "crashed": "Crashed! Try again!",
       "victory": "You made it!",

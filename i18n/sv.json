@@ -73,13 +73,13 @@
         "clue": "Hänger vid skorstenen med omsorg",
         "hint": "Tomten fyller den med godsaker och presenter"
       },
-      "day14": {
+      "day16": {
         "clue": "Tomtens fordon för snöiga leveranser",
-        "hint": "Dragen av renar över himlen"
+        "hint": "Dras av renar över himlen"
       },
-      "day20": {
+      "day21": {
         "clue": "En soldat som knäcker nötter i en berömd balett",
-        "hint": "Medverkar i Tjajkovskijs berömda julbalett"
+        "hint": "Med i Tjajkovskijs berömda julbalett"
       }
     },
     "wordScramble": {
@@ -136,11 +136,11 @@
       },
       "day13": {
         "puzzle": "🎄 + 🎁",
-        "hint": "Den mest underbara tiden på året"
+        "hint": "Den mysigaste tiden på året"
       },
-      "day21": {
+      "day20": {
         "puzzle": "❄️ + ⛷️",
-        "hint": "Den kallaste årstiden"
+        "hint": "Årets kallaste årstid"
       }
     },
     "memoryCard": {
@@ -153,14 +153,15 @@
       "showFunFact": "Visa rolig fakta"
     },
     "geometryDash": {
-      "title": "Tomtens Språng",
+      "title": "Tomtens Sprint",
       "instruction": "Hoppa över hinder och nå mållinjen!",
-      "controlsDesktop": "Tryck SPACE, W, ↑, eller klicka för att hoppa",
+      "controlsDesktop": "Tryck MELLANSLAG, W, ↑, eller klicka för att hoppa",
       "controlsMobile": "Tryck var som helst för att hoppa",
-      "start": "Starta spel",
-      "crashed": "Kraschade! Försök igen!",
+      "jumpButton": "HOPPA",
+      "start": "Starta Spel",
+      "crashed": "Krasch! Försök igen!",
       "victory": "Du klarade det!",
-      "showFunFact": "Visa rolig fakta"
+      "showFunFact": "Visa Rolig Fakta"
     },
     "miniQuiz": {
       "title": "Minifrågesport",
