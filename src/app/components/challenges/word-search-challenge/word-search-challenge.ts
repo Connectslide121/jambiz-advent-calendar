@@ -30,6 +30,7 @@ export class WordSearchChallenge implements OnInit {
   foundWords: FoundWord[] = [];
   selectedCells: { row: number; col: number }[] = [];
   isSelecting = false;
+  private touchStartCell: { row: number; col: number } | null = null;
 
   constructor(private translate: TranslateService) {}
 
@@ -102,6 +103,54 @@ export class WordSearchChallenge implements OnInit {
     }
 
     this.selectedCells = [];
+  }
+
+  onTouchStart(event: TouchEvent, row: number, col: number): void {
+    if (this.isCompleted) return;
+    event.preventDefault();
+    this.isSelecting = true;
+    this.touchStartCell = { row, col };
+    this.selectedCells = [{ row, col }];
+  }
+
+  onTouchMove(event: TouchEvent): void {
+    if (!this.isSelecting || this.isCompleted) return;
+    event.preventDefault();
+
+    const touch = event.touches[0];
+    const element = document.elementFromPoint(touch.clientX, touch.clientY) as HTMLElement;
+
+    if (element && element.tagName === 'BUTTON') {
+      const cellText = element.textContent?.trim();
+      if (cellText) {
+        // Find the cell in the grid
+        for (let r = 0; r < this.currentGrid.length; r++) {
+          for (let c = 0; c < this.currentGrid[r].length; c++) {
+            if (this.currentGrid[r][c] === cellText) {
+              // Check if this could be the right cell based on position
+              const alreadySelected = this.isCellSelected(r, c);
+              if (!alreadySelected) {
+                this.onMouseEnter(r, c);
+                return;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  onTouchEnd(event: TouchEvent): void {
+    if (!this.isSelecting) return;
+    event.preventDefault();
+    this.isSelecting = false;
+
+    if (this.selectedCells.length > 1) {
+      this.checkSelection();
+    }
+
+    this.selectedCells = [];
+    this.touchStartCell = null;
   }
 
   private getDirection(

@@ -41,13 +41,19 @@
   </div>
 
   <!-- Word Search Grid -->
-  <div class="flex justify-center mb-6" (mouseup)="onMouseUp()" (mouseleave)="onMouseUp()">
-    <div class="inline-block select-none">
+  <div
+    class="flex justify-center mb-6"
+    (mouseup)="onMouseUp()"
+    (mouseleave)="onMouseUp()"
+    (touchend)="onTouchEnd($event)"
+    (touchcancel)="onTouchEnd($event)"
+  >
+    <div class="inline-block select-none touch-none">
       @for (row of currentGrid; track rowIndex; let rowIndex = $index) {
       <div class="flex">
         @for (cell of row; track colIndex; let colIndex = $index) {
         <button
-          class="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center border border-gray-600 text-sm sm:text-base font-bold uppercase transition-all"
+          class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center border border-gray-600 text-base sm:text-lg font-bold uppercase transition-all touch-manipulation"
           [class.bg-accent-green]="isCellInFoundWord(rowIndex, colIndex)"
           [class.text-white]="isCellInFoundWord(rowIndex, colIndex)"
           [class.bg-gold]="
@@ -66,6 +72,8 @@
           [class.cursor-default]="isCompleted"
           (mousedown)="onMouseDown(rowIndex, colIndex)"
           (mouseenter)="onMouseEnter(rowIndex, colIndex)"
+          (touchstart)="onTouchStart($event, rowIndex, colIndex)"
+          (touchmove)="onTouchMove($event)"
         >
           {{ cell }}
         </button>
