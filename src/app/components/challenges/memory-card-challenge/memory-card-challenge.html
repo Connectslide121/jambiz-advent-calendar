@@ -1,0 +1,75 @@
+<div class="memory-card-container">
+  <!-- Header -->
+  <div class="header mb-4">
+    <h2 class="text-xl sm:text-2xl font-bold text-gold mb-2">
+      {{ 'challenges.memoryCard.title' | translate }}
+    </h2>
+    <p class="text-sm sm:text-base text-text-muted mb-3">
+      {{ 'challenges.memoryCard.instruction' | translate }}
+    </p>
+
+    <!-- Stats -->
+    <div class="stats flex gap-4 justify-center text-sm sm:text-base">
+      <div class="stat">
+        <span class="text-text-muted">{{ 'challenges.memoryCard.moves' | translate }}:</span>
+        <span class="text-gold font-bold ml-1">{{ moves }}</span>
+      </div>
+      <div class="stat">
+        <span class="text-text-muted">{{ 'challenges.memoryCard.matches' | translate }}:</span>
+        <span class="text-gold font-bold ml-1"
+          >{{ matches }} / {{ (config.gridSize * config.gridSize) / 2 }}</span
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- Card Grid -->
+  <div class="card-grid grid gap-2 sm:gap-3 mb-4" [ngClass]="getGridClass()">
+    @for (card of cards; track card.id) {
+    <button
+      class="memory-card"
+      [class.flipped]="card.flipped"
+      [class.matched]="card.matched"
+      (click)="onCardClick(card)"
+      [disabled]="card.matched || gameWon"
+      type="button"
+    >
+      <div class="card-inner">
+        <!-- Card Back -->
+        <div class="card-face card-back">
+          <span class="card-pattern">🎄</span>
+        </div>
+        <!-- Card Front -->
+        <div class="card-face card-front">
+          <span class="card-icon">{{ card.icon }}</span>
+        </div>
+      </div>
+    </button>
+    }
+  </div>
+
+  <!-- Win Message -->
+  @if (gameWon) {
+  <div class="win-message card bg-accent-green p-4 text-center m-4">
+    <p class="text-lg sm:text-xl font-bold text-white mb-2">
+      {{ 'challenges.memoryCard.win' | translate }}
+    </p>
+    <p class="text-sm sm:text-base text-white opacity-90">
+      {{ 'challenges.memoryCard.finalMoves' | translate : { moves: moves } }}
+    </p>
+  </div>
+  }
+
+  <!-- Action Buttons -->
+  <div class="actions flex flex-col sm:flex-row justify-center gap-3 mt-4">
+    @if (gameWon) {
+    <button class="btn btn-primary w-full sm:w-auto" (click)="completed.emit()" type="button">
+      {{ 'challenges.memoryCard.showFunFact' | translate }}
+    </button>
+    } @if (isCompleted) {
+    <button class="btn btn-outline w-full sm:w-auto" (click)="resetGame()" type="button">
+      {{ 'ui.playAgain' | translate }}
+    </button>
+    }
+  </div>
+</div>

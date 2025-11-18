@@ -58,4 +58,11 @@ export class RiddleChallenge implements OnInit {
       this.onSubmit();
     }
   }
+
+  reset(): void {
+    this.userAnswer = '';
+    this.showError = false;
+    this.showHint = false;
+    // Do NOT call this.completed.emit() - preserve completion status
+  }
 }

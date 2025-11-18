@@ -173,11 +173,29 @@ The calendar supports these challenge types:
 2. **hangman** - Word guessing game
 3. **wordScramble** - Unscramble letters to form words
 4. **wordSearch** - Find words in a grid
-5. **spotTheDifference** - Image comparison
-6. **rebus** - Visual word puzzles
-7. **miniQuiz** - Multiple choice questions
+5. **rebus** - Visual word puzzles
+6. **memoryCard** - Match pairs of Christmas icons
+7. **geometryDash** - Rhythm-based obstacle avoider (minigame)
+8. **sokoban** - Box-pushing puzzle (minigame)
+9. **climber** - Vertical climbing platformer (minigame)
+10. **mazeRunner** - Navigate Christmas maze (minigame)
 
 Each challenge emits a `challengeCompleted` event upon successful completion.
+
+### Challenge Replay Requirements
+
+**IMPORTANT**: All challenges must support replay functionality:
+
+- Users can replay any challenge, even after completing it
+- Replaying does NOT revert completion status (day stays marked as completed)
+- When replaying a completed challenge:
+  - The challenge resets to its initial state
+  - Game stats (moves, time, score) are NOT preserved during replay
+  - After completing the replay, new stats replace old ones in localStorage
+  - "Show Fun Fact" button should always be available when challenge is completed
+- Use `CalendarStateService.saveGameStats(day, stats)` to persist game statistics
+- Load saved stats when `isCompleted === true` to display historical performance
+- Include a "Reset" or "Play Again" button for replay functionality
 
 ## Best Practices
 

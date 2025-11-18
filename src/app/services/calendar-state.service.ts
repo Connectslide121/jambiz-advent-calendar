@@ -5,10 +5,13 @@
 })
 export class CalendarStateService {
   private readonly STORAGE_KEY = 'jambiz-advent-completed-days';
+  private readonly STATS_STORAGE_KEY = 'jambiz-advent-game-stats';
   private completedDays: Set<number> = new Set();
+  private gameStats: Map<number, any> = new Map();
 
   constructor() {
     this.loadFromStorage();
+    this.loadStatsFromStorage();
   }
 
   getCompletedDays(): number[] {
@@ -26,7 +29,44 @@ export class CalendarStateService {
 
   clearAllProgress(): void {
     this.completedDays.clear();
+    this.gameStats.clear();
     this.saveToStorage();
+    this.saveStatsToStorage();
+  }
+
+  // Game stats methods
+  saveGameStats(day: number, stats: any): void {
+    this.gameStats.set(day, stats);
+    this.saveStatsToStorage();
+  }
+
+  getGameStats(day: number): any | null {
+    return this.gameStats.get(day) || null;
+  }
+
+  private loadStatsFromStorage(): void {
+    try {
+      const stored = localStorage.getItem(this.STATS_STORAGE_KEY);
+      if (stored) {
+        const statsObj = JSON.parse(stored);
+        // Convert string keys back to numbers
+        this.gameStats = new Map(
+          Object.entries(statsObj).map(([key, value]) => [Number(key), value])
+        );
+      }
+    } catch (error) {
+      console.error('Failed to load game stats from storage', error);
+      this.gameStats = new Map();
+    }
+  }
+
+  private saveStatsToStorage(): void {
+    try {
+      const statsObj = Object.fromEntries(this.gameStats);
+      localStorage.setItem(this.STATS_STORAGE_KEY, JSON.stringify(statsObj));
+    } catch (error) {
+      console.error('Failed to save game stats to storage', error);
+    }
   }
 
   private loadFromStorage(): void {

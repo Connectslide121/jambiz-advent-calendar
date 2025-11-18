@@ -278,8 +278,12 @@ module.exports = {
 
 ### Phase 3: Challenge Components - Batch 1 ✅ COMPLETED
 - [x] RiddleChallengeComponent (text input, simple validation)
-- [x] MiniQuizChallengeComponent (multiple choice)
+- [x] MiniQuizChallengeComponent (multiple choice) - REMOVED (too simple)
 - [x] WordScrambleChallengeComponent (drag & drop or text input)
+- [x] Add replay functionality to all challenges
+- [x] Implement "Play Again" button for completed challenges
+- [x] Add max-width constraints to input fields (max-w-96)
+- [x] Center input fields with mx-auto
 
 **Implementation Notes:**
 - Created reusable challenge components with @Output() completed event
@@ -288,12 +292,17 @@ module.exports = {
 - Each challenge has proper validation, error handling, and responsive design
 - Challenge data is stored in calendar-config.ts for easy content management
 - Added hint functionality to riddle and word scramble challenges
-- Quiz component supports 3-4 options with instant feedback and retry capability
+- **Replay functionality:** All challenges support reset() method that clears state without reverting completion
+- Play Again button appears alongside Show Fun Fact when challenge is completed
+- Input fields constrained to max-w-96 and centered for better UX
 
 ### Phase 4: Challenge Components - Batch 2 ✅ COMPLETED
 - [x] HangmanChallengeComponent (letter selection, visual hangman)
 - [x] WordSearchChallengeComponent (grid with word highlighting)
 - [x] RebusChallengeComponent (image + text input)
+- [x] Add replay functionality with Play Again buttons
+- [x] Implement stats persistence for Hangman (wrong guesses count)
+- [x] Visual wrong guesses display using hangman figure
 
 **Implementation Notes:**
 - Created HangmanChallenge with SVG visual (6 wrong guess stages), Swedish alphabet support (Å, Ä, Ö), and language-aware word selection
@@ -304,6 +313,9 @@ module.exports = {
 - Added complete translation keys for all new challenges in both English and Swedish
 - Updated calendar-config.ts with sample data for days 2, 6, 7, 8, 13, 14, 16, 20, 21, 23
 - All challenges use language variants (word/wordSv for hangman, grid/gridSv and words/wordsSv for word search)
+- **Stats persistence:** Hangman saves wrong guesses count to localStorage using CalendarStateService
+- **Visual stats:** Hangman displays saved wrong guesses using hangman figure instead of text
+- **Replay support:** All challenges have Play Again button and reset() methods
 
 ### Phase 5: Complex Minigames - Foundation ✅ COMPLETED
 - [x] Create shared game utilities service (collision detection, physics helpers)
@@ -327,6 +339,16 @@ module.exports = {
 - Ready for minigame implementation - all foundation infrastructure complete
 
 ### Phase 6: Complex Minigames - Batch 1 🎮
+- [x] **MemoryCardChallengeComponent** - Advanced Christmas-themed memory
+  - [x] 4x4 grid of cards with flip animations
+  - [x] Match validation and win detection
+  - [x] Move counter tracking
+  - [x] Stats persistence (moves count saved to localStorage)
+  - [x] Replay functionality with fresh shuffle
+  - [x] Mobile-optimized card sizing
+  - [x] Completed in move display
+  - [x] Play Again button for completed challenges
+  
 - [ ] **GeometryDashChallengeComponent** - Rhythm-based obstacle avoider
   - Auto-scrolling level with obstacles
   - Jump mechanic (spacebar/click/tap)
@@ -344,6 +366,14 @@ module.exports = {
   - Multiple levels (easy to hard)
   - Win when all boxes on targets
   - Sprite-based rendering
+
+**MemoryCard Implementation Notes:**
+- Created with CSS 3D flip animations and responsive grid
+- Saves moves count to localStorage when completed
+- Loads saved moves when revisiting completed challenge
+- Reset functionality starts fresh game without reverting completion
+- Fixed day parameter passing issue in ChallengeHost (use 'day' in instance check)
+- Integrated with CalendarStateService for stats persistence
 
 ### Phase 7: Complex Minigames - Batch 2 🎮
 - [ ] **ClimberChallengeComponent** - Vertical climber
@@ -977,29 +1007,29 @@ interface MazeConfig {
 
 **Example Distribution:**
 - Day 1: Riddle (easy start)
-- Day 2: Word Scramble
-- Day 3: Mini Quiz
+- Day 2: Hangman
+- Day 3: Word Scramble
 - Day 4: **Memory Cards** 🎮 (first minigame - accessible)
-- Day 5: Hangman
+- Day 5: Riddle
 - Day 6: Rebus
 - Day 7: Word Search
-- Day 8: **Maze Runner** 🎮 (exploration)
-- Day 9: Riddle
-- Day 10: Mini Quiz
-- Day 11: Word Scramble
-- Day 12: **Sokoban** 🎮 (puzzle challenge)
-- Day 13: Hangman
-- Day 14: Rebus
-- Day 15: Word Search
-- Day 16: **Climber** 🎮 (action builds)
+- Day 8: Hangman
+- Day 9: **Geometry Dash** 🎮 (rhythm challenge)
+- Day 10: Riddle
+- Day 11: **Sokoban** 🎮 (puzzle challenge)
+- Day 12: Word Scramble
+- Day 13: Rebus
+- Day 14: Hangman
+- Day 15: **Climber** 🎮 (action builds)
+- Day 16: Word Search
 - Day 17: Riddle
-- Day 18: Mini Quiz
+- Day 18: **Maze Runner** 🎮 (exploration)
 - Day 19: Word Scramble
 - Day 20: Hangman
-- Day 21: **Geometry Dash** 🎮 (fast-paced finale)
-- Day 22: Rebus
+- Day 21: Rebus
+- Day 22: **Geometry Dash** 🎮 (fast-paced finale)
 - Day 23: Word Search
-- Day 24: Mini Quiz or special message
+- Day 24: Riddle (special finale message)
 
 ---
 
@@ -1132,21 +1162,32 @@ interface MazeConfig {
 
 ### Service Implementation
 
-#### CalendarStateService
+#### CalendarStateService ✅ COMPLETED
 ```typescript
 @Injectable({ providedIn: 'root' })
 export class CalendarStateService {
   private readonly STORAGE_KEY = 'jambiz-advent-completed-days';
+  private readonly STATS_STORAGE_KEY = 'jambiz-advent-game-stats';
   
-  // Methods to implement:
-  - getCompletedDays(): number[]
-  - isDayCompleted(day: number): boolean
-  - markDayComplete(day: number): void
-  - clearAllProgress(): void (for testing)
-  - Private: loadFromStorage()
-  - Private: saveToStorage()
+  // Methods implemented:
+  - getCompletedDays(): number[] ✅
+  - isDayCompleted(day: number): boolean ✅
+  - markDayComplete(day: number): void ✅
+  - clearAllProgress(): void ✅ (for testing)
+  - saveGameStats(day: number, stats: any): void ✅ (NEW)
+  - getGameStats(day: number): any | null ✅ (NEW)
+  - Private: loadFromStorage() ✅
+  - Private: saveToStorage() ✅
+  - Private: loadStatsFromStorage() ✅ (NEW)
+  - Private: saveStatsToStorage() ✅ (NEW)
 }
 ```
+
+**Implementation Notes:**
+- Dual storage system: completed days + game statistics
+- Stats stored as Map<number, any> for flexible per-day data
+- Proper type conversion for Map keys (JSON stores as strings)
+- Used by MemoryCard (moves) and Hangman (wrongGuesses)
 
 ### Translation Keys Structure
 
@@ -1187,7 +1228,11 @@ export class CalendarStateService {
   "ui": {
     "close": "Close",
     "continue": "Continue",
-    "reset": "Reset"
+    "reset": "Reset",
+    "tryAgain": "Try Again",
+    "playAgain": "Play Again",
+    "showHint": "Show Hint",
+    "hideHint": "Hide Hint"
   }
 }
 ```

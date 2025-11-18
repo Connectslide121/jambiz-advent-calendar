@@ -59,6 +59,7 @@
       "instruction": "Guess the word!",
       "clue": "Clue:",
       "wrongGuesses": "Wrong guesses: {{count}} / {{max}}",
+      "completedIn": "Originally completed with {{count}} wrong guesses",
       "youWin": "You win!",
       "youLose": "Game over!",
       "theWordWas": "The word was",
@@ -142,6 +143,15 @@
         "hint": "The coldest season of the year"
       }
     },
+    "memoryCard": {
+      "title": "Memory Challenge",
+      "instruction": "Find all the matching pairs!",
+      "moves": "Moves",
+      "matches": "Matches",
+      "win": "Perfect! All pairs found!",
+      "finalMoves": "Completed in {{moves}} moves",
+      "showFunFact": "Show Fun Fact"
+    },
     "miniQuiz": {
       "title": "Mini Quiz",
       "instruction": "Choose the correct answer!",
@@ -216,6 +226,7 @@
     "continue": "Continue",
     "reset": "Reset",
     "tryAgain": "Try Again",
+    "playAgain": "Play Again",
     "showHint": "Show Hint",
     "hideHint": "Hide Hint"
   }

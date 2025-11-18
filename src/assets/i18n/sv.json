@@ -59,6 +59,7 @@
       "instruction": "Gissa ordet!",
       "clue": "Ledråd:",
       "wrongGuesses": "Felgissningar: {{count}} / {{max}}",
+      "completedIn": "Ursprungligen klarat med {{count}} felgissningar",
       "youWin": "Du vann!",
       "youLose": "Game over!",
       "theWordWas": "Ordet var",
@@ -142,6 +143,15 @@
         "hint": "Den kallaste årstiden"
       }
     },
+    "memoryCard": {
+      "title": "Minnesutmaning",
+      "instruction": "Hitta alla matchande par!",
+      "moves": "Drag",
+      "matches": "Matchningar",
+      "win": "Perfekt! Alla par hittade!",
+      "finalMoves": "Klarat på {{moves}} drag",
+      "showFunFact": "Visa rolig fakta"
+    },
     "miniQuiz": {
       "title": "Minifrågesport",
       "instruction": "Välj rätt svar!",
@@ -216,6 +226,7 @@
     "continue": "Fortsätt",
     "reset": "Återställ",
     "tryAgain": "Försök igen",
+    "playAgain": "Spela igen",
     "showHint": "Visa Tips",
     "hideHint": "Dölj Tips"
   }

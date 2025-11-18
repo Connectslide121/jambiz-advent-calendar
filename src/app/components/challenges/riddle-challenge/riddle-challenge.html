@@ -25,7 +25,7 @@
   }}
 
   <!-- Answer Input -->
-  <div class="mb-6">
+  <div class="mb-6 max-w-96 mx-auto">
     <label for="riddle-answer" class="block text-sm font-medium text-text-muted mb-2">
       {{ 'challenges.riddle.instruction' | translate }}
     </label>
@@ -50,7 +50,7 @@
   }
 
   <!-- Submit Button -->
-  <div class="text-center">
+  <div class="text-center flex flex-col sm:flex-row gap-3 justify-center">
     <button
       class="btn btn-primary w-full sm:w-auto px-8"
       (click)="onSubmit()"
@@ -58,5 +58,10 @@
     >
       {{ (isCompleted ? 'challenges.riddle.showFunFact' : 'challenges.riddle.submit') | translate }}
     </button>
+    @if (isCompleted) {
+    <button class="btn btn-outline w-full sm:w-auto px-8" (click)="reset()">
+      {{ 'ui.playAgain' | translate }}
+    </button>
+    }
   </div>
 </div>

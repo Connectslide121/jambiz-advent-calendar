@@ -18,6 +18,7 @@ import { WordScrambleChallenge } from '../challenges/word-scramble-challenge/wor
 import { HangmanChallenge } from '../challenges/hangman-challenge/hangman-challenge';
 import { WordSearchChallenge } from '../challenges/word-search-challenge/word-search-challenge';
 import { RebusChallenge } from '../challenges/rebus-challenge/rebus-challenge';
+import { MemoryCardChallenge } from '../challenges/memory-card-challenge/memory-card-challenge';
 
 @Component({
   selector: 'app-challenge-host',
@@ -66,6 +67,9 @@ export class ChallengeHost implements OnInit {
       case 'rebus':
         componentType = RebusChallenge;
         break;
+      case 'memoryCard':
+        componentType = MemoryCardChallenge;
+        break;
       default:
         // For unimplemented challenge types, show placeholder
         return;
@@ -81,6 +85,11 @@ export class ChallengeHost implements OnInit {
     // Pass completed state
     if (this.challengeComponentRef.instance.isCompleted !== undefined) {
       this.challengeComponentRef.instance.isCompleted = this.isCompleted;
+    }
+
+    // Pass day number if component has day property
+    if ('day' in this.challengeComponentRef.instance) {
+      this.challengeComponentRef.instance.day = this.dayConfig.day;
     }
 
     // Subscribe to completion event

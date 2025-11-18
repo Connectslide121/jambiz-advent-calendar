@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LucideAngularModule, Lightbulb, LightbulbOff } from 'lucide-angular';
+import { CalendarStateService } from '../../../services/calendar-state.service';
 
 export interface HangmanConfig {
   word: string; // English word
@@ -19,6 +20,7 @@ export interface HangmanConfig {
 export class HangmanChallenge implements OnInit {
   @Input() config!: HangmanConfig;
   @Input() isCompleted = false;
+  @Input() day?: number;
   @Output() completed = new EventEmitter<void>();
 
   currentWord = '';
@@ -27,11 +29,12 @@ export class HangmanChallenge implements OnInit {
   maxWrongGuesses = 6;
   alphabet: string[] = [];
   showHint = false;
+  completedWrongGuesses = 0;
 
   readonly LightbulbIcon = Lightbulb;
   readonly LightbulbOffIcon = LightbulbOff;
 
-  constructor(private translate: TranslateService) {}
+  constructor(private translate: TranslateService, private calendarState: CalendarStateService) {}
 
   ngOnInit(): void {
     // Determine which word to use based on current language
@@ -46,13 +49,22 @@ export class HangmanChallenge implements OnInit {
       this.alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     }
 
-    // If already completed, reveal all letters
+    // If already completed, reveal all letters and load saved stats
     if (this.isCompleted) {
       this.currentWord.split('').forEach((letter) => {
         if (letter !== ' ') {
           this.guessedLetters.add(letter.toUpperCase());
         }
       });
+
+      // Load saved wrong guesses count
+      if (this.day !== undefined) {
+        const stats = this.calendarState.getGameStats(this.day);
+        console.log('Loading hangman stats for day', this.day, ':', stats);
+        if (stats && stats.wrongGuesses !== undefined) {
+          this.completedWrongGuesses = stats.wrongGuesses;
+        }
+      }
     }
   }
 
@@ -64,6 +76,14 @@ export class HangmanChallenge implements OnInit {
         return this.guessedLetters.has(letter.toUpperCase()) ? letter : '_';
       })
       .join('');
+  }
+
+  get displayWrongGuesses(): number {
+    // When completed and replaying, show the saved wrong guesses
+    // When actively playing (even if previously completed), show current wrong guesses
+    return this.isCompleted && this.wrongGuesses === 0 && this.completedWrongGuesses > 0
+      ? this.completedWrongGuesses
+      : this.wrongGuesses;
   }
 
   get isWon(): boolean {
@@ -91,6 +111,17 @@ export class HangmanChallenge implements OnInit {
     }
 
     if (this.isWon) {
+      // Save wrong guesses count
+      if (this.day !== undefined) {
+        this.completedWrongGuesses = this.wrongGuesses;
+        this.calendarState.saveGameStats(this.day, {
+          wrongGuesses: this.wrongGuesses,
+        });
+        console.log('Saving hangman stats for day', this.day, ':', {
+          wrongGuesses: this.wrongGuesses,
+        });
+      }
+
       setTimeout(() => {
         this.completed.emit();
       }, 500);
@@ -112,6 +143,8 @@ export class HangmanChallenge implements OnInit {
   reset(): void {
     this.guessedLetters.clear();
     this.wrongGuesses = 0;
+    this.showHint = false;
+    // Do NOT call this.completed.emit() - preserve completion status
   }
 
   toggleHint(): void {

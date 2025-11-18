@@ -82,7 +82,7 @@
         />
 
         <!-- Head -->
-        @if (wrongGuesses >= 1) {
+        @if (displayWrongGuesses >= 1) {
         <circle
           cx="130"
           cy="55"
@@ -95,7 +95,7 @@
         }
 
         <!-- Body -->
-        @if (wrongGuesses >= 2) {
+        @if (displayWrongGuesses >= 2) {
         <line
           x1="130"
           y1="70"
@@ -108,7 +108,7 @@
         }
 
         <!-- Left arm -->
-        @if (wrongGuesses >= 3) {
+        @if (displayWrongGuesses >= 3) {
         <line
           x1="130"
           y1="85"
@@ -121,7 +121,7 @@
         }
 
         <!-- Right arm -->
-        @if (wrongGuesses >= 4) {
+        @if (displayWrongGuesses >= 4) {
         <line
           x1="130"
           y1="85"
@@ -134,7 +134,7 @@
         }
 
         <!-- Left leg -->
-        @if (wrongGuesses >= 5) {
+        @if (displayWrongGuesses >= 5) {
         <line
           x1="130"
           y1="120"
@@ -147,7 +147,7 @@
         }
 
         <!-- Right leg -->
-        @if (wrongGuesses >= 6) {
+        @if (displayWrongGuesses >= 6) {
         <line
           x1="130"
           y1="120"
@@ -167,7 +167,7 @@
     <p class="text-text-muted text-sm sm:text-base">
       {{
         'challenges.hangman.wrongGuesses'
-          | translate : { count: wrongGuesses, max: maxWrongGuesses }
+          | translate : { count: displayWrongGuesses, max: maxWrongGuesses }
       }}
     </p>
   </div>
@@ -233,14 +233,18 @@
   }
 
   <!-- Action Buttons -->
-  <div class="text-center flex gap-3 justify-center">
+  <div class="text-center flex flex-col sm:flex-row gap-3 justify-center">
     @if (isLost) {
-    <button class="btn btn-secondary px-8" (click)="reset()">
+    <button class="btn btn-secondary w-full sm:w-auto px-8" (click)="reset()">
       {{ 'challenges.hangman.tryAgain' | translate }}
     </button>
-    } @if (isCompleted && !isGameOver) {
-    <button class="btn btn-primary px-8" (click)="showAnswer()">
+    } @if (isWon) {
+    <button class="btn btn-primary w-full sm:w-auto px-8" (click)="showAnswer()">
       {{ 'challenges.hangman.showFunFact' | translate }}
+    </button>
+    } @if (isCompleted) {
+    <button class="btn btn-outline w-full sm:w-auto px-8" (click)="reset()">
+      {{ 'ui.playAgain' | translate }}
     </button>
     }
   </div>

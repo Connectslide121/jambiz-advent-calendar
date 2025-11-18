@@ -1,0 +1,116 @@
+.memory-card-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.card-grid {
+  perspective: 1000px;
+  max-width: 500px;
+  margin: 0 auto;
+
+  &.grid-cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  &.grid-cols-6 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.memory-card {
+  aspect-ratio: 1;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s;
+
+  &:hover:not(:disabled) {
+    transform: scale(1.05);
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.memory-card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.card-back {
+  background: linear-gradient(135deg, var(--color-accent-red) 0%, var(--color-accent-green) 100%);
+
+  .card-pattern {
+    font-size: 2rem;
+    opacity: 0.5;
+
+    @media (min-width: 640px) {
+      font-size: 2.5rem;
+    }
+  }
+}
+
+.card-front {
+  background: var(--color-surface);
+  transform: rotateY(180deg);
+
+  .card-icon {
+    font-size: 2rem;
+
+    @media (min-width: 640px) {
+      font-size: 3rem;
+    }
+  }
+}
+
+.memory-card.matched .card-front {
+  background: linear-gradient(135deg, var(--color-surface) 0%, rgba(42, 157, 143, 0.2) 100%);
+  border-color: var(--color-accent-green);
+}
+
+.stats {
+  .stat {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+.win-message {
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

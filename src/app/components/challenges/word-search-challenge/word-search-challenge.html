@@ -97,9 +97,12 @@
 
   <!-- Show Fun Fact Button (for completed challenges) -->
   @if (isCompleted && allWordsFound) {
-  <div class="text-center">
-    <button class="btn btn-primary px-8" (click)="showAnswer()">
+  <div class="text-center flex flex-col sm:flex-row gap-3 justify-center">
+    <button class="btn btn-primary w-full sm:w-auto px-8" (click)="showAnswer()">
       {{ 'challenges.wordSearch.showFunFact' | translate }}
+    </button>
+    <button class="btn btn-outline w-full sm:w-auto px-8" (click)="reset()">
+      {{ 'ui.playAgain' | translate }}
     </button>
   </div>
   }

@@ -35,7 +35,12 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 4,
+    challengeType: 'memoryCard',
     funFactKey: 'funFacts.day4',
+    challengeData: {
+      gridSize: 4,
+      icons: ['🎅', '⛄', '🎄', '🎁', '⭐', '🔔', '🕯️', '🦌'],
+    },
   },
   {
     day: 5,
