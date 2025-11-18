@@ -1,0 +1,48 @@
+<div class="touch-controls">
+  <!-- Virtual Joystick -->
+  @if (showJoystick) {
+  <div
+    class="joystick-container"
+    (touchstart)="onJoystickTouchStart($event)"
+    (touchmove)="onJoystickTouchMove($event)"
+    (touchend)="onJoystickTouchEnd($event)"
+    (touchcancel)="onJoystickTouchEnd($event)"
+    (contextmenu)="onContextMenu($event)"
+  >
+    <div class="joystick-base">
+      <div
+        class="joystick-knob"
+        [class.active]="joystickActive"
+        [style.transform]="'translate(' + knobOffsetX + 'px, ' + knobOffsetY + 'px)'"
+      ></div>
+    </div>
+  </div>
+  }
+
+  <!-- Action Buttons Container -->
+  <div class="button-container">
+    <!-- Jump Button -->
+    @if (showJumpButton) {
+    <button
+      class="control-button jump-button"
+      (touchstart)="onJumpPress(); $event.preventDefault()"
+      (contextmenu)="onContextMenu($event)"
+      type="button"
+    >
+      {{ jumpButtonLabel }}
+    </button>
+    }
+
+    <!-- Secondary Action Button -->
+    @if (showActionButton) {
+    <button
+      class="control-button action-button"
+      (touchstart)="onActionPress(); $event.preventDefault()"
+      (contextmenu)="onContextMenu($event)"
+      type="button"
+    >
+      {{ actionButtonLabel }}
+    </button>
+    }
+  </div>
+</div>
