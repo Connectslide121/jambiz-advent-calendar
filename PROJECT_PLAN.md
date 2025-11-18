@@ -349,14 +349,14 @@ module.exports = {
   - [x] Completed in move display
   - [x] Play Again button for completed challenges
   
-- [ ] **GeometryDashChallengeComponent** - Rhythm-based obstacle avoider
-  - Auto-scrolling level with obstacles
-  - Jump mechanic (spacebar/click/tap)
-  - Collision detection with restart
-  - Christmas-themed obstacles (candy canes, snowflakes)
-  - **Mobile:** Tap anywhere to jump
-  - Use shared player sprite
-  - Beat level by reaching the end
+- [x] **GeometryDashChallengeComponent** - Rhythm-based obstacle avoider
+  - [x] Auto-scrolling level with obstacles
+  - [x] Jump mechanic (spacebar/click/tap)
+  - [x] Collision detection with restart
+  - [x] Christmas-themed obstacles (candy canes, snowflakes)
+  - [x] **Mobile:** Tap anywhere to jump
+  - [x] Use shared player sprite
+  - [x] Beat level by reaching the end
   
 - [ ] **SokobanChallengeComponent** - Box-pushing puzzle
   - Grid-based movement (arrow keys/WASD)

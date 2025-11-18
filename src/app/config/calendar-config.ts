@@ -91,14 +91,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 8,
-    challengeType: 'hangman',
     funFactKey: 'funFacts.day8',
-    challengeData: {
-      word: 'stocking',
-      wordSv: 'julstrumpa',
-      clueKey: 'challenges.hangman.day8.clue',
-      hintKey: 'challenges.hangman.day8.hint',
-    },
   },
   {
     day: 9,
@@ -134,7 +127,14 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 11,
+    challengeType: 'hangman',
     funFactKey: 'funFacts.day11',
+    challengeData: {
+      word: 'stocking',
+      wordSv: 'julstrumpa',
+      clueKey: 'challenges.hangman.day8.clue',
+      hintKey: 'challenges.hangman.day8.hint',
+    },
   },
   {
     day: 12,
@@ -159,13 +159,12 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 14,
-    challengeType: 'hangman',
+    challengeType: 'riddle',
     funFactKey: 'funFacts.day14',
     challengeData: {
-      word: 'sleigh',
-      wordSv: 'släde',
-      clueKey: 'challenges.hangman.day14.clue',
-      hintKey: 'challenges.hangman.day14.hint',
+      riddleKey: 'challenges.riddle.day17.question',
+      answerKey: ['icicle', 'istapp'],
+      hintKey: 'challenges.riddle.day17.hint',
     },
   },
   {
@@ -174,8 +173,19 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 16,
-    challengeType: 'wordSearch',
+    challengeType: 'hangman',
     funFactKey: 'funFacts.day16',
+    challengeData: {
+      word: 'sleigh',
+      wordSv: 'släde',
+      clueKey: 'challenges.hangman.day14.clue',
+      hintKey: 'challenges.hangman.day14.hint',
+    },
+  },
+  {
+    day: 17,
+    challengeType: 'wordSearch',
+    funFactKey: 'funFacts.day17',
     challengeData: {
       grid: [
         ['C', 'A', 'N', 'D', 'Y', 'C', 'A', 'N', 'E', 'W'],
@@ -201,16 +211,6 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
       ],
       words: ['CANDYCANE', 'REINDEER', 'ORNAMENT', 'WREATH', 'CAROLS'],
       wordsSv: ['POLKAGRIS', 'RENAR', 'KRANS', 'JUL', 'JULSÅNGER', 'NÖTTER'],
-    },
-  },
-  {
-    day: 17,
-    challengeType: 'riddle',
-    funFactKey: 'funFacts.day17',
-    challengeData: {
-      riddleKey: 'challenges.riddle.day17.question',
-      answerKey: ['icicle', 'istapp'],
-      hintKey: 'challenges.riddle.day17.hint',
     },
   },
   {
