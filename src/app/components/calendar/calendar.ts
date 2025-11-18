@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { LucideAngularModule, Check } from 'lucide-angular';
 import { CALENDAR_DAYS } from '../../config/calendar-config';
 import { CalendarStateService } from '../../services/calendar-state.service';
@@ -8,7 +9,7 @@ import { ChallengeHost } from '../challenge-host/challenge-host';
 
 @Component({
   selector: 'app-calendar',
-  imports: [CommonModule, ChallengeHost, LucideAngularModule],
+  imports: [CommonModule, TranslateModule, ChallengeHost, LucideAngularModule],
   templateUrl: './calendar.html',
   styleUrl: './calendar.scss',
 })
@@ -22,7 +23,10 @@ export class Calendar implements OnInit {
   ngOnInit(): void {}
 
   onDaySelected(day: CalendarDayConfig): void {
-    this.selectedDay = day;
+    // Only open challenge if day has a challenge type
+    if (day.challengeType) {
+      this.selectedDay = day;
+    }
   }
 
   onCloseChallenge(): void {

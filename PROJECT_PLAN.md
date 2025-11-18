@@ -25,13 +25,19 @@ AppComponent (root)
     ├── DayTileComponent × 24
     └── ChallengeHostComponent (modal/panel)
         ├── [Dynamic Challenge Component]
-        │   ├── RiddleChallengeComponent
-        │   ├── HangmanChallengeComponent
-        │   ├── WordScrambleChallengeComponent
-        │   ├── WordSearchChallengeComponent
-        │   ├── SpotTheDifferenceChallengeComponent
-        │   ├── RebusChallengeComponent
-        │   └── MiniQuizChallengeComponent
+        │   ├── Simple Challenges (Filler):
+        │   │   ├── RiddleChallengeComponent
+        │   │   ├── HangmanChallengeComponent
+        │   │   ├── WordScrambleChallengeComponent
+        │   │   ├── WordSearchChallengeComponent
+        │   │   ├── RebusChallengeComponent
+        │   │   └── MiniQuizChallengeComponent
+        │   └── Complex Minigames (Mobile-Friendly):
+        │       ├── GeometryDashChallengeComponent (rhythm-based obstacle course)
+        │       ├── SokobanChallengeComponent (push boxes to targets)
+        │       ├── ClimberChallengeComponent (climb to the top)
+        │       ├── MemoryCardChallengeComponent (advanced Christmas-themed memory)
+        │       └── MazeRunnerChallengeComponent (navigate Christmas maze)
         └── FunFactRevealComponent
 ```
 
@@ -90,13 +96,19 @@ src/
 ```typescript
 // calendar.models.ts
 export type ChallengeType =
+  // Simple filler challenges
   | 'riddle'
   | 'hangman'
   | 'wordScramble'
   | 'wordSearch'
-  | 'spotTheDifference'
   | 'rebus'
-  | 'miniQuiz';
+  | 'miniQuiz'
+  // Complex minigames (all mobile-friendly)
+  | 'geometryDash'
+  | 'sokoban'
+  | 'climber'
+  | 'memoryCard'
+  | 'mazeRunner';
 
 export interface CalendarDayConfig {
   day: number;
@@ -293,20 +305,84 @@ module.exports = {
 - Updated calendar-config.ts with sample data for days 2, 6, 7, 8, 13, 14, 16, 20, 21, 23
 - All challenges use language variants (word/wordSv for hangman, grid/gridSv and words/wordsSv for word search)
 
-### Phase 5: Challenge Components - Batch 3
-- [ ] SpotTheDifferenceChallengeComponent (clickable image areas)
+### Phase 5: Complex Minigames - Foundation 🎮
+- [ ] Create shared game utilities service (collision detection, physics helpers)
+- [ ] Set up game loop infrastructure (requestAnimationFrame wrapper)
+- [ ] Create sprite manager service for shared assets
+- [ ] Set up sprite directory structure (player, obstacles, collectibles)
+- [ ] Create base game component with common features (pause, restart, timer)
+- [ ] Add keyboard input service for arrow keys, WASD, spacebar
+- [ ] **Add mobile touch controls** (virtual joystick, buttons)
+- [ ] Create responsive canvas sizing helper
+- [ ] Test mobile touch events and gestures
 
-### Phase 6: Content & Polish
-- [ ] Create 24 challenge instances with real content
+### Phase 6: Complex Minigames - Batch 1 🎮
+- [ ] **GeometryDashChallengeComponent** - Rhythm-based obstacle avoider
+  - Auto-scrolling level with obstacles
+  - Jump mechanic (spacebar/click/tap)
+  - Collision detection with restart
+  - Christmas-themed obstacles (candy canes, snowflakes)
+  - **Mobile:** Tap anywhere to jump
+  - Use shared player sprite
+  - Beat level by reaching the end
+  
+- [ ] **SokobanChallengeComponent** - Box-pushing puzzle
+  - Grid-based movement (arrow keys/WASD)
+  - **Mobile:** Swipe gestures or virtual D-pad
+  - Push gift boxes onto target spots
+  - Undo move functionality
+  - Multiple levels (easy to hard)
+  - Win when all boxes on targets
+  - Sprite-based rendering
+
+### Phase 7: Complex Minigames - Batch 2 🎮
+- [ ] **ClimberChallengeComponent** - Vertical climber
+  - Jump between platforms to climb up
+  - **Mobile:** Virtual left/right/jump buttons
+  - Moving platforms, ice physics
+  - Collectible ornaments (optional)
+  - Reach the star at the top to win
+  - Use shared player sprite
+  - Christmas-themed platform graphics
+  
+- [ ] **MemoryCardChallengeComponent** - Advanced memory game
+  - 4x4 or 6x6 grid of cards
+  - **Mobile:** Touch-optimized card flipping
+  - Christmas-themed icons/images
+  - Flip two cards to match
+  - Timer and move counter
+  - Special cards with power-ups (peek, hint)
+  - Responsive card sizing
+
+### Phase 8: Complex Minigames - Batch 3 🎮
+- [ ] **MazeRunnerChallengeComponent** - Navigate Christmas maze
+  - Top-down view maze navigation
+  - **Mobile:** Swipe gestures or virtual joystick
+  - Arrow keys or WASD movement (desktop)
+  - Collect 3 stars scattered in maze
+  - Optional timer for speed challenge
+  - Use shared player sprite
+  - Christmas decorations as obstacles/walls
+  - Touch-friendly navigation
+
+### Phase 9: Content & Polish
+- [ ] Distribute 24 challenges (19 simple filler + 5 complex minigames)
+- [ ] Create optimal challenge difficulty curve
 - [ ] Write 24 fun facts (Swedish & English)
-- [ ] Complete all translations
-- [ ] Add Lucide icons throughout
+- [ ] Complete all translations for minigames
+- [ ] Add sound effects (optional, toggle-able)
+- [ ] Fine-tune game difficulty and balance
+- [ ] **Test all games on mobile devices** (iOS, Android)
+- [ ] **Optimize touch controls** for each game
 - [ ] Animations and transitions
 - [ ] Accessibility improvements (ARIA labels, keyboard navigation)
 
-### Phase 7: Testing & Deployment
-- [ ] Cross-browser testing
-- [ ] Mobile responsive testing
+### Phase 10: Testing & Deployment
+- [ ] Test all 5 minigames on different devices
+- [ ] Cross-browser testing (Chrome, Firefox, Safari, Edge)
+- [ ] **Mobile responsive testing** (touch controls for games)
+- [ ] **Test on various screen sizes** (phone, tablet, desktop)
+- [ ] Performance optimization (game loop efficiency, sprite loading)
 - [ ] localStorage edge cases
 - [ ] Build production bundle
 - [ ] Deploy to hosting (GitHub Pages, Netlify, etc.)
@@ -421,6 +497,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 ### Challenge Components Checklist
 
+**Simple Filler Challenges (Quick to implement, 5-10 min to solve):**
+
 Each challenge component needs:
 - [ ] @Output() completed = new EventEmitter<void>()
 - [ ] Title/instructions (translated)
@@ -452,19 +530,582 @@ Each challenge component needs:
 - [ ] Hint button (optional)
 - [ ] Check answer (case-insensitive)
 
-#### WordSearchChallengeComponent
-- [ ] Generate/display letter grid
-- [ ] List of words to find
-- [ ] Click/drag to select letters
-- [ ] Highlight found words
-- [ ] Complete when all words found
+#### WordSearchChallengeComponent ✅ COMPLETED
+- [x] Generate/display letter grid
+- [x] List of words to find
+- [x] Click/drag to select letters
+- [x] Highlight found words
+- [x] Complete when all words found
+- [x] Touch support for mobile devices
 
-#### SpotTheDifferenceChallengeComponent
-- [ ] Display two images side-by-side
-- [ ] Clickable difference areas
-- [ ] Mark found differences
-- [ ] Counter (e.g., "3 of 5 found")
-- [ ] Complete when all found
+#### RebusChallengeComponent ✅ COMPLETED
+- [x] Display rebus images/symbols
+- [x] Text input for answer
+- [x] Submit button
+- [x] Example: "🐝 + 🍃" = "Believe" (Bee + Leaf)
+
+#### MiniQuizChallengeComponent ✅ COMPLETED
+- [x] Display question (translated)
+- [x] Render 3-4 answer options
+- [x] Radio buttons or clickable cards
+- [x] Check answer on selection
+- [x] Show correct/incorrect feedback
+
+---
+
+## 🎮 Complex Minigame Specifications
+
+### Shared Game Infrastructure
+
+**SpriteService** - Manage shared game assets:
+```typescript
+@Injectable({ providedIn: 'root' })
+export class SpriteService {
+  // Sprite asset management
+  private sprites = new Map<string, HTMLImageElement>();
+  
+  loadSprite(name: string, path: string): Promise<HTMLImageElement>;
+  getSprite(name: string): HTMLImageElement | null;
+  preloadCommonSprites(): Promise<void>;
+  
+  // Common sprites:
+  // - player.png (shared character sprite)
+  // - obstacle.png (generic obstacle)
+  // - collectible.png (stars, ornaments)
+  // - platform.png (platform tiles)
+  // - box.png (for Sokoban)
+}
+```
+
+**GameService** - Reusable game utilities:
+```typescript
+@Injectable({ providedIn: 'root' })
+export class GameService {
+  // Game loop management
+  startGameLoop(callback: (deltaTime: number) => void): number;
+  stopGameLoop(loopId: number): void;
+  
+  // Collision detection
+  checkRectCollision(rect1, rect2): boolean;
+  checkCircleCollision(circle1, circle2): boolean;
+  
+  // Physics helpers
+  applyGravity(velocity, gravity, deltaTime): number;
+  applyFriction(velocity, friction): number;
+  
+  // Mobile detection
+  isMobileDevice(): boolean;
+  isTouchDevice(): boolean;
+  
+  // Canvas helpers
+  getResponsiveCanvasSize(container: HTMLElement): {width, height};
+  scaleCanvasForRetina(canvas: HTMLCanvasElement): void;
+}
+```
+
+**KeyboardService** - Handle keyboard input:
+```typescript
+@Injectable({ providedIn: 'root' })
+export class KeyboardService {
+  keysPressed: Set<string>;
+  onKeyDown(key: string): void;
+  onKeyUp(key: string): void;
+  isPressed(key: string): boolean;
+  clearAll(): void;
+}
+```
+
+**TouchControlsComponent** - Reusable mobile controls:
+```typescript
+@Component({
+  selector: 'app-touch-controls',
+  // Virtual joystick, buttons, swipe detection
+})
+export class TouchControlsComponent {
+  @Output() directionChange = new EventEmitter<{x, y}>();
+  @Output() jump = new EventEmitter<void>();
+  @Output() action = new EventEmitter<void>();
+  
+  // Renders on-screen controls for mobile
+  // Hidden on desktop (CSS media queries)
+}
+```
+
+**BaseGameComponent** - Common game features:
+- Canvas rendering setup with responsive sizing
+- Pause/resume functionality
+- Restart game logic
+- Timer display
+- Completion handling
+- **Mobile touch controls integration**
+- **Auto-detect device type** and show appropriate controls
+- FPS counter (debug mode)
+
+### Sprite Asset Structure
+
+```
+src/assets/sprites/
+├── player.png          # Shared player character (already added)
+├── obstacle.png        # Generic obstacle
+├── platform.png        # Platform tile
+├── collectible.png     # Star/ornament
+├── box.png            # Sokoban box
+├── target.png         # Sokoban target
+├── wall.png           # Maze wall
+└── christmas/
+    ├── candy-cane.png
+    ├── snowflake.png
+    ├── tree.png
+    └── gift.png
+```
+
+### Mobile-First Design Principles
+
+**Touch Controls:**
+- Virtual joystick for directional movement
+- Large tap areas (min 44x44px)
+- Swipe gestures for natural interactions
+- Visual feedback on touch (highlight, ripple)
+
+**Responsive Canvas:**
+- Scale to container while maintaining aspect ratio
+- Support both portrait and landscape
+- Retina display optimization
+- Max size constraints for performance
+
+**Performance:**
+- Limit particle effects on mobile
+- Reduce sprite complexity on slower devices
+- Target 60 FPS on modern phones, 30 FPS acceptable fallback
+- Lazy load sprites only when needed
+
+---
+
+### 1. GeometryDash Challenge 🎮
+
+**Concept:** Auto-scrolling obstacle avoider (simplified Geometry Dash)
+
+**Gameplay:**
+- Player character (shared sprite) moves right automatically
+- Press SPACE, click, or **tap screen** to jump
+- Avoid obstacles (candy canes, trees, ice spikes)
+- Collect optional stars for bonus points
+- Reach the finish line to win
+
+**Technical Implementation:**
+- Canvas-based rendering (responsive sizing)
+- Fixed player X position, world scrolls left
+- Gravity + jump physics
+- Obstacle array with positions and types
+- Collision detection (rectangle-based)
+- Christmas theme: snowy background, festive obstacles
+- **Mobile:** Full-screen tap to jump, no extra controls needed
+
+**Config:**
+```typescript
+interface GeometryDashConfig {
+  levelLength: number;        // Distance to finish
+  obstacles: Obstacle[];      // Pre-defined obstacle positions
+  scrollSpeed: number;        // Auto-scroll speed
+  jumpForce: number;          // Jump velocity
+  gravity: number;            // Gravity strength
+}
+```
+
+**Difficulty:** Medium - Requires timing and quick reflexes
+**Mobile Support:** ✅ Excellent - Simple tap controls
+
+---
+
+### 2. Sokoban Challenge 🎮
+
+**Concept:** Classic box-pushing puzzle game
+
+**Gameplay:**
+- Grid-based puzzle (8x8 or 10x10)
+- Push gift boxes onto target spots (X marks)
+- Arrow keys/WASD (desktop) or **swipe gestures** (mobile)
+- Can only push (not pull) boxes
+- Can't push multiple boxes at once
+- Undo button to reverse moves
+- Win when all boxes on targets
+
+**Technical Implementation:**
+- 2D grid state management
+- Arrow key / WASD movement (desktop)
+- **Mobile:** Swipe detection or virtual D-pad
+- Push logic (check adjacent cells)
+- Undo stack (move history)
+- Sprite-based rendering (box.png, target.png, player.png)
+- CSS Grid or Canvas rendering
+- Christmas theme: gift boxes, snowflake targets
+
+**Config:**
+```typescript
+interface SokobanConfig {
+  grid: number[][];          // 0=empty, 1=wall, 2=box, 3=target, 4=player
+  width: number;
+  height: number;
+  minimumMoves?: number;     // Optional par score
+}
+```
+
+**Difficulty:** Medium-Hard - Requires planning and spatial thinking
+**Mobile Support:** ✅ Good - Swipe gestures feel natural
+
+---
+
+### 3. Climber Challenge 🎮
+
+**Concept:** Vertical climbing game
+
+**Gameplay:**
+- Jump between platforms to climb upward
+- Arrow keys to move left/right, SPACE to jump (desktop)
+- **Mobile:** Virtual left/right/jump buttons overlay
+- Some platforms move horizontally
+- Ice platforms (slippery physics)
+- Collectible ornaments (optional)
+- Reach star at the top to win
+- Fall off bottom = restart
+
+**Technical Implementation:**
+- Canvas rendering with camera following player
+- Climber physics (gravity, jump, horizontal movement)
+- Platform collision detection
+- Moving platform logic
+- Christmas theme: snowy platforms, festive background
+- **Mobile:** Touch buttons (left, right, jump) in bottom corners
+- Use shared player sprite
+
+**Config:**
+```typescript
+interface ClimberConfig {
+  platforms: Platform[];     // Position, width, type (static/moving/ice)
+  playerStart: {x, y};
+  goalPosition: {x, y};
+  collectibles?: {x, y}[];
+  worldHeight: number;
+}
+```
+
+**Difficulty:** Medium - Classic climbing controls
+**Mobile Support:** ✅ Good - Virtual buttons work well
+
+---
+
+### 4. Memory Card Challenge 🎮
+
+**Concept:** Advanced Christmas memory matching game
+
+**Gameplay:**
+- Grid of face-down cards (4x4 or 6x6)
+- **Tap/click to flip** two cards
+- Match pairs of Christmas icons
+- Timed challenge or move counter
+- Special power-up cards (peek, hint, freeze timer)
+- Win by matching all pairs
+
+**Technical Implementation:**
+- Card grid state (flipped, matched, type)
+- Flip animation (CSS transform)
+- Match validation logic
+- Timer and move counter
+- Power-up system
+- Christmas theme: ornaments, snowflakes, trees, gifts
+- **Mobile:** Touch-optimized card sizing (larger tap areas)
+- DOM-based (no canvas needed)
+
+**Config:**
+```typescript
+interface MemoryCardConfig {
+  gridSize: number;          // 4 for 4x4, 6 for 6x6
+  cardTypes: string[];       // Icon names or sprite references
+  timeLimit?: number;        // Optional time limit
+  powerUpsEnabled: boolean;
+}
+```
+
+**Difficulty:** Easy-Medium - Accessible but engaging
+**Mobile Support:** ✅ Excellent - Natural touch interaction
+
+---
+
+### 5. Maze Runner Challenge 🎮
+
+**Gameplay:**
+- Control Santa's sleigh with arrow keys
+- Collect presents to grow longer
+- Avoid hitting walls and yourself
+- Snow-covered grid theme
+- Win by collecting X presents (e.g., 10)
+- Optional: speed increases with each gift
+
+**Technical Implementation:**
+- Grid-based movement (tick-based updates)
+- Snake body as array of positions
+- Food spawn logic
+- Collision detection (self, walls)
+- CSS Grid or Canvas rendering
+- Christmas theme: sleigh head, present gifts, icy grid
+
+**Config:**
+```typescript
+interface SnakeConfig {
+  gridWidth: number;
+  gridHeight: number;
+  startingLength: number;
+  targetScore: number;       // Gifts to collect
+  speedIncrease: boolean;    // Speed up over time
+  tickSpeed: number;         // Initial game speed (ms)
+}
+```
+
+**Difficulty:** Easy-Medium - Classic, familiar gameplay
+
+---
+
+### 5. Memory Card Challenge 🎮
+
+**Concept:** Advanced Christmas memory matching game
+
+**Gameplay:**
+- Grid of face-down cards (4x4 or 6x6)
+- Click to flip two cards
+- Match pairs of Christmas icons
+- Timed challenge or move counter
+- Special power-up cards (peek, hint, freeze timer)
+- Win by matching all pairs
+
+**Technical Implementation:**
+- Card grid state (flipped, matched, type)
+- Flip animation (CSS transform)
+- Match validation logic
+- Timer and move counter
+- Power-up system
+- Christmas theme: ornaments, snowflakes, trees, gifts
+
+**Config:**
+```typescript
+interface MemoryCardConfig {
+  gridSize: number;          // 4 for 4x4, 6 for 6x6
+  cardTypes: string[];       // Icon names
+  timeLimit?: number;        // Optional time limit
+  powerUpsEnabled: boolean;
+}
+```
+
+**Difficulty:** Easy-Medium - Accessible but engaging
+**Mobile Support:** ✅ Excellent - Natural touch interaction
+
+---
+
+### 5. Maze Runner Challenge 🎮
+
+**Concept:** Navigate Christmas maze and collect stars
+
+**Gameplay:**
+- Top-down maze view
+- Arrow keys / WASD to move (desktop)
+- **Mobile:** Swipe gestures or virtual joystick
+- Collect 3 stars scattered in maze
+- Optional: Timer for speed challenge
+- Optional: Patrolling obstacles to avoid
+- Christmas decorations as walls/obstacles
+
+**Technical Implementation:**
+- 2D grid-based maze
+- Player movement with collision
+- Star collection tracking
+- Pathfinding for enemies (optional)
+- Canvas or CSS Grid rendering
+- Christmas theme: candy cane walls, snowy paths
+- **Mobile:** Swipe detection or on-screen D-pad
+- Use shared player sprite
+
+**Config:**
+```typescript
+interface MazeConfig {
+  maze: number[][];          // 0=path, 1=wall
+  playerStart: {x, y};
+  stars: {x, y}[];           // Star positions
+  enemies?: {x, y, patrol}[]; // Optional
+  timeLimit?: number;
+}
+```
+
+**Difficulty:** Easy-Medium - Navigation and exploration
+**Mobile Support:** ✅ Good - Swipe controls intuitive
+
+---
+
+## 🎯 5-Game Distribution Across 24 Days
+
+**Recommended Mix:**
+
+**Config:**
+```typescript
+interface MazeConfig {
+  maze: number[][];          // 0=path, 1=wall
+  playerStart: {x, y};
+  stars: {x, y}[];           // Star positions
+  enemies?: {x, y, patrol}[]; // Optional
+  timeLimit?: number;
+}
+```
+
+**Difficulty:** Easy-Medium - Navigation and exploration
+**Mobile Support:** ✅ Good - Swipe controls intuitive
+
+---
+
+## 🎯 5-Game Distribution Across 24 Days
+
+**Recommended Mix:**
+- **19 simple filler challenges** - Quick puzzles (riddles, hangman, word games, quizzes)
+- **5 complex minigames** - Spread throughout for variety and excitement
+
+**Example Distribution:**
+- Day 1: Riddle (easy start)
+- Day 2: Word Scramble
+- Day 3: Mini Quiz
+- Day 4: **Memory Cards** 🎮 (first minigame - accessible)
+- Day 5: Hangman
+- Day 6: Rebus
+- Day 7: Word Search
+- Day 8: **Maze Runner** 🎮 (exploration)
+- Day 9: Riddle
+- Day 10: Mini Quiz
+- Day 11: Word Scramble
+- Day 12: **Sokoban** 🎮 (puzzle challenge)
+- Day 13: Hangman
+- Day 14: Rebus
+- Day 15: Word Search
+- Day 16: **Climber** 🎮 (action builds)
+- Day 17: Riddle
+- Day 18: Mini Quiz
+- Day 19: Word Scramble
+- Day 20: Hangman
+- Day 21: **Geometry Dash** 🎮 (fast-paced finale)
+- Day 22: Rebus
+- Day 23: Word Search
+- Day 24: Mini Quiz or special message
+
+---
+
+## 🎨 Game Design Guidelines
+
+### Visual Consistency
+- All games use Christmas color palette (red, green, gold, white, dark blue)
+- **Shared sprite system** for common elements (player.png, etc.)
+- Consistent UI elements (pause button, restart, timer)
+- Smooth animations and transitions
+- Festive particles and effects
+
+### Controls - **Mobile-First Design**
+- **Desktop:** Keyboard (arrows, WASD, space) + Mouse
+- **Mobile:** Touch controls with on-screen buttons, swipe gestures
+- Always show control instructions (adapt to device)
+- Pause with ESC, P key, or tap pause button
+- **Large touch targets** (min 44x44px)
+- **Visual feedback** on all interactions
+
+### Difficulty Balancing
+- Each game should be beatable in 2-5 minutes
+- Allow retries without penalty
+- Optional "skip" after 3 failed attempts (still get fun fact)
+- Progressive difficulty through the month
+- **Mobile-optimized difficulty** (slightly easier on touch devices)
+
+### Performance
+- Target 60 FPS for all games on desktop
+- Target 30-60 FPS on mobile devices
+- Optimize canvas rendering
+- Limit particle effects on mobile (detect device capability)
+- Efficient collision detection
+- **Lazy load sprites** only when needed
+- **Responsive canvas sizing** (adapt to screen)
+
+### Accessibility
+- Color-blind friendly visuals
+- Keyboard-only playable (desktop)
+- **Touch-only playable (mobile)**
+- Clear visual feedback
+- Adjustable game speed (optional)
+- Screen reader friendly UI text
+
+---
+
+## 🛠️ Implementation Priority
+
+**Start with foundation:**
+1. **SpriteService** - Load and manage shared sprites
+2. **GameService** utilities
+3. **KeyboardService**
+4. **TouchControlsComponent** - Reusable mobile controls
+5. **BaseGameComponent**
+
+**Then build games in this order (easiest to hardest):**
+1. **Memory Cards** - DOM-based, no physics, good mobile test
+2. **Maze Runner** - Grid movement, sprite practice
+3. **Sokoban** - Grid logic, state management
+4. **Geometry Dash** - Physics, auto-scroller
+5. **Climber** - Most complex, combines all concepts
+
+---
+
+## 🎨 Game Design Guidelines
+
+### Visual Consistency
+- All games use Christmas color palette (red, green, gold, white, dark blue)
+- Consistent UI elements (pause button, restart, timer)
+- Smooth animations and transitions
+- Festive particles and effects
+
+### Controls
+- **Desktop:** Keyboard (arrows, WASD, space) + Mouse
+- **Mobile:** Touch controls with on-screen buttons
+- Always show control instructions
+- Pause with ESC or P key
+
+### Difficulty Balancing
+- Each game should be beatable in 2-5 minutes
+- Allow retries without penalty
+- Optional "skip" after 3 failed attempts (still get fun fact)
+- Progressive difficulty through the month
+
+### Performance
+- Target 60 FPS for all games
+- Optimize canvas rendering
+- Limit particle effects on mobile
+- Efficient collision detection
+
+### Accessibility
+- Color-blind friendly visuals
+- Keyboard-only playable
+- Clear visual feedback
+- Adjustable game speed (optional)
+
+---
+
+## 🛠️ Implementation Priority
+
+**Start with foundation:**
+1. GameService utilities
+2. KeyboardService
+3. BaseGameComponent
+
+**Then build games in this order:**
+1. **Snake** - Simplest, good for testing game loop
+2. **Memory Cards** - No physics, DOM-based
+3. **Maze Runner** - Grid movement practice
+4. **Brick Breaker** - Physics practice
+5. **Platformer** - Combines physics + collision
+6. **Geometry Dash** - Auto-scroller mechanics
+7. **Sokoban** - Complex state management
+8. **Tower Defense** - Most complex, build last
+
+---
 
 #### RebusChallengeComponent
 - [ ] Display rebus images/symbols
@@ -567,29 +1208,29 @@ export class CalendarStateService {
 ```typescript
 export const CALENDAR_DAYS: CalendarDayConfig[] = [
   { day: 1, challengeType: 'riddle', funFactKey: 'funFacts.day1' },
-  { day: 2, challengeType: 'hangman', funFactKey: 'funFacts.day2' },
-  { day: 3, challengeType: 'wordScramble', funFactKey: 'funFacts.day3' },
-  { day: 4, challengeType: 'miniQuiz', funFactKey: 'funFacts.day4' },
-  { day: 5, challengeType: 'riddle', funFactKey: 'funFacts.day5' },
+  { day: 2, challengeType: 'wordScramble', funFactKey: 'funFacts.day2' },
+  { day: 3, challengeType: 'miniQuiz', funFactKey: 'funFacts.day3' },
+  { day: 4, challengeType: 'memoryCard', funFactKey: 'funFacts.day4' },
+  { day: 5, challengeType: 'hangman', funFactKey: 'funFacts.day5' },
   { day: 6, challengeType: 'rebus', funFactKey: 'funFacts.day6' },
   { day: 7, challengeType: 'wordSearch', funFactKey: 'funFacts.day7' },
-  { day: 8, challengeType: 'hangman', funFactKey: 'funFacts.day8' },
-  { day: 9, challengeType: 'miniQuiz', funFactKey: 'funFacts.day9' },
-  { day: 10, challengeType: 'spotTheDifference', funFactKey: 'funFacts.day10' },
-  { day: 11, challengeType: 'riddle', funFactKey: 'funFacts.day11' },
-  { day: 12, challengeType: 'wordScramble', funFactKey: 'funFacts.day12' },
-  { day: 13, challengeType: 'rebus', funFactKey: 'funFacts.day13' },
-  { day: 14, challengeType: 'hangman', funFactKey: 'funFacts.day14' },
-  { day: 15, challengeType: 'miniQuiz', funFactKey: 'funFacts.day15' },
-  { day: 16, challengeType: 'wordSearch', funFactKey: 'funFacts.day16' },
+  { day: 8, challengeType: 'mazeRunner', funFactKey: 'funFacts.day8' },
+  { day: 9, challengeType: 'riddle', funFactKey: 'funFacts.day9' },
+  { day: 10, challengeType: 'miniQuiz', funFactKey: 'funFacts.day10' },
+  { day: 11, challengeType: 'wordScramble', funFactKey: 'funFacts.day11' },
+  { day: 12, challengeType: 'sokoban', funFactKey: 'funFacts.day12' },
+  { day: 13, challengeType: 'hangman', funFactKey: 'funFacts.day13' },
+  { day: 14, challengeType: 'rebus', funFactKey: 'funFacts.day14' },
+  { day: 15, challengeType: 'wordSearch', funFactKey: 'funFacts.day15' },
+  { day: 16, challengeType: 'climber', funFactKey: 'funFacts.day16' },
   { day: 17, challengeType: 'riddle', funFactKey: 'funFacts.day17' },
-  { day: 18, challengeType: 'spotTheDifference', funFactKey: 'funFacts.day18' },
+  { day: 18, challengeType: 'miniQuiz', funFactKey: 'funFacts.day18' },
   { day: 19, challengeType: 'wordScramble', funFactKey: 'funFacts.day19' },
   { day: 20, challengeType: 'hangman', funFactKey: 'funFacts.day20' },
-  { day: 21, challengeType: 'rebus', funFactKey: 'funFacts.day21' },
-  { day: 22, challengeType: 'miniQuiz', funFactKey: 'funFacts.day22' },
+  { day: 21, challengeType: 'geometryDash', funFactKey: 'funFacts.day21' },
+  { day: 22, challengeType: 'rebus', funFactKey: 'funFacts.day22' },
   { day: 23, challengeType: 'wordSearch', funFactKey: 'funFacts.day23' },
-  { day: 24, challengeType: 'riddle', funFactKey: 'funFacts.day24' },
+  { day: 24, challengeType: 'miniQuiz', funFactKey: 'funFacts.day24' }, // Special finale message
 ];
 ```
 
@@ -720,7 +1361,13 @@ ng build --configuration production
 - **Quizzes:** Company trivia, tech knowledge, Christmas facts
 - **Rebus:** Office locations, team mottos
 - **Word Search:** Technologies used, team member names (with permission)
-- **Spot the Difference:** Office photos, product screenshots
+
+**Minigame Themes:**
+- **Memory Cards:** Match team members, office locations, or product icons
+- **Maze Runner:** Navigate through "Jambiz HQ" themed maze
+- **Sokoban:** Organize "project deliverables" puzzle
+- **Climber:** Climb "career ladder" or "project timeline"
+- **Geometry Dash:** Obstacle course representing company journey
 
 ---
 
@@ -728,23 +1375,38 @@ ng build --configuration production
 
 ### Component Generation Commands
 ```bash
-ng g c components/calendar
-ng g c components/day-tile
-ng g c components/challenge-host
-ng g c components/fun-fact-reveal
+# Simple challenges (already created)
 ng g c components/challenges/riddle-challenge
 ng g c components/challenges/hangman-challenge
-# ... etc
-ng g s services/calendar-state
+ng g c components/challenges/word-scramble-challenge
+ng g c components/challenges/word-search-challenge
+ng g c components/challenges/rebus-challenge
+ng g c components/challenges/mini-quiz-challenge
+
+# Complex minigames
+ng g c components/challenges/memory-card-challenge
+ng g c components/challenges/maze-runner-challenge
+ng g c components/challenges/sokoban-challenge
+ng g c components/challenges/climber-challenge
+ng g c components/challenges/geometry-dash-challenge
+
+# Shared services
+ng g s services/sprite
+ng g s services/game
+ng g s services/keyboard
+
+# Shared component
+ng g c components/shared/touch-controls
 ```
 
 ### Development Workflow
-1. Start with basic layout and navigation
-2. Implement one challenge type completely (e.g., riddle)
-3. Test the full flow: select day → complete challenge → see fun fact → close
-4. Expand to other challenge types
-5. Add real content iteratively
-6. Polish and refine
+1. Build shared game infrastructure first (GameService, KeyboardService)
+2. Start with simplest minigame (Snake) to test game loop
+3. Build minigames in order of complexity
+4. Test each game thoroughly before moving to next
+5. Add real Jambiz-themed content and fun facts
+6. Polish animations and transitions
+7. Optimize performance
 
 ### Testing Locally
 - Use `ng serve` for hot reload
@@ -767,15 +1429,17 @@ If you add analytics later:
 
 ## 🎄 Nice-to-Have Enhancements (Future)
 
-- [ ] Sound effects (toggle-able)
-- [ ] Snow animation background
+- [x] Snow animation background (already implemented!)
+- [ ] Sound effects for games (toggle-able)
+- [ ] Background music (Christmas theme, mute option)
 - [ ] Share completion on social media
-- [ ] Leaderboard (requires backend)
+- [ ] Leaderboard for minigame scores (requires backend)
 - [ ] Daily unlock (only show today's challenge)
 - [ ] Easter eggs in certain challenges
-- [ ] Dark/light mode toggle (already dark by default)
-- [ ] Print-friendly version
+- [ ] Achievements/badges system
+- [ ] Game stats tracking (best times, high scores)
 - [ ] Download certificate when all 24 completed
+- [ ] Confetti animation on challenge completion
 
 ---
 
@@ -786,6 +1450,8 @@ If you add analytics later:
 - [ngx-translate GitHub](https://github.com/ngx-translate/core)
 - [Lucide Icons](https://lucide.dev/)
 - [CSS Variables Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
+- [HTML Canvas Tutorial](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial)
+- [Game Loop Pattern](https://gameprogrammingpatterns.com/game-loop.html)
 
 ---
 
@@ -801,6 +1467,12 @@ If you add analytics later:
 - No server costs
 - Instant load times
 - Perfect for a fun internal tool
+
+### Why Canvas for minigames?
+- Better performance for animations and game loops
+- Easier collision detection and physics
+- Smoother 60 FPS rendering
+- Fallback to DOM for simpler games (Memory Cards, Sokoban)
 
 ### Why ngx-translate instead of Angular i18n?
 - Runtime language switching (no separate builds)

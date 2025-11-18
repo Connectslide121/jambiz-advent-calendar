@@ -14,7 +14,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CalendarDayConfig } from '../../models/calendar.models';
 import { FunFactReveal } from '../fun-fact-reveal/fun-fact-reveal';
 import { RiddleChallenge } from '../challenges/riddle-challenge/riddle-challenge';
-import { MiniQuizChallenge } from '../challenges/mini-quiz-challenge/mini-quiz-challenge';
 import { WordScrambleChallenge } from '../challenges/word-scramble-challenge/word-scramble-challenge';
 import { HangmanChallenge } from '../challenges/hangman-challenge/hangman-challenge';
 import { WordSearchChallenge } from '../challenges/word-search-challenge/word-search-challenge';
@@ -54,9 +53,6 @@ export class ChallengeHost implements OnInit {
     switch (this.dayConfig.challengeType) {
       case 'riddle':
         componentType = RiddleChallenge;
-        break;
-      case 'miniQuiz':
-        componentType = MiniQuizChallenge;
         break;
       case 'wordScramble':
         componentType = WordScrambleChallenge;

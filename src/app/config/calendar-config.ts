@@ -35,17 +35,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 4,
-    challengeType: 'miniQuiz',
     funFactKey: 'funFacts.day4',
-    challengeData: {
-      questionKey: 'challenges.miniQuiz.day4.question',
-      options: [
-        { textKey: 'challenges.miniQuiz.day4.option1', isCorrect: false },
-        { textKey: 'challenges.miniQuiz.day4.option2', isCorrect: true },
-        { textKey: 'challenges.miniQuiz.day4.option3', isCorrect: false },
-        { textKey: 'challenges.miniQuiz.day4.option4', isCorrect: false },
-      ],
-    },
   },
   {
     day: 5,
@@ -54,6 +44,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
     challengeData: {
       riddleKey: 'challenges.riddle.day5.question',
       answerKey: ['christmas tree', 'julgran', 'gran'],
+      hintKey: 'challenges.riddle.day5.hint',
     },
   },
   {
@@ -106,26 +97,21 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 9,
-    challengeType: 'miniQuiz',
     funFactKey: 'funFacts.day9',
+  },
+  {
+    day: 10,
+    challengeType: 'riddle',
+    funFactKey: 'funFacts.day10',
     challengeData: {
-      questionKey: 'challenges.miniQuiz.day9.question',
-      options: [
-        { textKey: 'challenges.miniQuiz.day9.option1', isCorrect: true },
-        { textKey: 'challenges.miniQuiz.day9.option2', isCorrect: false },
-        { textKey: 'challenges.miniQuiz.day9.option3', isCorrect: false },
-      ],
+      riddleKey: 'challenges.riddle.day10.question',
+      answerKey: ['snow', 'snö'],
+      hintKey: 'challenges.riddle.day10.hint',
     },
   },
-  { day: 10, challengeType: 'spotTheDifference', funFactKey: 'funFacts.day10' },
   {
     day: 11,
-    challengeType: 'riddle',
     funFactKey: 'funFacts.day11',
-    challengeData: {
-      riddleKey: 'challenges.riddle.day11.question',
-      answerKey: ['frostbite', 'frostbett', 'köldskada'],
-    },
   },
   {
     day: 12,
@@ -161,16 +147,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 15,
-    challengeType: 'miniQuiz',
     funFactKey: 'funFacts.day15',
-    challengeData: {
-      questionKey: 'challenges.miniQuiz.day15.question',
-      options: [
-        { textKey: 'challenges.miniQuiz.day15.option1', isCorrect: false },
-        { textKey: 'challenges.miniQuiz.day15.option2', isCorrect: false },
-        { textKey: 'challenges.miniQuiz.day15.option3', isCorrect: true },
-      ],
-    },
   },
   {
     day: 16,
@@ -213,7 +190,10 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
       hintKey: 'challenges.riddle.day17.hint',
     },
   },
-  { day: 18, challengeType: 'spotTheDifference', funFactKey: 'funFacts.day18' },
+  {
+    day: 18,
+    funFactKey: 'funFacts.day18',
+  },
   {
     day: 19,
     challengeType: 'wordScramble',
@@ -248,17 +228,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 22,
-    challengeType: 'miniQuiz',
     funFactKey: 'funFacts.day22',
-    challengeData: {
-      questionKey: 'challenges.miniQuiz.day22.question',
-      options: [
-        { textKey: 'challenges.miniQuiz.day22.option1', isCorrect: true },
-        { textKey: 'challenges.miniQuiz.day22.option2', isCorrect: false },
-        { textKey: 'challenges.miniQuiz.day22.option3', isCorrect: false },
-        { textKey: 'challenges.miniQuiz.day22.option4', isCorrect: false },
-      ],
-    },
   },
   {
     day: 23,

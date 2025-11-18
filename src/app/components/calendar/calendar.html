@@ -3,8 +3,12 @@
   <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
     @for (dayConfig of calendarDays; track dayConfig.day) {
     <button
-      class="day-tile card relative overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl"
+      class="day-tile card relative overflow-hidden transition-all duration-300"
       [class.completed]="isDayCompleted(dayConfig.day)"
+      [class.unpopulated]="!dayConfig.challengeType"
+      [class.hover:scale-105]="dayConfig.challengeType"
+      [class.hover:shadow-xl]="dayConfig.challengeType"
+      [disabled]="!dayConfig.challengeType"
       (click)="onDaySelected(dayConfig)"
       [attr.aria-label]="'Day ' + dayConfig.day"
     >
@@ -12,6 +16,13 @@
       <div class="day-number text-2xl sm:text-3xl lg:text-4xl font-bold text-gold mb-2">
         {{ dayConfig.day }}
       </div>
+
+      <!-- Coming Soon Indicator -->
+      @if (!dayConfig.challengeType) {
+      <div class="text-xs sm:text-sm text-text-muted opacity-70 mt-1">
+        {{ 'calendar.comingSoon' | translate }}
+      </div>
+      }
 
       <!-- Completion Indicator -->
       @if (isDayCompleted(dayConfig.day)) {

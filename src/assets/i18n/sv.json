@@ -11,7 +11,8 @@
     "dayLabel": "Dag {{day}}",
     "completed": "Klar",
     "locked": "Låst",
-    "completedCount": "{{count}} av 24 klara"
+    "completedCount": "{{count}} av 24 klara",
+    "comingSoon": "Kommer snart"
   },
   "challenges": {
     "success": {
@@ -33,10 +34,16 @@
         "hint": "Du tänder mig under firanden och strömavbrott."
       },
       "day5": {
-        "question": "Jag har grenar, men ingen frukt, stam eller löv. Vad är jag?"
+        "question": "Jag har grenar, men ingen frukt, stam eller löv. Vad är jag?",
+        "hint": "Du dekorerar mig under julen"
+      },
+      "day10": {
+        "question": "Jag är vit, jag är kall, jag faller från himlen, och barn älskar att leka i mig. Vad är jag?",
+        "hint": "Man kan bygga en snögubbe av mig"
       },
       "day11": {
-        "question": "Vad får man om man korsar en snögubbe med en vampyr?"
+        "question": "Vad får man om man korsar en snögubbe med en vampyr?",
+        "hint": "Tänk kallt och bitigt!"
       },
       "day17": {
         "question": "Jag hänger från taket och är gjord av fruset vatten. Vad är jag?",
@@ -161,6 +168,12 @@
         "option1": "24 december",
         "option2": "26 december",
         "option3": "25 december"
+      },
+      "day18": {
+        "question": "Vilka är de traditionella julfärgerna?",
+        "option1": "Blått och silver",
+        "option2": "Rött och grönt",
+        "option3": "Guld och vitt"
       },
       "day22": {
         "question": "Vad brukar barn ställa fram åt jultomten på julafton?",

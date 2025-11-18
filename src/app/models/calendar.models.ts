@@ -1,15 +1,20 @@
 ﻿export type ChallengeType =
+  // Simple filler challenges
   | 'riddle'
   | 'hangman'
   | 'wordScramble'
   | 'wordSearch'
-  | 'spotTheDifference'
   | 'rebus'
-  | 'miniQuiz';
+  // Complex minigames (all mobile-friendly)
+  | 'geometryDash'
+  | 'sokoban'
+  | 'climber'
+  | 'memoryCard'
+  | 'mazeRunner';
 
 export interface CalendarDayConfig {
   day: number;
-  challengeType: ChallengeType;
+  challengeType?: ChallengeType; // Optional for unpopulated days
   funFactKey: string;
   challengeData?: any; // Type varies by challenge type
 }
