@@ -491,7 +491,7 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
 
     // Keep left margin at 20, but reduce width to prevent overflow on the right
     const barX = this.isMobile ? 10 : 20;
-    const barRightMargin = this.isMobile ? 300 : 20;
+    const barRightMargin = this.isMobile ? 350 : 20;
     const barWidth = this.canvas.width - barX - barRightMargin;
     const barHeight = 10;
     const barY = this.isMobile ? 10 : 20;

@@ -1,0 +1,15 @@
+.flappy-sleigh-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.canvas-container {
+  position: relative;
+  aspect-ratio: 16 / 9;
+
+  canvas {
+    display: block;
+    touch-action: none;
+  }
+}

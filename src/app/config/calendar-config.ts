@@ -44,12 +44,15 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 5,
-    challengeType: 'riddle',
+    challengeType: 'flappySleigh',
     funFactKey: 'funFacts.day5',
     challengeData: {
-      riddleKey: 'challenges.riddle.day5.question',
-      answerKey: ['christmas tree', 'julgran', 'gran'],
-      hintKey: 'challenges.riddle.day5.hint',
+      levelLength: 3200,
+      scrollSpeed: 200,
+      flapForce: 350,
+      gravity: 800,
+      gapSize: 150,
+      obstacleFrequency: 320,
     },
   },
   {

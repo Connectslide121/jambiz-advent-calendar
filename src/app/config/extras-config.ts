@@ -468,4 +468,53 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
       },
     ],
   },
+
+  // Flappy Sleigh Extras
+  {
+    type: 'flappySleigh',
+    levels: [
+      {
+        id: 'extra-flappy-1',
+        nameKey: 'extras.games.flappySleigh.levels.extra-flappy-1.name',
+        descriptionKey: 'extras.games.flappySleigh.levels.extra-flappy-1.description',
+        challengeType: 'flappySleigh',
+        challengeData: {
+          levelLength: 3000,
+          scrollSpeed: 180,
+          flapForce: 350,
+          gravity: 800,
+          gapSize: 170,
+          obstacleFrequency: 380,
+        },
+      },
+      {
+        id: 'extra-flappy-2',
+        nameKey: 'extras.games.flappySleigh.levels.extra-flappy-2.name',
+        descriptionKey: 'extras.games.flappySleigh.levels.extra-flappy-2.description',
+        challengeType: 'flappySleigh',
+        challengeData: {
+          levelLength: 4500,
+          scrollSpeed: 220,
+          flapForce: 350,
+          gravity: 850,
+          gapSize: 140,
+          obstacleFrequency: 300,
+        },
+      },
+      {
+        id: 'extra-flappy-3',
+        nameKey: 'extras.games.flappySleigh.levels.extra-flappy-3.name',
+        descriptionKey: 'extras.games.flappySleigh.levels.extra-flappy-3.description',
+        challengeType: 'flappySleigh',
+        challengeData: {
+          levelLength: 6000,
+          scrollSpeed: 250,
+          flapForce: 370,
+          gravity: 900,
+          gapSize: 130,
+          obstacleFrequency: 280,
+        },
+      },
+    ],
+  },
 ];

@@ -163,6 +163,17 @@
       "victory": "Du klarade det!",
       "showFunFact": "Visa Rolig Fakta"
     },
+    "flappySleigh": {
+      "title": "Flappy Släde",
+      "instruction": "Tryck eller använd MELLANSLAG för att flyga! Undvik polkagrisarna och nå julgranen!",
+      "controlsDesktop": "Tryck MELLANSLAG, UPP-pil, eller klicka för att flyga",
+      "controlsMobile": "Tryck var som helst för att flyga",
+      "flapButton": "FLY!",
+      "start": "Starta Spel",
+      "crashed": "Aj! Du krockade!",
+      "victory": "Du nådde granen!",
+      "showFunFact": "Visa Rolig Fakta"
+    },
     "sokoban": {
       "title": "Presentpussel",
       "instruction": "Skjut alla presenter till julgranen för att vinna!",
@@ -423,6 +434,23 @@
           "extra-wordsearch-3": {
             "name": "Svår sökning",
             "description": "11x12 rutnät - ultimat utmaning"
+          }
+        }
+      },
+      "flappySleigh": {
+        "title": "Flappy Släde",
+        "levels": {
+          "extra-flappy-1": {
+            "name": "Lätt flygning",
+            "description": "Lugnt tempo, större mellanrum"
+          },
+          "extra-flappy-2": {
+            "name": "Medel flygning",
+            "description": "Snabbare fart, trängre mellanrum"
+          },
+          "extra-flappy-3": {
+            "name": "Expert flygning",
+            "description": "Maximal utmaning!"
           }
         }
       }

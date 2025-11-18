@@ -10,7 +10,8 @@
   | 'sokoban'
   | 'climber'
   | 'memoryCard'
-  | 'mazeRunner';
+  | 'mazeRunner'
+  | 'flappySleigh';
 
 export interface CalendarDayConfig {
   day: number;

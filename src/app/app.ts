@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Calendar } from './components/calendar/calendar';
 import { ChallengeHost } from './components/challenge-host/challenge-host';
 import { EXTRA_LEVELS, ExtraGameSection, ExtraLevel } from './config/extras-config';
-import { CalendarDayConfig } from './models/calendar.models';
+import { CalendarDayConfig, ChallengeType } from './models/calendar.models';
 import { LucideAngularModule, X, ArrowLeft, Check, CheckCheck, XCircle } from 'lucide-angular';
 import { CalendarStateService } from './services/calendar-state.service';
 
@@ -127,6 +127,7 @@ export class App implements OnInit {
       sokoban: '🎁',
       climber: '🧗',
       mazeRunner: '🏃',
+      flappySleigh: '🛷',
     };
     return icons[gameType] || '🎁';
   }

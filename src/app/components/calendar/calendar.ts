@@ -30,6 +30,7 @@ export class Calendar implements OnInit {
     sokoban: '🎁',
     climber: '🧗',
     mazeRunner: '🏃',
+    flappySleigh: '🛷',
   };
 
   constructor(public stateService: CalendarStateService) {}
