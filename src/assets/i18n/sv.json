@@ -50,9 +50,29 @@
     "hangman": {
       "title": "Hänga gubbe",
       "instruction": "Gissa ordet!",
-      "wrongGuesses": "Felgissningar: {{count}}",
+      "clue": "Ledråd:",
+      "wrongGuesses": "Felgissningar: {{count}} / {{max}}",
       "youWin": "Du vann!",
-      "youLose": "Game over!"
+      "youLose": "Game over!",
+      "theWordWas": "Ordet var",
+      "tryAgain": "Försök igen",
+      "showFunFact": "Visa rolig fakta",
+      "day2": {
+        "clue": "En växt förknippad med julpussar",
+        "hint": "Du hänger den i dörröppningar under helgerna"
+      },
+      "day8": {
+        "clue": "Hänger vid skorstenen med omsorg",
+        "hint": "Tomten fyller den med godsaker och presenter"
+      },
+      "day14": {
+        "clue": "Tomtens fordon för snöiga leveranser",
+        "hint": "Dragen av renar över himlen"
+      },
+      "day20": {
+        "clue": "En soldat som knäcker nötter i en berömd balett",
+        "hint": "Medverkar i Tjajkovskijs berömda julbalett"
+      }
     },
     "wordScramble": {
       "title": "Ordpussel",
@@ -71,16 +91,21 @@
         "hint": "Det används ofta för att beskriva vinternederbörd"
       },
       "day12": {
-        "clue": "Tomtens släddragande djur"
+        "clue": "Tomtens släddragande djur",
+        "hint": "Rudolf är en av dessa"
       },
       "day19": {
-        "clue": "En kryddad kaka som ofta formas som en person"
+        "clue": "En kryddad kaka ofta formad som en person",
+        "hint": "Ofta dekorerad med glasyr och godis"
       }
     },
     "wordSearch": {
       "title": "Ordsök",
-      "instruction": "Hitta alla ord!",
-      "wordsFound": "{{found}} av {{total}} ord hittade"
+      "instruction": "Hitta alla ord i rutnätet!",
+      "wordsToFind": "Ord att hitta:",
+      "wordsFound": "{{found}} av {{total}} ord hittade",
+      "allFound": "Alla ord hittade!",
+      "showFunFact": "Visa rolig fakta"
     },
     "spotTheDifference": {
       "title": "Hitta skillnaderna",
@@ -90,7 +115,25 @@
     "rebus": {
       "title": "Rebus",
       "instruction": "Lös rebuset!",
-      "placeholder": "Ditt svar..."
+      "answerLabel": "Ditt svar:",
+      "placeholder": "Skriv ditt svar här...",
+      "submit": "Skicka svar",
+      "showFunFact": "Visa rolig fakta",
+      "incorrect": "Inte riktigt rätt. Försök igen!",
+      "showHint": "Visa ledråd",
+      "hideHint": "Dölj ledråd",
+      "day6": {
+        "puzzle": "❄️ + 👨",
+        "hint": "En frostig vän med morotsnäsa"
+      },
+      "day13": {
+        "puzzle": "🎄 + 🎁",
+        "hint": "Den mest underbara tiden på året"
+      },
+      "day21": {
+        "puzzle": "❄️ + ⛷️",
+        "hint": "Den kallaste årstiden"
+      }
     },
     "miniQuiz": {
       "title": "Minifrågesport",
@@ -159,6 +202,8 @@
     "close": "Stäng",
     "continue": "Fortsätt",
     "reset": "Återställ",
-    "tryAgain": "Försök igen"
+    "tryAgain": "Försök igen",
+    "showHint": "Visa Tips",
+    "hideHint": "Dölj Tips"
   }
 }

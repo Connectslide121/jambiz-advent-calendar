@@ -1,0 +1,247 @@
+<div class="hangman-container">
+  <!-- Title -->
+  <h3 class="text-xl sm:text-2xl font-bold text-gold mb-3 sm:mb-4 text-center">
+    🎅 {{ 'challenges.hangman.title' | translate }} 🎅
+  </h3>
+
+  <!-- Clue -->
+  <div class="bg-bg rounded-lg p-3 sm:p-4 mb-3 sm:mb-4">
+    <p class="text-sm text-text-muted mb-1 text-center">
+      {{ 'challenges.hangman.clue' | translate }}
+    </p>
+    <p class="text-lg sm:text-xl text-text text-center italic">
+      {{ config.clueKey | translate }}
+    </p>
+  </div>
+
+  <!-- Hint Section -->
+  @if (config.hintKey && !isGameOver) {
+  <div class="mb-3 sm:mb-4 flex flex-col items-center gap-2">
+    <button
+      class="btn btn-outline flex items-center gap-2 text-xs sm:text-sm px-3 py-1.5"
+      (click)="toggleHint()"
+    >
+      <lucide-icon
+        [img]="showHint ? LightbulbOffIcon : LightbulbIcon"
+        class="w-4 h-4"
+      ></lucide-icon>
+      {{ (showHint ? 'ui.hideHint' : 'ui.showHint') | translate }}
+    </button>
+    @if (showHint) {
+    <div class="bg-accent-green bg-opacity-20 border border-accent-green rounded-lg p-3 w-full">
+      <p class="text-text text-center text-sm">💡 {{ config.hintKey | translate }}</p>
+    </div>
+    }
+  </div>
+  }
+
+  <!-- Hangman Visual -->
+  <div class="flex justify-center mb-3 sm:mb-4">
+    <div class="relative w-32 h-32 sm:w-56 sm:h-56">
+      <!-- Gallows -->
+      <svg viewBox="0 0 200 200" class="w-full h-full">
+        <!-- Base -->
+        <line
+          x1="10"
+          y1="190"
+          x2="100"
+          y2="190"
+          stroke="currentColor"
+          stroke-width="4"
+          class="text-text-muted"
+        />
+        <!-- Pole -->
+        <line
+          x1="50"
+          y1="190"
+          x2="50"
+          y2="20"
+          stroke="currentColor"
+          stroke-width="4"
+          class="text-text-muted"
+        />
+        <!-- Top -->
+        <line
+          x1="50"
+          y1="20"
+          x2="130"
+          y2="20"
+          stroke="currentColor"
+          stroke-width="4"
+          class="text-text-muted"
+        />
+        <!-- Rope -->
+        <line
+          x1="130"
+          y1="20"
+          x2="130"
+          y2="40"
+          stroke="currentColor"
+          stroke-width="3"
+          class="text-text-muted"
+        />
+
+        <!-- Head -->
+        @if (wrongGuesses >= 1) {
+        <circle
+          cx="130"
+          cy="55"
+          r="15"
+          stroke="currentColor"
+          stroke-width="3"
+          fill="none"
+          class="text-accent-red"
+        />
+        }
+
+        <!-- Body -->
+        @if (wrongGuesses >= 2) {
+        <line
+          x1="130"
+          y1="70"
+          x2="130"
+          y2="120"
+          stroke="currentColor"
+          stroke-width="3"
+          class="text-accent-red"
+        />
+        }
+
+        <!-- Left arm -->
+        @if (wrongGuesses >= 3) {
+        <line
+          x1="130"
+          y1="85"
+          x2="110"
+          y2="105"
+          stroke="currentColor"
+          stroke-width="3"
+          class="text-accent-red"
+        />
+        }
+
+        <!-- Right arm -->
+        @if (wrongGuesses >= 4) {
+        <line
+          x1="130"
+          y1="85"
+          x2="150"
+          y2="105"
+          stroke="currentColor"
+          stroke-width="3"
+          class="text-accent-red"
+        />
+        }
+
+        <!-- Left leg -->
+        @if (wrongGuesses >= 5) {
+        <line
+          x1="130"
+          y1="120"
+          x2="110"
+          y2="150"
+          stroke="currentColor"
+          stroke-width="3"
+          class="text-accent-red"
+        />
+        }
+
+        <!-- Right leg -->
+        @if (wrongGuesses >= 6) {
+        <line
+          x1="130"
+          y1="120"
+          x2="150"
+          y2="150"
+          stroke="currentColor"
+          stroke-width="3"
+          class="text-accent-red"
+        />
+        }
+      </svg>
+    </div>
+  </div>
+
+  <!-- Wrong guesses counter -->
+  <div class="text-center mb-3 sm:mb-4">
+    <p class="text-text-muted text-sm sm:text-base">
+      {{
+        'challenges.hangman.wrongGuesses'
+          | translate : { count: wrongGuesses, max: maxWrongGuesses }
+      }}
+    </p>
+  </div>
+
+  <!-- Word Display -->
+  <div class="bg-surface border-2 border-gold rounded-lg p-4 sm:p-6 mb-3 sm:mb-4">
+    <div class="flex items-center justify-center gap-2 flex-wrap">
+      @for (char of displayWord.split(''); track $index) { @if (char === ' ') {
+      <div class="w-4"></div>
+      } @else {
+      <div
+        class="w-10 h-12 sm:w-12 sm:h-14 flex items-center justify-center border-b-4 border-gold text-2xl sm:text-3xl font-bold text-text uppercase"
+      >
+        {{ char }}
+      </div>
+      } }
+    </div>
+  </div>
+
+  <!-- Game Status Messages -->
+  @if (isWon) {
+  <div
+    class="mb-3 sm:mb-4 p-3 sm:p-4 bg-accent-green bg-opacity-20 border border-accent-green rounded-lg"
+  >
+    <p class="text-text text-center text-lg font-semibold">
+      🎉🎄 {{ 'challenges.hangman.youWin' | translate }} 🎄🎉
+    </p>
+  </div>
+  } @else if (isLost) {
+  <div
+    class="mb-3 sm:mb-4 p-3 sm:p-4 bg-accent-red bg-opacity-20 border border-accent-red rounded-lg"
+  >
+    <p class="text-text text-center text-lg font-semibold">
+      ❌ {{ 'challenges.hangman.youLose' | translate }}
+    </p>
+    <p class="text-text-muted text-center text-sm mt-2">
+      {{ 'challenges.hangman.theWordWas' | translate }}:
+      <span class="text-gold font-bold">{{ currentWord }}</span>
+    </p>
+  </div>
+  }
+
+  <!-- Letter Buttons -->
+  @if (!isGameOver) {
+  <div class="grid grid-cols-7 gap-1.5 sm:gap-2 mb-3 sm:mb-4">
+    @for (letter of alphabet; track letter) {
+    <button
+      class="btn p-1.5 sm:p-3 text-xs sm:text-base font-bold transition-all"
+      [class.btn-outline]="!isLetterGuessed(letter)"
+      [class.bg-accent-green]="isLetterCorrect(letter)"
+      [class.text-white]="isLetterCorrect(letter)"
+      [class.border-accent-green]="isLetterCorrect(letter)"
+      [class.bg-accent-red]="isLetterWrong(letter)"
+      [class.border-accent-red]="isLetterWrong(letter)"
+      [class.opacity-50]="isLetterGuessed(letter)"
+      [disabled]="isLetterGuessed(letter)"
+      (click)="guessLetter(letter)"
+    >
+      {{ letter }}
+    </button>
+    }
+  </div>
+  }
+
+  <!-- Action Buttons -->
+  <div class="text-center flex gap-3 justify-center">
+    @if (isLost) {
+    <button class="btn btn-secondary px-8" (click)="reset()">
+      {{ 'challenges.hangman.tryAgain' | translate }}
+    </button>
+    } @if (isCompleted && !isGameOver) {
+    <button class="btn btn-primary px-8" (click)="showAnswer()">
+      {{ 'challenges.hangman.showFunFact' | translate }}
+    </button>
+    }
+  </div>
+</div>

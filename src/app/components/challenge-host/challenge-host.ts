@@ -10,15 +10,19 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, X } from 'lucide-angular';
+import { TranslateModule } from '@ngx-translate/core';
 import { CalendarDayConfig } from '../../models/calendar.models';
 import { FunFactReveal } from '../fun-fact-reveal/fun-fact-reveal';
 import { RiddleChallenge } from '../challenges/riddle-challenge/riddle-challenge';
 import { MiniQuizChallenge } from '../challenges/mini-quiz-challenge/mini-quiz-challenge';
 import { WordScrambleChallenge } from '../challenges/word-scramble-challenge/word-scramble-challenge';
+import { HangmanChallenge } from '../challenges/hangman-challenge/hangman-challenge';
+import { WordSearchChallenge } from '../challenges/word-search-challenge/word-search-challenge';
+import { RebusChallenge } from '../challenges/rebus-challenge/rebus-challenge';
 
 @Component({
   selector: 'app-challenge-host',
-  imports: [CommonModule, LucideAngularModule, FunFactReveal],
+  imports: [CommonModule, LucideAngularModule, TranslateModule, FunFactReveal],
   templateUrl: './challenge-host.html',
   styleUrl: './challenge-host.scss',
 })
@@ -56,6 +60,15 @@ export class ChallengeHost implements OnInit {
         break;
       case 'wordScramble':
         componentType = WordScrambleChallenge;
+        break;
+      case 'hangman':
+        componentType = HangmanChallenge;
+        break;
+      case 'wordSearch':
+        componentType = WordSearchChallenge;
+        break;
+      case 'rebus':
+        componentType = RebusChallenge;
         break;
       default:
         // For unimplemented challenge types, show placeholder

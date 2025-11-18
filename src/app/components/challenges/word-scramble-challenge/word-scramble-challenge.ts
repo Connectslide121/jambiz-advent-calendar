@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LucideAngularModule, Shuffle, Lightbulb, LightbulbOff } from 'lucide-angular';
 
 export interface WordScrambleConfig {
   word: string; // English word
@@ -12,7 +13,7 @@ export interface WordScrambleConfig {
 
 @Component({
   selector: 'app-word-scramble-challenge',
-  imports: [CommonModule, FormsModule, TranslateModule],
+  imports: [CommonModule, FormsModule, TranslateModule, LucideAngularModule],
   templateUrl: './word-scramble-challenge.html',
   styleUrl: './word-scramble-challenge.scss',
 })
@@ -20,6 +21,10 @@ export class WordScrambleChallenge implements OnInit {
   @Input() config!: WordScrambleConfig;
   @Input() isCompleted = false;
   @Output() completed = new EventEmitter<void>();
+
+  readonly ShuffleIcon = Shuffle;
+  readonly LightbulbIcon = Lightbulb;
+  readonly LightbulbOffIcon = LightbulbOff;
 
   scrambledWord = '';
   userAnswer = '';

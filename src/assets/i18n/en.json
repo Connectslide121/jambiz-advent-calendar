@@ -50,9 +50,29 @@
     "hangman": {
       "title": "Hangman",
       "instruction": "Guess the word!",
-      "wrongGuesses": "Wrong guesses: {{count}}",
+      "clue": "Clue:",
+      "wrongGuesses": "Wrong guesses: {{count}} / {{max}}",
       "youWin": "You win!",
-      "youLose": "Game over!"
+      "youLose": "Game over!",
+      "theWordWas": "The word was",
+      "tryAgain": "Try Again",
+      "showFunFact": "Show Fun Fact",
+      "day2": {
+        "clue": "A plant associated with Christmas kisses",
+        "hint": "You hang it in doorways during the holidays"
+      },
+      "day8": {
+        "clue": "Hung by the chimney with care",
+        "hint": "Santa fills it with treats and gifts"
+      },
+      "day14": {
+        "clue": "Santa's vehicle for snowy deliveries",
+        "hint": "Pulled by reindeer across the sky"
+      },
+      "day20": {
+        "clue": "A soldier who cracks nuts in a famous ballet",
+        "hint": "Featured in Tchaikovsky's famous Christmas ballet"
+      }
     },
     "wordScramble": {
       "title": "Word Scramble",
@@ -71,16 +91,21 @@
         "hint": "It's often used to describe winter precipitation"
       },
       "day12": {
-        "clue": "Santa's sleigh-pulling animal"
+        "clue": "Santa's sleigh-pulling animal",
+        "hint": "Rudolph is one of these"
       },
       "day19": {
-        "clue": "A spiced cookie often shaped like a person"
+        "clue": "A spiced cookie often shaped like a person",
+        "hint": "Often decorated with icing and candy"
       }
     },
     "wordSearch": {
       "title": "Word Search",
-      "instruction": "Find all the words!",
-      "wordsFound": "{{found}} of {{total}} words found"
+      "instruction": "Find all the words in the grid!",
+      "wordsToFind": "Words to find:",
+      "wordsFound": "{{found}} of {{total}} words found",
+      "allFound": "All words found!",
+      "showFunFact": "Show Fun Fact"
     },
     "spotTheDifference": {
       "title": "Spot the Difference",
@@ -89,8 +114,26 @@
     },
     "rebus": {
       "title": "Rebus Puzzle",
-      "instruction": "Solve the rebus!",
-      "placeholder": "Your answer..."
+      "instruction": "Solve the rebus puzzle!",
+      "answerLabel": "Your answer:",
+      "placeholder": "Type your answer here...",
+      "submit": "Submit Answer",
+      "showFunFact": "Show Fun Fact",
+      "incorrect": "Not quite right. Try again!",
+      "showHint": "Show Hint",
+      "hideHint": "Hide Hint",
+      "day6": {
+        "puzzle": "❄️ + 👨",
+        "hint": "A frosty friend with a carrot nose"
+      },
+      "day13": {
+        "puzzle": "🎄 + 🎁",
+        "hint": "The most wonderful time of the year"
+      },
+      "day21": {
+        "puzzle": "❄️ + ⛷️",
+        "hint": "The coldest season of the year"
+      }
     },
     "miniQuiz": {
       "title": "Mini Quiz",
@@ -159,6 +202,8 @@
     "close": "Close",
     "continue": "Continue",
     "reset": "Reset",
-    "tryAgain": "Try Again"
+    "tryAgain": "Try Again",
+    "showHint": "Show Hint",
+    "hideHint": "Hide Hint"
   }
 }

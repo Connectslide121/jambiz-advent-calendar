@@ -278,10 +278,20 @@ module.exports = {
 - Added hint functionality to riddle and word scramble challenges
 - Quiz component supports 3-4 options with instant feedback and retry capability
 
-### Phase 4: Challenge Components - Batch 2
-- [ ] HangmanChallengeComponent (letter selection, visual hangman)
-- [ ] WordSearchChallengeComponent (grid with word highlighting)
-- [ ] RebusChallengeComponent (image + text input)
+### Phase 4: Challenge Components - Batch 2 ✅ COMPLETED
+- [x] HangmanChallengeComponent (letter selection, visual hangman)
+- [x] WordSearchChallengeComponent (grid with word highlighting)
+- [x] RebusChallengeComponent (image + text input)
+
+**Implementation Notes:**
+- Created HangmanChallenge with SVG visual (6 wrong guess stages), Swedish alphabet support (Å, Ä, Ö), and language-aware word selection
+- Created WordSearchChallenge with 2D grid array, mouse drag selection, 8-direction word finding, and visual feedback for found words
+- Created RebusChallenge with emoji display via translation keys, text input, multi-answer validation, and hint support
+- All three components support isCompleted input for replay mode with pre-filled answers
+- Updated ChallengeHost to dynamically load all 6 challenge types
+- Added complete translation keys for all new challenges in both English and Swedish
+- Updated calendar-config.ts with sample data for days 2, 6, 7, 8, 13, 14, 16, 20, 21, 23
+- All challenges use language variants (word/wordSv for hangman, grid/gridSv and words/wordsSv for word search)
 
 ### Phase 5: Challenge Components - Batch 3
 - [ ] SpotTheDifferenceChallengeComponent (clickable image areas)
