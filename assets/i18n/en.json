@@ -1,6 +1,6 @@
 ﻿{
   "app": {
-    "title": "Jambiz Advent Calendar",
+    "title": "Jambiz advent calendar",
     "subtitle": "One tiny challenge a day, one fun fact as a reward",
     "language": {
       "en": "English",
@@ -11,7 +11,8 @@
     "dayLabel": "Day {{day}}",
     "completed": "Completed",
     "locked": "Locked",
-    "completedCount": "{{count}} of 24 completed"
+    "completedCount": "{{count}} of 24 completed",
+    "comingSoon": "Coming Soon"
   },
   "challenges": {
     "success": {
@@ -33,10 +34,16 @@
         "hint": "You light me during celebrations and power outages."
       },
       "day5": {
-        "question": "I have branches, but no fruit, trunk, or leaves. What am I?"
+        "question": "I have branches, but no fruit, trunk, or leaves. What am I?",
+        "hint": "You decorate me at Christmas time"
+      },
+      "day10": {
+        "question": "I'm white, I'm cold, I fall from the sky, and kids love to play in me. What am I?",
+        "hint": "You can make a snowman out of me"
       },
       "day11": {
-        "question": "What do you get when you cross a snowman with a vampire?"
+        "question": "What do you get when you cross a snowman with a vampire?",
+        "hint": "Think cold and bitey!"
       },
       "day17": {
         "question": "I hang from the roof and I'm made of frozen water. What am I?",
@@ -52,6 +59,7 @@
       "instruction": "Guess the word!",
       "clue": "Clue:",
       "wrongGuesses": "Wrong guesses: {{count}} / {{max}}",
+      "completedIn": "Originally completed with {{count}} wrong guesses",
       "youWin": "You win!",
       "youLose": "Game over!",
       "theWordWas": "The word was",
@@ -135,6 +143,25 @@
         "hint": "The coldest season of the year"
       }
     },
+    "memoryCard": {
+      "title": "Memory Challenge",
+      "instruction": "Find all the matching pairs!",
+      "moves": "Moves",
+      "matches": "Matches",
+      "win": "Perfect! All pairs found!",
+      "finalMoves": "Completed in {{moves}} moves",
+      "showFunFact": "Show Fun Fact"
+    },
+    "geometryDash": {
+      "title": "Santa's Sprint",
+      "instruction": "Jump over obstacles and reach the finish line!",
+      "controlsDesktop": "Press SPACE, W, ↑, or click to jump",
+      "controlsMobile": "Tap anywhere to jump",
+      "start": "Start Game",
+      "crashed": "Crashed! Try again!",
+      "victory": "You made it!",
+      "showFunFact": "Show Fun Fact"
+    },
     "miniQuiz": {
       "title": "Mini Quiz",
       "instruction": "Choose the correct answer!",
@@ -161,6 +188,12 @@
         "option1": "December 24th",
         "option2": "December 26th",
         "option3": "December 25th"
+      },
+      "day18": {
+        "question": "What are the traditional Christmas colors?",
+        "option1": "Blue and silver",
+        "option2": "Red and green",
+        "option3": "Gold and white"
       },
       "day22": {
         "question": "What do children traditionally leave out for Santa Claus on Christmas Eve?",
@@ -203,6 +236,7 @@
     "continue": "Continue",
     "reset": "Reset",
     "tryAgain": "Try Again",
+    "playAgain": "Play Again",
     "showHint": "Show Hint",
     "hideHint": "Hide Hint"
   }
