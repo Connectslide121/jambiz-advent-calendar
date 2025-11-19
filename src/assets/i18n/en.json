@@ -188,8 +188,8 @@
     "climber": {
       "title": "Christmas Climber",
       "instruction": "Climb to the star at the top! Collect ornaments along the way.",
-      "controlsDesktop": "Arrow keys or WASD to move, SPACE to jump",
-      "controlsMobile": "Use touch controls to move and jump",
+      "controlsDesktop": "Press SPACE or click to jump. Time your jumps carefully!",
+      "controlsMobile": "Tap anywhere to jump. Time your jumps carefully!",
       "staticPlatform": "Normal",
       "movingPlatform": "Moving",
       "icePlatform": "Icy",

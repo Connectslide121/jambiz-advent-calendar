@@ -38,7 +38,7 @@
   </div>
 
   <!-- Game Canvas - always visible -->
-  <div class="relative">
+  <div class="relative" (pointerdown)="onJump($event)">
     <canvas
       #gameCanvas
       class="border-2 border-gold rounded-lg shadow-lg"
@@ -81,6 +81,7 @@
   <app-touch-controls
     (directionChange)="onDirectionChange($event)"
     (jump)="onJump()"
+    [showJoystick]="false"
     [showActionButton]="false"
   />
   }

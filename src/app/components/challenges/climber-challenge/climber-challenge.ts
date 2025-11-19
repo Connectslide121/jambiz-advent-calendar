@@ -29,6 +29,7 @@ interface Platform {
   moveRange?: number; // For moving platforms
   moveSpeed?: number; // For moving platforms
   initialX?: number; // For moving platforms
+  phase?: number;
 }
 
 interface Collectible {
@@ -37,6 +38,10 @@ interface Collectible {
   width: number;
   height: number;
   collected: boolean;
+  moveRange?: number;
+  moveSpeed?: number;
+  initialX?: number;
+  phase?: number;
 }
 
 interface Player {
@@ -48,6 +53,8 @@ interface Player {
   velocityY: number;
   onGround: boolean;
   onIce: boolean;
+  platformVelocityX: number; // Track platform velocity for jump momentum
+  currentPlatform?: Platform;
 }
 
 interface ClimberChallengeSettings {
@@ -82,8 +89,8 @@ type ClimberChallengeInput = ClimberChallengeConfig | Partial<ClimberChallengeSe
 
 const DEFAULT_CLIMBER_SETTINGS: ClimberChallengeSettings = {
   worldHeight: 2000,
-  platformGap: 120,
-  platformGapVariance: 30,
+  platformGap: 100,
+  platformGapVariance: 15,
   minPlatformWidth: 80,
   maxPlatformWidth: 130,
   startingPlatformWidth: 140,
@@ -135,6 +142,7 @@ export default class ClimberChallengeComponent
 
   private settings: ClimberChallengeSettings = { ...DEFAULT_CLIMBER_SETTINGS };
   private initialized = false;
+  private jumpBuffer = 0;
 
   // Player
   private player: Player = {
@@ -146,6 +154,7 @@ export default class ClimberChallengeComponent
     velocityY: 0,
     onGround: false,
     onIce: false,
+    platformVelocityX: 0,
   };
 
   // Physics constants
@@ -157,7 +166,7 @@ export default class ClimberChallengeComponent
   // Game objects
   private platforms: Platform[] = [];
   private collectibles: Collectible[] = [];
-  private goalStar = { x: 200, y: 50, width: 40, height: 40 };
+  private goalZone = { x: 0, y: 50, width: 400, height: 60 };
 
   // Touch controls
   private touchDirection = { x: 0, y: 0 };
@@ -311,7 +320,10 @@ export default class ClimberChallengeComponent
     this.player.velocityY = 0;
     this.player.onGround = false;
     this.player.onIce = false;
+    this.player.platformVelocityX = 0;
+    this.player.currentPlatform = undefined;
     this.cameraY = Math.max(0, this.settings.worldHeight - this.CANVAS_HEIGHT);
+    this.jumpBuffer = 0;
   }
 
   private generateLevel(): void {
@@ -330,14 +342,21 @@ export default class ClimberChallengeComponent
 
     // Generate platforms going upward
     let currentY = this.settings.worldHeight - this.settings.platformGap;
+    let lastPlatformType: Platform['type'] = 'static';
 
     while (currentY > this.settings.goalOffset + 100) {
-      const roll = Math.random();
       let platformType: Platform['type'] = 'static';
-      if (roll < this.settings.movingPlatformChance) {
+
+      // If last was static, force moving platform (gold) to allow X-traversal
+      if (lastPlatformType === 'static') {
         platformType = 'moving';
-      } else if (roll < this.settings.movingPlatformChance + this.settings.icePlatformChance) {
-        platformType = 'ice';
+      } else {
+        const roll = Math.random();
+        if (roll < this.settings.movingPlatformChance) {
+          platformType = 'moving';
+        } else if (roll < this.settings.movingPlatformChance + this.settings.icePlatformChance) {
+          platformType = 'ice';
+        }
       }
 
       const widthRange = this.settings.maxPlatformWidth - this.settings.minPlatformWidth;
@@ -352,13 +371,23 @@ export default class ClimberChallengeComponent
         type: platformType,
       };
 
-      if (platformType === 'moving') {
-        platform.initialX = x;
-        platform.moveRange = this.settings.movingRange;
-        platform.moveSpeed = this.settings.movingSpeed;
+      if (platformType === 'moving' || platformType === 'ice') {
+        // Center the oscillation point so it covers full width
+        const centerX = (this.CANVAS_WIDTH - width) / 2;
+        platform.initialX = centerX;
+
+        // Full width range
+        platform.moveRange = (this.CANVAS_WIDTH - width) / 2;
+
+        // Random speed (0.8x to 1.4x of base speed)
+        platform.moveSpeed = this.settings.movingSpeed * (0.8 + Math.random() * 0.6);
+
+        // Random phase for independence
+        platform.phase = Math.random() * Math.PI * 2;
       }
 
       this.platforms.push(platform);
+      lastPlatformType = platformType;
       const variance = (Math.random() * 2 - 1) * this.settings.platformGapVariance;
       const gap = Math.max(80, this.settings.platformGap + variance);
       currentY -= gap;
@@ -375,18 +404,24 @@ export default class ClimberChallengeComponent
         break;
       }
 
+      const x = this.CANVAS_WIDTH / 2;
       this.collectibles.push({
-        x: Math.random() * (this.CANVAS_WIDTH - 30) + 15,
+        x,
         y,
         width: 20,
         height: 20,
         collected: false,
+        initialX: x,
+        moveRange: this.CANVAS_WIDTH / 2 - 40,
+        moveSpeed: this.settings.movingSpeed * 0.5,
+        phase: Math.random() * Math.PI * 2,
       });
     }
 
-    // Place goal star at the top
-    this.goalStar.x = this.CANVAS_WIDTH / 2 - this.goalStar.width / 2;
-    this.goalStar.y = this.settings.goalOffset;
+    // Place goal zone at the top
+    this.goalZone.x = 0;
+    this.goalZone.width = this.CANVAS_WIDTH;
+    this.goalZone.y = this.settings.goalOffset;
 
     this.totalCollectibles = this.collectibles.length;
   }
@@ -397,47 +432,67 @@ export default class ClimberChallengeComponent
   }
 
   private updateGame(deltaTime: number): void {
-    // Update moving platforms
+    const time = Date.now() / 1000;
+
+    // Update moving platforms (both 'moving' and 'ice' types move now)
     this.platforms.forEach((platform) => {
-      if (platform.type === 'moving' && platform.initialX !== undefined) {
-        const time = Date.now() / 1000;
+      if (
+        (platform.type === 'moving' || platform.type === 'ice') &&
+        platform.initialX !== undefined
+      ) {
+        const oldX = platform.x;
         platform.x =
           platform.initialX! +
-          Math.sin(time * (platform.moveSpeed ?? this.settings.movingSpeed)) *
+          Math.sin(
+            time * (platform.moveSpeed ?? this.settings.movingSpeed) + (platform.phase ?? 0)
+          ) *
             (platform.moveRange ?? this.settings.movingRange);
+
+        // If player is on this platform, move them with it (unless it's ice)
+        if (this.player.onGround && this.player.currentPlatform === platform) {
+          const dx = platform.x - oldX;
+          this.player.platformVelocityX = dx; // Store for jump momentum
+
+          if (platform.type === 'moving') {
+            this.player.x += dx;
+          }
+          // Ice platforms move but don't drag the player
+        }
       }
     });
 
-    // Get input
-    const input = this.getInput();
+    // Update collectibles
+    this.collectibles.forEach((collectible) => {
+      if (collectible.initialX !== undefined) {
+        collectible.x =
+          collectible.initialX +
+          Math.sin(time * (collectible.moveSpeed ?? 1) + (collectible.phase ?? 0)) *
+            (collectible.moveRange ?? 50);
+      }
+    });
 
-    // Apply horizontal movement with ice physics
-    if (this.player.onIce && this.player.onGround) {
-      // Ice physics - reduced control and lingering momentum
-      if (input.x !== 0) {
-        this.player.velocityX += input.x * this.settings.iceAcceleration;
-      }
-      this.player.velocityX *= this.settings.iceFriction;
-      const maxIceSpeed = this.settings.moveSpeed * this.settings.maxIceSpeedMultiplier;
-      this.player.velocityX = Math.max(-maxIceSpeed, Math.min(maxIceSpeed, this.player.velocityX));
-      if (Math.abs(this.player.velocityX) < 0.01) {
-        this.player.velocityX = 0;
-      }
-    } else if (this.player.onGround) {
-      // Normal ground movement - responsive control
-      this.player.velocityX = input.x * this.settings.moveSpeed;
-      if (input.x === 0) {
-        this.player.velocityX *= this.settings.normalFriction;
-        if (Math.abs(this.player.velocityX) < 0.05) {
-          this.player.velocityX = 0;
-        }
-      }
+    // Update jump buffer
+    if (this.jumpBuffer > 0) {
+      this.jumpBuffer -= deltaTime;
+    }
+
+    // Check keyboard input (refresh buffer if pressed)
+    if (
+      !this.isMobile() &&
+      (this.keyboardService.isSpacePressed() || this.keyboardService.isUpPressed())
+    ) {
+      this.jumpBuffer = 0.1; // Keep buffer active while holding key
+    }
+
+    // Apply physics
+    if (this.player.onGround) {
+      // On ground - no horizontal control, just stick to platform or slide
+      this.player.velocityX = 0;
     } else {
-      // In air - limited influence
-      this.player.velocityX += input.x * (this.settings.moveSpeed * 0.08);
-      this.player.velocityX *= 0.9;
-      const maxAirSpeed = this.settings.moveSpeed * 1.2;
-      this.player.velocityX = Math.max(-maxAirSpeed, Math.min(maxAirSpeed, this.player.velocityX));
+      // In air - keep momentum from platform + slight air control?
+      // User said "no movement", so maybe no air control either.
+      // But we need to apply the momentum from the jump.
+      // We'll just let velocityX persist (which we set on jump).
     }
 
     // Apply gravity
@@ -447,9 +502,11 @@ export default class ClimberChallengeComponent
     }
 
     // Jump
-    if (input.jump && this.player.onGround) {
+    if (this.jumpBuffer > 0 && this.player.onGround) {
       this.player.velocityY = this.settings.jumpForce;
       this.player.onGround = false;
+      this.player.velocityX = 0; // Jump straight up
+      this.jumpBuffer = 0; // Consume buffer
     }
 
     // Update position
@@ -466,15 +523,19 @@ export default class ClimberChallengeComponent
     // Platform collision
     this.player.onGround = false;
     this.player.onIce = false;
+    this.player.platformVelocityX = 0; // Reset, will be set if on moving platform
+    this.player.currentPlatform = undefined;
 
     for (const platform of this.platforms) {
       if (this.checkPlatformCollision(this.player, platform)) {
-        if (this.player.velocityY > 0) {
-          // Landing on platform
+        if (this.player.velocityY >= 0) {
+          // Landing on platform or staying on it
           this.player.y = platform.y - this.player.height;
           this.player.velocityY = 0;
+          this.player.velocityX = 0; // Stop horizontal movement on landing
           this.player.onGround = true;
           this.player.onIce = platform.type === 'ice';
+          this.player.currentPlatform = platform;
         }
       }
     }
@@ -499,7 +560,7 @@ export default class ClimberChallengeComponent
       }
     });
 
-    // Check goal star
+    // Check goal zone
     if (
       this.gameService.checkRectCollision(
         {
@@ -508,7 +569,7 @@ export default class ClimberChallengeComponent
           width: this.player.width,
           height: this.player.height,
         },
-        this.goalStar
+        this.goalZone
       )
     ) {
       this.winGame();
@@ -532,7 +593,7 @@ export default class ClimberChallengeComponent
     return (
       player.x + player.width > platform.x &&
       player.x < platform.x + platform.width &&
-      player.y + player.height > platform.y &&
+      player.y + player.height >= platform.y &&
       player.y + player.height < platform.y + platform.height + 10 &&
       player.velocityY >= 0
     );
@@ -562,8 +623,8 @@ export default class ClimberChallengeComponent
       }
     });
 
-    // Draw goal star
-    this.drawGoalStar();
+    // Draw goal
+    this.drawGoal();
 
     // Draw player
     this.drawPlayer();
@@ -627,13 +688,29 @@ export default class ClimberChallengeComponent
     this.ctx.fill();
   }
 
-  private drawGoalStar(): void {
-    const { x, y, width, height } = this.goalStar;
-    const centerX = x + width / 2;
-    const centerY = y + height / 2;
+  private drawGoal(): void {
+    // Draw finish line ribbon
+    this.ctx.fillStyle = 'rgba(244, 211, 94, 0.2)';
+    this.ctx.fillRect(this.goalZone.x, this.goalZone.y, this.goalZone.width, this.goalZone.height);
+
+    // Draw checkered pattern or stars across
+    this.ctx.fillStyle = 'rgba(244, 211, 94, 0.6)';
+    const starSize = 20;
+    const spacing = 40;
+    const count = Math.ceil(this.CANVAS_WIDTH / spacing);
+
+    for (let i = 0; i < count; i++) {
+      const x = i * spacing + 10;
+      const y = this.goalZone.y + this.goalZone.height / 2 - starSize / 2;
+      this.ctx.fillRect(x, y, starSize, starSize);
+    }
+
+    // Draw main star in middle
+    const centerX = this.CANVAS_WIDTH / 2;
+    const centerY = this.goalZone.y + this.goalZone.height / 2;
     const spikes = 5;
-    const outerRadius = width / 2;
-    const innerRadius = outerRadius * 0.5;
+    const outerRadius = 25;
+    const innerRadius = 12;
 
     this.ctx.fillStyle = '#f4d35e';
     this.ctx.beginPath();
@@ -655,7 +732,7 @@ export default class ClimberChallengeComponent
     this.ctx.fill();
 
     // Add glow effect
-    this.ctx.strokeStyle = 'rgba(244, 211, 94, 0.5)';
+    this.ctx.strokeStyle = 'rgba(244, 211, 94, 0.8)';
     this.ctx.lineWidth = 3;
     this.ctx.stroke();
   }
@@ -708,13 +785,13 @@ export default class ClimberChallengeComponent
   private getInput(): { x: number; jump: boolean } {
     if (this.isMobile()) {
       return {
-        x: this.touchDirection.x,
-        jump: false, // Jump only via button on mobile
+        x: 0, // No horizontal control on mobile
+        jump: false, // Jump handled via buffer
       };
     } else {
-      const x = this.keyboardService.getHorizontalAxis();
-      const jump = this.keyboardService.isSpacePressed();
-      return { x, jump };
+      // Also disable horizontal control on desktop for consistency
+      const jump = this.keyboardService.isSpacePressed() || this.keyboardService.isUpPressed();
+      return { x: 0, jump };
     }
   }
 
@@ -722,11 +799,11 @@ export default class ClimberChallengeComponent
     this.touchDirection = direction;
   }
 
-  onJump(): void {
-    if (this.player.onGround) {
-      this.player.velocityY = this.settings.jumpForce;
-      this.player.onGround = false;
+  onJump(event?: Event): void {
+    if (event) {
+      event.preventDefault();
     }
+    this.jumpBuffer = 0.15; // 150ms buffer
   }
 
   private winGame(): void {

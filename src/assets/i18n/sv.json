@@ -205,8 +205,8 @@
     "climber": {
       "title": "Julklättraren",
       "instruction": "Klättra till stjärnan högst upp! Samla julkulor på vägen.",
-      "controlsDesktop": "Piltangenter eller WASD för att röra dig, MELLANSLAG för att hoppa",
-      "controlsMobile": "Använd touch-kontroller för att röra dig och hoppa",
+      "controlsDesktop": "Tryck MELLANSLAG eller klicka för att hoppa. Tajma dina hopp noga!",
+      "controlsMobile": "Tryck var som helst för att hoppa. Tajma dina hopp noga!",
       "staticPlatform": "Normal",
       "movingPlatform": "Rörlig",
       "icePlatform": "Isig",
