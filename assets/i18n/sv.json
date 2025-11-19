@@ -160,7 +160,35 @@
       "jumpButton": "HOPPA",
       "start": "Starta Spel",
       "crashed": "Krasch! Försök igen!",
+      "climber": {
+        "title": "Julklättraren",
+        "levels": {
+          "extra-climber-1": {
+            "name": "Lugn klättring",
+            "description": "Kortare klättring med stabila plattformar"
+          },
+          "extra-climber-2": {
+            "name": "Frostig klättring",
+            "description": "Högre toppar med hala överraskningar"
+          },
+          "extra-climber-3": {
+            "name": "Snöstormstopp",
+            "description": "Högt torn med hala avsatser"
+          }
+        }
+      },
       "victory": "Du klarade det!",
+      "showFunFact": "Visa Rolig Fakta"
+    },
+    "flappySleigh": {
+      "title": "Flappy Släde",
+      "instruction": "Tryck eller använd MELLANSLAG för att flyga! Undvik polkagrisarna och nå julgranen!",
+      "controlsDesktop": "Tryck MELLANSLAG, UPP-pil, eller klicka för att flyga",
+      "controlsMobile": "Tryck var som helst för att flyga",
+      "flapButton": "FLY!",
+      "start": "Starta Spel",
+      "crashed": "Aj! Du krockade!",
+      "victory": "Du nådde granen!",
       "showFunFact": "Visa Rolig Fakta"
     },
     "sokoban": {
@@ -173,6 +201,19 @@
       "success": "Pusslel löst!",
       "completedIn": "Klarat på {{moves}} drag",
       "previouslyCompleted": "Tidigare klarat på {{moves}} drag"
+    },
+    "climber": {
+      "title": "Julklättraren",
+      "instruction": "Klättra till stjärnan högst upp! Samla julkulor på vägen.",
+      "controlsDesktop": "Piltangenter eller WASD för att röra dig, MELLANSLAG för att hoppa",
+      "controlsMobile": "Använd touch-kontroller för att röra dig och hoppa",
+      "staticPlatform": "Normal",
+      "movingPlatform": "Rörlig",
+      "icePlatform": "Isig",
+      "startGame": "Börja klättra",
+      "success": "Du nådde stjärnan!",
+      "gameLost": "Du ramlade! Försök igen.",
+      "ornamentsCollected": "Julkulor insamlade"
     },
     "miniQuiz": {
       "title": "Minifrågesport",
@@ -423,6 +464,52 @@
           "extra-wordsearch-3": {
             "name": "Svår sökning",
             "description": "11x12 rutnät - ultimat utmaning"
+          }
+        }
+      },
+      "flappySleigh": {
+        "title": "Flappy Släde",
+        "levels": {
+          "extra-flappy-1": {
+            "name": "Lätt flygning",
+            "description": "Lugnt tempo, större mellanrum"
+          },
+          "extra-flappy-2": {
+            "name": "Medel flygning",
+            "description": "Snabbare fart, trängre mellanrum"
+          },
+          "extra-flappy-3": {
+            "name": "Expert flygning",
+            "description": "Maximal utmaning!"
+          }
+        }
+      },
+      "sokoban": {
+        "title": "Presentpussel",
+        "levels": {
+          "extra-sokoban-1": {
+            "name": "Komplex utmaning",
+            "description": "13 presenter att arrangera - planera noggrant!"
+          },
+          "extra-sokoban-2": {
+            "name": "Medel pussel",
+            "description": "Fler presenter att organisera"
+          },
+          "extra-sokoban-3": {
+            "name": "Knepigt pussel",
+            "description": "Strategiskt tänkande krävs"
+          },
+          "extra-sokoban-4": {
+            "name": "Svårt pussel",
+            "description": "Trånga utrymmen och många lådor"
+          },
+          "extra-sokoban-5": {
+            "name": "Expert pussel",
+            "description": "Presentarrangemang på mästarnivå"
+          },
+          "extra-sokoban-6": {
+            "name": "Ultimat pussel",
+            "description": "Den ultimata Sokoban-utmaningen"
           }
         }
       }

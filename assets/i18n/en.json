@@ -163,6 +163,17 @@
       "victory": "You made it!",
       "showFunFact": "Show Fun Fact"
     },
+    "flappySleigh": {
+      "title": "Flappy Sleigh",
+      "instruction": "Tap or press SPACE to fly! Avoid the candy canes and reach the Christmas tree!",
+      "controlsDesktop": "Press SPACE, UP arrow, or click to fly",
+      "controlsMobile": "Tap anywhere to fly",
+      "flapButton": "FLY!",
+      "start": "Start Game",
+      "crashed": "Ouch! You hit an obstacle!",
+      "victory": "You reached the tree!",
+      "showFunFact": "Show Fun Fact"
+    },
     "sokoban": {
       "title": "Gift Puzzle",
       "instruction": "Push all gifts onto the Christmas trees to win!",
@@ -173,6 +184,19 @@
       "success": "Puzzle solved!",
       "completedIn": "Completed in {{moves}} moves",
       "previouslyCompleted": "Previously completed in {{moves}} moves"
+    },
+    "climber": {
+      "title": "Christmas Climber",
+      "instruction": "Climb to the star at the top! Collect ornaments along the way.",
+      "controlsDesktop": "Arrow keys or WASD to move, SPACE to jump",
+      "controlsMobile": "Use touch controls to move and jump",
+      "staticPlatform": "Normal",
+      "movingPlatform": "Moving",
+      "icePlatform": "Icy",
+      "startGame": "Start Climbing",
+      "success": "You reached the star!",
+      "gameLost": "You fell! Try again.",
+      "ornamentsCollected": "Ornaments collected"
     },
     "miniQuiz": {
       "title": "Mini Quiz",
@@ -380,6 +404,23 @@
           }
         }
       },
+      "climber": {
+        "title": "Christmas Climber",
+        "levels": {
+          "extra-climber-1": {
+            "name": "Gentle Climb",
+            "description": "Shorter ascent with steady platforms"
+          },
+          "extra-climber-2": {
+            "name": "Frosty Climb",
+            "description": "Higher peaks with icy surprises"
+          },
+          "extra-climber-3": {
+            "name": "Blizzard Summit",
+            "description": "Tall tower with slippery ledges"
+          }
+        }
+      },
       "rebus": {
         "title": "Rebus Puzzles",
         "levels": {
@@ -423,6 +464,52 @@
           "extra-wordsearch-3": {
             "name": "Hard Search",
             "description": "11x12 grid - ultimate challenge"
+          }
+        }
+      },
+      "flappySleigh": {
+        "title": "Flappy Sleigh",
+        "levels": {
+          "extra-flappy-1": {
+            "name": "Easy Flight",
+            "description": "Gentle pace, wider gaps"
+          },
+          "extra-flappy-2": {
+            "name": "Medium Flight",
+            "description": "Faster speed, tighter gaps"
+          },
+          "extra-flappy-3": {
+            "name": "Expert Flight",
+            "description": "Maximum challenge!"
+          }
+        }
+      },
+      "sokoban": {
+        "title": "Gift Puzzle",
+        "levels": {
+          "extra-sokoban-1": {
+            "name": "Complex Challenge",
+            "description": "13 gifts to arrange - plan carefully!"
+          },
+          "extra-sokoban-2": {
+            "name": "Medium Puzzle",
+            "description": "More gifts to organize"
+          },
+          "extra-sokoban-3": {
+            "name": "Tricky Puzzle",
+            "description": "Strategic thinking required"
+          },
+          "extra-sokoban-4": {
+            "name": "Hard Puzzle",
+            "description": "Tight spaces and many boxes"
+          },
+          "extra-sokoban-5": {
+            "name": "Expert Puzzle",
+            "description": "Master-level gift arrangement"
+          },
+          "extra-sokoban-6": {
+            "name": "Ultimate Puzzle",
+            "description": "The ultimate Sokoban challenge"
           }
         }
       }
