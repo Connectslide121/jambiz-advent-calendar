@@ -23,6 +23,8 @@ import { MemoryCardChallenge } from '../challenges/memory-card-challenge/memory-
 import { GeometryDashChallenge } from '../challenges/geometry-dash-challenge/geometry-dash-challenge';
 import { SokobanChallengeComponent } from '../challenges/sokoban-challenge/sokoban-challenge';
 import ClimberChallengeComponent from '../challenges/climber-challenge/climber-challenge';
+import { FlappySleighChallenge } from '../challenges/flappy-sleigh-challenge/flappy-sleigh-challenge';
+import { MazeRunnerChallengeComponent } from '../challenges/maze-runner-challenge/maze-runner-challenge';
 
 type ViewMode = 'games' | 'levels' | 'playing';
 
@@ -128,6 +130,12 @@ export class ExtrasModalComponent {
       case 'climber':
         componentType = ClimberChallengeComponent;
         break;
+      case 'flappySleigh':
+        componentType = FlappySleighChallenge;
+        break;
+      case 'mazeRunner':
+        componentType = MazeRunnerChallengeComponent;
+        break;
       default:
         return;
     }
@@ -215,6 +223,9 @@ export class ExtrasModalComponent {
       memoryCard: '🎴',
       geometryDash: '🎮',
       sokoban: '📦',
+      climber: '🧗',
+      flappySleigh: '🛷',
+      mazeRunner: '🌀',
     };
     return icons[gameType] || '🎁';
   }

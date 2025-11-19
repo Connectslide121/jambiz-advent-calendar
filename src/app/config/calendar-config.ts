@@ -241,7 +241,13 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 18,
+    challengeType: 'mazeRunner',
     funFactKey: 'funFacts.day18',
+    challengeData: {
+      rows: 21,
+      cols: 21,
+      collectibleCount: 5,
+    },
   },
   {
     day: 19,
@@ -301,6 +307,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
         { x: 3350, width: 100, height: 0, type: 'pit' },
         { x: 3450, width: 200, height: 70, type: 'platform' },
         { x: 3680, width: 40, height: 300, type: 'ceilingCandy' },
+        { x: 3750, width: 40, height: 130, type: 'candy' },
       ],
     },
     funFactKey: 'funFacts.day22',

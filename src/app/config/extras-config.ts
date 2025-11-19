@@ -753,7 +753,6 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
             [[" "],[" "],[" "],["W"],["G"],["G"],["W"],["W"],["W"],[" "],["W"],[" "],["B"],[" "],["W"],[" "],[" "],[" "],[" "]],
             [[" "],[" "],[" "],["W"],["W"],["W"],["W"],[" "],["B"],[" "],["W"],["B"],[" "],[" "],["W"],[" "],[" "],[" "],[" "]],
             [[" "],[" "],[" "],[" "],[" "],[" "],["W"],[" "],[" "],["B"],["W"],[" "],["B"],[" "],["W"],[" "],[" "],[" "],[" "]],
-            [[" "],[" "],[" "],[" "],[" "],[" "],["W"],[" "],["B"],[" "],[" "],["B"],[" "],[" "],["W"],[" "],[" "],[" "],[" "]],
             [[" "],[" "],[" "],[" "],[" "],[" "],["W"],[" "],[" "],["W"],["W"],[" "],[" "],[" "],["W"],[" "],[" "],[" "],[" "]],
             [[" "],[" "],[" "],[" "],[" "],[" "],["W"],["W"],["W"],["W"],["W"],["W"],["W"],["W"],["W"],[" "],[" "],[" "],[" "]],
             [[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "]],
@@ -788,6 +787,46 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
             [[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "]],
             [[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "]],
           ],
+        },
+      },
+    ],
+  },
+
+  // Maze Runner Extras
+  {
+    type: 'mazeRunner',
+    levels: [
+      {
+        id: 'extra-maze-1',
+        nameKey: 'extras.games.mazeRunner.levels.extra-maze-1.name',
+        descriptionKey: 'extras.games.mazeRunner.levels.extra-maze-1.description',
+        challengeType: 'mazeRunner',
+        challengeData: {
+          rows: 15,
+          cols: 15,
+          collectibleCount: 3,
+        },
+      },
+      {
+        id: 'extra-maze-2',
+        nameKey: 'extras.games.mazeRunner.levels.extra-maze-2.name',
+        descriptionKey: 'extras.games.mazeRunner.levels.extra-maze-2.description',
+        challengeType: 'mazeRunner',
+        challengeData: {
+          rows: 21,
+          cols: 21,
+          collectibleCount: 5,
+        },
+      },
+      {
+        id: 'extra-maze-3',
+        nameKey: 'extras.games.mazeRunner.levels.extra-maze-3.name',
+        descriptionKey: 'extras.games.mazeRunner.levels.extra-maze-3.description',
+        challengeType: 'mazeRunner',
+        challengeData: {
+          rows: 25,
+          cols: 25,
+          collectibleCount: 8,
         },
       },
     ],

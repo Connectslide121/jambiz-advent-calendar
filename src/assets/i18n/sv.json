@@ -215,6 +215,14 @@
       "gameLost": "Du ramlade! Försök igen.",
       "ornamentsCollected": "Julkulor insamlade"
     },
+    "mazeRunner": {
+      "title": "Labyrintlöparen",
+      "instruction": "Samla alla julklappar och ta dem till granen!",
+      "moves": "Drag",
+      "success": "Labyrinten löst!",
+      "completedIn": "Klarat på {{moves}} drag",
+      "gifts": "Gåvor"
+    },
     "miniQuiz": {
       "title": "Minifrågesport",
       "instruction": "Välj rätt svar!",
@@ -510,6 +518,23 @@
           "extra-sokoban-6": {
             "name": "Ultimat pussel",
             "description": "Den ultimata Sokoban-utmaningen"
+          }
+        }
+      },
+      "mazeRunner": {
+        "title": "Labyrintlöparen",
+        "levels": {
+          "extra-maze-1": {
+            "name": "Lätt labyrint",
+            "description": "En enkel väg till granen"
+          },
+          "extra-maze-2": {
+            "name": "Medel labyrint",
+            "description": "Fler svängar och vändningar"
+          },
+          "extra-maze-3": {
+            "name": "Svår labyrint",
+            "description": "En komplex labyrint"
           }
         }
       }

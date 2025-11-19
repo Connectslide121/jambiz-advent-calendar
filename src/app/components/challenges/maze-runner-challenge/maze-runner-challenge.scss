@@ -1,0 +1,13 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.maze-grid {
+  display: inline-block;
+  background-color: var(--color-surface);
+}
+
+/* No specific grid styles needed as we use flex rows in HTML, 
+   but we can add some nice touches if needed */
