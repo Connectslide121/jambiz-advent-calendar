@@ -194,6 +194,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 15,
+    challengeType: 'climber',
     funFactKey: 'funFacts.day15',
   },
   {

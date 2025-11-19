@@ -22,6 +22,7 @@ import { MemoryCardChallenge } from '../challenges/memory-card-challenge/memory-
 import { GeometryDashChallenge } from '../challenges/geometry-dash-challenge/geometry-dash-challenge';
 import { SokobanChallengeComponent } from '../challenges/sokoban-challenge/sokoban-challenge';
 import { FlappySleighChallenge } from '../challenges/flappy-sleigh-challenge/flappy-sleigh-challenge';
+import ClimberChallengeComponent from '../challenges/climber-challenge/climber-challenge';
 
 @Component({
   selector: 'app-challenge-host',
@@ -81,6 +82,9 @@ export class ChallengeHost implements OnInit {
         break;
       case 'flappySleigh':
         componentType = FlappySleighChallenge;
+        break;
+      case 'climber':
+        componentType = ClimberChallengeComponent;
         break;
       default:
         // For unimplemented challenge types, show placeholder

@@ -1,0 +1,94 @@
+<div class="flex flex-col items-center gap-6 p-4">
+  <h2 class="text-2xl font-bold text-center text-gold">
+    {{ 'challenges.climber.title' | translate }}
+  </h2>
+
+  <!-- Instructions - always visible -->
+  <div class="card max-w-md text-center space-y-4">
+    <p class="text-text-muted">{{ 'challenges.climber.instruction' | translate }}</p>
+
+    <div class="text-sm text-text-muted space-y-2">
+      @if (isMobile()) {
+      <p>{{ 'challenges.climber.controlsMobile' | translate }}</p>
+      } @else {
+      <p>{{ 'challenges.climber.controlsDesktop' | translate }}</p>
+      }
+
+      <div class="flex items-center justify-center gap-3 mt-4">
+        <div class="flex items-center gap-2">
+          <div class="w-4 h-4 rounded" style="background-color: #2a9d8f"></div>
+          <span class="text-xs">{{ 'challenges.climber.staticPlatform' | translate }}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-4 h-4 rounded" style="background-color: #f4d35e"></div>
+          <span class="text-xs">{{ 'challenges.climber.movingPlatform' | translate }}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-4 h-4 rounded" style="background-color: #a8dadc"></div>
+          <span class="text-xs">{{ 'challenges.climber.icePlatform' | translate }}</span>
+        </div>
+      </div>
+    </div>
+
+    @if (!isCompleted && !gameStarted()) {
+    <button class="btn btn-primary" (click)="startGame()">
+      {{ 'challenges.climber.startGame' | translate }}
+    </button>
+    }
+  </div>
+
+  <!-- Game Canvas - always visible -->
+  <div class="relative">
+    <canvas
+      #gameCanvas
+      class="border-2 border-gold rounded-lg shadow-lg"
+      style="image-rendering: pixelated"
+    ></canvas>
+
+    <!-- Game Over Overlay -->
+    @if (gameLost()) {
+    <div
+      class="absolute inset-0 bg-black bg-opacity-75 flex flex-col items-center justify-center gap-4 rounded-lg"
+    >
+      <p class="text-xl font-bold text-accent-red">
+        {{ 'challenges.climber.gameLost' | translate }}
+      </p>
+      <button class="btn btn-primary" (click)="restartGame()">
+        {{ 'ui.tryAgain' | translate }}
+      </button>
+    </div>
+    }
+
+    <!-- Win Overlay -->
+    @if (gameWon()) {
+    <div
+      class="absolute inset-0 bg-black bg-opacity-75 flex flex-col items-center justify-center gap-4 rounded-lg"
+    >
+      <p class="text-2xl font-bold text-gold">
+        {{ 'challenges.climber.success' | translate }}
+      </p>
+      <p class="text-text-muted text-sm">
+        {{ 'challenges.climber.ornamentsCollected' | translate }}: {{ collectedCount }}/{{
+          totalCollectibles
+        }}
+      </p>
+    </div>
+    }
+  </div>
+
+  <!-- Mobile Touch Controls -->
+  @if (isMobile() && gameStarted() && !gameWon() && !gameLost()) {
+  <app-touch-controls
+    (directionChange)="onDirectionChange($event)"
+    (jump)="onJump()"
+    [showActionButton]="false"
+  />
+  }
+
+  <!-- Replay Button -->
+  @if (isCompleted && !gameStarted()) {
+  <button class="btn btn-outline" (click)="restartGame()">
+    {{ 'ui.playAgain' | translate }}
+  </button>
+  }
+</div>

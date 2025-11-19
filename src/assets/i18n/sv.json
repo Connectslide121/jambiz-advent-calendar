@@ -160,6 +160,23 @@
       "jumpButton": "HOPPA",
       "start": "Starta Spel",
       "crashed": "Krasch! Försök igen!",
+      "climber": {
+        "title": "Julklättraren",
+        "levels": {
+          "extra-climber-1": {
+            "name": "Lugn klättring",
+            "description": "Kortare klättring med stabila plattformar"
+          },
+          "extra-climber-2": {
+            "name": "Frostig klättring",
+            "description": "Högre toppar med hala överraskningar"
+          },
+          "extra-climber-3": {
+            "name": "Snöstormstopp",
+            "description": "Högt torn med hala avsatser"
+          }
+        }
+      },
       "victory": "Du klarade det!",
       "showFunFact": "Visa Rolig Fakta"
     },
@@ -184,6 +201,19 @@
       "success": "Pusslel löst!",
       "completedIn": "Klarat på {{moves}} drag",
       "previouslyCompleted": "Tidigare klarat på {{moves}} drag"
+    },
+    "climber": {
+      "title": "Julklättraren",
+      "instruction": "Klättra till stjärnan högst upp! Samla julkulor på vägen.",
+      "controlsDesktop": "Piltangenter eller WASD för att röra dig, MELLANSLAG för att hoppa",
+      "controlsMobile": "Använd touch-kontroller för att röra dig och hoppa",
+      "staticPlatform": "Normal",
+      "movingPlatform": "Rörlig",
+      "icePlatform": "Isig",
+      "startGame": "Börja klättra",
+      "success": "Du nådde stjärnan!",
+      "gameLost": "Du ramlade! Försök igen.",
+      "ornamentsCollected": "Julkulor insamlade"
     },
     "miniQuiz": {
       "title": "Minifrågesport",

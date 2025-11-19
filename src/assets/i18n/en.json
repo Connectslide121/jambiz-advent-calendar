@@ -185,6 +185,19 @@
       "completedIn": "Completed in {{moves}} moves",
       "previouslyCompleted": "Previously completed in {{moves}} moves"
     },
+    "climber": {
+      "title": "Christmas Climber",
+      "instruction": "Climb to the star at the top! Collect ornaments along the way.",
+      "controlsDesktop": "Arrow keys or WASD to move, SPACE to jump",
+      "controlsMobile": "Use touch controls to move and jump",
+      "staticPlatform": "Normal",
+      "movingPlatform": "Moving",
+      "icePlatform": "Icy",
+      "startGame": "Start Climbing",
+      "success": "You reached the star!",
+      "gameLost": "You fell! Try again.",
+      "ornamentsCollected": "Ornaments collected"
+    },
     "miniQuiz": {
       "title": "Mini Quiz",
       "instruction": "Choose the correct answer!",
@@ -388,6 +401,23 @@
           "extra-dash-3": {
             "name": "Expert Sprint",
             "description": "Maximum challenge!"
+          }
+        }
+      },
+      "climber": {
+        "title": "Christmas Climber",
+        "levels": {
+          "extra-climber-1": {
+            "name": "Gentle Climb",
+            "description": "Shorter ascent with steady platforms"
+          },
+          "extra-climber-2": {
+            "name": "Frosty Climb",
+            "description": "Higher peaks with icy surprises"
+          },
+          "extra-climber-3": {
+            "name": "Blizzard Summit",
+            "description": "Tall tower with slippery ledges"
           }
         }
       },

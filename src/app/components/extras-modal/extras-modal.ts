@@ -22,6 +22,7 @@ import { RebusChallenge } from '../challenges/rebus-challenge/rebus-challenge';
 import { MemoryCardChallenge } from '../challenges/memory-card-challenge/memory-card-challenge';
 import { GeometryDashChallenge } from '../challenges/geometry-dash-challenge/geometry-dash-challenge';
 import { SokobanChallengeComponent } from '../challenges/sokoban-challenge/sokoban-challenge';
+import ClimberChallengeComponent from '../challenges/climber-challenge/climber-challenge';
 
 type ViewMode = 'games' | 'levels' | 'playing';
 
@@ -123,6 +124,9 @@ export class ExtrasModalComponent {
         break;
       case 'sokoban':
         componentType = SokobanChallengeComponent;
+        break;
+      case 'climber':
+        componentType = ClimberChallengeComponent;
         break;
       default:
         return;

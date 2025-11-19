@@ -376,15 +376,35 @@ module.exports = {
 - Fixed day parameter passing issue in ChallengeHost (use 'day' in instance check)
 - Integrated with CalendarStateService for stats persistence
 
-### Phase 7: Complex Minigames - Batch 2 🎮
-- [ ] **ClimberChallengeComponent** - Vertical climber
-  - Jump between platforms to climb up
-  - **Mobile:** Virtual left/right/jump buttons
-  - Moving platforms, ice physics
-  - Collectible ornaments (optional)
-  - Reach the star at the top to win
-  - Use shared player sprite
-  - Christmas-themed platform graphics
+### Phase 7: Complex Minigames - Batch 2 ✅ COMPLETED
+- [x] **ClimberChallengeComponent** - Vertical climber
+  - [x] Jump between platforms to climb up
+  - [x] **Mobile:** Virtual left/right/jump buttons
+  - [x] Moving platforms, ice physics
+  - [x] Collectible ornaments (optional)
+  - [x] Reach the star at the top to win
+  - [x] Use shared player sprite
+  - [x] Christmas-themed platform graphics
+  - [x] Camera follow system
+  - [x] Stats persistence (ornaments collected)
+  - [x] Replay functionality
+  - [x] Added to day 16 in calendar-config.ts
+
+**Implementation Notes:**
+- Created vertical climbing game with 2000px world height
+- Implemented three platform types: static (green), moving (gold), ice (light blue)
+- Ice platforms use slippery physics with reduced player control
+- Moving platforms oscillate horizontally using sine wave
+- Camera smoothly follows player with lerp interpolation
+- Progress bar shows climbing height
+- Ornament collectibles (3 total) scattered throughout level
+- Goal star at top uses 5-point star rendering
+- Made climber parameters configurable (world height, gaps, physics, collectibles) via challengeData overrides
+- Added three climber extras levels with translated metadata for difficulties
+- Touch controls integrated for mobile (left/right/jump buttons)
+- Falls restart the game with "You fell!" message
+- Stats saved to localStorage (ornaments collected count)
+- Screen wrapping allows player to move off one side and appear on the other
   
 ### Phase 8: Complex Minigames - Batch 3 🎮
 - [ ] **MazeRunnerChallengeComponent** - Navigate Christmas maze
