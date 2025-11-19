@@ -205,8 +205,8 @@
     "climber": {
       "title": "Julklättraren",
       "instruction": "Klättra till stjärnan högst upp! Samla julkulor på vägen.",
-      "controlsDesktop": "Piltangenter eller WASD för att röra dig, MELLANSLAG för att hoppa",
-      "controlsMobile": "Använd touch-kontroller för att röra dig och hoppa",
+      "controlsDesktop": "Tryck MELLANSLAG eller klicka för att hoppa. Tajma dina hopp noga!",
+      "controlsMobile": "Tryck var som helst för att hoppa. Tajma dina hopp noga!",
       "staticPlatform": "Normal",
       "movingPlatform": "Rörlig",
       "icePlatform": "Isig",
@@ -214,6 +214,14 @@
       "success": "Du nådde stjärnan!",
       "gameLost": "Du ramlade! Försök igen.",
       "ornamentsCollected": "Julkulor insamlade"
+    },
+    "mazeRunner": {
+      "title": "Labyrintlöparen",
+      "instruction": "Samla alla julklappar och ta dem till granen!",
+      "moves": "Drag",
+      "success": "Labyrinten löst!",
+      "completedIn": "Klarat på {{moves}} drag",
+      "gifts": "Gåvor"
     },
     "miniQuiz": {
       "title": "Minifrågesport",
@@ -510,6 +518,23 @@
           "extra-sokoban-6": {
             "name": "Ultimat pussel",
             "description": "Den ultimata Sokoban-utmaningen"
+          }
+        }
+      },
+      "mazeRunner": {
+        "title": "Labyrintlöparen",
+        "levels": {
+          "extra-maze-1": {
+            "name": "Lätt labyrint",
+            "description": "En enkel väg till granen"
+          },
+          "extra-maze-2": {
+            "name": "Medel labyrint",
+            "description": "Fler svängar och vändningar"
+          },
+          "extra-maze-3": {
+            "name": "Svår labyrint",
+            "description": "En komplex labyrint"
           }
         }
       }

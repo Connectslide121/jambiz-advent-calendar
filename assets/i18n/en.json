@@ -188,8 +188,8 @@
     "climber": {
       "title": "Christmas Climber",
       "instruction": "Climb to the star at the top! Collect ornaments along the way.",
-      "controlsDesktop": "Arrow keys or WASD to move, SPACE to jump",
-      "controlsMobile": "Use touch controls to move and jump",
+      "controlsDesktop": "Press SPACE or click to jump. Time your jumps carefully!",
+      "controlsMobile": "Tap anywhere to jump. Time your jumps carefully!",
       "staticPlatform": "Normal",
       "movingPlatform": "Moving",
       "icePlatform": "Icy",
@@ -197,6 +197,14 @@
       "success": "You reached the star!",
       "gameLost": "You fell! Try again.",
       "ornamentsCollected": "Ornaments collected"
+    },
+    "mazeRunner": {
+      "title": "Maze Runner",
+      "instruction": "Collect all the gifts and bring them to the tree!",
+      "moves": "Moves",
+      "success": "Maze Solved!",
+      "completedIn": "Completed in {{moves}} moves",
+      "gifts": "Gifts"
     },
     "miniQuiz": {
       "title": "Mini Quiz",
@@ -510,6 +518,23 @@
           "extra-sokoban-6": {
             "name": "Ultimate Puzzle",
             "description": "The ultimate Sokoban challenge"
+          }
+        }
+      },
+      "mazeRunner": {
+        "title": "Maze Runner",
+        "levels": {
+          "extra-maze-1": {
+            "name": "Easy Maze",
+            "description": "A simple path to the tree"
+          },
+          "extra-maze-2": {
+            "name": "Medium Maze",
+            "description": "More twists and turns"
+          },
+          "extra-maze-3": {
+            "name": "Hard Maze",
+            "description": "A complex labyrinth"
           }
         }
       }
