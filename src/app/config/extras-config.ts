@@ -6,6 +6,7 @@ export interface ExtraLevel {
   descriptionKey: string;
   challengeType: ChallengeType;
   challengeData: any;
+  isInfinite?: boolean; // If true, level is endless and excluded from completion count
 }
 
 export interface ExtraGameSection {
@@ -239,17 +240,10 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
         descriptionKey: 'extras.games.geometryDash.levels.extra-dash-1.description',
         challengeType: 'geometryDash',
         challengeData: {
-          levelLength: 1800,
-          scrollSpeed: 200,
-          jumpForce: 800,
-          gravity: 2000,
-          obstacles: [
-            { x: 300, width: 40, height: 80, type: 'candy' },
-            { x: 600, width: 80, height: 0, type: 'pit' },
-            { x: 900, width: 40, height: 90, type: 'candy' },
-            { x: 1200, width: 100, height: 60, type: 'platform' },
-            { x: 1500, width: 40, height: 85, type: 'candy' },
-          ],
+          difficulty: 'easy',
+          difficultyConfig: {
+            levelLength: 3200,
+          },
         },
       },
       {
@@ -258,26 +252,11 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
         descriptionKey: 'extras.games.geometryDash.levels.extra-dash-2.description',
         challengeType: 'geometryDash',
         challengeData: {
-          levelLength: 4000,
-          scrollSpeed: 280,
-          jumpForce: 800,
-          gravity: 2000,
-          obstacles: [
-            { x: 350, width: 40, height: 85, type: 'candy' },
-            { x: 600, width: 40, height: 95, type: 'candy' },
-            { x: 850, width: 40, height: 110, type: 'ceilingCandy' },
-            { x: 1100, width: 110, height: 0, type: 'pit' },
-            { x: 1400, width: 40, height: 90, type: 'candy' },
-            { x: 1650, width: 130, height: 60, type: 'platform' },
-            { x: 1950, width: 40, height: 125, type: 'ceilingCandy' },
-            { x: 2200, width: 40, height: 85, type: 'candy' },
-            { x: 2450, width: 40, height: 100, type: 'candy' },
-            { x: 2700, width: 130, height: 0, type: 'pit' },
-            { x: 3000, width: 40, height: 130, type: 'ceilingCandy' },
-            { x: 3250, width: 40, height: 95, type: 'candy' },
-            { x: 3500, width: 120, height: 65, type: 'platform' },
-            { x: 3750, width: 40, height: 100, type: 'candy' },
-          ],
+          difficulty: 'medium',
+          difficultyConfig: {
+            levelLength: 6000,
+            scrollSpeed: 280,
+          },
         },
       },
       {
@@ -286,29 +265,50 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
         descriptionKey: 'extras.games.geometryDash.levels.extra-dash-3.description',
         challengeType: 'geometryDash',
         challengeData: {
-          levelLength: 5000,
-          scrollSpeed: 320,
-          jumpForce: 800,
-          gravity: 2000,
-          obstacles: [
-            { x: 300, width: 40, height: 80, type: 'candy' },
-            { x: 500, width: 40, height: 90, type: 'candy' },
-            { x: 750, width: 40, height: 120, type: 'ceilingCandy' },
-            { x: 1000, width: 100, height: 0, type: 'pit' },
-            { x: 1300, width: 40, height: 85, type: 'candy' },
-            { x: 1600, width: 140, height: 60, type: 'platform' },
-            { x: 2000, width: 40, height: 130, type: 'ceilingCandy' },
-            { x: 2300, width: 40, height: 90, type: 'candy' },
-            { x: 2500, width: 40, height: 85, type: 'candy' },
-            { x: 2800, width: 120, height: 0, type: 'pit' },
-            { x: 3200, width: 40, height: 140, type: 'ceilingCandy' },
-            { x: 3500, width: 40, height: 95, type: 'candy' },
-            { x: 3800, width: 160, height: 65, type: 'platform' },
-            { x: 4100, width: 40, height: 100, type: 'candy' },
-            { x: 4400, width: 40, height: 150, type: 'ceilingCandy' },
-            { x: 4600, width: 40, height: 90, type: 'candy' },
-            { x: 4800, width: 100, height: 0, type: 'pit' },
-          ],
+          difficulty: 'hard',
+          difficultyConfig: {
+            levelLength: 10000,
+            scrollSpeed: 320,
+          },
+        },
+      },
+      {
+        id: 'extra-dash-infinite-easy',
+        nameKey: 'extras.games.geometryDash.levels.extra-dash-infinite-easy.name',
+        descriptionKey: 'extras.games.geometryDash.levels.extra-dash-infinite-easy.description',
+        challengeType: 'geometryDash',
+        isInfinite: true,
+        challengeData: {
+          difficulty: 'easy',
+          difficultyConfig: {
+            infiniteMode: true,
+          },
+        },
+      },
+      {
+        id: 'extra-dash-infinite-medium',
+        nameKey: 'extras.games.geometryDash.levels.extra-dash-infinite-medium.name',
+        descriptionKey: 'extras.games.geometryDash.levels.extra-dash-infinite-medium.description',
+        challengeType: 'geometryDash',
+        isInfinite: true,
+        challengeData: {
+          difficulty: 'medium',
+          difficultyConfig: {
+            infiniteMode: true,
+          },
+        },
+      },
+      {
+        id: 'extra-dash-infinite-hard',
+        nameKey: 'extras.games.geometryDash.levels.extra-dash-infinite-hard.name',
+        descriptionKey: 'extras.games.geometryDash.levels.extra-dash-infinite-hard.description',
+        challengeType: 'geometryDash',
+        isInfinite: true,
+        challengeData: {
+          difficulty: 'hard',
+          difficultyConfig: {
+            infiniteMode: true,
+          },
         },
       },
     ],

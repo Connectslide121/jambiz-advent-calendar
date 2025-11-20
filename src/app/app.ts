@@ -111,8 +111,9 @@ export class App implements OnInit {
   }
 
   getCompletionCount(game: ExtraGameSection): { completed: number; total: number } {
-    const completed = game.levels.filter((level) => this.isExtraCompleted(level.id)).length;
-    return { completed, total: game.levels.length };
+    const completableLevels = game.levels.filter((level) => !level.isInfinite);
+    const completed = completableLevels.filter((level) => this.isExtraCompleted(level.id)).length;
+    return { completed, total: completableLevels.length };
   }
 
   getGameIcon(gameType: string): string {
@@ -137,10 +138,12 @@ export class App implements OnInit {
       // Mark all calendar days (1-24) as completed
       this.calendarState.markAllDaysComplete();
 
-      // Mark all extras as completed
+      // Mark all extras as completed (excluding infinite levels)
       EXTRA_LEVELS.forEach((game) => {
         game.levels.forEach((level) => {
-          this.completedExtras.add(level.id);
+          if (!level.isInfinite) {
+            this.completedExtras.add(level.id);
+          }
         });
       });
       this.saveCompletedExtras();

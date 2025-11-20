@@ -16,18 +16,139 @@ import { GameService } from '../../../services/game.service';
 import { KeyboardService } from '../../../services/keyboard.service';
 import { SpriteService } from '../../../services/sprite.service';
 
+export type GeometryDashDifficulty = 'easy' | 'medium' | 'hard' | 'custom';
+
+export interface GeometryDashDifficultyConfig {
+  infiniteMode?: boolean;
+  levelLength: number;
+  scrollSpeed: number;
+  jumpForce: number;
+  gravity: number;
+  minObstacleSpacing: number;
+  maxObstacleSpacing: number;
+  candyChance: number;
+  platformChance: number;
+  pitChance: number;
+  ceilingCandyChance: number;
+  minCandyHeight: number;
+  maxCandyHeight: number;
+  candyWidth: number;
+  minPlatformWidth: number;
+  maxPlatformWidth: number;
+  platformHeightRange: [number, number];
+  minPitWidth: number;
+  maxPitWidth: number;
+  ceilingCandyLength: [number, number];
+  assistPlatformOffset: number;
+}
+
 export interface GeometryDashConfig {
-  levelLength: number; // Distance to finish
-  scrollSpeed: number; // Pixels per second
-  jumpForce: number; // Jump velocity
-  gravity: number; // Gravity strength
-  obstacles: Array<{
+  difficulty?: GeometryDashDifficulty;
+  difficultyConfig?: Partial<GeometryDashDifficultyConfig>;
+  infiniteMode?: boolean; // If true, level continues indefinitely with timer score
+  // Legacy support for manual obstacle arrays
+  levelLength?: number;
+  scrollSpeed?: number;
+  jumpForce?: number;
+  gravity?: number;
+  obstacles?: Array<{
     x: number;
     width: number;
     height: number;
     type: 'candy' | 'pit' | 'platform' | 'ceilingCandy';
   }>;
 }
+
+const DIFFICULTY_PRESETS: Record<GeometryDashDifficulty, GeometryDashDifficultyConfig> = {
+  easy: {
+    levelLength: 4000,
+    scrollSpeed: 200,
+    jumpForce: 760,
+    gravity: 1800,
+    minObstacleSpacing: 200,
+    maxObstacleSpacing: 350,
+    candyChance: 0.65,
+    platformChance: 0.15,
+    pitChance: 0.1,
+    ceilingCandyChance: 0.1,
+    minCandyHeight: 60,
+    maxCandyHeight: 100,
+    candyWidth: 40,
+    minPlatformWidth: 80,
+    maxPlatformWidth: 140,
+    platformHeightRange: [50, 80],
+    minPitWidth: 80,
+    maxPitWidth: 120,
+    ceilingCandyLength: [100, 150],
+    assistPlatformOffset: 220,
+  },
+  medium: {
+    levelLength: 4000,
+    scrollSpeed: 240,
+    jumpForce: 850,
+    gravity: 2000,
+    minObstacleSpacing: 220,
+    maxObstacleSpacing: 400,
+    candyChance: 0.55,
+    platformChance: 0.1,
+    pitChance: 0.2,
+    ceilingCandyChance: 0.15,
+    minCandyHeight: 70,
+    maxCandyHeight: 120,
+    candyWidth: 40,
+    minPlatformWidth: 70,
+    maxPlatformWidth: 120,
+    platformHeightRange: [50, 90],
+    minPitWidth: 90,
+    maxPitWidth: 140,
+    ceilingCandyLength: [120, 180],
+    assistPlatformOffset: 200,
+  },
+  hard: {
+    levelLength: 8000,
+    scrollSpeed: 280,
+    jumpForce: 800,
+    gravity: 2200,
+    minObstacleSpacing: 200,
+    maxObstacleSpacing: 380,
+    candyChance: 0.5,
+    platformChance: 0.1,
+    pitChance: 0.2,
+    ceilingCandyChance: 0.2,
+    minCandyHeight: 80,
+    maxCandyHeight: 140,
+    candyWidth: 40,
+    minPlatformWidth: 60,
+    maxPlatformWidth: 100,
+    platformHeightRange: [60, 100],
+    minPitWidth: 100,
+    maxPitWidth: 160,
+    ceilingCandyLength: [140, 220],
+    assistPlatformOffset: 180,
+  },
+  custom: {
+    levelLength: 3000,
+    scrollSpeed: 240,
+    jumpForce: 850,
+    gravity: 2000,
+    minObstacleSpacing: 220,
+    maxObstacleSpacing: 400,
+    candyChance: 0.4,
+    platformChance: 0.3,
+    pitChance: 0.15,
+    ceilingCandyChance: 0.15,
+    minCandyHeight: 70,
+    maxCandyHeight: 120,
+    candyWidth: 40,
+    minPlatformWidth: 70,
+    maxPlatformWidth: 120,
+    platformHeightRange: [50, 90],
+    minPitWidth: 90,
+    maxPitWidth: 140,
+    ceilingCandyLength: [120, 180],
+    assistPlatformOffset: 200,
+  },
+};
 
 @Component({
   selector: 'app-geometry-dash-challenge',
@@ -51,6 +172,21 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
   private jumpKeyPressed = false;
   private isMobile = false;
   private scale = 1;
+
+  // Active difficulty settings and generated obstacles
+  private activeDifficulty!: GeometryDashDifficultyConfig;
+  private obstacles: Array<{
+    x: number;
+    width: number;
+    height: number;
+    type: 'candy' | 'pit' | 'platform' | 'ceilingCandy';
+  }> = [];
+
+  // Infinite mode properties
+  private isInfiniteMode = false;
+  private survivalTime = 0; // Time survived in seconds
+  private lastObstacleX = 0; // Track last generated obstacle position
+  private lastObstacleType: 'candy' | 'platform' | 'pit' | 'ceilingCandy' | null = null;
 
   // Player state
   player = {
@@ -81,6 +217,13 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
       this.gameWon = true;
     }
 
+    // Initialize difficulty and generate obstacles
+    this.initializeDifficulty();
+
+    // Check if infinite mode (must be after initializeDifficulty)
+    this.isInfiniteMode = this.activeDifficulty.infiniteMode || false;
+    this.generateObstacles();
+
     // Initialize keyboard service
     this.keyboardService.init();
   }
@@ -108,6 +251,357 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.stopGame();
     this.keyboardService.destroy();
+  }
+
+  private initializeDifficulty(): void {
+    // Check if using legacy obstacle array format
+    if (this.config.obstacles && this.config.obstacles.length > 0) {
+      // Legacy format - convert to difficulty config
+      this.activeDifficulty = {
+        levelLength: this.config.levelLength || 3000,
+        scrollSpeed: this.config.scrollSpeed || 240,
+        jumpForce: this.config.jumpForce || 850,
+        gravity: this.config.gravity || 2000,
+        minObstacleSpacing: 250,
+        maxObstacleSpacing: 500,
+        candyChance: 0.35,
+        platformChance: 0.3,
+        pitChance: 0.2,
+        ceilingCandyChance: 0.15,
+        minCandyHeight: 70,
+        maxCandyHeight: 130,
+        candyWidth: 40,
+        minPlatformWidth: 70,
+        maxPlatformWidth: 120,
+        platformHeightRange: [50, 90],
+        minPitWidth: 90,
+        maxPitWidth: 140,
+        ceilingCandyLength: [120, 180],
+        assistPlatformOffset: 180,
+      };
+      this.obstacles = this.config.obstacles;
+      return;
+    }
+
+    // Use difficulty preset
+    const difficulty = this.config.difficulty || 'medium';
+    const preset = DIFFICULTY_PRESETS[difficulty];
+
+    // Merge with custom overrides if provided
+    this.activeDifficulty = {
+      ...preset,
+      ...(this.config.difficultyConfig || {}),
+    };
+  }
+
+  private generateObstacles(): void {
+    // Skip if using legacy obstacle array
+    if (this.config.obstacles && this.config.obstacles.length > 0) {
+      return;
+    }
+
+    this.obstacles = [];
+    const config = this.activeDifficulty;
+
+    // Calculate max jumpable height based on physics
+    const maxJumpableHeight = this.calculateMaxJumpHeight();
+
+    let currentX = 500; // Start generating after initial safe zone
+    const endX = this.isInfiniteMode ? 2000 : config.levelLength - 300; // In infinite mode, generate initial batch
+
+    this.lastObstacleX = currentX;
+
+    while (currentX < endX) {
+      // Determine spacing for this obstacle
+      const spacing =
+        config.minObstacleSpacing +
+        Math.random() * (config.maxObstacleSpacing - config.minObstacleSpacing);
+
+      currentX += spacing;
+
+      if (currentX >= endX) break;
+
+      // Select obstacle type based on weighted probabilities
+      const obstacleType = this.selectObstacleType();
+
+      if (obstacleType === 'candy') {
+        const height =
+          config.minCandyHeight + Math.random() * (config.maxCandyHeight - config.minCandyHeight);
+
+        // Check if candy is too tall and needs a platform before it
+        if (height > maxJumpableHeight) {
+          // ALWAYS insert assist platform for tall candies
+          const platformX = currentX - config.assistPlatformOffset;
+          const lastObstacleX =
+            this.obstacles.length > 0 ? this.obstacles[this.obstacles.length - 1].x : 0;
+
+          // Ensure platform doesn't overlap with previous obstacle
+          const safeX = Math.max(platformX, lastObstacleX + 100);
+
+          // Only skip if platform would be too close to the candy itself
+          if (currentX - safeX > 120) {
+            const platformWidth =
+              config.minPlatformWidth +
+              Math.random() * (config.maxPlatformWidth - config.minPlatformWidth);
+            const platformHeight =
+              config.platformHeightRange[0] +
+              Math.random() * (config.platformHeightRange[1] - config.platformHeightRange[0]);
+
+            this.obstacles.push({
+              x: safeX,
+              width: platformWidth,
+              height: platformHeight,
+              type: 'platform',
+            });
+          } else {
+            // If we can't fit a platform, reduce the candy height to be jumpable
+            const reducedHeight = maxJumpableHeight - 10;
+            this.obstacles.push({
+              x: currentX,
+              width: config.candyWidth,
+              height: reducedHeight,
+              type: 'candy',
+            });
+            continue;
+          }
+        }
+
+        this.obstacles.push({
+          x: currentX,
+          width: config.candyWidth,
+          height,
+          type: 'candy',
+        });
+        this.lastObstacleType = 'candy';
+      } else if (obstacleType === 'platform') {
+        const width =
+          config.minPlatformWidth +
+          Math.random() * (config.maxPlatformWidth - config.minPlatformWidth);
+        const height =
+          config.platformHeightRange[0] +
+          Math.random() * (config.platformHeightRange[1] - config.platformHeightRange[0]);
+
+        this.obstacles.push({
+          x: currentX,
+          width,
+          height,
+          type: 'platform',
+        });
+        this.lastObstacleType = 'platform';
+      } else if (obstacleType === 'pit') {
+        const width =
+          config.minPitWidth + Math.random() * (config.maxPitWidth - config.minPitWidth);
+
+        // Ensure pit is jumpable (check horizontal distance)
+        const maxJumpableGap = this.calculateMaxJumpDistance();
+        const finalWidth = Math.min(width, maxJumpableGap);
+
+        this.obstacles.push({
+          x: currentX,
+          width: finalWidth,
+          height: 0, // Pits have no height
+          type: 'pit',
+        });
+        this.lastObstacleType = 'pit';
+
+        // Add spacing to account for pit width
+        currentX += finalWidth;
+      } else if (obstacleType === 'ceilingCandy') {
+        const length =
+          config.ceilingCandyLength[0] +
+          Math.random() * (config.ceilingCandyLength[1] - config.ceilingCandyLength[0]);
+
+        // Random height that player must duck under
+        const height = 200 + Math.random() * 200;
+
+        this.obstacles.push({
+          x: currentX,
+          width: length,
+          height,
+          type: 'ceilingCandy',
+        });
+        this.lastObstacleType = 'ceilingCandy';
+
+        // Add spacing to account for ceiling candy length
+        currentX += length;
+      }
+
+      // Update last obstacle position
+      this.lastObstacleX = Math.max(this.lastObstacleX, currentX);
+    }
+  }
+
+  private generateMoreObstacles(): void {
+    // Only for infinite mode
+    if (!this.isInfiniteMode) return;
+
+    const config = this.activeDifficulty;
+    const maxJumpableHeight = this.calculateMaxJumpHeight();
+
+    // Generate obstacles up to a certain distance ahead of camera
+    const generateAheadDistance = 1500;
+    const targetX = this.cameraX + generateAheadDistance;
+
+    while (this.lastObstacleX < targetX) {
+      const spacing =
+        config.minObstacleSpacing +
+        Math.random() * (config.maxObstacleSpacing - config.minObstacleSpacing);
+
+      this.lastObstacleX += spacing;
+      const currentX = this.lastObstacleX;
+
+      const obstacleType = this.selectObstacleType();
+
+      if (obstacleType === 'candy') {
+        const height =
+          config.minCandyHeight + Math.random() * (config.maxCandyHeight - config.minCandyHeight);
+
+        if (height > maxJumpableHeight) {
+          const platformX = currentX - config.assistPlatformOffset;
+          const lastObstacleInArrayX =
+            this.obstacles.length > 0 ? this.obstacles[this.obstacles.length - 1].x : 0;
+          const safeX = Math.max(platformX, lastObstacleInArrayX + 100);
+
+          if (currentX - safeX > 120) {
+            const platformWidth =
+              config.minPlatformWidth +
+              Math.random() * (config.maxPlatformWidth - config.minPlatformWidth);
+            const platformHeight =
+              config.platformHeightRange[0] +
+              Math.random() * (config.platformHeightRange[1] - config.platformHeightRange[0]);
+
+            this.obstacles.push({
+              x: safeX,
+              width: platformWidth,
+              height: platformHeight,
+              type: 'platform',
+            });
+          } else {
+            const reducedHeight = maxJumpableHeight - 10;
+            this.obstacles.push({
+              x: currentX,
+              width: config.candyWidth,
+              height: reducedHeight,
+              type: 'candy',
+            });
+            continue;
+          }
+        }
+
+        this.obstacles.push({
+          x: currentX,
+          width: config.candyWidth,
+          height,
+          type: 'candy',
+        });
+        this.lastObstacleType = 'candy';
+      } else if (obstacleType === 'platform') {
+        const width =
+          config.minPlatformWidth +
+          Math.random() * (config.maxPlatformWidth - config.minPlatformWidth);
+        const height =
+          config.platformHeightRange[0] +
+          Math.random() * (config.platformHeightRange[1] - config.platformHeightRange[0]);
+
+        this.obstacles.push({
+          x: currentX,
+          width,
+          height,
+          type: 'platform',
+        });
+        this.lastObstacleType = 'platform';
+      } else if (obstacleType === 'pit') {
+        const width =
+          config.minPitWidth + Math.random() * (config.maxPitWidth - config.minPitWidth);
+        const maxJumpableGap = this.calculateMaxJumpDistance();
+        const finalWidth = Math.min(width, maxJumpableGap);
+
+        this.obstacles.push({
+          x: currentX,
+          width: finalWidth,
+          height: 0,
+          type: 'pit',
+        });
+        this.lastObstacleType = 'pit';
+
+        this.lastObstacleX += finalWidth;
+      } else if (obstacleType === 'ceilingCandy') {
+        const length =
+          config.ceilingCandyLength[0] +
+          Math.random() * (config.ceilingCandyLength[1] - config.ceilingCandyLength[0]);
+        const height = 200 + Math.random() * 200;
+
+        this.obstacles.push({
+          x: currentX,
+          width: length,
+          height,
+          type: 'ceilingCandy',
+        });
+        this.lastObstacleType = 'ceilingCandy';
+
+        this.lastObstacleX += length;
+      }
+    }
+
+    // Clean up obstacles that are far behind the camera to save memory
+    const cleanupDistance = 1000;
+    this.obstacles = this.obstacles.filter((obs) => obs.x > this.cameraX - cleanupDistance);
+  }
+
+  private selectObstacleType(): 'candy' | 'platform' | 'pit' | 'ceilingCandy' {
+    const config = this.activeDifficulty;
+
+    // If last obstacle was ceiling candy, exclude it from this selection
+    let candyChance = config.candyChance;
+    let platformChance = config.platformChance;
+    let pitChance = config.pitChance;
+    let ceilingCandyChance =
+      this.lastObstacleType === 'ceilingCandy' ? 0 : config.ceilingCandyChance;
+
+    // Normalize chances to ensure they sum to 1.0
+    const total = candyChance + platformChance + pitChance + ceilingCandyChance;
+    const normalizedCandyChance = candyChance / total;
+    const normalizedPlatformChance = platformChance / total;
+    const normalizedPitChance = pitChance / total;
+
+    const random = Math.random();
+
+    if (random < normalizedCandyChance) {
+      return 'candy';
+    } else if (random < normalizedCandyChance + normalizedPlatformChance) {
+      return 'platform';
+    } else if (random < normalizedCandyChance + normalizedPlatformChance + normalizedPitChance) {
+      return 'pit';
+    } else {
+      return 'ceilingCandy';
+    }
+  }
+
+  private calculateMaxJumpHeight(): number {
+    // Calculate max height player can reach with a jump
+    // Using kinematic equation: v^2 = u^2 + 2as
+    // At max height, v = 0, u = jumpForce, a = -gravity
+    const jumpForce = this.activeDifficulty.jumpForce;
+    const gravity = this.activeDifficulty.gravity;
+
+    // Max height = (jumpForce^2) / (2 * gravity)
+    // Subtract player height and add buffer
+    return (jumpForce * jumpForce) / (2 * gravity) - this.player.height - 20;
+  }
+
+  private calculateMaxJumpDistance(): number {
+    // Calculate max horizontal distance player can cover in a jump
+    // Time in air = 2 * jumpForce / gravity
+    // Distance = scrollSpeed * time
+    const jumpForce = this.activeDifficulty.jumpForce;
+    const gravity = this.activeDifficulty.gravity;
+    const scrollSpeed = this.activeDifficulty.scrollSpeed;
+
+    const airTime = (2 * jumpForce) / gravity;
+    const distance = scrollSpeed * airTime;
+
+    // Return conservative estimate (80% of theoretical max)
+    return distance * 0.8;
   }
 
   initCanvas(canvas: HTMLCanvasElement): void {
@@ -160,6 +654,9 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
     this.player.isOnGround = true;
     this.jumpKeyPressed = false;
 
+    // Regenerate obstacles for replay variety
+    this.generateObstacles();
+
     this.gameLoopId = this.gameService.startGameLoop((deltaTime) => {
       this.update(deltaTime);
       this.render();
@@ -176,8 +673,18 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
   update(deltaTime: number): void {
     if (!this.gameStarted || this.gameWon || this.gameLost) return;
 
+    // Track survival time in infinite mode
+    if (this.isInfiniteMode) {
+      this.survivalTime += deltaTime;
+    }
+
     // Auto-scroll camera
-    this.cameraX += this.config.scrollSpeed * deltaTime;
+    this.cameraX += this.activeDifficulty.scrollSpeed * deltaTime;
+
+    // Generate more obstacles in infinite mode
+    if (this.isInfiniteMode) {
+      this.generateMoreObstacles();
+    }
 
     // Handle jump input (keyboard or mobile tap)
     const jumpKeyDown = this.keyboardService.isSpacePressed() || this.keyboardService.isUpPressed();
@@ -190,7 +697,7 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
     // Apply gravity
     this.player.velocityY = this.gameService.applyGravity(
       this.player.velocityY,
-      this.config.gravity,
+      this.activeDifficulty.gravity,
       deltaTime
     );
 
@@ -199,7 +706,7 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
 
     // Check if player is over a pit (before ground collision)
     let isOverPit = false;
-    for (const obstacle of this.config.obstacles) {
+    for (const obstacle of this.obstacles) {
       if (obstacle.type === 'pit') {
         const screenX = obstacle.x - this.cameraX;
         // Only consider over pit if the front edge has fully entered the pit
@@ -230,7 +737,7 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
     }
 
     // Check obstacle collisions and platform landings
-    for (const obstacle of this.config.obstacles) {
+    for (const obstacle of this.obstacles) {
       const screenX = obstacle.x - this.cameraX;
 
       if (obstacle.type === 'pit') {
@@ -311,15 +818,17 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
       }
     }
 
-    // Check win condition - player crosses the finish line (not camera)
-    const finishLineX = this.config.levelLength;
-    const playerFrontX = this.cameraX + this.player.x + this.player.width;
-    if (playerFrontX >= finishLineX) {
-      this.gameWon = true;
-      this.stopGame();
-      setTimeout(() => {
-        this.completed.emit();
-      }, 500);
+    // Check win condition - player crosses the finish line (only in standard mode)
+    if (!this.isInfiniteMode) {
+      const finishLineX = this.activeDifficulty.levelLength;
+      const playerFrontX = this.cameraX + this.player.x + this.player.width;
+      if (playerFrontX >= finishLineX) {
+        this.gameWon = true;
+        this.stopGame();
+        setTimeout(() => {
+          this.completed.emit();
+        }, 500);
+      }
     }
   }
 
@@ -359,7 +868,7 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
     }
 
     // Draw obstacles
-    for (const obstacle of this.config.obstacles) {
+    for (const obstacle of this.obstacles) {
       const screenX = obstacle.x - this.cameraX;
 
       // Only draw if on screen
@@ -424,20 +933,22 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
       }
     }
 
-    // Draw finish line
-    const finishX = this.config.levelLength - this.cameraX;
-    if (finishX > 0 && finishX < this.canvas.width / this.scale) {
-      this.ctx.strokeStyle = '#f4d35e'; // Gold
-      this.ctx.lineWidth = 4;
-      this.ctx.setLineDash([10, 5]);
-      this.ctx.beginPath();
-      this.ctx.moveTo(finishX, 0);
-      this.ctx.lineTo(finishX, logicalHeight);
-      this.ctx.stroke();
-      this.ctx.setLineDash([]);
+    // Draw finish line (only in standard mode)
+    if (!this.isInfiniteMode) {
+      const finishX = this.activeDifficulty.levelLength - this.cameraX;
+      if (finishX > 0 && finishX < this.canvas.width / this.scale) {
+        this.ctx.strokeStyle = '#f4d35e'; // Gold
+        this.ctx.lineWidth = 4;
+        this.ctx.setLineDash([10, 5]);
+        this.ctx.beginPath();
+        this.ctx.moveTo(finishX, 0);
+        this.ctx.lineTo(finishX, logicalHeight);
+        this.ctx.stroke();
+        this.ctx.setLineDash([]);
 
-      // Draw star at finish
-      this.drawStar(finishX, this.groundY - 80, 20, '#f4d35e');
+        // Draw star at finish
+        this.drawStar(finishX, this.groundY - 80, 20, '#f4d35e');
+      }
     }
 
     // Draw player (sprite or fallback cube)
@@ -486,25 +997,43 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
     // Restore scale before drawing UI
     this.ctx.restore();
 
-    // Draw progress bar (outside scaled context)
-    const progress = Math.min(this.cameraX / this.config.levelLength, 1);
+    // Draw progress bar or timer depending on mode
+    if (this.isInfiniteMode) {
+      // Draw survival timer for infinite mode
+      const minutes = Math.floor(this.survivalTime / 60);
+      const seconds = Math.floor(this.survivalTime % 60);
+      const milliseconds = Math.floor((this.survivalTime % 1) * 1000);
+      const timeString = `${minutes.toString().padStart(2, '0')}:${seconds
+        .toString()
+        .padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`;
 
-    // Keep left margin at 20, but reduce width to prevent overflow on the right
-    const barX = this.isMobile ? 10 : 20;
-    const barRightMargin = this.isMobile ? 350 : 20;
-    const barWidth = this.canvas.width - barX - barRightMargin;
-    const barHeight = 10;
-    const barY = this.isMobile ? 10 : 20;
+      const timerX = this.isMobile ? 10 : 20;
+      const timerY = this.isMobile ? 25 : 35;
 
-    this.ctx.fillStyle = '#102437';
-    this.ctx.fillRect(barX, barY, barWidth, barHeight);
+      this.ctx.font = this.isMobile ? '16px monospace' : '20px monospace';
+      this.ctx.fillStyle = '#f4d35e';
+      this.ctx.textAlign = 'left';
+      this.ctx.fillText(timeString, timerX, timerY);
+    } else {
+      // Draw progress bar for standard mode
+      const progress = Math.min(this.cameraX / this.activeDifficulty.levelLength, 1);
 
-    this.ctx.fillStyle = '#f4d35e';
-    this.ctx.fillRect(barX, barY, barWidth * progress, barHeight);
+      const barX = this.isMobile ? 10 : 20;
+      const barRightMargin = this.isMobile ? 350 : 20;
+      const barWidth = this.canvas.width - barX - barRightMargin;
+      const barHeight = 10;
+      const barY = this.isMobile ? 10 : 20;
 
-    this.ctx.strokeStyle = '#ffffff';
-    this.ctx.lineWidth = 2;
-    this.ctx.strokeRect(barX, barY, barWidth, barHeight);
+      this.ctx.fillStyle = '#102437';
+      this.ctx.fillRect(barX, barY, barWidth, barHeight);
+
+      this.ctx.fillStyle = '#f4d35e';
+      this.ctx.fillRect(barX, barY, barWidth * progress, barHeight);
+
+      this.ctx.strokeStyle = '#ffffff';
+      this.ctx.lineWidth = 2;
+      this.ctx.strokeRect(barX, barY, barWidth, barHeight);
+    }
   }
 
   drawStar(x: number, y: number, radius: number, color: string): void {
@@ -526,7 +1055,7 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
 
   jump(): void {
     if (this.player.isOnGround && this.gameStarted && !this.gameWon && !this.gameLost) {
-      this.player.velocityY = -this.config.jumpForce;
+      this.player.velocityY = -this.activeDifficulty.jumpForce;
       this.player.isOnGround = false;
       this.jumpKeyPressed = true; // Immediately mark as pressed to prevent double jumps
       // Render immediately for instant visual feedback
@@ -539,7 +1068,7 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
       this.startGame();
     } else if (!this.gameWon && !this.gameLost && this.player.isOnGround) {
       // Jump immediately on tap without waiting for next frame
-      this.player.velocityY = -this.config.jumpForce;
+      this.player.velocityY = -this.activeDifficulty.jumpForce;
       this.player.isOnGround = false;
     }
   }

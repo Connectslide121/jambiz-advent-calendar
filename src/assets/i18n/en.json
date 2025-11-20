@@ -409,6 +409,18 @@
           "extra-dash-3": {
             "name": "Expert Sprint",
             "description": "Maximum challenge!"
+          },
+          "extra-dash-infinite-easy": {
+            "name": "Endless Easy",
+            "description": "Survive as long as possible - Easy mode"
+          },
+          "extra-dash-infinite-medium": {
+            "name": "Endless Medium",
+            "description": "How long can you last? - Medium mode"
+          },
+          "extra-dash-infinite-hard": {
+            "name": "Endless Hard",
+            "description": "Ultimate survival challenge!"
           }
         }
       },

@@ -188,8 +188,8 @@ export class ExtrasModalComponent {
 
   handleChallengeCompleted(): void {
     const level = this.selectedLevel();
-    if (level) {
-      // Mark level as completed
+    if (level && !level.isInfinite) {
+      // Mark level as completed (skip infinite levels as they can't be "completed")
       this.completedLevels.update((levels) => {
         const newSet = new Set(levels);
         newSet.add(level.id);
@@ -204,12 +204,14 @@ export class ExtrasModalComponent {
   }
 
   getCompletionCount(game: ExtraGameSection): { completed: number; total: number } {
-    const completed = game.levels.filter((level: ExtraLevel) =>
+    // Exclude infinite levels from both completed and total counts
+    const completableLevels = game.levels.filter((level: ExtraLevel) => !level.isInfinite);
+    const completed = completableLevels.filter((level: ExtraLevel) =>
       this.isLevelCompleted(level.id)
     ).length;
     return {
       completed,
-      total: game.levels.length,
+      total: completableLevels.length,
     };
   }
 
