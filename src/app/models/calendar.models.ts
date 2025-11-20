@@ -18,6 +18,7 @@ export interface CalendarDayConfig {
   challengeType?: ChallengeType; // Optional for unpopulated days
   funFactKey: string;
   challengeData?: any; // Type varies by challenge type
+  levelId?: string; // Unique ID for extras levels (for stats persistence)
 }
 
 export interface DayState {

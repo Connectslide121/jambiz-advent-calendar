@@ -172,7 +172,15 @@
       "start": "Start Game",
       "crashed": "Ouch! You hit an obstacle!",
       "victory": "You reached the tree!",
-      "showFunFact": "Show Fun Fact"
+      "showFunFact": "Show Fun Fact",
+      "endless": {
+        "tagline": "Endless flight! Glide between candy canes for as long as you can.",
+        "bestDistance": "Best distance",
+        "bestTime": "Best time",
+        "lastDistance": "Last distance",
+        "lastTime": "Last time",
+        "gameLost": "You clipped a candy cane! Ready to try again?"
+      }
     },
     "sokoban": {
       "title": "Gift Puzzle",
@@ -196,7 +204,15 @@
       "startGame": "Start Climbing",
       "success": "You reached the star!",
       "gameLost": "You fell! Try again.",
-      "ornamentsCollected": "Ornaments collected"
+      "ornamentsCollected": "Ornaments collected",
+      "endless": {
+        "tagline": "Endless climb! Stay on the platforms and reach new heights.",
+        "bestHeight": "Best height",
+        "bestTime": "Best time",
+        "lastHeight": "Last height",
+        "lastTime": "Last time",
+        "gameLost": "You slipped! Keep climbing to push your record."
+      }
     },
     "mazeRunner": {
       "title": "Maze Runner",
@@ -438,6 +454,18 @@
           "extra-climber-3": {
             "name": "Blizzard Summit",
             "description": "Tall tower with slippery ledges"
+          },
+          "extra-climber-infinite-easy": {
+            "name": "Endless Cozy Climb",
+            "description": "Gentle pacing with generous footholds"
+          },
+          "extra-climber-infinite-medium": {
+            "name": "Endless Frost Climb",
+            "description": "Icy shifts and brisk platform swings"
+          },
+          "extra-climber-infinite-hard": {
+            "name": "Endless Blizzard Climb",
+            "description": "Rapid gaps and slippery challenges"
           }
         }
       },
@@ -501,6 +529,18 @@
           "extra-flappy-3": {
             "name": "Expert Flight",
             "description": "Maximum challenge!"
+          },
+          "extra-flappy-infinite-easy": {
+            "name": "Endless North Wind",
+            "description": "Smooth glide with forgiving tunnels"
+          },
+          "extra-flappy-infinite-medium": {
+            "name": "Endless Midnight Run",
+            "description": "Quicker sleigh, nimble weaving"
+          },
+          "extra-flappy-infinite-hard": {
+            "name": "Endless Aurora Dash",
+            "description": "Blistering pace for fearless pilots"
           }
         }
       },

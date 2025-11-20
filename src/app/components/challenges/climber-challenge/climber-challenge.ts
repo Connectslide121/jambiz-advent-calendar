@@ -83,9 +83,12 @@ interface ClimberChallengeSettings {
 
 interface ClimberChallengeConfig {
   settings?: Partial<ClimberChallengeSettings>;
+  infiniteMode?: boolean;
 }
 
-type ClimberChallengeInput = ClimberChallengeConfig | Partial<ClimberChallengeSettings>;
+type ClimberChallengeInput =
+  | ClimberChallengeConfig
+  | (Partial<ClimberChallengeSettings> & { infiniteMode?: boolean });
 
 const DEFAULT_CLIMBER_SETTINGS: ClimberChallengeSettings = {
   worldHeight: 2000,
@@ -124,6 +127,7 @@ export default class ClimberChallengeComponent
   @Input() config?: ClimberChallengeInput;
   @Input() isCompleted = false;
   @Input() day = 0;
+  @Input() levelId?: string; // Used for extras levels to store stats
   @Output() completed = new EventEmitter<void>();
 
   @ViewChild('gameCanvas', { static: false })
@@ -135,6 +139,8 @@ export default class ClimberChallengeComponent
   gameLost = signal(false);
   isMobile = signal(false);
 
+  public isInfiniteMode = false;
+
   private ctx!: CanvasRenderingContext2D;
   private gameLoopId: number | null = null;
   private readonly CANVAS_WIDTH = 400;
@@ -143,6 +149,13 @@ export default class ClimberChallengeComponent
   private settings: ClimberChallengeSettings = { ...DEFAULT_CLIMBER_SETTINGS };
   private initialized = false;
   private jumpBuffer = 0;
+  private survivalTime = 0;
+  private maxHeightReached = 0;
+  private startingY = 0;
+  private nextPlatformY = 0;
+  private highestGeneratedY = 0;
+  private readonly INFINITE_GENERATION_BUFFER = 900;
+  private readonly INFINITE_PRUNE_DISTANCE = 1200;
 
   // Player
   private player: Player = {
@@ -174,6 +187,12 @@ export default class ClimberChallengeComponent
   // Stats (public for template access)
   collectedCount = 0;
   totalCollectibles = DEFAULT_CLIMBER_SETTINGS.collectibles;
+  bestHeight = 0;
+  bestTime = 0;
+  bestTimeFormatted = '00:00.000';
+  lastRunHeight = 0;
+  lastRunTime = 0;
+  lastRunTimeFormatted = '00:00.000';
 
   constructor(
     private gameService: GameService,
@@ -199,6 +218,14 @@ export default class ClimberChallengeComponent
   }
 
   ngOnInit(): void {
+    console.log(
+      '[Climber] ngOnInit. levelId:',
+      this.levelId,
+      'day:',
+      this.day,
+      'isInfinite:',
+      this.isInfiniteMode
+    );
     this.isMobile.set(this.gameService.isMobileDevice());
     this.applyConfig(this.config);
     this.generateLevel();
@@ -209,6 +236,19 @@ export default class ClimberChallengeComponent
       const savedStats = this.stateService.getGameStats(this.day);
       if (savedStats) {
         this.collectedCount = savedStats.collected || 0;
+      }
+    }
+
+    // Load persisted best scores for infinite mode
+    if (this.isInfiniteMode) {
+      const storageKey = this.getStorageKey();
+      if (storageKey) {
+        const savedStats = this.stateService.getGameStats(storageKey);
+        if (savedStats) {
+          this.bestHeight = savedStats.bestHeight || 0;
+          this.bestTime = savedStats.bestTime || 0;
+          this.bestTimeFormatted = this.formatTime(this.bestTime);
+        }
       }
     }
   }
@@ -296,17 +336,28 @@ export default class ClimberChallengeComponent
 
   private applyConfig(config?: ClimberChallengeInput): void {
     let overrides: Partial<ClimberChallengeSettings> = {};
+    let infiniteMode = false;
 
     if (config) {
       if (this.hasSettings(config)) {
         overrides = config.settings ?? {};
+        infiniteMode = !!config.infiniteMode;
       } else {
-        overrides = config as Partial<ClimberChallengeSettings>;
+        const { infiniteMode: maybeInfinite, ...rest } = config as Partial<
+          ClimberChallengeSettings & { infiniteMode?: boolean }
+        >;
+        overrides = rest;
+        infiniteMode = !!maybeInfinite;
       }
     }
 
     this.settings = { ...DEFAULT_CLIMBER_SETTINGS, ...overrides };
-    this.totalCollectibles = this.settings.collectibles;
+    this.isInfiniteMode = infiniteMode;
+    // Don't reset endless stats here - they should persist across sessions
+    // Only reset runtime stats (survivalTime, maxHeightReached)
+    this.survivalTime = 0;
+    this.maxHeightReached = 0;
+    this.totalCollectibles = this.isInfiniteMode ? 0 : this.settings.collectibles;
   }
 
   private hasSettings(value: ClimberChallengeInput): value is ClimberChallengeConfig {
@@ -322,13 +373,26 @@ export default class ClimberChallengeComponent
     this.player.onIce = false;
     this.player.platformVelocityX = 0;
     this.player.currentPlatform = undefined;
-    this.cameraY = Math.max(0, this.settings.worldHeight - this.CANVAS_HEIGHT);
+    if (this.isInfiniteMode) {
+      this.cameraY = this.player.y - this.CANVAS_HEIGHT / 2;
+    } else {
+      this.cameraY = Math.max(0, this.settings.worldHeight - this.CANVAS_HEIGHT);
+    }
     this.jumpBuffer = 0;
+    this.startingY = this.player.y;
+    this.survivalTime = 0;
+    this.maxHeightReached = 0;
   }
 
   private generateLevel(): void {
     this.platforms = [];
     this.collectibles = [];
+
+    if (this.isInfiniteMode) {
+      this.generateInfiniteLevel();
+      this.totalCollectibles = 0;
+      return;
+    }
 
     // Starting platform
     const startingWidth = this.settings.startingPlatformWidth;
@@ -426,6 +490,96 @@ export default class ClimberChallengeComponent
     this.totalCollectibles = this.collectibles.length;
   }
 
+  private generateInfiniteLevel(): void {
+    const startingWidth = this.settings.startingPlatformWidth;
+    const startY = this.settings.worldHeight - 50;
+
+    this.platforms.push({
+      x: (this.CANVAS_WIDTH - startingWidth) / 2,
+      y: startY,
+      width: startingWidth,
+      height: 15,
+      type: 'static',
+    });
+
+    this.nextPlatformY = startY - this.settings.platformGap;
+    this.highestGeneratedY = this.nextPlatformY;
+
+    // Pre-generate a buffer of platforms above the starting area
+    this.extendInfinitePlatforms(startY - this.INFINITE_GENERATION_BUFFER * 2);
+
+    // Disable goal zone visuals in endless mode
+    this.goalZone.x = 0;
+    this.goalZone.y = -10000;
+    this.goalZone.width = this.CANVAS_WIDTH;
+    this.goalZone.height = 0;
+
+    this.collectibles = [];
+  }
+
+  private extendInfinitePlatforms(targetY: number): void {
+    let lastPlatformType: Platform['type'] =
+      this.platforms.length > 0 ? this.platforms[this.platforms.length - 1].type : 'static';
+
+    while (this.nextPlatformY > targetY) {
+      let platformType: Platform['type'] = 'static';
+
+      if (lastPlatformType === 'static') {
+        platformType = 'moving';
+      } else {
+        const roll = Math.random();
+        if (roll < this.settings.movingPlatformChance) {
+          platformType = 'moving';
+        } else if (roll < this.settings.movingPlatformChance + this.settings.icePlatformChance) {
+          platformType = 'ice';
+        }
+      }
+
+      const widthRange = this.settings.maxPlatformWidth - this.settings.minPlatformWidth;
+      const width = this.settings.minPlatformWidth + Math.random() * Math.max(10, widthRange);
+      const x = Math.random() * (this.CANVAS_WIDTH - width);
+
+      const platform: Platform = {
+        x,
+        y: this.nextPlatformY,
+        width,
+        height: 15,
+        type: platformType,
+      };
+
+      if (platformType === 'moving' || platformType === 'ice') {
+        const centerX = (this.CANVAS_WIDTH - width) / 2;
+        platform.initialX = centerX;
+        platform.moveRange = (this.CANVAS_WIDTH - width) / 2;
+        platform.moveSpeed = this.settings.movingSpeed * (0.8 + Math.random() * 0.6);
+        platform.phase = Math.random() * Math.PI * 2;
+      }
+
+      this.platforms.push(platform);
+      lastPlatformType = platformType;
+
+      const variance = (Math.random() * 2 - 1) * this.settings.platformGapVariance;
+      const gap = Math.max(80, this.settings.platformGap + variance);
+      this.nextPlatformY -= gap;
+    }
+
+    this.highestGeneratedY = Math.min(this.highestGeneratedY, this.nextPlatformY);
+  }
+
+  private pruneInfinitePlatforms(): void {
+    const cutoff = this.player.y + this.INFINITE_PRUNE_DISTANCE;
+    this.platforms = this.platforms.filter((platform) => platform.y <= cutoff);
+  }
+
+  private resetEndlessStats(): void {
+    // Only reset last run stats, not best scores (those persist in localStorage)
+    this.lastRunHeight = 0;
+    this.lastRunTime = 0;
+    this.lastRunTimeFormatted = '00:00.000';
+    this.survivalTime = 0;
+    this.maxHeightReached = 0;
+  }
+
   private gameLoop(deltaTime: number): void {
     this.updateGame(deltaTime);
     this.renderGame();
@@ -433,6 +587,10 @@ export default class ClimberChallengeComponent
 
   private updateGame(deltaTime: number): void {
     const time = Date.now() / 1000;
+
+    if (this.isInfiniteMode) {
+      this.survivalTime += deltaTime;
+    }
 
     // Update moving platforms (both 'moving' and 'ice' types move now)
     this.platforms.forEach((platform) => {
@@ -513,6 +671,16 @@ export default class ClimberChallengeComponent
     this.player.x += this.player.velocityX;
     this.player.y += this.player.velocityY;
 
+    if (this.isInfiniteMode) {
+      const generationTarget = this.player.y - this.INFINITE_GENERATION_BUFFER;
+      this.extendInfinitePlatforms(generationTarget);
+
+      const heightClimbed = Math.max(0, this.startingY - this.player.y);
+      if (heightClimbed > this.maxHeightReached) {
+        this.maxHeightReached = heightClimbed;
+      }
+    }
+
     // Screen wrapping (horizontal)
     if (this.player.x < -this.player.width / 2) {
       this.player.x = this.CANVAS_WIDTH - this.player.width / 2;
@@ -560,28 +728,39 @@ export default class ClimberChallengeComponent
       }
     });
 
+    if (this.isInfiniteMode) {
+      this.pruneInfinitePlatforms();
+    }
+
     // Check goal zone
-    if (
-      this.gameService.checkRectCollision(
-        {
-          x: this.player.x,
-          y: this.player.y,
-          width: this.player.width,
-          height: this.player.height,
-        },
-        this.goalZone
-      )
-    ) {
-      this.winGame();
+    if (!this.isInfiniteMode) {
+      if (
+        this.gameService.checkRectCollision(
+          {
+            x: this.player.x,
+            y: this.player.y,
+            width: this.player.width,
+            height: this.player.height,
+          },
+          this.goalZone
+        )
+      ) {
+        this.winGame();
+      }
     }
 
     // Camera follow
     const targetCameraY = this.player.y - this.CANVAS_HEIGHT / 2;
     this.cameraY = this.gameService.lerp(this.cameraY, targetCameraY, 0.1);
-    this.cameraY = Math.max(
-      0,
-      Math.min(this.cameraY, this.settings.worldHeight - this.CANVAS_HEIGHT)
-    );
+    if (this.isInfiniteMode) {
+      const maxCamera = this.settings.worldHeight - this.CANVAS_HEIGHT;
+      this.cameraY = Math.min(this.cameraY, maxCamera);
+    } else {
+      this.cameraY = Math.max(
+        0,
+        Math.min(this.cameraY, this.settings.worldHeight - this.CANVAS_HEIGHT)
+      );
+    }
 
     // Fall off bottom
     if (this.player.y > this.settings.worldHeight + 100) {
@@ -624,7 +803,9 @@ export default class ClimberChallengeComponent
     });
 
     // Draw goal
-    this.drawGoal();
+    if (!this.isInfiniteMode) {
+      this.drawGoal();
+    }
 
     // Draw player
     this.drawPlayer();
@@ -756,6 +937,11 @@ export default class ClimberChallengeComponent
   }
 
   private drawUI(): void {
+    if (this.isInfiniteMode) {
+      this.drawInfiniteUI();
+      return;
+    }
+
     // Progress bar
     const progress = Math.max(
       0,
@@ -780,6 +966,57 @@ export default class ClimberChallengeComponent
       barX,
       barY + barHeight + 25
     );
+  }
+
+  private drawInfiniteUI(): void {
+    const timeString = this.formatTime(this.survivalTime);
+
+    const currentHeight = Math.max(0, this.startingY - this.player.y);
+    const heightDisplay = `${Math.max(0, Math.floor(currentHeight))}m`;
+    const bestDisplay = `${Math.max(
+      0,
+      Math.floor(Math.max(this.bestHeight, this.maxHeightReached))
+    )}m`;
+
+    this.ctx.save();
+    this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    this.ctx.fillRect(15, 15, 180, 70);
+    this.ctx.fillRect(this.CANVAS_WIDTH - 135, 15, 120, 50);
+
+    this.ctx.fillStyle = '#f4d35e';
+    this.ctx.font = '18px monospace';
+    this.ctx.textAlign = 'left';
+    this.ctx.fillText(`⏱ ${timeString}`, 25, 38);
+    this.ctx.fillText(`⬆️ ${heightDisplay}`, 25, 63);
+
+    this.ctx.textAlign = 'right';
+    this.ctx.fillText(`⭐ ${bestDisplay}`, this.CANVAS_WIDTH - 25, 45);
+    this.ctx.restore();
+  }
+
+  private formatTime(totalSeconds: number): string {
+    if (!isFinite(totalSeconds) || totalSeconds <= 0) {
+      return '00:00.000';
+    }
+
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = Math.floor(totalSeconds % 60);
+    const milliseconds = Math.floor((totalSeconds % 1) * 1000);
+
+    return `${minutes.toString().padStart(2, '0')}:${seconds
+      .toString()
+      .padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`;
+  }
+
+  private getStorageKey(): number | string | null {
+    // For extras, use levelId; for calendar days, use day number
+    if (this.levelId) {
+      return this.levelId;
+    }
+    if (this.day > 0) {
+      return this.day;
+    }
+    return null;
   }
 
   private getInput(): { x: number; jump: boolean } {
@@ -822,6 +1059,36 @@ export default class ClimberChallengeComponent
 
   private loseGame(): void {
     this.gameLost.set(true);
+    if (this.isInfiniteMode) {
+      const heightValue = Math.max(0, Math.floor(this.maxHeightReached));
+      const lastTimeValue = this.survivalTime;
+
+      this.lastRunHeight = heightValue;
+      this.lastRunTime = lastTimeValue;
+      this.lastRunTimeFormatted = this.formatTime(lastTimeValue);
+
+      if (heightValue > this.bestHeight) {
+        this.bestHeight = heightValue;
+      }
+
+      if (lastTimeValue > this.bestTime) {
+        this.bestTime = lastTimeValue;
+        this.bestTimeFormatted = this.lastRunTimeFormatted;
+      }
+
+      // Persist best scores for infinite mode
+      const storageKey = this.getStorageKey();
+      console.log('[Climber] loseGame. Saving stats? Key:', storageKey, 'Stats:', {
+        bestHeight: this.bestHeight,
+        bestTime: this.bestTime,
+      });
+      if (storageKey) {
+        this.stateService.saveGameStats(storageKey, {
+          bestHeight: this.bestHeight,
+          bestTime: this.bestTime,
+        });
+      }
+    }
     this.stopGame();
   }
 }

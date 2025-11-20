@@ -62,6 +62,7 @@ export class ExtrasModalComponent {
       challengeType: level.challengeType,
       funFactKey: '', // No fun facts for extras
       challengeData: level.challengeData,
+      levelId: level.id, // Pass levelId for stats persistence
     };
   });
 
@@ -70,8 +71,22 @@ export class ExtrasModalComponent {
     effect(() => {
       const level = this.selectedLevel();
       const mode = this.viewMode();
+      console.log(
+        '[ExtrasModal] effect triggered. mode:',
+        mode,
+        'level:',
+        level?.id,
+        'hasContainer:',
+        !!this.challengeContainer
+      );
       if (mode === 'playing' && level) {
-        setTimeout(() => this.loadChallengeComponent(), 0);
+        setTimeout(() => {
+          console.log(
+            '[ExtrasModal] setTimeout callback. hasContainer:',
+            !!this.challengeContainer
+          );
+          this.loadChallengeComponent();
+        }, 0);
       }
     });
   }
@@ -96,7 +111,20 @@ export class ExtrasModalComponent {
 
   private loadChallengeComponent(): void {
     const level = this.selectedLevel();
-    if (!this.challengeContainer || !level) return;
+    console.log(
+      '[ExtrasModal] loadChallengeComponent called. hasContainer:',
+      !!this.challengeContainer,
+      'level:',
+      level?.id
+    );
+    if (!this.challengeContainer) {
+      console.warn('[ExtrasModal] ViewContainerRef not ready yet!');
+      return;
+    }
+    if (!level) {
+      console.warn('[ExtrasModal] No level selected!');
+      return;
+    }
 
     this.challengeContainer.clear();
 
@@ -140,22 +168,28 @@ export class ExtrasModalComponent {
         return;
     }
 
+    // Prepare inputs before component creation
+    const isCompleted = this.isLevelCompleted(level.id);
+
+    // Create component
     this.challengeComponentRef = this.challengeContainer.createComponent(componentType);
 
-    // Pass config data to the challenge component
+    // Set inputs IMMEDIATELY after creation
+    const instance = this.challengeComponentRef.instance as any;
+    instance.levelId = level.id;
+    instance.isCompleted = isCompleted;
+
     if (level.challengeData) {
-      this.challengeComponentRef.instance.config = level.challengeData;
+      instance.config = level.challengeData;
     }
 
-    // Pass completed state
-    const isCompleted = this.isLevelCompleted(level.id);
-    if (this.challengeComponentRef.instance.isCompleted !== undefined) {
-      this.challengeComponentRef.instance.isCompleted = isCompleted;
-    }
+    // Trigger change detection
+    this.challengeComponentRef.changeDetectorRef.detectChanges();
 
-    // Subscribe to completion event
-    if (this.challengeComponentRef.instance.completed) {
-      this.challengeComponentRef.instance.completed.subscribe(() => {
+    // Subscribe to completion event when available
+    const completedOutput = instance.completed;
+    if (completedOutput && typeof completedOutput.subscribe === 'function') {
+      completedOutput.subscribe(() => {
         this.handleChallengeCompleted();
       });
     }

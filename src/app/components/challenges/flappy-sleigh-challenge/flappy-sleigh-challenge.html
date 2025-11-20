@@ -13,10 +13,54 @@
         {{ 'calendar.completed' | translate }}
       </span>
     </div>
+    @if (isInfiniteMode) {
+    <p class="text-sm sm:text-base text-text-muted mb-3">
+      {{ 'challenges.flappySleigh.endless.tagline' | translate }}
+    </p>
+    } @else {
     <p class="text-sm sm:text-base text-text-muted mb-3">
       {{ 'challenges.flappySleigh.instruction' | translate }}
     </p>
+    }
   </div>
+
+  @if (isInfiniteMode) {
+  <div class="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+    <div class="rounded-lg border border-gray-700 bg-surface/70 p-3 text-left">
+      <p class="text-xs uppercase tracking-wide text-text-muted">
+        {{ 'challenges.flappySleigh.endless.bestDistance' | translate }}
+      </p>
+      <p class="text-xl font-bold text-gold">{{ bestDistance | number : '1.0-0' }} m</p>
+    </div>
+    <div class="rounded-lg border border-gray-700 bg-surface/70 p-3 text-left">
+      <p class="text-xs uppercase tracking-wide text-text-muted">
+        {{ 'challenges.flappySleigh.endless.bestTime' | translate }}
+      </p>
+      <p class="text-xl font-bold text-gold">
+        {{ bestTimeFormatted }}
+      </p>
+    </div>
+    <div class="rounded-lg border border-gray-700 bg-surface/70 p-3 text-left">
+      <p class="text-xs uppercase tracking-wide text-text-muted">
+        {{ 'challenges.flappySleigh.endless.lastDistance' | translate }}
+      </p>
+      <p class="text-xl font-bold text-gold">
+        @if (lastDistance > 0) {
+        {{ lastDistance | number : '1.0-0' }} m } @else { -- }
+      </p>
+    </div>
+    <div class="rounded-lg border border-gray-700 bg-surface/70 p-3 text-left">
+      <p class="text-xs uppercase tracking-wide text-text-muted">
+        {{ 'challenges.flappySleigh.endless.lastTime' | translate }}
+      </p>
+      <p class="text-xl font-bold text-gold">
+        @if (lastTime > 0) {
+        {{ lastTimeFormatted }}
+        } @else { -- }
+      </p>
+    </div>
+  </div>
+  }
 
   <!-- Canvas with overlay messages -->
   <div
@@ -38,8 +82,24 @@
       <div class="text-center space-y-4 p-4">
         <div class="text-2xl mb-4">💥</div>
         <p class="text-text text-lg font-bold mb-6">
+          @if (isInfiniteMode) {
+          {{ 'challenges.flappySleigh.endless.gameLost' | translate }}
+          } @else {
           {{ 'challenges.flappySleigh.crashed' | translate }}
+          }
         </p>
+        @if (isInfiniteMode) {
+        <div class="text-text text-sm space-y-1">
+          <p>
+            {{ 'challenges.flappySleigh.endless.lastDistance' | translate }}:
+            <span class="font-semibold">{{ lastDistance | number : '1.0-0' }} m</span>
+          </p>
+          <p>
+            {{ 'challenges.flappySleigh.endless.lastTime' | translate }}:
+            <span class="font-semibold">{{ lastTimeFormatted }}</span>
+          </p>
+        </div>
+        }
       </div>
     </div>
     <!-- Desktop crash overlay -->
@@ -50,8 +110,24 @@
       <div class="text-center space-y-6 p-8">
         <div class="text-5xl lg:text-6xl mb-4">💥</div>
         <p class="text-text text-2xl lg:text-3xl font-bold mb-6">
+          @if (isInfiniteMode) {
+          {{ 'challenges.flappySleigh.endless.gameLost' | translate }}
+          } @else {
           {{ 'challenges.flappySleigh.crashed' | translate }}
+          }
         </p>
+        @if (isInfiniteMode) {
+        <div class="text-text text-base space-y-1">
+          <p>
+            {{ 'challenges.flappySleigh.endless.lastDistance' | translate }}:
+            <span class="font-semibold">{{ lastDistance | number : '1.0-0' }} m</span>
+          </p>
+          <p>
+            {{ 'challenges.flappySleigh.endless.lastTime' | translate }}:
+            <span class="font-semibold">{{ lastTimeFormatted }}</span>
+          </p>
+        </div>
+        }
         <button class="btn btn-secondary" (click)="reset()" type="button">
           {{ 'ui.tryAgain' | translate }}
         </button>
@@ -60,7 +136,7 @@
     }
 
     <!-- Victory Overlay -->
-    @if (gameWon && !isCompleted) {
+    @if (gameWon && !isCompleted && !isInfiniteMode) {
     <div
       class="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm"
     >

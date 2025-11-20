@@ -7,7 +7,7 @@ export class CalendarStateService {
   private readonly STORAGE_KEY = 'jambiz-advent-completed-days';
   private readonly STATS_STORAGE_KEY = 'jambiz-advent-game-stats';
   private completedDays: Set<number> = new Set();
-  private gameStats: Map<number, any> = new Map();
+  private gameStats: Map<string, any> = new Map();
 
   constructor() {
     this.loadFromStorage();
@@ -43,13 +43,13 @@ export class CalendarStateService {
   }
 
   // Game stats methods
-  saveGameStats(day: number, stats: any): void {
-    this.gameStats.set(day, stats);
+  saveGameStats(key: number | string, stats: any): void {
+    this.gameStats.set(String(key), stats);
     this.saveStatsToStorage();
   }
 
-  getGameStats(day: number): any | null {
-    return this.gameStats.get(day) || null;
+  getGameStats(key: number | string): any | null {
+    return this.gameStats.get(String(key)) || null;
   }
 
   private loadStatsFromStorage(): void {
@@ -57,10 +57,10 @@ export class CalendarStateService {
       const stored = localStorage.getItem(this.STATS_STORAGE_KEY);
       if (stored) {
         const statsObj = JSON.parse(stored);
-        // Convert string keys back to numbers
-        this.gameStats = new Map(
-          Object.entries(statsObj).map(([key, value]) => [Number(key), value])
-        );
+        if (statsObj && typeof statsObj === 'object') {
+          // Keys are already strings in JSON
+          this.gameStats = new Map(Object.entries(statsObj));
+        }
       }
     } catch (error) {
       console.error('Failed to load game stats from storage', error);

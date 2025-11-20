@@ -5,7 +5,13 @@
 
   <!-- Instructions - always visible -->
   <div class="card max-w-md text-center space-y-4">
+    @if (isInfiniteMode) {
+    <p class="text-text-muted">
+      {{ 'challenges.climber.endless.tagline' | translate }}
+    </p>
+    } @else {
     <p class="text-text-muted">{{ 'challenges.climber.instruction' | translate }}</p>
+    }
 
     <div class="text-sm text-text-muted space-y-2">
       @if (isMobile()) {
@@ -30,7 +36,43 @@
       </div>
     </div>
 
-    @if (!isCompleted && !gameStarted()) {
+    @if (isInfiniteMode) {
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
+      <div class="rounded-lg border border-gray-700 bg-surface/70 p-3">
+        <p class="text-xs uppercase tracking-wide text-text-muted">
+          {{ 'challenges.climber.endless.bestHeight' | translate }}
+        </p>
+        <p class="text-xl font-bold text-gold">{{ bestHeight | number : '1.0-0' }} m</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-surface/70 p-3">
+        <p class="text-xs uppercase tracking-wide text-text-muted">
+          {{ 'challenges.climber.endless.bestTime' | translate }}
+        </p>
+        <p class="text-xl font-bold text-gold">
+          {{ bestTimeFormatted }}
+        </p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-surface/70 p-3">
+        <p class="text-xs uppercase tracking-wide text-text-muted">
+          {{ 'challenges.climber.endless.lastHeight' | translate }}
+        </p>
+        <p class="text-xl font-bold text-gold">
+          @if (lastRunHeight > 0) {
+          {{ lastRunHeight | number : '1.0-0' }} m } @else { -- }
+        </p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-surface/70 p-3">
+        <p class="text-xs uppercase tracking-wide text-text-muted">
+          {{ 'challenges.climber.endless.lastTime' | translate }}
+        </p>
+        <p class="text-xl font-bold text-gold">
+          @if (lastRunTime > 0) {
+          {{ lastRunTimeFormatted }}
+          } @else { -- }
+        </p>
+      </div>
+    </div>
+    } @if (!isCompleted && !gameStarted()) {
     <button class="btn btn-primary" (click)="startGame()">
       {{ 'challenges.climber.startGame' | translate }}
     </button>
@@ -51,8 +93,24 @@
       class="absolute inset-0 bg-black bg-opacity-75 flex flex-col items-center justify-center gap-4 rounded-lg"
     >
       <p class="text-xl font-bold text-accent-red">
+        @if (isInfiniteMode) {
+        {{ 'challenges.climber.endless.gameLost' | translate }}
+        } @else {
         {{ 'challenges.climber.gameLost' | translate }}
+        }
       </p>
+      @if (isInfiniteMode) {
+      <div class="text-text text-sm sm:text-base space-y-1">
+        <p>
+          {{ 'challenges.climber.endless.lastHeight' | translate }}:
+          <span class="font-semibold">{{ lastRunHeight | number : '1.0-0' }} m</span>
+        </p>
+        <p>
+          {{ 'challenges.climber.endless.lastTime' | translate }}:
+          <span class="font-semibold">{{ lastRunTimeFormatted }}</span>
+        </p>
+      </div>
+      }
       <button class="btn btn-primary" (click)="restartGame()">
         {{ 'ui.tryAgain' | translate }}
       </button>
@@ -60,7 +118,7 @@
     }
 
     <!-- Win Overlay -->
-    @if (gameWon()) {
+    @if (gameWon() && !isInfiniteMode) {
     <div
       class="absolute inset-0 bg-black bg-opacity-75 flex flex-col items-center justify-center gap-4 rounded-lg"
     >

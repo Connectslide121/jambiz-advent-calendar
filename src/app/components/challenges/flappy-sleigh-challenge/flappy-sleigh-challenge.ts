@@ -8,6 +8,8 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -15,6 +17,7 @@ import { LucideAngularModule, Check } from 'lucide-angular';
 import { GameService } from '../../../services/game.service';
 import { KeyboardService } from '../../../services/keyboard.service';
 import { SpriteService } from '../../../services/sprite.service';
+import { CalendarStateService } from '../../../services/calendar-state.service';
 
 export interface FlappySleighConfig {
   levelLength: number; // Distance to finish
@@ -23,6 +26,7 @@ export interface FlappySleighConfig {
   gravity: number; // Gravity strength
   gapSize: number; // Size of the gap between pipes
   obstacleFrequency: number; // Distance between obstacles
+  infiniteMode?: boolean; // Endless survival variant
 }
 
 @Component({
@@ -31,10 +35,11 @@ export interface FlappySleighConfig {
   templateUrl: './flappy-sleigh-challenge.html',
   styleUrl: './flappy-sleigh-challenge.scss',
 })
-export class FlappySleighChallenge implements OnInit, AfterViewInit, OnDestroy {
+export class FlappySleighChallenge implements OnInit, AfterViewInit, OnDestroy, OnChanges {
   @Input() config!: FlappySleighConfig;
   @Input() isCompleted = false;
   @Input() day?: number;
+  @Input() levelId?: string; // Used for extras levels to store stats
   @Output() completed = new EventEmitter<void>();
   @ViewChild('gameCanvas') canvasRef!: ElementRef<HTMLCanvasElement>;
 
@@ -51,6 +56,19 @@ export class FlappySleighChallenge implements OnInit, AfterViewInit, OnDestroy {
   private mobileOffset = 0;
   private playableHeight = 0;
   private wasSpacePressed = false;
+  public isInfiniteMode = false;
+  private survivalTime = 0;
+  private furthestDistance = 0;
+  private nextObstacleX = 0;
+  private readonly INFINITE_LOOKAHEAD = 4000;
+  private readonly INFINITE_PRUNE_OFFSET = 200;
+
+  bestDistance = 0;
+  bestTime = 0;
+  bestTimeFormatted = '00:00.000';
+  lastDistance = 0;
+  lastTime = 0;
+  lastTimeFormatted = '00:00.000';
 
   // Player state
   player = {
@@ -74,10 +92,23 @@ export class FlappySleighChallenge implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private gameService: GameService,
     private keyboardService: KeyboardService,
-    private spriteService: SpriteService
+    private spriteService: SpriteService,
+    private stateService: CalendarStateService
   ) {}
 
+  ngOnChanges(changes: SimpleChanges): void {
+    // Detect input changes if needed
+  }
+
   ngOnInit(): void {
+    console.log(
+      '[Flappy] ngOnInit. levelId:',
+      this.levelId,
+      'day:',
+      this.day,
+      'isInfinite:',
+      this.isInfiniteMode
+    );
     if (this.isCompleted) {
       this.gameWon = true;
     }
@@ -93,6 +124,30 @@ export class FlappySleighChallenge implements OnInit, AfterViewInit, OnDestroy {
         gapSize: 180,
         obstacleFrequency: 350,
       };
+    }
+
+    this.isInfiniteMode = !!this.config.infiniteMode;
+    if (this.isInfiniteMode) {
+      this.gameWon = false;
+      // Only reset runtime stats, not best scores
+      this.lastDistance = 0;
+      this.lastTime = 0;
+      this.lastTimeFormatted = '00:00.000';
+      this.survivalTime = 0;
+      this.furthestDistance = 0;
+    }
+
+    // Load persisted best scores for infinite mode
+    if (this.isInfiniteMode) {
+      const storageKey = this.getStorageKey();
+      if (storageKey) {
+        const savedStats = this.stateService.getGameStats(storageKey);
+        if (savedStats) {
+          this.bestDistance = savedStats.bestDistance || 0;
+          this.bestTime = savedStats.bestTime || 0;
+          this.bestTimeFormatted = this.formatTime(this.bestTime);
+        }
+      }
     }
   }
 
@@ -182,21 +237,64 @@ export class FlappySleighChallenge implements OnInit, AfterViewInit, OnDestroy {
     if (!this.canvas) return;
 
     const startX = 500;
-    const endX = this.config.levelLength - 300; // Leave room for finish
     const height = this.playableHeight || this.canvas.height / this.scale;
+    const endX = this.isInfiniteMode
+      ? this.cameraX + this.INFINITE_LOOKAHEAD
+      : this.config.levelLength - 300;
 
-    for (let x = startX; x < endX; x += this.config.obstacleFrequency) {
-      const minHeight = 30;
-      const maxHeight = height - this.config.gapSize - minHeight;
-      const topHeight = Math.random() * (maxHeight - minHeight) + minHeight;
-
-      this.obstacles.push({
-        x,
-        topHeight,
-        bottomY: topHeight + this.config.gapSize,
-        width: 40,
-      });
+    let x = startX;
+    while (x < endX) {
+      this.obstacles.push(this.createObstacle(x, height));
+      const spacing = this.isInfiniteMode
+        ? this.getInfiniteSpacing()
+        : this.config.obstacleFrequency;
+      x += spacing;
     }
+
+    this.nextObstacleX = x;
+  }
+
+  private createObstacle(
+    x: number,
+    height: number
+  ): {
+    x: number;
+    topHeight: number;
+    bottomY: number;
+    width: number;
+  } {
+    const minHeight = 30;
+    const availableHeight = Math.max(height - this.config.gapSize - minHeight, minHeight + 50);
+    const topHeight = minHeight + Math.random() * (availableHeight - minHeight);
+
+    return {
+      x,
+      topHeight,
+      bottomY: topHeight + this.config.gapSize,
+      width: 40,
+    };
+  }
+
+  private getInfiniteSpacing(): number {
+    const base = this.config.obstacleFrequency;
+    const variance = base * 0.3;
+    const spacing = base + (Math.random() * 2 - 1) * variance;
+    return Math.max(220, spacing);
+  }
+
+  private extendInfiniteObstacles(): void {
+    if (!this.canvas) return;
+
+    const height = this.playableHeight || this.canvas.height / this.scale;
+    const targetX = this.cameraX + this.INFINITE_LOOKAHEAD;
+
+    while (this.nextObstacleX < targetX) {
+      this.obstacles.push(this.createObstacle(this.nextObstacleX, height));
+      this.nextObstacleX += this.getInfiniteSpacing();
+    }
+
+    const pruneThreshold = this.cameraX - this.INFINITE_PRUNE_OFFSET;
+    this.obstacles = this.obstacles.filter((obstacle) => obstacle.x > pruneThreshold);
   }
 
   startGame(): void {
@@ -206,6 +304,8 @@ export class FlappySleighChallenge implements OnInit, AfterViewInit, OnDestroy {
     this.gameWon = false;
     this.gameLost = false;
     this.cameraX = 0;
+    this.survivalTime = 0;
+    this.furthestDistance = 0;
     this.resetPlayer();
     this.generateObstacles();
 
@@ -244,6 +344,8 @@ export class FlappySleighChallenge implements OnInit, AfterViewInit, OnDestroy {
     this.gameWon = false;
     this.gameLost = false;
     this.cameraX = 0;
+    this.survivalTime = 0;
+    this.furthestDistance = 0;
 
     if (this.canvas) {
       this.resetPlayer();
@@ -254,7 +356,16 @@ export class FlappySleighChallenge implements OnInit, AfterViewInit, OnDestroy {
   update(deltaTime: number): void {
     if (!this.gameStarted || this.gameWon || this.gameLost) return;
 
+    if (this.isInfiniteMode) {
+      this.survivalTime += deltaTime;
+    }
+
     this.cameraX += this.config.scrollSpeed * deltaTime;
+
+    if (this.isInfiniteMode) {
+      this.extendInfiniteObstacles();
+      this.furthestDistance = Math.max(this.furthestDistance, this.cameraX);
+    }
 
     // Input
     const isSpacePressed =
@@ -320,7 +431,7 @@ export class FlappySleighChallenge implements OnInit, AfterViewInit, OnDestroy {
     }
 
     // Win condition
-    if (this.cameraX >= this.config.levelLength - 200) {
+    if (!this.isInfiniteMode && this.cameraX >= this.config.levelLength - 200) {
       // Reached tree
       this.gameWon = true;
       this.stopGame();
@@ -329,7 +440,39 @@ export class FlappySleighChallenge implements OnInit, AfterViewInit, OnDestroy {
   }
 
   crash(): void {
+    if (this.gameLost) return;
     this.gameLost = true;
+
+    if (this.isInfiniteMode) {
+      const distance = Math.floor(this.furthestDistance / 100); // Convert pixels to meters roughly
+      const time = this.survivalTime;
+
+      this.lastDistance = distance;
+      this.lastTime = time;
+      this.lastTimeFormatted = this.formatTime(time);
+
+      if (distance > this.bestDistance) {
+        this.bestDistance = distance;
+      }
+      if (time > this.bestTime) {
+        this.bestTime = time;
+        this.bestTimeFormatted = this.lastTimeFormatted;
+      }
+
+      // Persist best scores
+      const storageKey = this.getStorageKey();
+      console.log('[Flappy] crash. Saving stats? Key:', storageKey, 'Stats:', {
+        bestDistance: this.bestDistance,
+        bestTime: this.bestTime,
+      });
+      if (storageKey) {
+        this.stateService.saveGameStats(storageKey, {
+          bestDistance: this.bestDistance,
+          bestTime: this.bestTime,
+        });
+      }
+    }
+
     this.stopGame();
   }
 
@@ -372,21 +515,23 @@ export class FlappySleighChallenge implements OnInit, AfterViewInit, OnDestroy {
     }
 
     // Draw finish line / Tree
-    const finishX = this.config.levelLength - 180 - this.cameraX;
-    if (finishX > -100 && finishX < this.canvas.width / this.scale) {
-      if (this.treeSprite) {
-        const treeWidth = 400;
-        const treeHeight = 550;
-        this.ctx.drawImage(
-          this.treeSprite,
-          finishX,
-          logicalHeight / 2 - treeHeight / 2,
-          treeWidth,
-          treeHeight
-        );
-      } else {
-        this.ctx.fillStyle = '#2a9d8f';
-        this.ctx.fillRect(finishX, logicalHeight / 2 - 75, 100, 150);
+    if (!this.isInfiniteMode) {
+      const finishX = this.config.levelLength - 180 - this.cameraX;
+      if (finishX > -100 && finishX < this.canvas.width / this.scale) {
+        if (this.treeSprite) {
+          const treeWidth = 400;
+          const treeHeight = 550;
+          this.ctx.drawImage(
+            this.treeSprite,
+            finishX,
+            logicalHeight / 2 - treeHeight / 2,
+            treeWidth,
+            treeHeight
+          );
+        } else {
+          this.ctx.fillStyle = '#2a9d8f';
+          this.ctx.fillRect(finishX, logicalHeight / 2 - 75, 100, 150);
+        }
       }
     }
 
@@ -419,6 +564,11 @@ export class FlappySleighChallenge implements OnInit, AfterViewInit, OnDestroy {
 
     this.ctx.restore();
 
+    if (this.isInfiniteMode) {
+      this.drawInfiniteHud();
+      return;
+    }
+
     // Draw progress bar (outside scaled context)
     const progress = Math.min(this.cameraX / (this.config.levelLength - 200), 1);
 
@@ -438,6 +588,66 @@ export class FlappySleighChallenge implements OnInit, AfterViewInit, OnDestroy {
     this.ctx.strokeStyle = '#ffffff';
     this.ctx.lineWidth = 2;
     this.ctx.strokeRect(barX, barY, barWidth, barHeight);
+  }
+
+  private drawInfiniteHud(): void {
+    const timeString = this.formatTime(this.survivalTime);
+    const currentDistance = Math.max(0, Math.floor(this.cameraX / 10));
+    const bestDistance = Math.max(this.bestDistance, Math.floor(this.furthestDistance / 10));
+
+    const padding = this.isMobile ? 10 : 20;
+    const hudWidth = this.canvas.width;
+
+    this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    this.ctx.fillRect(padding, padding, 210, 70);
+    this.ctx.fillRect(hudWidth - 170 - padding, padding, 170, 50);
+
+    this.ctx.fillStyle = '#f4d35e';
+    this.ctx.font = this.isMobile ? '16px monospace' : '20px monospace';
+    this.ctx.textAlign = 'left';
+    this.ctx.fillText(`⏱ ${timeString}`, padding + 10, padding + (this.isMobile ? 24 : 30));
+    this.ctx.fillText(`🛷 ${currentDistance}m`, padding + 10, padding + (this.isMobile ? 50 : 56));
+
+    this.ctx.textAlign = 'right';
+    this.ctx.fillText(
+      `⭐ ${bestDistance}m`,
+      hudWidth - padding - 10,
+      padding + (this.isMobile ? 36 : 42)
+    );
+  }
+
+  private formatTime(totalSeconds: number): string {
+    if (!isFinite(totalSeconds) || totalSeconds <= 0) {
+      return '00:00.000';
+    }
+
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = Math.floor(totalSeconds % 60);
+    const milliseconds = Math.floor((totalSeconds % 1) * 1000);
+
+    return `${minutes.toString().padStart(2, '0')}:${seconds
+      .toString()
+      .padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`;
+  }
+
+  private resetEndlessStats(): void {
+    // Only reset last run stats, not best scores (those persist in localStorage)
+    this.lastDistance = 0;
+    this.lastTime = 0;
+    this.lastTimeFormatted = '00:00.000';
+    this.survivalTime = 0;
+    this.furthestDistance = 0;
+  }
+
+  private getStorageKey(): number | string | null {
+    // For extras, use levelId; for calendar days, use day number
+    if (this.levelId) {
+      return this.levelId;
+    }
+    if (this.day && this.day > 0) {
+      return this.day;
+    }
+    return null;
   }
 
   drawCandyPipe(x: number, y: number, width: number, height: number, isTop: boolean): void {

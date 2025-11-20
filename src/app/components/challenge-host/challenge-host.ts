@@ -117,6 +117,11 @@ export class ChallengeHost implements OnInit {
       this.challengeComponentRef.instance.day = this.dayConfig.day;
     }
 
+    // Pass levelId if available (for extras)
+    if ('levelId' in this.challengeComponentRef.instance && this.dayConfig.levelId) {
+      this.challengeComponentRef.instance.levelId = this.dayConfig.levelId;
+    }
+
     // Subscribe to completion event
     this.challengeComponentRef.instance.completed.subscribe(() => {
       this.onChallengeComplete();

@@ -88,6 +88,7 @@ export class App implements OnInit {
       challengeType: level.challengeType,
       funFactKey: '',
       challengeData: level.challengeData,
+      levelId: level.id, // Add levelId for stats persistence
     };
     this.showExtraChallenge = true;
     this.showExtrasMenu = false;

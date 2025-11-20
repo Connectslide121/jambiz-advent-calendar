@@ -15,6 +15,7 @@ import { LucideAngularModule, Check } from 'lucide-angular';
 import { GameService } from '../../../services/game.service';
 import { KeyboardService } from '../../../services/keyboard.service';
 import { SpriteService } from '../../../services/sprite.service';
+import { CalendarStateService } from '../../../services/calendar-state.service';
 
 export type GeometryDashDifficulty = 'easy' | 'medium' | 'hard' | 'custom';
 
@@ -160,6 +161,7 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
   @Input() config!: GeometryDashConfig;
   @Input() isCompleted = false;
   @Input() day?: number;
+  @Input() levelId?: string;
   @Output() completed = new EventEmitter<void>();
   @ViewChild('gameCanvas') canvasRef!: ElementRef<HTMLCanvasElement>;
 
@@ -188,6 +190,12 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
   private lastObstacleX = 0; // Track last generated obstacle position
   private lastObstacleType: 'candy' | 'platform' | 'pit' | 'ceilingCandy' | null = null;
 
+  // Best scores for infinite mode
+  bestTime = 0;
+  bestTimeFormatted = '00:00.000';
+  lastRunTime = 0;
+  lastRunTimeFormatted = '00:00.000';
+
   // Player state
   player = {
     x: 100, // Fixed x position (adjusted for mobile in initCanvas)
@@ -208,7 +216,8 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private gameService: GameService,
     private keyboardService: KeyboardService,
-    private spriteService: SpriteService
+    private spriteService: SpriteService,
+    private stateService: CalendarStateService
   ) {}
 
   ngOnInit(): void {
@@ -223,6 +232,18 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
     // Check if infinite mode (must be after initializeDifficulty)
     this.isInfiniteMode = this.activeDifficulty.infiniteMode || false;
     this.generateObstacles();
+
+    // Load persisted best scores for infinite mode
+    if (this.isInfiniteMode) {
+      const storageKey = this.getStorageKey();
+      if (storageKey) {
+        const savedStats = this.stateService.getGameStats(storageKey);
+        if (savedStats) {
+          this.bestTime = savedStats.bestTime || 0;
+          this.bestTimeFormatted = this.formatTime(this.bestTime);
+        }
+      }
+    }
 
     // Initialize keyboard service
     this.keyboardService.init();
@@ -663,10 +684,53 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
+  private getStorageKey(): number | string | null {
+    // For extras, use levelId; for calendar days, use day number
+    if (this.levelId) {
+      return this.levelId;
+    }
+    if (this.day && this.day > 0) {
+      return this.day;
+    }
+    return null;
+  }
+
+  private formatTime(totalSeconds: number): string {
+    if (!isFinite(totalSeconds) || totalSeconds <= 0) {
+      return '00:00.000';
+    }
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = Math.floor(totalSeconds % 60);
+    const milliseconds = Math.floor((totalSeconds % 1) * 1000);
+    return `${minutes.toString().padStart(2, '0')}:${seconds
+      .toString()
+      .padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`;
+  }
+
   stopGame(): void {
     if (this.gameLoopId !== undefined) {
       this.gameService.stopGameLoop(this.gameLoopId);
       this.gameLoopId = undefined;
+    }
+
+    // Save stats when infinite mode ends
+    if (this.isInfiniteMode && this.gameLost) {
+      const time = this.survivalTime;
+      this.lastRunTime = time;
+      this.lastRunTimeFormatted = this.formatTime(time);
+
+      if (time > this.bestTime) {
+        this.bestTime = time;
+        this.bestTimeFormatted = this.lastRunTimeFormatted;
+      }
+
+      // Persist best scores
+      const storageKey = this.getStorageKey();
+      if (storageKey) {
+        this.stateService.saveGameStats(storageKey, {
+          bestTime: this.bestTime,
+        });
+      }
     }
   }
 
