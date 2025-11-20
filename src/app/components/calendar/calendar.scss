@@ -46,7 +46,7 @@
   position: absolute;
   bottom: -10%;
   right: -15%;
-  font-size: 3rem;
+  font-size: 3.5rem;
   transform: rotate(15deg);
   opacity: 0.8;
   pointer-events: none;
@@ -60,7 +60,7 @@
   }
 
   @media (min-width: 1024px) {
-    font-size: 5rem;
+    font-size: 6rem;
     bottom: -15%;
     right: -20%;
   }
