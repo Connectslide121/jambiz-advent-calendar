@@ -189,7 +189,15 @@
       "start": "Starta Spel",
       "crashed": "Aj! Du krockade!",
       "victory": "Du nådde granen!",
-      "showFunFact": "Visa Rolig Fakta"
+      "showFunFact": "Visa rolig fakta",
+      "endless": {
+        "tagline": "Oändlig flygtur! Smita mellan polkagriskäpparna så länge du kan.",
+        "bestDistance": "Bästa sträcka",
+        "bestTime": "Bästa tid",
+        "lastDistance": "Senaste sträcka",
+        "lastTime": "Senaste tid",
+        "gameLost": "Du slog i en polkagriskäpp! Dags för ett nytt försök?"
+      }
     },
     "sokoban": {
       "title": "Presentpussel",
@@ -213,7 +221,15 @@
       "startGame": "Börja klättra",
       "success": "Du nådde stjärnan!",
       "gameLost": "Du ramlade! Försök igen.",
-      "ornamentsCollected": "Julkulor insamlade"
+      "ornamentsCollected": "Julkulor insamlade",
+      "endless": {
+        "tagline": "Oändlig klättring! Håll dig på plattformarna och slå ditt rekord.",
+        "bestHeight": "Bästa höjd",
+        "bestTime": "Bästa tid",
+        "lastHeight": "Senaste höjd",
+        "lastTime": "Senaste tid",
+        "gameLost": "Du halkade! Försök igen och klättra ännu högre."
+      }
     },
     "mazeRunner": {
       "title": "Labyrintlöparen",
@@ -441,6 +457,35 @@
           }
         }
       },
+      "climber": {
+        "title": "Julklättraren",
+        "levels": {
+          "extra-climber-1": {
+            "name": "Lugn klättring",
+            "description": "Kortare klättring med stabila plattformar"
+          },
+          "extra-climber-2": {
+            "name": "Frostig klättring",
+            "description": "Högre toppar med hala överraskningar"
+          },
+          "extra-climber-3": {
+            "name": "Snöstormstopp",
+            "description": "Högt torn med hala avsatser"
+          },
+          "extra-climber-infinite-easy": {
+            "name": "Oändlig mysig klättring",
+            "description": "Mjukt tempo med generösa fotfästen"
+          },
+          "extra-climber-infinite-medium": {
+            "name": "Oändlig frostklättring",
+            "description": "Isiga skiften och kvicka plattformsrörelser"
+          },
+          "extra-climber-infinite-hard": {
+            "name": "Oändlig snöstormsklättring",
+            "description": "Snabba gap och hala utmaningar"
+          }
+        }
+      },
       "rebus": {
         "title": "Rebuspussel",
         "levels": {
@@ -501,6 +546,18 @@
           "extra-flappy-3": {
             "name": "Expert flygning",
             "description": "Maximal utmaning!"
+          },
+          "extra-flappy-infinite-easy": {
+            "name": "Oändlig nordanvind",
+            "description": "Mjuk glidflygning med generösa tunnlar"
+          },
+          "extra-flappy-infinite-medium": {
+            "name": "Oändlig midnattsfärd",
+            "description": "Snabbare släde med smidig manövrering"
+          },
+          "extra-flappy-infinite-hard": {
+            "name": "Oändlig norrskensrusning",
+            "description": "Rasande tempo för orädda piloter"
           }
         }
       },
