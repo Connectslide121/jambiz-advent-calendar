@@ -3,6 +3,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { Calendar } from './components/calendar/calendar';
 import { ChallengeHost } from './components/challenge-host/challenge-host';
+import { LandingPage } from './components/landing-page/landing-page';
 import { EXTRA_LEVELS, ExtraGameSection, ExtraLevel } from './config/extras-config';
 import { CalendarDayConfig, ChallengeType } from './models/calendar.models';
 import { LucideAngularModule, X, ArrowLeft, Check, CheckCheck, XCircle } from 'lucide-angular';
@@ -19,7 +20,14 @@ interface Snowflake {
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, TranslateModule, Calendar, ChallengeHost, LucideAngularModule],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    Calendar,
+    ChallengeHost,
+    LucideAngularModule,
+    LandingPage,
+  ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -31,6 +39,7 @@ export class App implements OnInit {
   readonly XCircle = XCircle;
   currentLanguage: string;
   snowflakes: Snowflake[] = [];
+  showLandingPage = true;
   showExtrasMenu = false;
   showExtraChallenge = false;
   selectedGame: ExtraGameSection | null = null;
@@ -61,6 +70,10 @@ export class App implements OnInit {
   toggleLanguage(): void {
     const newLang = this.currentLanguage === 'sv' ? 'en' : 'sv';
     this.switchLanguage(newLang);
+  }
+
+  startCalendar(): void {
+    this.showLandingPage = false;
   }
 
   openExtras(): void {

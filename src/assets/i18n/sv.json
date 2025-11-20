@@ -2,6 +2,9 @@
   "app": {
     "title": "Jambiz julkalender",
     "subtitle": "En liten utmaning om dagen, en rolig Jambiz-faktabit som belöning",
+    "welcome": "Välkommen till Jambiz julkalender!",
+    "intro": "Häng med på 24 dagar av festligt kul, utmaningar och överraskningar. Lås upp en ny lucka varje dag för att avslöja ett minispel eller pussel och lär dig något nytt om dina kollegor och företaget!",
+    "start": "Starta äventyret",
     "language": {
       "en": "Engelska",
       "sv": "Svenska"
