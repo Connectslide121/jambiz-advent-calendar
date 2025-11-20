@@ -1,0 +1,165 @@
+<div class="present-stacking-container">
+  <!-- Instructions Overlay -->
+  <div *ngIf="showInstructions" class="instructions-overlay">
+    <div class="instructions-card">
+      <h2 class="text-2xl font-bold mb-4 text-gold">
+        {{ 'challenges.presentStacking.title' | translate }}
+      </h2>
+      <div class="space-y-3 text-left mb-6">
+        <p class="flex items-start gap-2">
+          <span class="text-gold">🎁</span>
+          <span>{{ 'challenges.presentStacking.instruction1' | translate }}</span>
+        </p>
+        <p class="flex items-start gap-2">
+          <span class="text-gold">📏</span>
+          <span>{{ 'challenges.presentStacking.instruction2' | translate }}</span>
+        </p>
+        <p class="flex items-start gap-2">
+          <span class="text-gold">🎯</span>
+          <span>{{
+            'challenges.presentStacking.instruction3' | translate : { max: maxPresents }
+          }}</span>
+        </p>
+        <p class="flex items-start gap-2">
+          <span class="text-gold">⚖️</span>
+          <span>{{ 'challenges.presentStacking.instruction4' | translate }}</span>
+        </p>
+      </div>
+      <button class="btn btn-primary w-full" (click)="startGame()">
+        {{ 'challenges.presentStacking.startGame' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Game Won Overlay -->
+  <div *ngIf="gameWon" class="game-result-overlay won">
+    <div class="result-card">
+      <lucide-icon [img]="Trophy" [size]="64" class="text-gold mb-4"></lucide-icon>
+      <h2 class="text-3xl font-bold mb-2 text-gold">
+        {{ 'challenges.presentStacking.success' | translate }}
+      </h2>
+      <p class="text-lg mb-4">
+        {{
+          'challenges.presentStacking.successMessage'
+            | translate : { used: presentsUsed, max: maxPresents }
+        }}
+      </p>
+      <div class="flex gap-3">
+        <button class="btn btn-primary flex-1" (click)="emitCompletionOnce()">
+          {{ 'ui.continue' | translate }}
+        </button>
+        <button class="btn btn-outline flex gap-2 items-center" (click)="resetGame()">
+          <lucide-icon [img]="RotateCcw" [size]="20"></lucide-icon>
+          {{ 'challenges.presentStacking.playAgain' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Lost Overlay -->
+  <div *ngIf="gameLost" class="game-result-overlay lost">
+    <div class="result-card">
+      <h2 class="text-3xl font-bold mb-2 text-red">
+        {{ 'challenges.presentStacking.failed' | translate }}
+      </h2>
+      <button class="btn btn-primary flex gap-2" (click)="resetGame()">
+        <lucide-icon [img]="RotateCcw" [size]="20"></lucide-icon>
+        {{ 'challenges.presentStacking.tryAgain' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Game UI -->
+  <div class="game-ui">
+    <!-- Stats -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-label">{{ 'challenges.presentStacking.presentsUsed' | translate }}:</span>
+        <span class="stat-value">{{ presentsUsed }} / {{ maxPresents }}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label"
+          >{{ 'challenges.presentStacking.heightProgress' | translate }}:</span
+        >
+        <span class="stat-value">{{ heightProgress.toFixed(0) }}%</span>
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+      <div class="progress-bar" [style.width.%]="heightProgress"></div>
+    </div>
+
+    <!-- Main Game Area -->
+    <div class="game-area">
+      <!-- Next Present Preview (Side Panel) -->
+      <div class="next-present-container">
+        <div class="next-present-label">
+          {{ 'challenges.presentStacking.currentPresent' | translate }}
+        </div>
+        <div class="present-preview">
+          <ng-container *ngIf="currentPresent; else noCurrent">
+            <app-present-svg
+              [width]="currentPresent.width * 0.7"
+              [height]="currentPresent.height * 0.7"
+              [color]="currentPresent.color"
+            ></app-present-svg>
+          </ng-container>
+          <ng-template #noCurrent>
+            <div class="preview-placeholder">-</div>
+          </ng-template>
+        </div>
+        <div class="next-present-label">
+          {{ 'challenges.presentStacking.nextPresent' | translate }}
+        </div>
+        <div class="present-preview">
+          <ng-container *ngIf="nextPresent; else noNext">
+            <app-present-svg
+              [width]="nextPresent.width * 0.5"
+              [height]="nextPresent.height * 0.5"
+              [color]="nextPresent.color"
+            ></app-present-svg>
+          </ng-container>
+          <ng-template #noNext>
+            <div class="preview-placeholder small">-</div>
+          </ng-template>
+        </div>
+      </div>
+
+      <!-- Canvas -->
+      <div class="canvas-wrapper">
+        <!-- Moving Present Preview -->
+        <div
+          *ngIf="currentPresent && !gameWon && !gameLost && !showInstructions"
+          class="moving-present"
+          [style.top.px]="dropZoneY - currentPresent.height / 2"
+          [style.left.px]="currentPresentX - currentPresent.width / 2"
+        >
+          <app-present-svg
+            [width]="currentPresent.width"
+            [height]="currentPresent.height"
+            [color]="currentPresent.color"
+          ></app-present-svg>
+        </div>
+
+        <canvas
+          id="present-stacking-canvas"
+          (click)="dropPresent()"
+          [class.clickable]="currentPresent && !gameWon && !gameLost && !showInstructions"
+        ></canvas>
+        <div
+          class="canvas-hint"
+          *ngIf="currentPresent && !gameWon && !gameLost && !showInstructions"
+        >
+          {{ 'challenges.presentStacking.clickToDrop' | translate }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Reset Button -->
+    <button class="btn btn-outline reset-btn" (click)="resetGame()" *ngIf="!showInstructions">
+      <lucide-icon [img]="RotateCcw" [size]="20"></lucide-icon>
+      {{ 'challenges.presentStacking.reset' | translate }}
+    </button>
+  </div>
+</div>

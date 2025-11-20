@@ -182,6 +182,26 @@
         "gameLost": "You clipped a candy cane! Ready to try again?"
       }
     },
+    "presentStacking": {
+      "title": "Present Tower Challenge",
+      "instruction1": "Click anywhere on the screen to drop a present",
+      "instruction2": "Stack presents to reach the golden line",
+      "instruction3": "You have {{max}} presents to use",
+      "instruction4": "Plan your drops carefully for a stable tower!",
+      "startGame": "Start Stacking",
+      "presentsUsed": "Presents Used",
+      "heightProgress": "Height Progress",
+      "currentPresent": "Current Present",
+      "nextPresent": "Next Present",
+      "clickToDrop": "Click to drop present",
+      "success": "Tower Complete!",
+      "successMessage": "Excellent stacking! You used {{used}} out of {{max}} presents.",
+      "failed": "Tower Failed",
+      "failedMessage": "A present fell out of bounds! Try stacking more carefully.",
+      "playAgain": "Play Again",
+      "tryAgain": "Try Again",
+      "reset": "Reset Game"
+    },
     "sokoban": {
       "title": "Gift Puzzle",
       "instruction": "Push all gifts onto the Christmas trees to win!",
@@ -587,6 +607,23 @@
           "extra-maze-3": {
             "name": "Hard Maze",
             "description": "A complex labyrinth"
+          }
+        }
+      },
+      "presentStacking": {
+        "title": "Present Stacking",
+        "levels": {
+          "extra-present-stacking-1": {
+            "name": "Light Stack",
+            "description": "Build a tower with 12 gifts"
+          },
+          "extra-present-stacking-2": {
+            "name": "Tall Tower",
+            "description": "Build a higher tower with 16 gifts"
+          },
+          "extra-present-stacking-3": {
+            "name": "Sky High",
+            "description": "Build the tallest tower with 24 gifts"
           }
         }
       }

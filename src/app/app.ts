@@ -128,8 +128,9 @@ export class App implements OnInit {
       geometryDash: '🎅',
       sokoban: '🎁',
       climber: '🧗',
-      mazeRunner: '🏃',
+      mazeRunner: '🌀',
       flappySleigh: '🛷',
+      presentStacking: '🎄',
     };
     return icons[gameType] || '🎁';
   }

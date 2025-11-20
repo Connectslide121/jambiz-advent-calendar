@@ -308,12 +308,11 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 24,
-    challengeType: 'riddle',
+    challengeType: 'presentStacking',
     funFactKey: 'funFacts.day24',
     challengeData: {
-      riddleKey: 'challenges.riddle.day24.question',
-      answerKey: ['santa claus', 'santa', 'jultomten', 'tomten'],
-      hintKey: 'challenges.riddle.day24.hint',
+      targetHeight: 300,
+      maxPresents: 12,
     },
   },
 ];

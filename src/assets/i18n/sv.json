@@ -199,6 +199,26 @@
         "gameLost": "Du slog i en polkagriskäpp! Dags för ett nytt försök?"
       }
     },
+    "presentStacking": {
+      "title": "Presenttornsutmaning",
+      "instruction1": "Klicka var som helst på skärmen för att släppa en present",
+      "instruction2": "Stapla presenter för att nå den gyllene linjen",
+      "instruction3": "Du har {{max}} presenter att använda",
+      "instruction4": "Planera dina släpp noggrant för ett stabilt torn!",
+      "startGame": "Börja stapla",
+      "presentsUsed": "Använda presenter",
+      "heightProgress": "Höjdframsteg",
+      "currentPresent": "Nuvarande present",
+      "nextPresent": "Nästa present",
+      "clickToDrop": "Klicka för att släppa present",
+      "success": "Tornet klart!",
+      "successMessage": "Utmärkt stapling! Du använde {{used}} av {{max}} presenter.",
+      "failed": "Tornet misslyckades",
+      "failedMessage": "En present ramlade utanför! Försök stapla mer försiktigt.",
+      "playAgain": "Spela igen",
+      "tryAgain": "Försök igen",
+      "reset": "Återställ spel"
+    },
     "sokoban": {
       "title": "Presentpussel",
       "instruction": "Skjut alla presenter till julgranen för att vinna!",
@@ -604,6 +624,23 @@
           "extra-maze-3": {
             "name": "Svår labyrint",
             "description": "En komplex labyrint"
+          }
+        }
+      },
+      "presentStacking": {
+        "title": "Presentstapeln",
+        "levels": {
+          "extra-present-stacking-1": {
+            "name": "Lätt stapel",
+            "description": "Bygg ett torn med 12 paket"
+          },
+          "extra-present-stacking-2": {
+            "name": "Högt torn",
+            "description": "Bygg ett högre torn med 16 paket"
+          },
+          "extra-present-stacking-3": {
+            "name": "Skyhögt",
+            "description": "Bygg det högsta tornet med 24 paket"
           }
         }
       }
