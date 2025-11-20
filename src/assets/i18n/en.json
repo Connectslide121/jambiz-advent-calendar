@@ -1,7 +1,10 @@
 ﻿{
   "app": {
-    "title": "Jambiz advent calendar",
+    "title": "Jambiz Advent Calendar",
     "subtitle": "One tiny challenge a day, one fun fact as a reward",
+    "welcome": "Welcome to the Jambiz Advent Calendar!",
+    "intro": "Join us for 24 days of festive fun, challenges, and surprises. Unlock a new door each day to reveal a mini-game or puzzle and learn something new about your colleagues and company!",
+    "start": "Start the Adventure",
     "language": {
       "en": "English",
       "sv": "Swedish"
