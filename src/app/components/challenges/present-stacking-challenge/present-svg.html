@@ -1,0 +1,86 @@
+<svg
+  [attr.width]="width"
+  [attr.height]="height"
+  [attr.viewBox]="'0 0 ' + width + ' ' + height"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="present"
+>
+  <defs>
+    <linearGradient id="vRibbon" x1="0%" x2="100%" y1="0%" y2="0%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.75)" />
+      <stop offset="50%" stop-color="rgba(255,255,255,0.95)" />
+      <stop offset="100%" stop-color="rgba(255,255,255,0.75)" />
+    </linearGradient>
+    <linearGradient id="hRibbon" x1="0%" x2="0%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.75)" />
+      <stop offset="50%" stop-color="rgba(255,255,255,0.95)" />
+      <stop offset="100%" stop-color="rgba(255,255,255,0.75)" />
+    </linearGradient>
+    <filter id="bowShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="1.5" flood-color="rgba(0,0,0,0.35)" />
+    </filter>
+  </defs>
+
+  <!-- Base box -->
+  <rect
+    [attr.x]="borderWidth / 2"
+    [attr.y]="borderWidth / 2"
+    [attr.width]="width - borderWidth"
+    [attr.height]="height - borderWidth"
+    [attr.rx]="cornerRadius"
+    [attr.ry]="cornerRadius"
+    [attr.fill]="color"
+    stroke="#ffffff"
+    [attr.stroke-width]="borderWidth"
+  />
+
+  <!-- Vertical ribbon -->
+  <rect
+    [attr.x]="width / 2 - ribbonW / 2"
+    y="0"
+    [attr.width]="ribbonW"
+    [attr.height]="height"
+    fill="url(#vRibbon)"
+    stroke="rgba(255,255,255,0.6)"
+    stroke-width="1"
+  />
+
+  <!-- Horizontal ribbon -->
+  <rect
+    x="0"
+    [attr.y]="height / 2 - ribbonW / 2"
+    [attr.width]="width"
+    [attr.height]="ribbonW"
+    fill="url(#hRibbon)"
+    stroke="rgba(255,255,255,0.6)"
+    stroke-width="1"
+  />
+
+  <!-- Bow group -->
+  <g [attr.transform]="'translate(' + width / 2 + ',' + bowY + ')'" filter="url(#bowShadow)">
+    <!-- Left loop: teardrop path -->
+    <path
+      [attr.d]="leftLoopPath"
+      fill="rgba(255,255,255,0.95)"
+      stroke="rgba(255,255,255,0.8)"
+      stroke-width="1"
+    />
+    <!-- Right loop: mirrored teardrop -->
+    <path
+      [attr.d]="rightLoopPath"
+      fill="rgba(255,255,255,0.95)"
+      stroke="rgba(255,255,255,0.8)"
+      stroke-width="1"
+    />
+    <!-- Knot -->
+    <circle
+      cx="0"
+      [attr.cy]="knotOffsetY"
+      [attr.r]="knotR"
+      fill="white"
+      stroke="rgba(255,255,255,0.8)"
+      stroke-width="1"
+    />
+  </g>
+</svg>

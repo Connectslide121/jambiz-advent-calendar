@@ -29,8 +29,9 @@ export class Calendar implements OnInit {
     geometryDash: '🎅',
     sokoban: '🎁',
     climber: '🧗',
-    mazeRunner: '🏃',
+    mazeRunner: '🌀',
     flappySleigh: '🛷',
+    presentStacking: '🎄',
   };
 
   constructor(public stateService: CalendarStateService) {}

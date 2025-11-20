@@ -178,6 +178,9 @@ export class ExtrasModalComponent {
     const instance = this.challengeComponentRef.instance as any;
     instance.levelId = level.id;
     instance.isCompleted = isCompleted;
+    if ('autoEmitOnWin' in instance) {
+      instance.autoEmitOnWin = true; // Persist completion immediately for extras
+    }
 
     if (level.challengeData) {
       instance.config = level.challengeData;
@@ -259,9 +262,10 @@ export class ExtrasModalComponent {
       memoryCard: '🎴',
       geometryDash: '🎮',
       sokoban: '📦',
-      climber: '🧗',
+      climber: '🌀',
       flappySleigh: '🛷',
       mazeRunner: '🌀',
+      presentStacking: '🎄',
     };
     return icons[gameType] || '🎁';
   }

@@ -940,4 +940,41 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
       },
     ],
   },
+
+  // Present Stacking Extras
+  {
+    type: 'presentStacking',
+    levels: [
+      {
+        id: 'extra-present-stacking-1',
+        nameKey: 'extras.games.presentStacking.levels.extra-present-stacking-1.name',
+        descriptionKey: 'extras.games.presentStacking.levels.extra-present-stacking-1.description',
+        challengeType: 'presentStacking',
+        challengeData: {
+          targetHeight: 300,
+          maxPresents: 12,
+        },
+      },
+      {
+        id: 'extra-present-stacking-2',
+        nameKey: 'extras.games.presentStacking.levels.extra-present-stacking-2.name',
+        descriptionKey: 'extras.games.presentStacking.levels.extra-present-stacking-2.description',
+        challengeType: 'presentStacking',
+        challengeData: {
+          targetHeight: 400,
+          maxPresents: 16,
+        },
+      },
+      {
+        id: 'extra-present-stacking-3',
+        nameKey: 'extras.games.presentStacking.levels.extra-present-stacking-3.name',
+        descriptionKey: 'extras.games.presentStacking.levels.extra-present-stacking-3.description',
+        challengeType: 'presentStacking',
+        challengeData: {
+          targetHeight: 500,
+          maxPresents: 24,
+        },
+      },
+    ],
+  },
 ];
