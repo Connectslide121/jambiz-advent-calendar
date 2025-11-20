@@ -406,7 +406,7 @@ module.exports = {
 - Stats saved to localStorage (ornaments collected count)
 - Screen wrapping allows player to move off one side and appear on the other
   
-### Phase 8: Complex Minigames - Batch 3 🎮
+### Phase 8: Complex Minigames - Batch 3 ✅ COMPLETED
 - [x] **MazeRunnerChallengeComponent** - Navigate Christmas maze
   - [x] Top-down view maze navigation
   - [x] **Mobile:** Virtual D-pad buttons (Sokoban style)
@@ -416,7 +416,46 @@ module.exports = {
   - [x] Christmas decorations as obstacles/walls (styled divs)
   - [x] Touch-friendly navigation
 
-### Phase 9: Content & Polish
+**Implementation Notes:**
+- Created MazeRunnerChallenge with procedural maze generation using depth-first search algorithm
+- Supports configurable maze size (rows x cols) with randomized layouts
+- Touch controls integrated for mobile (virtual D-pad buttons)
+- Arrow keys and WASD for desktop movement
+- Collectible stars scattered throughout maze
+- Win condition: collect all stars and reach exit
+- Added to calendar days with three difficulty levels
+
+### Phase 9: Extra Challenges & Endless Modes ✅ COMPLETED
+- [x] **Extras Menu** - Additional challenges beyond advent calendar
+  - [x] Create extras-modal component for browsing extra levels
+  - [x] Organize extras by game type (riddle, hangman, minigames, etc.)
+  - [x] Level selection with completion tracking
+  - [x] Separate localStorage key for extras completion
+  - [x] Translate all extras level names and descriptions
+  
+- [x] **Endless Mode Support** - Infinite survival variants
+  - [x] Geometry Dash: Infinite obstacle generation, survival timer, best time tracking
+  - [x] Climber: Infinite platform generation, height tracking, best height/time
+  - [x] Flappy Sleigh: Infinite obstacle streaming, distance tracking, best distance/time
+  - [x] **Stats Persistence:** Best scores saved to localStorage using levelId
+  - [x] HUD overlays showing current stats vs best scores during gameplay
+  - [x] Stats cards displaying last run and best run after game over
+  - [x] Format times as MM:SS.mmm for readability
+
+**Implementation Notes:**
+- Added `levelId` support throughout the architecture for extras identification
+- Updated `CalendarDayConfig` to include optional `levelId` field
+- Modified `CalendarStateService` to accept `string | number` keys for flexible storage
+- Challenge components (Climber, Flappy, Geometry Dash) now accept `levelId` input
+- Created `getStorageKey()` helper in each challenge to prefer levelId over day number
+- App.ts passes levelId when creating extras configs
+- ChallengeHost passes levelId to challenge component instances
+- Endless modes track and persist: bestHeight, bestTime, bestDistance as appropriate
+- Stats survive page refresh and display in game UI
+- Created 9+ endless mode variants with tuned difficulty settings
+- All extras levels have full Swedish and English translations
+
+### Phase 10: Content & Polish
 - [ ] Distribute 24 challenges (19 simple filler + 5 complex minigames)
 - [ ] Create optimal challenge difficulty curve
 - [ ] Write 24 fun facts (Swedish & English)
