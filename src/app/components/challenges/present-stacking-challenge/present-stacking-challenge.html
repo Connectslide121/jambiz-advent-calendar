@@ -94,35 +94,39 @@
     <div class="game-area">
       <!-- Next Present Preview (Side Panel) -->
       <div class="next-present-container">
-        <div class="next-present-label">
-          {{ 'challenges.presentStacking.currentPresent' | translate }}
+        <div class="present-preview-group">
+          <div class="next-present-label">
+            {{ 'challenges.presentStacking.currentPresent' | translate }}
+          </div>
+          <div class="present-preview">
+            <ng-container *ngIf="currentPresent; else noCurrent">
+              <app-present-svg
+                [width]="currentPresent.width * 0.7"
+                [height]="currentPresent.height * 0.7"
+                [color]="currentPresent.color"
+              ></app-present-svg>
+            </ng-container>
+            <ng-template #noCurrent>
+              <div class="preview-placeholder">-</div>
+            </ng-template>
+          </div>
         </div>
-        <div class="present-preview">
-          <ng-container *ngIf="currentPresent; else noCurrent">
-            <app-present-svg
-              [width]="currentPresent.width * 0.7"
-              [height]="currentPresent.height * 0.7"
-              [color]="currentPresent.color"
-            ></app-present-svg>
-          </ng-container>
-          <ng-template #noCurrent>
-            <div class="preview-placeholder">-</div>
-          </ng-template>
-        </div>
-        <div class="next-present-label">
-          {{ 'challenges.presentStacking.nextPresent' | translate }}
-        </div>
-        <div class="present-preview">
-          <ng-container *ngIf="nextPresent; else noNext">
-            <app-present-svg
-              [width]="nextPresent.width * 0.5"
-              [height]="nextPresent.height * 0.5"
-              [color]="nextPresent.color"
-            ></app-present-svg>
-          </ng-container>
-          <ng-template #noNext>
-            <div class="preview-placeholder small">-</div>
-          </ng-template>
+        <div class="present-preview-group">
+          <div class="next-present-label">
+            {{ 'challenges.presentStacking.nextPresent' | translate }}
+          </div>
+          <div class="present-preview">
+            <ng-container *ngIf="nextPresent; else noNext">
+              <app-present-svg
+                [width]="nextPresent.width * 0.5"
+                [height]="nextPresent.height * 0.5"
+                [color]="nextPresent.color"
+              ></app-present-svg>
+            </ng-container>
+            <ng-template #noNext>
+              <div class="preview-placeholder small">-</div>
+            </ng-template>
+          </div>
         </div>
       </div>
 

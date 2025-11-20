@@ -50,6 +50,7 @@ export class PresentStackingChallenge implements OnInit, OnDestroy {
   private canvasHeight = 700;
   private groundHeight = 50;
   readonly dropZoneY = 50; // Drop near top of canvas
+  private isMobile = false;
 
   private presentColors = [
     '#e63946', // Christmas red
@@ -79,9 +80,22 @@ export class PresentStackingChallenge implements OnInit, OnDestroy {
   private completionEmitted = false;
 
   ngOnInit(): void {
+    // Detect mobile and adjust canvas size
+    this.isMobile = window.innerWidth < 640;
+    if (this.isMobile) {
+      this.canvasWidth = Math.min(380, window.innerWidth - 32);
+      this.canvasHeight = Math.min(500, window.innerHeight - 280);
+      // Scale down target height proportionally
+      this.targetHeight = Math.round(this.targetHeight * 0.5);
+    }
+
     if (this.config) {
       if (typeof this.config.targetHeight === 'number') {
         this.targetHeight = this.config.targetHeight;
+        // Apply mobile scaling if needed
+        if (this.isMobile) {
+          this.targetHeight = Math.round(this.targetHeight * 0.5);
+        }
       }
       if (typeof this.config.maxPresents === 'number') {
         this.maxPresents = this.config.maxPresents;
@@ -215,13 +229,20 @@ export class PresentStackingChallenge implements OnInit, OnDestroy {
 
   private initializePresentTypes(): void {
     // Define available present sizes (width x height)
-    const sizes = [
+    const baseSizes = [
       { width: 80, height: 60 },
       { width: 70, height: 70 },
       { width: 90, height: 50 },
       { width: 60, height: 80 },
       { width: 100, height: 40 },
     ];
+
+    // Scale down presents for mobile
+    const scale = this.isMobile ? 0.5 : 1;
+    const sizes = baseSizes.map((size) => ({
+      width: Math.round(size.width * scale),
+      height: Math.round(size.height * scale),
+    }));
 
     // Create a pool of presents with random colors
     this.availablePresents = Array(this.maxPresents)
