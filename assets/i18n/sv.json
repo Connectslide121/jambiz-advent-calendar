@@ -426,6 +426,18 @@
           "extra-dash-3": {
             "name": "Expert sprint",
             "description": "Maximal utmaning!"
+          },
+          "extra-dash-infinite-easy": {
+            "name": "Oändlig lätt",
+            "description": "Överlev så länge som möjligt - Lätt läge"
+          },
+          "extra-dash-infinite-medium": {
+            "name": "Oändlig medel",
+            "description": "Hur länge håller du? - Medel läge"
+          },
+          "extra-dash-infinite-hard": {
+            "name": "Oändlig svår",
+            "description": "Den ultimata överlevnadsutmaningen!"
           }
         }
       },
