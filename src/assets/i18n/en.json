@@ -205,6 +205,16 @@
       "tryAgain": "Try Again",
       "reset": "Reset Game"
     },
+    "giftCatcher": {
+      "title": "Gift Catcher",
+      "instruction": "Catch the falling gifts! Avoid the coal!",
+      "controlsDesktop": "Use LEFT and RIGHT arrow keys to move",
+      "controlsMobile": "Tap LEFT or RIGHT side of screen to move",
+      "start": "Start Game",
+      "victory": "You caught enough gifts!",
+      "successMessage": "Great job! You saved Christmas!",
+      "showFunFact": "Show Fun Fact"
+    },
     "sokoban": {
       "title": "Gift Puzzle",
       "instruction": "Push all gifts onto the Christmas trees to win!",
@@ -627,6 +637,23 @@
           "extra-present-stacking-3": {
             "name": "Sky High",
             "description": "Build the tallest tower with 24 gifts"
+          }
+        }
+      },
+      "giftCatcher": {
+        "title": "Gift Catcher",
+        "levels": {
+          "extra-gift-catcher-1": {
+            "name": "Gift Shower",
+            "description": "Catch 15 gifts at a steady pace"
+          },
+          "extra-gift-catcher-2": {
+            "name": "Blizzard Blitz",
+            "description": "Faster gifts, catch 25 to win"
+          },
+          "extra-gift-catcher-3": {
+            "name": "Santa's Rush",
+            "description": "High speed challenge, catch 40 gifts!"
           }
         }
       }

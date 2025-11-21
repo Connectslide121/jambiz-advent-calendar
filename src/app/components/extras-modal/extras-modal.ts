@@ -13,7 +13,8 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { LucideAngularModule, X } from 'lucide-angular';
 import { EXTRA_LEVELS, ExtraGameSection, ExtraLevel } from '../../config/extras-config';
-import { CalendarDayConfig } from '../../models/calendar.models';
+import { CalendarDayConfig, ChallengeType } from '../../models/calendar.models';
+import { CHALLENGE_ICONS, DEFAULT_CHALLENGE_ICON } from '../../config/challenge-icons';
 import { RiddleChallenge } from '../challenges/riddle-challenge/riddle-challenge';
 import { HangmanChallenge } from '../challenges/hangman-challenge/hangman-challenge';
 import { WordScrambleChallenge } from '../challenges/word-scramble-challenge/word-scramble-challenge';
@@ -25,6 +26,7 @@ import { SokobanChallengeComponent } from '../challenges/sokoban-challenge/sokob
 import ClimberChallengeComponent from '../challenges/climber-challenge/climber-challenge';
 import { FlappySleighChallenge } from '../challenges/flappy-sleigh-challenge/flappy-sleigh-challenge';
 import { MazeRunnerChallengeComponent } from '../challenges/maze-runner-challenge/maze-runner-challenge';
+import { GiftCatcherChallenge } from '../challenges/gift-catcher-challenge/gift-catcher-challenge';
 
 type ViewMode = 'games' | 'levels' | 'playing';
 
@@ -164,6 +166,9 @@ export class ExtrasModalComponent {
       case 'mazeRunner':
         componentType = MazeRunnerChallengeComponent;
         break;
+      case 'giftCatcher':
+        componentType = GiftCatcherChallenge;
+        break;
       default:
         return;
     }
@@ -253,20 +258,6 @@ export class ExtrasModalComponent {
   }
 
   getGameIcon(gameType: string): string {
-    const icons: Record<string, string> = {
-      riddle: '🤔',
-      hangman: '🎄',
-      wordScramble: '🔤',
-      wordSearch: '🔍',
-      rebus: '🖼️',
-      memoryCard: '🎴',
-      geometryDash: '🎮',
-      sokoban: '📦',
-      climber: '🌀',
-      flappySleigh: '🛷',
-      mazeRunner: '🌀',
-      presentStacking: '🎄',
-    };
-    return icons[gameType] || '🎁';
+    return CHALLENGE_ICONS[gameType as ChallengeType] || DEFAULT_CHALLENGE_ICON;
   }
 }

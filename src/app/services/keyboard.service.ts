@@ -181,4 +181,19 @@ export class KeyboardService {
     if (down && !up) return 1;
     return 0;
   }
+
+  /**
+   * Manually simulate a key down event
+   * Useful for touch controls mapping to keyboard keys
+   */
+  simulateKeyDown(key: string): void {
+    this.keysPressed.add(key.toLowerCase());
+  }
+
+  /**
+   * Manually simulate a key up event
+   */
+  simulateKeyUp(key: string): void {
+    this.keysPressed.delete(key.toLowerCase());
+  }
 }

@@ -6,6 +6,7 @@ import { ChallengeHost } from './components/challenge-host/challenge-host';
 import { LandingPage } from './components/landing-page/landing-page';
 import { EXTRA_LEVELS, ExtraGameSection, ExtraLevel } from './config/extras-config';
 import { CalendarDayConfig, ChallengeType } from './models/calendar.models';
+import { CHALLENGE_ICONS, DEFAULT_CHALLENGE_ICON } from './config/challenge-icons';
 import { LucideAngularModule, X, ArrowLeft, Check, CheckCheck, XCircle } from 'lucide-angular';
 import { CalendarStateService } from './services/calendar-state.service';
 
@@ -131,21 +132,7 @@ export class App implements OnInit {
   }
 
   getGameIcon(gameType: string): string {
-    const icons: Record<string, string> = {
-      riddle: '🤔',
-      hangman: '🔤',
-      wordScramble: '🔀',
-      wordSearch: '🔍',
-      rebus: '🧩',
-      memoryCard: '🃏',
-      geometryDash: '🎅',
-      sokoban: '🎁',
-      climber: '🧗',
-      mazeRunner: '🌀',
-      flappySleigh: '🛷',
-      presentStacking: '🎄',
-    };
-    return icons[gameType] || '🎁';
+    return CHALLENGE_ICONS[gameType as ChallengeType] || DEFAULT_CHALLENGE_ICON;
   }
 
   markAllComplete(): void {
