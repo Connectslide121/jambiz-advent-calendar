@@ -1,0 +1,142 @@
+<div class="flex flex-col items-center w-full max-w-4xl mx-auto">
+  <div class="text-center mb-4">
+    <h2 class="text-2xl font-bold text-text mb-2">
+      {{ 'challenges.giftCatcher.title' | translate }}
+    </h2>
+    <p class="text-text-muted">
+      {{ 'challenges.giftCatcher.instruction' | translate }}
+    </p>
+    <p class="text-sm text-accent-green mt-1 hidden sm:block">
+      {{ 'challenges.giftCatcher.controlsDesktop' | translate }}
+    </p>
+    <p class="text-sm text-accent-green mt-1 sm:hidden">
+      {{ 'challenges.giftCatcher.controlsMobile' | translate }}
+    </p>
+  </div>
+
+  <div
+    class="relative w-full aspect-[4/3] bg-bg rounded-xl overflow-hidden shadow-2xl border-2 border-surface"
+  >
+    <canvas
+      #gameCanvas
+      class="w-full h-full touch-none"
+      (touchstart)="handleTouchStart($event)"
+      (touchend)="handleTouchEnd($event)"
+      (touchcancel)="handleTouchEnd($event)"
+    ></canvas>
+
+    <!-- HUD -->
+    <div class="absolute top-4 left-4 right-4 flex justify-between items-start pointer-events-none">
+      <div class="flex flex-col gap-2">
+        <div
+          class="bg-surface/80 backdrop-blur px-2 py-1 rounded-lg border border-white/10 shadow-sm"
+        >
+          <div class="text-[10px] text-text-muted uppercase tracking-wider leading-none mb-0.5">
+            Score
+          </div>
+          <div class="text-base sm:text-xl font-bold text-gold font-mono leading-none">
+            {{ score }} / {{ config.targetScore }}
+          </div>
+        </div>
+
+        <div
+          class="bg-surface/80 backdrop-blur px-2 py-1 rounded-lg border border-white/10 shadow-sm"
+        >
+          <div class="text-[10px] text-text-muted uppercase tracking-wider leading-none mb-0.5">
+            Time
+          </div>
+          <div class="text-sm sm:text-lg font-bold text-white font-mono leading-none">
+            {{ formatTime(elapsedTime) }}
+          </div>
+        </div>
+      </div>
+
+      @if (bestTime > 0) {
+      <div
+        class="bg-surface/80 backdrop-blur px-2 py-1 rounded-lg border border-white/10 shadow-sm"
+      >
+        <div
+          class="text-[10px] text-text-muted uppercase tracking-wider text-right leading-none mb-0.5"
+        >
+          Best
+        </div>
+        <div class="text-sm sm:text-lg font-bold text-gold font-mono leading-none">
+          🏆 {{ formatTime(bestTime) }}
+        </div>
+      </div>
+      }
+    </div>
+
+    <!-- Start Screen -->
+    @if (!gameStarted && !gameWon) {
+    <div
+      class="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-10"
+    >
+      <div class="text-center p-4 sm:p-6">
+        <div class="text-4xl sm:text-6xl mb-4 animate-bounce">🎁</div>
+        <button
+          (click)="startGame()"
+          class="btn btn-primary text-lg sm:text-xl px-6 py-2 sm:px-8 sm:py-3 shadow-lg hover:scale-105 transition-transform"
+        >
+          {{ 'challenges.giftCatcher.start' | translate }}
+        </button>
+      </div>
+    </div>
+    }
+
+    <!-- Win Screen -->
+    @if (gameWon) {
+    <div
+      class="absolute inset-0 flex items-center justify-center bg-accent-green/90 backdrop-blur-sm z-20 animate-fade-in"
+    >
+      <div
+        class="text-center p-4 sm:p-8 bg-surface rounded-2xl shadow-2xl border-2 border-gold max-w-sm mx-4"
+      >
+        <div class="text-4xl sm:text-6xl mb-2 sm:mb-4">🎅</div>
+        <h3 class="text-xl sm:text-3xl font-bold text-white mb-2">
+          {{ 'challenges.giftCatcher.victory' | translate }}
+        </h3>
+        <p class="text-white/90 text-sm sm:text-base mb-4 sm:mb-6">
+          {{ 'challenges.giftCatcher.successMessage' | translate }}
+        </p>
+        <div class="flex flex-col gap-2 sm:gap-3">
+          <button
+            (click)="completed.emit()"
+            class="btn btn-primary w-full font-bold text-base sm:text-lg"
+          >
+            {{ 'challenges.giftCatcher.showFunFact' | translate }}
+          </button>
+          <button (click)="startGame()" class="btn btn-outline w-full text-sm sm:text-base">
+            {{ 'ui.playAgain' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+
+  <!-- Mobile Controls -->
+  <div class="flex justify-between w-full mt-4 px-4 lg:hidden z-30">
+    <button
+      class="btn btn-secondary rounded-full w-16 h-16 flex items-center justify-center opacity-80 active:scale-95 transition-transform touch-none pointer-events-auto shadow-lg border-2 border-white/20"
+      (touchstart)="startMove('left'); $event.preventDefault()"
+      (touchend)="stopMove('left'); $event.preventDefault()"
+      (mousedown)="startMove('left')"
+      (mouseup)="stopMove('left')"
+      (mouseleave)="stopMove('left')"
+    >
+      <lucide-icon [img]="ArrowLeft" class="w-8 h-8"></lucide-icon>
+    </button>
+
+    <button
+      class="btn btn-secondary rounded-full w-16 h-16 flex items-center justify-center opacity-80 active:scale-95 transition-transform touch-none pointer-events-auto shadow-lg border-2 border-white/20"
+      (touchstart)="startMove('right'); $event.preventDefault()"
+      (touchend)="stopMove('right'); $event.preventDefault()"
+      (mousedown)="startMove('right')"
+      (mouseup)="stopMove('right')"
+      (mouseleave)="stopMove('right')"
+    >
+      <lucide-icon [img]="ArrowRight" class="w-8 h-8"></lucide-icon>
+    </button>
+  </div>
+</div>

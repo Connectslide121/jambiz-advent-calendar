@@ -83,7 +83,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
         ['S', 'N', 'Ö', 'B', 'O', 'L', 'L', 'T', 'X', 'K'],
         ['T', 'Q', 'P', 'W', 'Z', 'K', 'M', 'O', 'V', 'R'],
         ['J', 'L', 'J', 'U', 'S', 'M', 'Q', 'M', 'B', 'W'],
-        ['A', 'P', 'X', 'F', 'W', 'Y', 'N', 'T', 'L', 'Y'],
+        ['Ä', 'P', 'X', 'F', 'W', 'Y', 'N', 'T', 'L', 'Y'],
         ['R', 'Z', 'K', 'V', 'B', 'P', 'M', 'E', 'D', 'B'],
         ['N', 'M', 'Q', 'W', 'X', 'L', 'T', 'N', 'V', 'N'],
         ['A', 'G', 'Å', 'V', 'O', 'R', 'K', 'P', 'X', 'M'],
@@ -128,12 +128,12 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 10,
-    challengeType: 'riddle',
+    challengeType: 'giftCatcher',
     funFactKey: 'funFacts.day10',
     challengeData: {
-      riddleKey: 'challenges.riddle.day10.question',
-      answerKey: ['snow', 'snö'],
-      hintKey: 'challenges.riddle.day10.hint',
+      targetScore: 15,
+      spawnRate: 1000,
+      speed: 3,
     },
   },
   {

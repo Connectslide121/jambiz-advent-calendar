@@ -12,7 +12,8 @@
   | 'memoryCard'
   | 'mazeRunner'
   | 'flappySleigh'
-  | 'presentStacking';
+  | 'presentStacking'
+  | 'giftCatcher';
 
 export interface CalendarDayConfig {
   day: number;

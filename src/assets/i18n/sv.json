@@ -222,6 +222,16 @@
       "tryAgain": "Försök igen",
       "reset": "Återställ spel"
     },
+    "giftCatcher": {
+      "title": "Klappjakten",
+      "instruction": "Fånga de fallande julklapparna! Undvik kolet!",
+      "controlsDesktop": "Använd VÄNSTER och HÖGER piltangent för att flytta",
+      "controlsMobile": "Tryck på VÄNSTER eller HÖGER sida av skärmen",
+      "start": "Starta Spel",
+      "victory": "Du fångade tillräckligt många klappar!",
+      "successMessage": "Bra jobbat! Du räddade julen!",
+      "showFunFact": "Visa Rolig Fakta"
+    },
     "sokoban": {
       "title": "Presentpussel",
       "instruction": "Skjut alla presenter till julgranen för att vinna!",
@@ -644,6 +654,23 @@
           "extra-present-stacking-3": {
             "name": "Skyhögt",
             "description": "Bygg det högsta tornet med 24 paket"
+          }
+        }
+      },
+      "giftCatcher": {
+        "title": "Klappjakten",
+        "levels": {
+          "extra-gift-catcher-1": {
+            "name": "Klappregn",
+            "description": "Fånga 15 klappar i lugnt tempo"
+          },
+          "extra-gift-catcher-2": {
+            "name": "Snöstorm",
+            "description": "Snabbare klappar, fånga 25 för att vinna"
+          },
+          "extra-gift-catcher-3": {
+            "name": "Tomtens stress",
+            "description": "Hög hastighet, fånga 40 klappar!"
           }
         }
       }

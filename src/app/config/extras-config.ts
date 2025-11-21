@@ -977,4 +977,44 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
       },
     ],
   },
+
+  // Gift Catcher Extras
+  {
+    type: 'giftCatcher',
+    levels: [
+      {
+        id: 'extra-gift-catcher-1',
+        nameKey: 'extras.games.giftCatcher.levels.extra-gift-catcher-1.name',
+        descriptionKey: 'extras.games.giftCatcher.levels.extra-gift-catcher-1.description',
+        challengeType: 'giftCatcher',
+        challengeData: {
+          targetScore: 15,
+          spawnRate: 1000,
+          speed: 3,
+        },
+      },
+      {
+        id: 'extra-gift-catcher-2',
+        nameKey: 'extras.games.giftCatcher.levels.extra-gift-catcher-2.name',
+        descriptionKey: 'extras.games.giftCatcher.levels.extra-gift-catcher-2.description',
+        challengeType: 'giftCatcher',
+        challengeData: {
+          targetScore: 25,
+          spawnRate: 800,
+          speed: 4,
+        },
+      },
+      {
+        id: 'extra-gift-catcher-3',
+        nameKey: 'extras.games.giftCatcher.levels.extra-gift-catcher-3.name',
+        descriptionKey: 'extras.games.giftCatcher.levels.extra-gift-catcher-3.description',
+        challengeType: 'giftCatcher',
+        challengeData: {
+          targetScore: 40,
+          spawnRate: 600,
+          speed: 5,
+        },
+      },
+    ],
+  },
 ];
