@@ -16,7 +16,10 @@ import { ChallengeHost } from '../challenge-host/challenge-host';
 })
 export class Calendar implements OnInit {
   readonly Check = Check;
-  calendarDays: CalendarDayConfig[] = CALENDAR_DAYS;
+  // Sort calendar days by gridPosition for shuffled display
+  calendarDays: CalendarDayConfig[] = [...CALENDAR_DAYS].sort(
+    (a, b) => (a.gridPosition ?? 0) - (b.gridPosition ?? 0)
+  );
   selectedDay: CalendarDayConfig | null = null;
 
   constructor(public stateService: CalendarStateService) {}

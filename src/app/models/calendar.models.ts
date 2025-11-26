@@ -41,6 +41,7 @@ export interface CalendarDayConfig {
   reward?: RewardConfig; // New flexible reward system
   challengeData?: any; // Type varies by challenge type
   levelId?: string; // Unique ID for extras levels (for stats persistence)
+  gridPosition?: number; // Position in the shuffled grid (0-23), used for puzzle image reveal
 }
 
 export interface DayState {

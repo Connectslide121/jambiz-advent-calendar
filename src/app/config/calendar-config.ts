@@ -1,8 +1,18 @@
 ﻿import { CalendarDayConfig } from '../models/calendar.models';
 
+// Grid position mapping for shuffled calendar layout
+// The days are arranged in a visually interesting pattern for the puzzle image reveal
+// Grid is 6 columns x 4 rows = 24 positions (0-23)
+// Position layout:
+//  0  1  2  3  4  5
+//  6  7  8  9 10 11
+// 12 13 14 15 16 17
+// 18 19 20 21 22 23
+
 export const CALENDAR_DAYS: CalendarDayConfig[] = [
   {
     day: 1,
+    gridPosition: 7, // Center area
     challengeType: 'riddle',
     reward: {
       type: 'video',
@@ -18,6 +28,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 2,
+    gridPosition: 18, // Bottom left
     challengeType: 'hangman',
     funFactKey: 'funFacts.day2',
     challengeData: {
@@ -29,6 +40,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 3,
+    gridPosition: 3, // Top center-right
     challengeType: 'wordScramble',
     funFactKey: 'funFacts.day3',
     challengeData: {
@@ -40,6 +52,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 4,
+    gridPosition: 14, // Bottom center
     challengeType: 'memoryCard',
     funFactKey: 'funFacts.day4',
     challengeData: {
@@ -49,6 +62,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 5,
+    gridPosition: 22, // Bottom right area
     challengeType: 'flappySleigh',
     funFactKey: 'funFacts.day5',
     challengeData: {
@@ -62,6 +76,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 6,
+    gridPosition: 1, // Top left area
     challengeType: 'rebus',
     funFactKey: 'funFacts.day6',
     challengeData: {
@@ -72,6 +87,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 7,
+    gridPosition: 11, // Middle right
     challengeType: 'wordSearch',
     funFactKey: 'funFacts.day7',
     challengeData: {
@@ -99,6 +115,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 8,
+    gridPosition: 20, // Bottom center
     challengeType: 'sokoban',
     funFactKey: 'funFacts.day8',
     challengeData: {
@@ -125,6 +142,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 9,
+    gridPosition: 5, // Top right
     challengeType: 'geometryDash',
     challengeData: {
       difficulty: 'easy',
@@ -133,6 +151,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 10,
+    gridPosition: 12, // Middle left
     challengeType: 'giftCatcher',
     funFactKey: 'funFacts.day10',
     challengeData: {
@@ -143,6 +162,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 11,
+    gridPosition: 16, // Bottom center-right
     challengeType: 'hangman',
     funFactKey: 'funFacts.day11',
     challengeData: {
@@ -154,6 +174,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 12,
+    gridPosition: 0, // Top left corner
     challengeType: 'wordScramble',
     funFactKey: 'funFacts.day12',
     challengeData: {
@@ -165,6 +186,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 13,
+    gridPosition: 9, // Center
     challengeType: 'rebus',
     funFactKey: 'funFacts.day13',
     challengeData: {
@@ -175,6 +197,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 14,
+    gridPosition: 23, // Bottom right corner
     challengeType: 'riddle',
     funFactKey: 'funFacts.day14',
     challengeData: {
@@ -185,11 +208,13 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 15,
+    gridPosition: 4, // Top center-right
     challengeType: 'climber',
     funFactKey: 'funFacts.day15',
   },
   {
     day: 16,
+    gridPosition: 19, // Bottom left-center
     challengeType: 'hangman',
     funFactKey: 'funFacts.day16',
     challengeData: {
@@ -201,6 +226,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 17,
+    gridPosition: 10, // Middle center
     challengeType: 'wordSearch',
     funFactKey: 'funFacts.day17',
     challengeData: {
@@ -232,6 +258,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 18,
+    gridPosition: 6, // Middle left
     challengeType: 'mazeRunner',
     funFactKey: 'funFacts.day18',
     challengeData: {
@@ -242,6 +269,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 19,
+    gridPosition: 15, // Bottom center
     challengeType: 'wordScramble',
     reward: {
       type: 'video',
@@ -258,6 +286,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 20,
+    gridPosition: 2, // Top center
     challengeType: 'hangman',
     funFactKey: 'funFacts.day20',
     challengeData: {
@@ -269,6 +298,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 21,
+    gridPosition: 17, // Bottom right-center
     challengeType: 'rebus',
     funFactKey: 'funFacts.day21',
     challengeData: {
@@ -279,6 +309,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 22,
+    gridPosition: 13, // Middle center-left
     challengeType: 'geometryDash',
     challengeData: {
       difficulty: 'medium',
@@ -287,6 +318,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 23,
+    gridPosition: 8, // Middle center
     challengeType: 'wordSearch',
     funFactKey: 'funFacts.day23',
     challengeData: {
@@ -318,6 +350,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 24,
+    gridPosition: 21, // Bottom center-right
     challengeType: 'presentStacking',
     reward: {
       type: 'video',
