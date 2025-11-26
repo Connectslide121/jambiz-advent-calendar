@@ -7,14 +7,17 @@ export class CalendarStateService {
   private readonly STORAGE_KEY = 'jambiz-advent-completed-days';
   private readonly STATS_STORAGE_KEY = 'jambiz-advent-game-stats';
   private readonly DEV_MODE_KEY = 'jambiz-advent-dev-mode';
+  private readonly DATE_OVERRIDE_KEY = 'jambiz-advent-date-override';
   private completedDays: Set<number> = new Set();
   private gameStats: Map<string, any> = new Map();
   private _devMode = false;
+  private _dateOverride: number | null = null; // Day of December (1-31)
 
   constructor() {
     this.loadFromStorage();
     this.loadStatsFromStorage();
     this.loadDevMode();
+    this.loadDateOverride();
   }
 
   /**
@@ -51,6 +54,61 @@ export class CalendarStateService {
   }
 
   /**
+   * Date override - set a fake December day for testing (1-31)
+   * Set to null to use the real date
+   */
+  get dateOverride(): number | null {
+    return this._dateOverride;
+  }
+
+  set dateOverride(value: number | null) {
+    this._dateOverride = value;
+    this.saveDateOverride();
+  }
+
+  private loadDateOverride(): void {
+    try {
+      const stored = localStorage.getItem(this.DATE_OVERRIDE_KEY);
+      if (stored && stored !== 'null') {
+        const parsed = parseInt(stored, 10);
+        this._dateOverride = isNaN(parsed) ? null : parsed;
+      } else {
+        this._dateOverride = null;
+      }
+    } catch {
+      this._dateOverride = null;
+    }
+  }
+
+  private saveDateOverride(): void {
+    try {
+      if (this._dateOverride === null) {
+        localStorage.removeItem(this.DATE_OVERRIDE_KEY);
+      } else {
+        localStorage.setItem(this.DATE_OVERRIDE_KEY, String(this._dateOverride));
+      }
+    } catch (error) {
+      console.error('Failed to save date override to storage', error);
+    }
+  }
+
+  /**
+   * Get the effective current day in December
+   * Uses date override if set, otherwise the real date
+   */
+  getEffectiveDecemberDay(): number {
+    if (this._dateOverride !== null) {
+      return this._dateOverride;
+    }
+    const now = new Date();
+    const month = now.getMonth();
+    if (month === 11) {
+      return now.getDate();
+    }
+    return 0; // Not December
+  }
+
+  /**
    * Check if a specific day is unlocked based on the current date
    * Days unlock on their corresponding December date (day 1 = Dec 1, etc.)
    * In dev mode, all days are unlocked
@@ -64,6 +122,11 @@ export class CalendarStateService {
     // Christmas day or later unlocks everything
     if (this.isChristmasDay()) {
       return true;
+    }
+
+    // If date override is set, use it (simulates being in December)
+    if (this._dateOverride !== null) {
+      return day <= this._dateOverride;
     }
 
     const now = new Date();

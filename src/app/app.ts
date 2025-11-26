@@ -87,6 +87,19 @@ export class App implements OnInit {
     this.switchLanguage(newLang);
   }
 
+  onDateOverrideChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const value = input.value.trim();
+    if (value === '') {
+      this.calendarState.dateOverride = null;
+    } else {
+      const day = parseInt(value, 10);
+      if (!isNaN(day) && day >= 1 && day <= 31) {
+        this.calendarState.dateOverride = day;
+      }
+    }
+  }
+
   startCalendar(): void {
     this.showLandingPage = false;
   }

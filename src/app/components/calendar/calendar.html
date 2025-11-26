@@ -70,16 +70,16 @@
         </div>
         }
 
-        <!-- Locked Indicator -->
+        <!-- Locked Indicator - Large centered lock -->
         @if (isDayLocked(dayConfig)) {
-        <div
-          class="absolute top-0.5 right-0.5 sm:top-1 sm:right-1 md:top-2 md:right-2 bg-text-muted/50 rounded-full p-0.5 sm:p-1 z-20"
-        >
-          <lucide-icon
-            [img]="Lock"
-            class="w-2 h-2 sm:w-3 sm:h-3 md:w-4 md:h-4 text-white/70"
-            [strokeWidth]="2.5"
-          ></lucide-icon>
+        <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+          <div class="bg-black/60 rounded-full p-2 sm:p-3">
+            <lucide-icon
+              [img]="Lock"
+              class="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 text-text-muted"
+              [strokeWidth]="2"
+            ></lucide-icon>
+          </div>
         </div>
         }
 
