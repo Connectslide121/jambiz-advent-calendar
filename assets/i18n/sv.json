@@ -341,7 +341,7 @@
     "day20": "Podium Systems molnplattform levererar skräddarsydda lösningar till kunder inom offentlig sektor, logistik, turism och transport.",
     "day21": "LearningLEADs instruktörer är SAFe® Program Consultants, PMP®-certifierade och LEGO® Serious Play®-certifierade facilitatorer.",
     "day22": "Jambiz Development Center i Göteborg bildas av utvecklare från både Sprinta och Podium System som arbetar tillsammans med innovativa lösningar.",
-    "day23": "Kvalitet, engagemang och lekfullhet genomsyrar hela Jambiz Groups verksamhet och arbetssätt.",
+    "day23": "Jambiz äger en lägenhet som heter 'Casa Progresso' i soliga Almuñecar, Spanien! Anställda kan boka den till ett specialpris för sin semester. ☀️🏖️",
     "day24": "Platshållar-fun fact för dag 24."
   },
   "ui": {
@@ -356,11 +356,18 @@
     "startGame": "Starta spel",
     "back": "Tillbaka"
   },
+  "rewards": {
+    "galleryButton": "Alla belöningar",
+    "galleryTitle": "Alla belöningar",
+    "lockedHint": "Slutför alla 24 dagar för att låsa upp",
+    "unlockHint": "Slutför alla utmaningar för att låsa upp belöningsgalleriet och extras ({{completed}}/{{total}})"
+  },
   "extras": {
     "button": "Extra",
     "title": "Extrautmaningar",
     "challengeTitle": "Extrautmaning",
     "levelsCompleted": "klara",
+    "lockedHint": "Slutför alla 24 dagar för att låsa upp",
     "games": {
       "riddle": {
         "title": "Gåtor",
