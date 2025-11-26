@@ -42,10 +42,10 @@
         </div>
         }
 
-        <!-- Day Number (hidden when completed to show puzzle piece) -->
+        <!-- Day Number (always visible) -->
         <div
-          class="day-number font-bold text-gold mb-0 sm:mb-1 z-10 transition-opacity duration-300"
-          [class.opacity-0]="isDayCompleted(dayConfig.day)"
+          class="day-number font-bold text-gold mb-0 sm:mb-1 z-20 transition-all duration-300"
+          [class.text-shadow-strong]="isDayCompleted(dayConfig.day)"
         >
           {{ dayConfig.day }}
         </div>
@@ -70,16 +70,33 @@
         </div>
         }
 
-        <!-- Locked Indicator - Large centered lock -->
-        @if (isDayLocked(dayConfig)) {
-        <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-          <div class="bg-black/60 rounded-full p-2 sm:p-3">
-            <lucide-icon
-              [img]="Lock"
-              class="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 text-text-muted"
-              [strokeWidth]="2"
-            ></lucide-icon>
+        <!-- Locked Indicator - Corner lock icon with countdown for next unlock -->
+        @if (isDayLocked(dayConfig)) { @if (isNextToUnlock(dayConfig.day) && countdown) {
+        <!-- Countdown for next unlock - at top -->
+        <div
+          class="absolute inset-x-0 top-2 sm:top-3 md:top-4 flex justify-center z-20 pointer-events-none"
+        >
+          <div class="countdown-container text-center">
+            <div class="text-[6px] sm:text-[8px] text-text-muted uppercase tracking-wide">
+              {{ 'calendar.unlocksIn' | translate }}
+            </div>
+            <div
+              class="countdown-timer text-[10px] sm:text-xs md:text-sm font-mono font-bold text-gold"
+            >
+              {{ countdown }}
+            </div>
           </div>
+        </div>
+        }
+        <!-- Lock icon in corner -->
+        <div
+          class="absolute top-0.5 right-0.5 sm:top-1 sm:right-1 md:top-2 md:right-2 bg-black/60 rounded-full p-0.5 sm:p-1 z-20 pointer-events-none"
+        >
+          <lucide-icon
+            [img]="Lock"
+            class="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 text-text-muted"
+            [strokeWidth]="2"
+          ></lucide-icon>
         </div>
         }
 

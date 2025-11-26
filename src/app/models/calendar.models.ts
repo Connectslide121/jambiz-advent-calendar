@@ -15,7 +15,7 @@
   | 'presentStacking'
   | 'giftCatcher';
 
-export type RewardType = 'text' | 'image' | 'video';
+export type RewardType = 'text' | 'image' | 'video' | 'audio';
 
 export interface RewardConfig {
   type: RewardType;
@@ -30,6 +30,10 @@ export interface RewardConfig {
   videoType?: 'mp4' | 'webm' | 'youtube' | 'vimeo';
   videoPoster?: string; // Poster image URL
   videoCaption?: string; // Translation key for optional caption
+  // For audio rewards
+  audioUrl?: string;
+  audioType?: 'mp3' | 'wav' | 'ogg';
+  lyrics?: string; // Translation key for lyrics
   // Common optional properties
   title?: string; // Translation key for custom title (overrides default "Fun Fact")
 }

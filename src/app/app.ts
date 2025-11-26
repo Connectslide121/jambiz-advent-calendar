@@ -17,6 +17,7 @@ import {
   XCircle,
   Lock,
   Code,
+  Info,
 } from 'lucide-angular';
 import { CalendarStateService } from './services/calendar-state.service';
 
@@ -50,8 +51,10 @@ export class App implements OnInit {
   readonly XCircle = XCircle;
   readonly Lock = Lock;
   readonly Code = Code;
+  readonly Info = Info;
   currentLanguage: string;
   snowflakes: Snowflake[] = [];
+  showInfoModal = false;
   showLandingPage = true;
   showExtrasMenu = false;
   showExtraChallenge = false;
@@ -104,6 +107,14 @@ export class App implements OnInit {
     this.showLandingPage = false;
   }
 
+  openInfoModal(): void {
+    this.showInfoModal = true;
+  }
+
+  closeInfoModal(): void {
+    this.showInfoModal = false;
+  }
+
   // Check if extras and rewards gallery are unlocked
   isUnlocked(): boolean {
     return this.calendarState.isFullyUnlocked();
@@ -148,6 +159,11 @@ export class App implements OnInit {
   // Check if day has a video reward
   hasVideoReward(day: CalendarDayConfig): boolean {
     return day.reward?.type === 'video';
+  }
+
+  // Check if day has an audio reward
+  hasAudioReward(day: CalendarDayConfig): boolean {
+    return day.reward?.type === 'audio';
   }
 
   selectGame(game: ExtraGameSection): void {

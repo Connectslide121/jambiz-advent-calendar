@@ -82,6 +82,43 @@
       </p>
       }
     </div>
+    }
+
+    <!-- Audio Reward with Lyrics -->
+    @if (rewardType === 'audio' && effectiveReward.audioUrl) {
+    <div class="reward-audio-container space-y-3 text-left">
+      <!-- Audio Player -->
+      <div class="flex items-center gap-3 bg-surface rounded-lg p-3">
+        <span class="text-2xl">🎵</span>
+        <audio
+          [src]="effectiveReward.audioUrl"
+          controls
+          class="flex-1 h-10"
+          controlsList="nodownload"
+        >
+          <source
+            [src]="effectiveReward.audioUrl"
+            [type]="'audio/' + (effectiveReward.audioType || 'mp3')"
+          />
+          Your browser does not support the audio element.
+        </audio>
+        <span class="text-2xl">🎵</span>
+      </div>
+
+      <!-- Lyrics Display (Expandable) -->
+      @if (effectiveReward.lyrics) {
+      <details class="bg-surface rounded-lg">
+        <summary class="cursor-pointer p-3 text-gold font-semibold flex items-center gap-2">
+          <span>📝</span>
+          <span>{{ 'rewards.lyricsLabel' | translate }}</span>
+        </summary>
+        <pre
+          class="p-3 pt-0 text-sm text-text whitespace-pre-wrap font-sans leading-relaxed max-h-60 overflow-y-auto"
+          >{{ effectiveReward.lyrics | translate }}</pre
+        >
+      </details>
+      }
+    </div>
     } }
   </div>
 

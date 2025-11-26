@@ -15,7 +15,8 @@
     "completed": "Klar",
     "locked": "Låst",
     "completedCount": "{{count}} av 24 klara",
-    "comingSoon": "Kommer snart"
+    "comingSoon": "Kommer snart",
+    "unlocksIn": "Öppnas om"
   },
   "challenges": {
     "success": {
@@ -360,7 +361,16 @@
     "galleryButton": "Alla belöningar",
     "galleryTitle": "Alla belöningar",
     "lockedHint": "Slutför alla 24 dagar för att låsa upp",
-    "unlockHint": "Slutför alla utmaningar för att låsa upp belöningsgalleriet och extras ({{completed}}/{{total}})"
+    "unlockHint": "Slutför alla utmaningar för att låsa upp belöningsgalleriet och extras ({{completed}}/{{total}})",
+    "lyricsLabel": "Text",
+    "day3": {
+      "title": "🎵 Jambiz Joy 🎵",
+      "lyrics": "Jingle bells on my desk\nJambiz glow no stress\nLaptops snowed in light\nWe clock in feeling bright\n\nCoffee steam and candy canes\nSlides and charts like reindeer trains\nYou need help you call my name\nWe high five in picture frames\n\nJambiz Jambiz holiday cheer\nTeamwork ringing loud and clear\nSide by side we crush this year\nFa la la we love it here\nJambiz Jambiz hearts at work\nLaughing while we go berserk\nTis the season we all shine\nYour joy plus mine our bottom line\n\nSecret Santa sticky notes\nUgly sweaters keynote jokes\nCalendar stuffed like it might explode\nBut we dance down every road\n\nSnow outside but inside glow\nJambiz fam on a sugar rush flow\nRaise your mugs let the emails wait\nWe make this workplace holidate"
+    },
+    "day18": {
+      "title": "🎵 Christmas at Jambiz 🎵",
+      "lyrics": "Deck the halls with PowerPoints\nFa-la-la-la-la\nOh what a joint\nCoffee cups and donut crumbs\nWorkplace cheer\nHere it comes\n\nDeadlines jingling all the way\nLast-minute tasks on Santa's sleigh\n\nChristmas at Jambiz\nWe're feeling fine\nSippin' on lattes in a deadline line\nMeetings and greetings and snacks divine\nOh\nChristmas at Jambiz\nIt's grind-and-shine!\n\nSecret Santa\nPick your fate\nOh no\nBob got a stapler plate\nUgly sweaters\nOffice flair\nWho's got eggnog? Do we care?\n\nSpreadsheet elves are on the run\nAdding columns\nHaving fun\n\nChristmas at Jambiz\nWe're feeling fine\nSippin' on lattes in a deadline line\nMeetings and greetings and snacks divine\nOh\nChristmas at Jambiz\nIt's grind-and-shine!"
+    }
   },
   "extras": {
     "button": "Extra",
@@ -687,6 +697,45 @@
         }
       }
     }
+  },
+  "info": {
+    "button": "Så funkar det",
+    "title": "Så funkar kalendern",
+    "sections": {
+      "welcome": {
+        "title": "🎄 Välkommen till julkalendern!",
+        "content": "Hej! Det här är vår Jambiz-julkalender – 24 miniutmaningar för att lysa upp din december. Oavsett om du är här för en snabb hjärngympa eller bara vill lära dig något kul om Jambiz, så har vi något för dig!"
+      },
+      "unlocking": {
+        "title": "🔓 Hur luckor låses upp",
+        "content": "Precis som en riktig adventskalender öppnas varje lucka på sitt datum i december. Så dag 1 öppnas den 1 december, dag 5 den 5 december, och så vidare. Du ser ett lås på luckor som inte är tillgängliga än – men oroa dig inte, de blir redo när tiden kommer!"
+      },
+      "challenges": {
+        "title": "🎮 Utmaningarna",
+        "content": "Varje dag har ett annorlunda minispel eller pussel som väntar på dig. Vi har gåtor, ordspel, minnesutmaningar och till och med lite arkadaction! Stressa inte över att vara perfekt – målet är att ha kul."
+      },
+      "rewards": {
+        "title": "🏆 Klara utmaningar",
+        "content": "När du klarar en utmaning får du en rolig fakta om Jambiz och dina kollegor! Dessutom markeras dagen som klar med en fin grön bock. Din framsteg sparas automatiskt, så du kan stänga webbläsaren och komma tillbaka när som helst."
+      },
+      "replay": {
+        "title": "🔄 Vill du spela igen?",
+        "content": "Redan klar med en utmaning men vill köra en gång till? Inga problem! Du kan spela om alla klarade utmaningar hur många gånger du vill. Det påverkar inte din klarstatus – en gång klar är alltid klar!"
+      },
+      "christmas": {
+        "title": "🎅 Den stora dagen - 25 december",
+        "content": "Här kommer det bästa: på juldagen (25 december) låses ALLT upp för alla! Så om du missade några dagar eller livet kom emellan, stressa inte. Du kommer kunna spela alla utmaningar och se alla roliga fakta ändå."
+      },
+      "extras": {
+        "title": "🎁 Extras & Belöningsgalleri",
+        "content": "Klara alla 24 utmaningar (eller vänta bara till jul!) så låser du upp Extras-sektionen med ännu fler spel och ett galleri med alla belöningar. Se det som en liten bonus för de dedikerade äventyrarna!"
+      },
+      "tip": {
+        "title": "💡 Tips",
+        "content": "Din framsteg sparas i webbläsarens lokala lagring, så vi rekommenderar att du använder samma enhet och webbläsare under hela december för att behålla dina framsteg. Om du byter enhet börjar du om från början där – men kom ihåg, allt låses upp på juldagen ändå!"
+      }
+    },
+    "closing": "Ha det kul, och god jul från Jambiz-teamet! 🎄✨"
   },
   "admin": {
     "markAllComplete": "Markera alla som klara",

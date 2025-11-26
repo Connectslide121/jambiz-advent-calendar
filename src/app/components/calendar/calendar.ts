@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { LucideAngularModule, Check, Lock } from 'lucide-angular';
@@ -18,7 +18,7 @@ const GRID_ROWS = 4;
   templateUrl: './calendar.html',
   styleUrl: './calendar.scss',
 })
-export class Calendar implements OnInit {
+export class Calendar implements OnInit, OnDestroy {
   readonly Check = Check;
   readonly Lock = Lock;
   // Sort calendar days by gridPosition for shuffled display
@@ -30,9 +30,85 @@ export class Calendar implements OnInit {
   // Puzzle image path - can be changed later
   readonly puzzleImagePath = 'assets/Jambiz_xmas_logo.png';
 
+  // Countdown timer
+  countdown: string = '';
+  nextUnlockDay: number | null = null;
+  private countdownInterval: any = null;
+
   constructor(public stateService: CalendarStateService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.startCountdown();
+  }
+
+  ngOnDestroy(): void {
+    this.stopCountdown();
+  }
+
+  private startCountdown(): void {
+    this.updateCountdown();
+    // Update every second
+    this.countdownInterval = setInterval(() => {
+      this.updateCountdown();
+    }, 1000);
+  }
+
+  private stopCountdown(): void {
+    if (this.countdownInterval) {
+      clearInterval(this.countdownInterval);
+      this.countdownInterval = null;
+    }
+  }
+
+  private updateCountdown(): void {
+    // Find the next locked day (first day that's not unlocked yet)
+    const lockedDays = this.calendarDays
+      .filter((d) => d.challengeType && !this.isDayUnlocked(d.day))
+      .sort((a, b) => a.day - b.day);
+
+    if (lockedDays.length === 0) {
+      this.nextUnlockDay = null;
+      this.countdown = '';
+      this.stopCountdown();
+      return;
+    }
+
+    const nextDay = lockedDays[0].day;
+    this.nextUnlockDay = nextDay;
+
+    // Calculate time until midnight of that day in December
+    const now = new Date();
+    const year = now.getMonth() === 11 ? now.getFullYear() : now.getFullYear(); // December of current year
+    const targetDate = new Date(year, 11, nextDay, 0, 0, 0, 0); // December nextDay at midnight
+
+    // If we're before December, target December of this year
+    if (now.getMonth() < 11) {
+      targetDate.setFullYear(now.getFullYear());
+    }
+
+    const diff = targetDate.getTime() - now.getTime();
+
+    if (diff <= 0) {
+      this.countdown = '';
+      return;
+    }
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    // Format as HH:MM:SS
+    this.countdown = `${hours.toString().padStart(2, '0')}:${minutes
+      .toString()
+      .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
+
+  /**
+   * Check if this day should show the countdown (is the next day to unlock)
+   */
+  isNextToUnlock(day: number): boolean {
+    return this.nextUnlockDay === day;
+  }
 
   onDaySelected(day: CalendarDayConfig): void {
     // Only open challenge if day has a challenge type AND is unlocked

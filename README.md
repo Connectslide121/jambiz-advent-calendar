@@ -46,6 +46,7 @@ An interactive Christmas advent calendar web application featuring 24 daily chal
 - **Stats Persistence:** Save game statistics (moves, time, scores)
 - **Replay Functionality:** Replay completed challenges without losing progress
 - **localStorage:** Client-side state with no backend required
+- **Version-Based Reset:** Automatic data reset when new version is deployed (clears beta tester data)
 
 ## 🚀 Getting Started
 
@@ -216,6 +217,26 @@ Modify CSS variables in `src/styles.scss` for theming:
   --color-text: #f8f9fa;         // Light text
   --color-text-muted: #adb5bd;   // Muted text
 }
+```
+
+### Version-Based Data Reset
+
+The app includes a version-based reset mechanism to clear all user data when needed (e.g., clearing beta tester data before official launch).
+
+**How it works:**
+1. A `CALENDAR_VERSION` constant is defined in `CalendarStateService`
+2. On app startup, the stored version is compared to the current version
+3. If they don't match, all localStorage data is cleared automatically
+4. The new version is saved
+
+**To trigger a reset:**
+1. Open `src/app/services/calendar-state.service.ts`
+2. Change the `CALENDAR_VERSION` constant to a new value
+3. Deploy the updated app
+
+```typescript
+// Example: Bump version to reset all data
+private readonly CALENDAR_VERSION = '2025-release-v2';
 ```
 
 ## 🎯 Game Controls

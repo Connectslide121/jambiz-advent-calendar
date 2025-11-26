@@ -42,7 +42,13 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
     day: 3,
     gridPosition: 3, // Top center-right
     challengeType: 'wordScramble',
-    funFactKey: 'funFacts.day3',
+    reward: {
+      type: 'audio',
+      audioUrl: 'rewards/day3.mp3',
+      audioType: 'mp3',
+      title: 'rewards.day3.title',
+      lyrics: 'rewards.day3.lyrics',
+    },
     challengeData: {
       word: 'snowflake',
       wordSv: 'snöflinga',
@@ -260,7 +266,13 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
     day: 18,
     gridPosition: 6, // Middle left
     challengeType: 'mazeRunner',
-    funFactKey: 'funFacts.day18',
+    reward: {
+      type: 'audio',
+      audioUrl: 'rewards/day18.mp3',
+      audioType: 'mp3',
+      title: 'rewards.day18.title',
+      lyrics: 'rewards.day18.lyrics',
+    },
     challengeData: {
       rows: 21,
       cols: 21,

@@ -63,7 +63,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.4);
       border-radius: inherit;
       z-index: 8;
     }
@@ -75,8 +75,10 @@
     }
 
     .day-number {
-      opacity: 0.35;
+      opacity: 0.8;
       color: var(--color-text-muted);
+      z-index: 15;
+      position: relative;
     }
 
     .challenge-emoji {
@@ -96,6 +98,12 @@
 
   @media (min-width: 1024px) {
     font-size: 2rem;
+  }
+
+  // Stronger shadow for completed days to stand out on puzzle piece
+  &.text-shadow-strong {
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.8), 0 2px 6px rgba(0, 0, 0, 0.6),
+      0 0 2px rgba(244, 211, 94, 0.5);
   }
 }
 
@@ -168,46 +176,67 @@
   aspect-ratio: 1;
 }
 
-// Custom tooltip styling
+// Custom tooltip styling - hidden on mobile, only shown on desktop hover
 .tooltip {
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%) scale(0.9);
-  background: var(--color-surface);
-  color: var(--color-text);
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.2s ease;
-  z-index: 100;
-  pointer-events: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  border: 1px solid var(--color-accent-red);
+  // Hidden on mobile (touch devices get stuck hover states)
+  display: none;
 
-  // Arrow
-  &::after {
-    content: '';
+  @media (min-width: 1024px) {
+    display: block;
     position: absolute;
-    top: 100%;
+    bottom: calc(100% + 8px);
     left: 50%;
-    transform: translateX(-50%);
-    border: 6px solid transparent;
-    border-top-color: var(--color-accent-red);
-  }
-
-  @media (min-width: 640px) {
-    font-size: 0.875rem;
+    transform: translateX(-50%) scale(0.9);
+    background: var(--color-surface);
+    color: var(--color-text);
     padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    z-index: 100;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--color-accent-red);
+
+    // Arrow
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: var(--color-accent-red);
+    }
   }
 }
 
 .day-tile-wrapper:hover .tooltip {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) scale(1);
+  @media (min-width: 1024px) {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+// Countdown timer styling
+.countdown-container {
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 6px;
+  padding: 4px 8px;
+  backdrop-filter: blur(4px);
+
+  @media (min-width: 640px) {
+    padding: 6px 10px;
+    border-radius: 8px;
+  }
+}
+
+.countdown-timer {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.05em;
 }

@@ -4,6 +4,22 @@
   providedIn: 'root',
 })
 export class CalendarStateService {
+  /**
+   * CALENDAR VERSION - Used for data reset
+   *
+   * Increment this version to force a reset of all user data.
+   * This is useful when:
+   * - Starting a new advent season
+   * - Clearing beta tester data before official launch
+   * - Making breaking changes to data structure
+   *
+   * Version History:
+   * - "beta": Beta testing phase (Nov 2025)
+   * - "2025-release": Official December 2025 launch (resets all beta tester data) [PENDING]
+   */
+  private readonly CALENDAR_VERSION = 'beta';
+  private readonly VERSION_KEY = 'jambiz-advent-version';
+
   private readonly STORAGE_KEY = 'jambiz-advent-completed-days';
   private readonly STATS_STORAGE_KEY = 'jambiz-advent-game-stats';
   private readonly DEV_MODE_KEY = 'jambiz-advent-dev-mode';
@@ -14,10 +30,41 @@ export class CalendarStateService {
   private _dateOverride: number | null = null; // Day of December (1-31)
 
   constructor() {
+    // Check version FIRST - if mismatch, clear all data before loading
+    this.checkVersionAndReset();
+
     this.loadFromStorage();
     this.loadStatsFromStorage();
     this.loadDevMode();
     this.loadDateOverride();
+  }
+
+  /**
+   * Check if the stored version matches the current version.
+   * If not, clear all advent calendar data and save the new version.
+   * This ensures a clean slate when the calendar is officially launched.
+   */
+  private checkVersionAndReset(): void {
+    try {
+      const storedVersion = localStorage.getItem(this.VERSION_KEY);
+
+      if (storedVersion !== this.CALENDAR_VERSION) {
+        console.log(
+          `Version mismatch: stored "${storedVersion}" vs current "${this.CALENDAR_VERSION}". Resetting all data.`
+        );
+
+        // Clear all advent calendar related data
+        localStorage.removeItem(this.STORAGE_KEY);
+        localStorage.removeItem(this.STATS_STORAGE_KEY);
+        localStorage.removeItem(this.DEV_MODE_KEY);
+        localStorage.removeItem(this.DATE_OVERRIDE_KEY);
+
+        // Save the new version
+        localStorage.setItem(this.VERSION_KEY, this.CALENDAR_VERSION);
+      }
+    } catch (error) {
+      console.error('Failed to check version', error);
+    }
   }
 
   /**

@@ -32,6 +32,7 @@
 
   <app-landing-page
     (start)="startCalendar()"
+    (showInfo)="openInfoModal()"
     class="flex-1 flex items-center justify-center relative z-10"
   ></app-landing-page>
   } @else {
@@ -138,6 +139,17 @@
 
   <!-- Main Content -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
+    <!-- Info Button -->
+    <div class="flex justify-center mb-6">
+      <button
+        (click)="openInfoModal()"
+        class="btn btn-outline px-4 py-2 text-sm sm:text-base flex items-center gap-2"
+      >
+        <lucide-icon [img]="Info" class="w-4 h-4 sm:w-5 sm:h-5" [strokeWidth]="2"></lucide-icon>
+        {{ 'info.button' | translate }}
+      </button>
+    </div>
+
     <app-calendar></app-calendar>
 
     <!-- Action Buttons -->
@@ -312,6 +324,122 @@
 ></app-challenge-host>
 }
 
+<!-- Info Modal -->
+@if (showInfoModal) {
+<div class="modal-overlay" (click)="closeInfoModal()">
+  <div
+    class="modal-content w-full h-full lg:w-[90vw] lg:max-w-3xl lg:max-h-[90vh] lg:rounded-2xl flex flex-col overflow-hidden"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6 flex-shrink-0">
+      <div class="flex items-center gap-3">
+        <lucide-icon [img]="Info" class="w-7 h-7 text-accent-green" [strokeWidth]="2"></lucide-icon>
+        <h2 class="text-xl sm:text-2xl font-bold text-text">
+          {{ 'info.title' | translate }}
+        </h2>
+      </div>
+      <button (click)="closeInfoModal()" class="btn btn-outline p-2 min-w-0" aria-label="Close">
+        <lucide-icon [img]="X" class="w-6 h-6" [strokeWidth]="2"></lucide-icon>
+      </button>
+    </div>
+
+    <!-- Content -->
+    <div class="flex-1 overflow-y-auto space-y-6 pr-2">
+      <!-- Welcome -->
+      <div class="card p-4 sm:p-5">
+        <h3 class="text-lg font-bold text-gold mb-2">
+          {{ 'info.sections.welcome.title' | translate }}
+        </h3>
+        <p class="text-text-muted text-sm sm:text-base leading-relaxed">
+          {{ 'info.sections.welcome.content' | translate }}
+        </p>
+      </div>
+
+      <!-- Unlocking -->
+      <div class="card p-4 sm:p-5">
+        <h3 class="text-lg font-bold text-gold mb-2">
+          {{ 'info.sections.unlocking.title' | translate }}
+        </h3>
+        <p class="text-text-muted text-sm sm:text-base leading-relaxed">
+          {{ 'info.sections.unlocking.content' | translate }}
+        </p>
+      </div>
+
+      <!-- Challenges -->
+      <div class="card p-4 sm:p-5">
+        <h3 class="text-lg font-bold text-gold mb-2">
+          {{ 'info.sections.challenges.title' | translate }}
+        </h3>
+        <p class="text-text-muted text-sm sm:text-base leading-relaxed">
+          {{ 'info.sections.challenges.content' | translate }}
+        </p>
+      </div>
+
+      <!-- Rewards -->
+      <div class="card p-4 sm:p-5">
+        <h3 class="text-lg font-bold text-gold mb-2">
+          {{ 'info.sections.rewards.title' | translate }}
+        </h3>
+        <p class="text-text-muted text-sm sm:text-base leading-relaxed">
+          {{ 'info.sections.rewards.content' | translate }}
+        </p>
+      </div>
+
+      <!-- Replay -->
+      <div class="card p-4 sm:p-5">
+        <h3 class="text-lg font-bold text-gold mb-2">
+          {{ 'info.sections.replay.title' | translate }}
+        </h3>
+        <p class="text-text-muted text-sm sm:text-base leading-relaxed">
+          {{ 'info.sections.replay.content' | translate }}
+        </p>
+      </div>
+
+      <!-- Christmas -->
+      <div class="card p-4 sm:p-5 border-2 border-accent-green">
+        <h3 class="text-lg font-bold text-accent-green mb-2">
+          {{ 'info.sections.christmas.title' | translate }}
+        </h3>
+        <p class="text-text-muted text-sm sm:text-base leading-relaxed">
+          {{ 'info.sections.christmas.content' | translate }}
+        </p>
+      </div>
+
+      <!-- Extras -->
+      <div class="card p-4 sm:p-5">
+        <h3 class="text-lg font-bold text-gold mb-2">
+          {{ 'info.sections.extras.title' | translate }}
+        </h3>
+        <p class="text-text-muted text-sm sm:text-base leading-relaxed">
+          {{ 'info.sections.extras.content' | translate }}
+        </p>
+      </div>
+
+      <!-- Pro Tip -->
+      <div
+        class="card p-4 sm:p-5 bg-opacity-50"
+        style="
+          background: linear-gradient(135deg, rgba(244, 211, 94, 0.1), rgba(42, 157, 143, 0.1));
+        "
+      >
+        <h3 class="text-lg font-bold text-gold mb-2">
+          {{ 'info.sections.tip.title' | translate }}
+        </h3>
+        <p class="text-text-muted text-sm sm:text-base leading-relaxed">
+          {{ 'info.sections.tip.content' | translate }}
+        </p>
+      </div>
+
+      <!-- Closing -->
+      <div class="text-center py-4">
+        <p class="text-text text-base sm:text-lg font-medium">{{ 'info.closing' | translate }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+}
+
 <!-- Rewards Gallery Modal -->
 @if (showRewardsGallery) {
 <div class="modal-overlay" (click)="closeRewardsGallery()">
@@ -359,6 +487,8 @@
                 <span class="text-sm bg-accent-green text-white px-2 py-0.5 rounded-full"
                   >🎬 Video</span
                 >
+                } @if (hasAudioReward(day)) {
+                <span class="text-sm bg-gold text-bg px-2 py-0.5 rounded-full">🎵 Audio</span>
                 }
               </div>
 
@@ -384,6 +514,41 @@
                     [type]="'video/' + (day.reward!.videoType || 'mp4')"
                   />
                 </video>
+              </div>
+              }
+
+              <!-- Audio Reward -->
+              @if (hasAudioReward(day) && day.reward?.audioUrl) {
+              <div class="mt-4 space-y-3">
+                <div class="flex items-center gap-3 bg-surface rounded-lg p-3">
+                  <span class="text-2xl">🎵</span>
+                  <audio
+                    [src]="day.reward!.audioUrl"
+                    controls
+                    class="flex-1 h-10"
+                    controlsList="nodownload"
+                  >
+                    <source
+                      [src]="day.reward!.audioUrl!"
+                      [type]="'audio/' + (day.reward!.audioType || 'mp3')"
+                    />
+                  </audio>
+                  <span class="text-2xl">🎵</span>
+                </div>
+                @if (day.reward?.lyrics) {
+                <details class="bg-surface rounded-lg">
+                  <summary
+                    class="cursor-pointer p-3 text-gold font-semibold flex items-center gap-2"
+                  >
+                    <span>📝</span>
+                    <span>{{ 'rewards.lyricsLabel' | translate }}</span>
+                  </summary>
+                  <pre
+                    class="p-3 pt-0 text-sm text-text whitespace-pre-wrap font-sans leading-relaxed"
+                    >{{ day.reward!.lyrics | translate }}</pre
+                  >
+                </details>
+                }
               </div>
               }
             </div>
