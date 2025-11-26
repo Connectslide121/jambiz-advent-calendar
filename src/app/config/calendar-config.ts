@@ -60,7 +60,14 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
     day: 4,
     gridPosition: 14, // Bottom center
     challengeType: 'memoryCard',
-    funFactKey: 'funFacts.day4',
+    reward: {
+      type: 'coupon',
+      title: 'rewards.coupon.title',
+      couponEmoji: '🧊',
+      couponTitleKey: 'rewards.coupon.day4.title',
+      couponDescriptionKey: 'rewards.coupon.day4.description',
+      couponValidityKey: 'rewards.coupon.day4.validity',
+    },
     challengeData: {
       gridSize: 4,
       icons: ['🎅', '⛄', '🎄', '🎁', '⭐', '🔔', '🕯️', '🦌'],
@@ -153,7 +160,12 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
     challengeData: {
       difficulty: 'easy',
     },
-    funFactKey: 'funFacts.day9',
+    reward: {
+      type: 'video',
+      videoUrl: 'rewards/day19.mp4',
+      videoType: 'mp4',
+      title: 'challenges.success.videoLabel',
+    },
   },
   {
     day: 10,
@@ -170,7 +182,13 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
     day: 11,
     gridPosition: 16, // Bottom center-right
     challengeType: 'hangman',
-    funFactKey: 'funFacts.day11',
+    reward: {
+      type: 'coupon',
+      title: 'rewards.coupon.title',
+      couponEmoji: '🗣️',
+      couponTitleKey: 'rewards.coupon.day11.title',
+      couponDescriptionKey: 'rewards.coupon.day11.description',
+    },
     challengeData: {
       word: 'stocking',
       wordSv: 'julstrumpa',
@@ -222,7 +240,13 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
     day: 16,
     gridPosition: 19, // Bottom left-center
     challengeType: 'hangman',
-    funFactKey: 'funFacts.day16',
+    reward: {
+      type: 'coupon',
+      title: 'rewards.coupon.title',
+      couponEmoji: '🃏',
+      couponTitleKey: 'rewards.coupon.day16.title',
+      couponDescriptionKey: 'rewards.coupon.day16.description',
+    },
     challengeData: {
       word: 'sleigh',
       wordSv: 'släde',
@@ -283,12 +307,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
     day: 19,
     gridPosition: 15, // Bottom center
     challengeType: 'wordScramble',
-    reward: {
-      type: 'video',
-      videoUrl: 'rewards/day19.mp4',
-      videoType: 'mp4',
-      title: 'challenges.success.videoLabel',
-    },
+    funFactKey: 'funFacts.day9',
     challengeData: {
       word: 'gingerbread',
       wordSv: 'pepparkaka',

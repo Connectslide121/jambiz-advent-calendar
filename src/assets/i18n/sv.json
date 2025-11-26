@@ -363,6 +363,26 @@
     "lockedHint": "Slutför alla 24 dagar för att låsa upp",
     "unlockHint": "Slutför alla utmaningar för att låsa upp belöningsgalleriet och extras ({{completed}}/{{total}})",
     "lyricsLabel": "Text",
+    "coupon": {
+      "title": "🎟️ Du har fått en kupong!",
+      "instruction": "Visa denna för en kollega för att lösa in!",
+      "defaultValidity": "Giltig tills: Julstämningen tar slut ✨",
+      "day4": {
+        "title": "Officiell Isbrytare",
+        "description": "Visa denna kupong för att starta en konversation med vem som helst på festen. De MÅSTE svara med entusiasm!",
+        "validity": "Giltig på Jambiz Julfest 🎄"
+      },
+      "day11": {
+        "title": "Berättarpass",
+        "description": "Visa denna för valfri kollega för att tvinga dem att lyssna på din helgberättelse med FULL entusiasm och lämpliga reaktioner!",
+        "validity": "Giltig tills: Julstämningen tar slut ✨"
+      },
+      "day16": {
+        "title": "Dåligt Skämt-licens",
+        "description": "Innehavaren får berätta ETT fruktansvärt julordvits utan att få suckar, himlade ögon eller stön. Artig skrattskyldighet gäller!",
+        "validity": "Giltig tills: Julstämningen tar slut ✨"
+      }
+    },
     "day3": {
       "title": "🎵 Jambiz Joy 🎵",
       "lyrics": "Jingle bells on my desk\nJambiz glow no stress\nLaptops snowed in light\nWe clock in feeling bright\n\nCoffee steam and candy canes\nSlides and charts like reindeer trains\nYou need help you call my name\nWe high five in picture frames\n\nJambiz Jambiz holiday cheer\nTeamwork ringing loud and clear\nSide by side we crush this year\nFa la la we love it here\nJambiz Jambiz hearts at work\nLaughing while we go berserk\nTis the season we all shine\nYour joy plus mine our bottom line\n\nSecret Santa sticky notes\nUgly sweaters keynote jokes\nCalendar stuffed like it might explode\nBut we dance down every road\n\nSnow outside but inside glow\nJambiz fam on a sugar rush flow\nRaise your mugs let the emails wait\nWe make this workplace holidate"

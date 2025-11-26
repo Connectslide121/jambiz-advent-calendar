@@ -13,3 +13,25 @@
   user-select: none;
   will-change: transform;
 }
+
+// Coupon display in rewards gallery
+.coupon-gallery {
+  background: linear-gradient(135deg, #1a2a3a 0%, #0d1a26 100%);
+  border: 2px dashed var(--color-gold);
+  border-radius: 8px;
+  padding: 12px 16px;
+
+  @media (min-width: 640px) {
+    padding: 16px 20px;
+  }
+}
+
+.coupon-gallery-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  @media (min-width: 640px) {
+    gap: 16px;
+  }
+}

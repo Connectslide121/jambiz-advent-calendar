@@ -15,7 +15,7 @@
   | 'presentStacking'
   | 'giftCatcher';
 
-export type RewardType = 'text' | 'image' | 'video' | 'audio';
+export type RewardType = 'text' | 'image' | 'video' | 'audio' | 'coupon';
 
 export interface RewardConfig {
   type: RewardType;
@@ -34,6 +34,11 @@ export interface RewardConfig {
   audioUrl?: string;
   audioType?: 'mp3' | 'wav' | 'ogg';
   lyrics?: string; // Translation key for lyrics
+  // For coupon rewards - silly redeemable vouchers (no persistence, just for fun)
+  couponTitleKey?: string; // Translation key for coupon title
+  couponDescriptionKey?: string; // Translation key for coupon description
+  couponEmoji?: string; // Emoji to display on the coupon
+  couponValidityKey?: string; // Translation key for validity text (e.g., "Valid until: End of holiday spirit")
   // Common optional properties
   title?: string; // Translation key for custom title (overrides default "Fun Fact")
 }

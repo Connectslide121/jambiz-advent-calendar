@@ -119,6 +119,51 @@
       </details>
       }
     </div>
+    }
+
+    <!-- Coupon Reward -->
+    @if (rewardType === 'coupon' && effectiveReward.couponTitleKey) {
+    <div class="coupon-container">
+      <div class="coupon">
+        <!-- Decorative top edge -->
+        <div class="coupon-edge coupon-edge-top"></div>
+
+        <!-- Coupon content -->
+        <div class="coupon-content">
+          <!-- Emoji -->
+          <div class="text-5xl sm:text-6xl mb-4">
+            {{ effectiveReward.couponEmoji || '🎟️' }}
+          </div>
+
+          <!-- Title -->
+          <h4 class="text-xl sm:text-2xl font-bold text-gold mb-3">
+            {{ effectiveReward.couponTitleKey | translate }}
+          </h4>
+
+          <!-- Description -->
+          <p class="text-sm sm:text-base text-text leading-relaxed mb-4 italic">
+            "{{ effectiveReward.couponDescriptionKey | translate }}"
+          </p>
+
+          <!-- Validity -->
+          <div class="text-xs sm:text-sm text-text-muted">
+            {{
+              effectiveReward.couponValidityKey
+                ? (effectiveReward.couponValidityKey | translate)
+                : ('rewards.coupon.defaultValidity' | translate)
+            }}
+          </div>
+        </div>
+
+        <!-- Decorative bottom edge -->
+        <div class="coupon-edge coupon-edge-bottom"></div>
+      </div>
+
+      <!-- Instruction -->
+      <p class="text-xs sm:text-sm text-text-muted mt-4">
+        {{ 'rewards.coupon.instruction' | translate }}
+      </p>
+    </div>
     } }
   </div>
 

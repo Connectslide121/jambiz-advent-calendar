@@ -166,6 +166,11 @@ export class App implements OnInit {
     return day.reward?.type === 'audio';
   }
 
+  // Check if day has a coupon reward
+  hasCouponReward(day: CalendarDayConfig): boolean {
+    return day.reward?.type === 'coupon';
+  }
+
   selectGame(game: ExtraGameSection): void {
     this.selectedGame = game;
   }
