@@ -15,7 +15,8 @@
     "completed": "Completed",
     "locked": "Locked",
     "completedCount": "{{count}} of 24 completed",
-    "comingSoon": "Coming Soon"
+    "comingSoon": "Coming Soon",
+    "unlocksIn": "Unlocks in"
   },
   "challenges": {
     "success": {
@@ -343,7 +344,36 @@
     "galleryButton": "All Rewards",
     "galleryTitle": "All Rewards",
     "lockedHint": "Complete all 24 days to unlock",
-    "unlockHint": "Complete all challenges to unlock rewards gallery and extras ({{completed}}/{{total}})"
+    "unlockHint": "Complete all challenges to unlock rewards gallery and extras ({{completed}}/{{total}})",
+    "lyricsLabel": "Lyrics",
+    "coupon": {
+      "title": "🎟️ You earned a coupon!",
+      "instruction": "Show this to a colleague to redeem!",
+      "defaultValidity": "Valid until: The end of holiday spirit ✨",
+      "day4": {
+        "title": "Official Ice Breaker",
+        "description": "Present this coupon to start a conversation with anyone at the party. They MUST respond with enthusiasm!",
+        "validity": "Valid at the Jambiz Christmas Party 🎄"
+      },
+      "day11": {
+        "title": "Story Time Pass",
+        "description": "Present this to any colleague to make them listen to your weekend story with FULL enthusiasm and appropriate reactions!",
+        "validity": "Valid until: The end of holiday spirit ✨"
+      },
+      "day16": {
+        "title": "Bad Joke License",
+        "description": "Bearer may tell ONE terrible Christmas pun without receiving groans, eye-rolls, or sighs. Polite laughter required!",
+        "validity": "Valid until: The end of holiday spirit ✨"
+      }
+    },
+    "day3": {
+      "title": "🎵 Jambiz Joy 🎵",
+      "lyrics": "Jingle bells on my desk\nJambiz glow no stress\nLaptops snowed in light\nWe clock in feeling bright\n\nCoffee steam and candy canes\nSlides and charts like reindeer trains\nYou need help you call my name\nWe high five in picture frames\n\nJambiz Jambiz holiday cheer\nTeamwork ringing loud and clear\nSide by side we crush this year\nFa la la we love it here\nJambiz Jambiz hearts at work\nLaughing while we go berserk\nTis the season we all shine\nYour joy plus mine our bottom line\n\nSecret Santa sticky notes\nUgly sweaters keynote jokes\nCalendar stuffed like it might explode\nBut we dance down every road\n\nSnow outside but inside glow\nJambiz fam on a sugar rush flow\nRaise your mugs let the emails wait\nWe make this workplace holidate"
+    },
+    "day18": {
+      "title": "🎵 Christmas at Jambiz 🎵",
+      "lyrics": "Deck the halls with PowerPoints\nFa-la-la-la-la\nOh what a joint\nCoffee cups and donut crumbs\nWorkplace cheer\nHere it comes\n\nDeadlines jingling all the way\nLast-minute tasks on Santa's sleigh\n\nChristmas at Jambiz\nWe're feeling fine\nSippin' on lattes in a deadline line\nMeetings and greetings and snacks divine\nOh\nChristmas at Jambiz\nIt's grind-and-shine!\n\nSecret Santa\nPick your fate\nOh no\nBob got a stapler plate\nUgly sweaters\nOffice flair\nWho's got eggnog? Do we care?\n\nSpreadsheet elves are on the run\nAdding columns\nHaving fun\n\nChristmas at Jambiz\nWe're feeling fine\nSippin' on lattes in a deadline line\nMeetings and greetings and snacks divine\nOh\nChristmas at Jambiz\nIt's grind-and-shine!"
+    }
   },
   "extras": {
     "button": "Extras",
@@ -670,6 +700,45 @@
         }
       }
     }
+  },
+  "info": {
+    "button": "How It Works",
+    "title": "How the Calendar Works",
+    "sections": {
+      "welcome": {
+        "title": "🎄 Welcome to the Advent Calendar!",
+        "content": "Hey there! This is our Jambiz Advent Calendar – 24 mini-challenges to brighten up your December. Whether you're here for a quick brain teaser or just want to learn something fun about Jambiz, we've got you covered!"
+      },
+      "unlocking": {
+        "title": "🔓 How Days Unlock",
+        "content": "Just like a real advent calendar, each day unlocks on its date in December. So day 1 opens on December 1st, day 5 opens on December 5th, and so on. You'll see a lock icon on days that aren't available yet – but don't worry, they'll be ready when the time comes!"
+      },
+      "challenges": {
+        "title": "🎮 The Challenges",
+        "content": "Each day has a different mini-game or puzzle waiting for you. We've got riddles, word games, memory challenges, and even some arcade-style action! Don't stress about being perfect – the goal is to have fun."
+      },
+      "rewards": {
+        "title": "🏆 Completing Challenges",
+        "content": "When you complete a challenge, you'll get a fun fact about Jambiz and your colleagues! Plus, the day gets marked as complete with a nice green checkmark. Your progress is saved automatically, so you can close the browser and come back anytime."
+      },
+      "replay": {
+        "title": "🔄 Want to Play Again?",
+        "content": "Already finished a challenge but want another go? No problem! You can replay any completed challenge as many times as you like. It won't affect your completion status – once done is done!"
+      },
+      "christmas": {
+        "title": "🎅 The Big Day - December 25th",
+        "content": "Here's the best part: on Christmas Day (December 25th), EVERYTHING unlocks for everyone! So if you missed a few days or life got busy, don't sweat it. You'll be able to play all the challenges and see all the fun facts anyway."
+      },
+      "extras": {
+        "title": "🎁 Extras & Rewards Gallery",
+        "content": "Complete all 24 challenges (or just wait until Christmas!) and you'll unlock the Extras section with even more games and a gallery with all the rewards. Think of it as a little bonus for the dedicated adventurers!"
+      },
+      "tip": {
+        "title": "💡 Pro Tip",
+        "content": "Your progress is saved in your browser's local storage, so we recommend using the same device and browser throughout December to keep your progress. If you switch devices, you'll start fresh on the new one – but remember, everything unlocks on Christmas anyway!"
+      }
+    },
+    "closing": "Have fun, and happy holidays from the Jambiz team! 🎄✨"
   },
   "admin": {
     "markAllComplete": "Mark All Complete",
