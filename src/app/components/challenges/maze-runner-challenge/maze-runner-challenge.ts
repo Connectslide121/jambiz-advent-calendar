@@ -368,4 +368,8 @@ export class MazeRunnerChallengeComponent implements OnInit, OnDestroy {
   isCollectible(x: number, y: number): boolean {
     return this.collectibles.some((c) => c.x === x && c.y === y);
   }
+
+  showReward(): void {
+    this.completed.emit();
+  }
 }

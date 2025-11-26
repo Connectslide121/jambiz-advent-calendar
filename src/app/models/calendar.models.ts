@@ -15,10 +15,30 @@
   | 'presentStacking'
   | 'giftCatcher';
 
+export type RewardType = 'text' | 'image' | 'video';
+
+export interface RewardConfig {
+  type: RewardType;
+  // For text rewards - translation key
+  textKey?: string;
+  // For image rewards
+  imageUrl?: string;
+  imageAlt?: string; // Translation key for alt text
+  caption?: string; // Translation key for optional caption
+  // For video rewards
+  videoUrl?: string;
+  videoType?: 'mp4' | 'webm' | 'youtube' | 'vimeo';
+  videoPoster?: string; // Poster image URL
+  videoCaption?: string; // Translation key for optional caption
+  // Common optional properties
+  title?: string; // Translation key for custom title (overrides default "Fun Fact")
+}
+
 export interface CalendarDayConfig {
   day: number;
   challengeType?: ChallengeType; // Optional for unpopulated days
-  funFactKey: string;
+  funFactKey?: string; // Legacy support for text-only rewards
+  reward?: RewardConfig; // New flexible reward system
   challengeData?: any; // Type varies by challenge type
   levelId?: string; // Unique ID for extras levels (for stats persistence)
 }

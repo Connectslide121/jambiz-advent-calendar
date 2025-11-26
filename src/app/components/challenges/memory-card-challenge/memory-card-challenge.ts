@@ -160,6 +160,13 @@ export class MemoryCardChallenge implements OnInit {
   }
 
   /**
+   * Show reward/fun fact
+   */
+  showReward(): void {
+    this.completed.emit();
+  }
+
+  /**
    * Shuffle array using Fisher-Yates algorithm
    */
   private shuffleArray<T>(array: T[]): T[] {

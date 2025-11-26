@@ -4,80 +4,81 @@
   </h2>
 
   <!-- Instructions - always visible -->
-  <div class="card max-w-md text-center space-y-4">
-    @if (isInfiniteMode) {
-    <p class="text-text-muted">
-      {{ 'challenges.climber.endless.tagline' | translate }}
-    </p>
-    } @else {
-    <p class="text-text-muted">{{ 'challenges.climber.instruction' | translate }}</p>
-    }
-
-    <div class="text-sm text-text-muted space-y-2">
-      @if (isMobile()) {
-      <p>{{ 'challenges.climber.controlsMobile' | translate }}</p>
+  <app-challenge-info-modal [show]="showInstructions()" (start)="startGame()">
+    <h2 class="text-2xl font-bold text-center text-gold mb-4">
+      {{ 'challenges.climber.title' | translate }}
+    </h2>
+    <div class="text-center space-y-4">
+      @if (isInfiniteMode) {
+      <p class="text-text-muted">
+        {{ 'challenges.climber.endless.tagline' | translate }}
+      </p>
       } @else {
-      <p>{{ 'challenges.climber.controlsDesktop' | translate }}</p>
+      <p class="text-text-muted">{{ 'challenges.climber.instruction' | translate }}</p>
       }
 
-      <div class="flex items-center justify-center gap-3 mt-4">
-        <div class="flex items-center gap-2">
-          <div class="w-4 h-4 rounded" style="background-color: #2a9d8f"></div>
-          <span class="text-xs">{{ 'challenges.climber.staticPlatform' | translate }}</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <div class="w-4 h-4 rounded" style="background-color: #f4d35e"></div>
-          <span class="text-xs">{{ 'challenges.climber.movingPlatform' | translate }}</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <div class="w-4 h-4 rounded" style="background-color: #a8dadc"></div>
-          <span class="text-xs">{{ 'challenges.climber.icePlatform' | translate }}</span>
-        </div>
-      </div>
-    </div>
+      <div class="text-sm text-text-muted space-y-2">
+        @if (isMobile()) {
+        <p>{{ 'challenges.climber.controlsMobile' | translate }}</p>
+        } @else {
+        <p>{{ 'challenges.climber.controlsDesktop' | translate }}</p>
+        }
 
-    @if (isInfiniteMode) {
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
-      <div class="rounded-lg border border-gray-700 bg-surface/70 p-3">
-        <p class="text-xs uppercase tracking-wide text-text-muted">
-          {{ 'challenges.climber.endless.bestHeight' | translate }}
-        </p>
-        <p class="text-xl font-bold text-gold">{{ bestHeight | number : '1.0-0' }} m</p>
+        <div class="flex items-center justify-center gap-3 mt-4">
+          <div class="flex items-center gap-2">
+            <div class="w-4 h-4 rounded" style="background-color: #2a9d8f"></div>
+            <span class="text-xs">{{ 'challenges.climber.staticPlatform' | translate }}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-4 h-4 rounded" style="background-color: #f4d35e"></div>
+            <span class="text-xs">{{ 'challenges.climber.movingPlatform' | translate }}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-4 h-4 rounded" style="background-color: #a8dadc"></div>
+            <span class="text-xs">{{ 'challenges.climber.icePlatform' | translate }}</span>
+          </div>
+        </div>
       </div>
-      <div class="rounded-lg border border-gray-700 bg-surface/70 p-3">
-        <p class="text-xs uppercase tracking-wide text-text-muted">
-          {{ 'challenges.climber.endless.bestTime' | translate }}
-        </p>
-        <p class="text-xl font-bold text-gold">
-          {{ bestTimeFormatted }}
-        </p>
+
+      @if (isInfiniteMode) {
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
+        <div class="rounded-lg border border-gray-700 bg-surface/70 p-3">
+          <p class="text-xs uppercase tracking-wide text-text-muted">
+            {{ 'challenges.climber.endless.bestHeight' | translate }}
+          </p>
+          <p class="text-xl font-bold text-gold">{{ bestHeight | number : '1.0-0' }} m</p>
+        </div>
+        <div class="rounded-lg border border-gray-700 bg-surface/70 p-3">
+          <p class="text-xs uppercase tracking-wide text-text-muted">
+            {{ 'challenges.climber.endless.bestTime' | translate }}
+          </p>
+          <p class="text-xl font-bold text-gold">
+            {{ bestTimeFormatted }}
+          </p>
+        </div>
+        <div class="rounded-lg border border-gray-700 bg-surface/70 p-3">
+          <p class="text-xs uppercase tracking-wide text-text-muted">
+            {{ 'challenges.climber.endless.lastHeight' | translate }}
+          </p>
+          <p class="text-xl font-bold text-gold">
+            @if (lastRunHeight > 0) {
+            {{ lastRunHeight | number : '1.0-0' }} m } @else { -- }
+          </p>
+        </div>
+        <div class="rounded-lg border border-gray-700 bg-surface/70 p-3">
+          <p class="text-xs uppercase tracking-wide text-text-muted">
+            {{ 'challenges.climber.endless.lastTime' | translate }}
+          </p>
+          <p class="text-xl font-bold text-gold">
+            @if (lastRunTime > 0) {
+            {{ lastRunTimeFormatted }}
+            } @else { -- }
+          </p>
+        </div>
       </div>
-      <div class="rounded-lg border border-gray-700 bg-surface/70 p-3">
-        <p class="text-xs uppercase tracking-wide text-text-muted">
-          {{ 'challenges.climber.endless.lastHeight' | translate }}
-        </p>
-        <p class="text-xl font-bold text-gold">
-          @if (lastRunHeight > 0) {
-          {{ lastRunHeight | number : '1.0-0' }} m } @else { -- }
-        </p>
-      </div>
-      <div class="rounded-lg border border-gray-700 bg-surface/70 p-3">
-        <p class="text-xs uppercase tracking-wide text-text-muted">
-          {{ 'challenges.climber.endless.lastTime' | translate }}
-        </p>
-        <p class="text-xl font-bold text-gold">
-          @if (lastRunTime > 0) {
-          {{ lastRunTimeFormatted }}
-          } @else { -- }
-        </p>
-      </div>
+      }
     </div>
-    } @if (!isCompleted && !gameStarted()) {
-    <button class="btn btn-primary" (click)="startGame()">
-      {{ 'challenges.climber.startGame' | translate }}
-    </button>
-    }
-  </div>
+  </app-challenge-info-modal>
 
   <!-- Game Canvas - always visible -->
   <div class="relative" (pointerdown)="onJump($event)">
@@ -146,8 +147,13 @@
 
   <!-- Replay Button -->
   @if (isCompleted && !gameStarted()) {
-  <button class="btn btn-outline" (click)="restartGame()">
-    {{ 'ui.playAgain' | translate }}
-  </button>
+  <div class="flex flex-col sm:flex-row gap-3 justify-center">
+    <button class="btn btn-primary" (click)="showReward()">
+      {{ 'ui.showReward' | translate }}
+    </button>
+    <button class="btn btn-outline" (click)="restartGame()">
+      {{ 'ui.playAgain' | translate }}
+    </button>
+  </div>
   }
 </div>

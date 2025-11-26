@@ -19,6 +19,7 @@ import { KeyboardService } from '../../../services/keyboard.service';
 import { SpriteService } from '../../../services/sprite.service';
 import { TouchControlsComponent } from '../../touch-controls/touch-controls';
 import { CalendarStateService } from '../../../services/calendar-state.service';
+import { ChallengeInfoModalComponent } from '../../shared/challenge-info-modal/challenge-info-modal.component';
 
 interface Platform {
   x: number;
@@ -117,7 +118,7 @@ const DEFAULT_CLIMBER_SETTINGS: ClimberChallengeSettings = {
 @Component({
   selector: 'app-climber-challenge',
   standalone: true,
-  imports: [CommonModule, TranslateModule, TouchControlsComponent],
+  imports: [CommonModule, TranslateModule, TouchControlsComponent, ChallengeInfoModalComponent],
   templateUrl: './climber-challenge.html',
   styleUrls: ['./climber-challenge.scss'],
 })
@@ -138,6 +139,7 @@ export default class ClimberChallengeComponent
   gameWon = signal(false);
   gameLost = signal(false);
   isMobile = signal(false);
+  showInstructions = signal(true);
 
   public isInfiniteMode = false;
 
@@ -281,8 +283,10 @@ export default class ClimberChallengeComponent
     if (this.gameStarted()) return;
 
     this.gameStarted.set(true);
+    this.gameStarted.set(true);
     this.gameWon.set(false);
     this.gameLost.set(false);
+    this.showInstructions.set(false);
 
     // Initialize keyboard and start game loop
     this.keyboardService.init();
@@ -1090,5 +1094,9 @@ export default class ClimberChallengeComponent
       }
     }
     this.stopGame();
+  }
+
+  showReward(): void {
+    this.completed.emit();
   }
 }

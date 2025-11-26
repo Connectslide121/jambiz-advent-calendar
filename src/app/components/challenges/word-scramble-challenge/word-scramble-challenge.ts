@@ -95,4 +95,8 @@ export class WordScrambleChallenge implements OnInit {
     this.reshuffleWord();
     // Do NOT call this.completed.emit() - preserve completion status
   }
+
+  showReward(): void {
+    this.completed.emit();
+  }
 }

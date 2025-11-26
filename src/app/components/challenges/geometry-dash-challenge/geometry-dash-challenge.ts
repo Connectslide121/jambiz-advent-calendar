@@ -16,6 +16,7 @@ import { GameService } from '../../../services/game.service';
 import { KeyboardService } from '../../../services/keyboard.service';
 import { SpriteService } from '../../../services/sprite.service';
 import { CalendarStateService } from '../../../services/calendar-state.service';
+import { ChallengeInfoModalComponent } from '../../shared/challenge-info-modal/challenge-info-modal.component';
 
 export type GeometryDashDifficulty = 'easy' | 'medium' | 'hard' | 'custom';
 
@@ -153,7 +154,7 @@ const DIFFICULTY_PRESETS: Record<GeometryDashDifficulty, GeometryDashDifficultyC
 
 @Component({
   selector: 'app-geometry-dash-challenge',
-  imports: [CommonModule, TranslateModule, LucideAngularModule],
+  imports: [CommonModule, TranslateModule, LucideAngularModule, ChallengeInfoModalComponent],
   templateUrl: './geometry-dash-challenge.html',
   styleUrl: './geometry-dash-challenge.scss',
 })
@@ -211,7 +212,9 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
   gameStarted = false;
   gameWon = false;
   gameLost = false;
+  showInstructions = true;
   groundY = 450;
+  elapsedTime = 0;
 
   constructor(
     private gameService: GameService,
@@ -664,17 +667,8 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
   }
 
   startGame(): void {
-    if (!this.ctx) return;
-
-    this.gameStarted = true;
-    this.gameWon = false;
-    this.gameLost = false;
-    this.cameraX = 0;
-    this.player.y = this.groundY - this.player.height;
-    this.player.velocityY = 0;
-    this.player.isOnGround = true;
-    this.jumpKeyPressed = false;
-
+    this.elapsedTime = 0;
+    this.survivalTime = 0;
     // Regenerate obstacles for replay variety
     this.generateObstacles();
 
@@ -695,7 +689,7 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
     return null;
   }
 
-  private formatTime(totalSeconds: number): string {
+  formatTime(totalSeconds: number): string {
     if (!isFinite(totalSeconds) || totalSeconds <= 0) {
       return '00:00.000';
     }
@@ -738,6 +732,8 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
     if (!this.gameStarted || this.gameWon || this.gameLost) return;
 
     // Track survival time in infinite mode
+    // Track survival time in infinite mode
+    this.elapsedTime += deltaTime;
     if (this.isInfiniteMode) {
       this.survivalTime += deltaTime;
     }
@@ -1152,5 +1148,9 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
       // Clear and render initial state
       this.render();
     }
+  }
+
+  showReward(): void {
+    this.completed.emit();
   }
 }

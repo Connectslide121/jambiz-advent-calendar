@@ -20,7 +20,10 @@
   "challenges": {
     "success": {
       "title": "Grattis!",
-      "funFactLabel": "Rolig fakta:"
+      "funFactLabel": "Rolig fakta:",
+      "rewardLabel": "Din belöning:",
+      "imageLabel": "En liten överraskning till dig:",
+      "videoLabel": "🎁 Njut av dagens belöning! 🎁"
     },
     "riddle": {
       "title": "Gåta",
@@ -322,7 +325,7 @@
     "day4": "Platshållar-fun fact för dag 4.",
     "day5": "Platshållar-fun fact för dag 5.",
     "day6": "Platshållar-fun fact för dag 6.",
-    "day7": "Platshållar-fun fact för dag 7.",
+    "day7": "Visste du att det finns ett teaterproduktionsbolag på Jamaica som också heter Jambiz? Ett namn med internationell dragningskraft!",
     "day8": "Platshållar-fun fact för dag 8.",
     "day9": "Platshållar-fun fact för dag 9.",
     "day10": "Platshållar-fun fact för dag 10.",
@@ -330,7 +333,7 @@
     "day12": "Platshållar-fun fact för dag 12.",
     "day13": "Platshållar-fun fact för dag 13.",
     "day14": "Platshållar-fun fact för dag 14.",
-    "day15": "Platshållar-fun fact för dag 15.",
+    "day15": "Namnet 'Jambiz' skapades genom att kombinera grundarnas initialer: Jorgen And Mikaels Business = JAMBIZ!",
     "day16": "Platshållar-fun fact för dag 16.",
     "day17": "Platshållar-fun fact för dag 17.",
     "day18": "Platshållar-fun fact för dag 18.",
@@ -349,6 +352,7 @@
     "playAgain": "Spela igen",
     "showHint": "Visa Tips",
     "hideHint": "Dölj Tips",
+    "showReward": "Visa belöning",
     "back": "Tillbaka"
   },
   "extras": {

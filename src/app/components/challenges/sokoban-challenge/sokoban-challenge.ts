@@ -280,4 +280,8 @@ export class SokobanChallengeComponent implements OnInit, OnDestroy {
   reset(): void {
     this.initializeGame();
   }
+
+  showReward(): void {
+    this.completed.emit();
+  }
 }

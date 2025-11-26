@@ -262,6 +262,10 @@ export class WordSearchChallenge implements OnInit {
     this.completed.emit();
   }
 
+  showReward(): void {
+    this.completed.emit();
+  }
+
   reset(): void {
     this.foundWords = [];
     this.selectedCells = [];

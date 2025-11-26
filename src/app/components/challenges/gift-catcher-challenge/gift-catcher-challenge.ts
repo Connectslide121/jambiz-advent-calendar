@@ -16,6 +16,7 @@ import { GameService } from '../../../services/game.service';
 import { KeyboardService } from '../../../services/keyboard.service';
 import { SpriteService } from '../../../services/sprite.service';
 import { CalendarStateService } from '../../../services/calendar-state.service';
+import { ChallengeInfoModalComponent } from '../../shared/challenge-info-modal/challenge-info-modal.component';
 
 export interface GiftCatcherConfig {
   targetScore: number;
@@ -51,7 +52,7 @@ interface Star {
 
 @Component({
   selector: 'app-gift-catcher-challenge',
-  imports: [CommonModule, TranslateModule, LucideAngularModule],
+  imports: [CommonModule, TranslateModule, LucideAngularModule, ChallengeInfoModalComponent],
   templateUrl: './gift-catcher-challenge.html',
   styleUrl: './gift-catcher-challenge.scss',
 })
@@ -85,6 +86,7 @@ export class GiftCatcherChallenge implements OnInit, AfterViewInit, OnDestroy {
   gameStarted = false;
   gameWon = false;
   gameLost = false;
+  showInstructions = true;
 
   // Player state
   player = {
@@ -238,20 +240,6 @@ export class GiftCatcherChallenge implements OnInit, AfterViewInit, OnDestroy {
   stopGame(): void {
     if (this.gameLoopId !== undefined) {
       this.gameService.stopGameLoop(this.gameLoopId);
-      this.gameLoopId = undefined;
-    }
-  }
-
-  reset(): void {
-    this.stopGame();
-    this.gameStarted = false;
-    this.gameWon = false;
-    this.gameLost = false;
-    this.score = 0;
-    this.items = [];
-    this.popups = [];
-    if (this.canvas) {
-      this.render();
     }
   }
 
@@ -531,5 +519,9 @@ export class GiftCatcherChallenge implements OnInit, AfterViewInit, OnDestroy {
     return `${minutes.toString().padStart(2, '0')}:${seconds
       .toString()
       .padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`;
+  }
+
+  showReward(): void {
+    this.completed.emit();
   }
 }

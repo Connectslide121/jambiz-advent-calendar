@@ -9,16 +9,80 @@
     {{ 'challenges.success.title' | translate }}
   </h3>
 
-  <!-- Fun Fact Label -->
+  <!-- Reward Label -->
   <p class="text-lg sm:text-xl text-gold font-semibold mb-4">
+    @if (effectiveReward && effectiveReward.title) {
+    {{ effectiveReward.title | translate }}
+    } @else {
     {{ 'challenges.success.funFactLabel' | translate }}
+    }
   </p>
 
-  <!-- Fun Fact Content -->
-  <div class="max-w-lg mx-auto mb-8">
-    <p class="text-base sm:text-lg text-text leading-relaxed px-4">
-      {{ funFactKey | translate }}
+  <!-- Reward Content -->
+  <div class="max-w-2xl mx-auto mb-8 px-4">
+    @if (effectiveReward) {
+    <!-- Text Reward -->
+    @if (rewardType === 'text' && effectiveReward.textKey) {
+    <p class="text-base sm:text-lg text-text leading-relaxed">
+      {{ effectiveReward.textKey | translate }}
     </p>
+    }
+
+    <!-- Image Reward -->
+    @if (rewardType === 'image' && effectiveReward.imageUrl) {
+    <div class="reward-image-container">
+      <img
+        [src]="effectiveReward.imageUrl"
+        [alt]="effectiveReward.imageAlt ? (effectiveReward.imageAlt | translate) : 'Reward image'"
+        class="reward-image max-w-full h-auto rounded-lg shadow-lg mx-auto"
+        loading="lazy"
+      />
+      @if (effectiveReward.caption) {
+      <p class="text-sm sm:text-base text-text-muted mt-4 italic">
+        {{ effectiveReward.caption | translate }}
+      </p>
+      }
+    </div>
+    }
+
+    <!-- Video Reward -->
+    @if (rewardType === 'video' && effectiveReward.videoUrl) {
+    <div class="reward-video-container">
+      <!-- Embedded Video (YouTube/Vimeo) -->
+      @if (isEmbeddedVideo() && safeVideoUrl) {
+      <div class="video-wrapper relative w-full" style="padding-bottom: 56.25%">
+        <iframe
+          [src]="safeVideoUrl"
+          class="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+      }
+
+      <!-- Native Video (mp4/webm) -->
+      @if (!isEmbeddedVideo()) {
+      <video
+        [src]="effectiveReward.videoUrl"
+        [poster]="effectiveReward.videoPoster || ''"
+        controls
+        class="max-w-full h-auto rounded-lg shadow-lg mx-auto"
+        playsinline
+      >
+        <source
+          [src]="effectiveReward.videoUrl"
+          [type]="'video/' + (effectiveReward.videoType || 'mp4')"
+        />
+        Your browser does not support the video tag.
+      </video>
+      } @if (effectiveReward.videoCaption) {
+      <p class="text-sm sm:text-base text-text-muted mt-4 italic">
+        {{ effectiveReward.videoCaption | translate }}
+      </p>
+      }
+    </div>
+    } }
   </div>
 
   <!-- Continue Button -->

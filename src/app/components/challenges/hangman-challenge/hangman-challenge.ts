@@ -149,7 +149,7 @@ export class HangmanChallenge implements OnInit {
     this.showHint = !this.showHint;
   }
 
-  showAnswer(): void {
+  showReward(): void {
     this.completed.emit();
   }
 }
