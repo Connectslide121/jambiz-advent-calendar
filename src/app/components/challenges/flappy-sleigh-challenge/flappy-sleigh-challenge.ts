@@ -18,6 +18,7 @@ import { GameService } from '../../../services/game.service';
 import { KeyboardService } from '../../../services/keyboard.service';
 import { SpriteService } from '../../../services/sprite.service';
 import { CalendarStateService } from '../../../services/calendar-state.service';
+import { ChallengeInfoModalComponent } from '../../shared/challenge-info-modal/challenge-info-modal.component';
 
 export interface FlappySleighConfig {
   levelLength: number; // Distance to finish
@@ -31,7 +32,7 @@ export interface FlappySleighConfig {
 
 @Component({
   selector: 'app-flappy-sleigh-challenge',
-  imports: [CommonModule, TranslateModule, LucideAngularModule],
+  imports: [CommonModule, TranslateModule, LucideAngularModule, ChallengeInfoModalComponent],
   templateUrl: './flappy-sleigh-challenge.html',
   styleUrl: './flappy-sleigh-challenge.scss',
 })
@@ -85,6 +86,7 @@ export class FlappySleighChallenge implements OnInit, AfterViewInit, OnDestroy, 
   gameStarted = false;
   gameWon = false;
   gameLost = false;
+  showInstructions = true;
 
   // Obstacles
   obstacles: Array<{ x: number; topHeight: number; bottomY: number; width: number }> = [];
@@ -303,6 +305,7 @@ export class FlappySleighChallenge implements OnInit, AfterViewInit, OnDestroy, 
     this.gameStarted = true;
     this.gameWon = false;
     this.gameLost = false;
+    this.showInstructions = false;
     this.cameraX = 0;
     this.survivalTime = 0;
     this.furthestDistance = 0;
@@ -678,5 +681,9 @@ export class FlappySleighChallenge implements OnInit, AfterViewInit, OnDestroy, 
     this.ctx.fillRect(x - 5, capY, width + 10, capHeight);
     this.ctx.strokeStyle = '#ffffff';
     this.ctx.strokeRect(x - 5, capY, width + 10, capHeight);
+  }
+
+  showReward(): void {
+    this.completed.emit();
   }
 }

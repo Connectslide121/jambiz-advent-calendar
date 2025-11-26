@@ -182,8 +182,23 @@
           <lucide-icon [img]="RotateCcw" class="w-4 h-4 sm:w-5 sm:h-5"></lucide-icon>
         </button>
 
+        <ng-container *ngIf="isWon && isCompleted">
+          <button
+            class="btn btn-primary flex-1 py-1 sm:py-2 text-sm sm:text-base"
+            (click)="showReward()"
+          >
+            {{ 'ui.showReward' | translate }}
+          </button>
+          <button
+            class="btn btn-outline flex-1 py-1 sm:py-2 text-sm sm:text-base"
+            (click)="reset()"
+          >
+            {{ 'ui.playAgain' | translate }}
+          </button>
+        </ng-container>
+
         <button
-          *ngIf="isWon"
+          *ngIf="isWon && !isCompleted"
           class="btn btn-primary w-full py-1 sm:py-2 text-sm sm:text-base"
           (click)="reset()"
         >

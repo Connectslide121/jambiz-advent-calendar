@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { LucideAngularModule, RotateCcw, Trophy } from 'lucide-angular';
 import { PresentSvgComponent } from './present-svg';
+import { ChallengeInfoModalComponent } from '../../shared/challenge-info-modal/challenge-info-modal.component';
 import Matter from 'matter-js';
 
 interface Present {
@@ -14,7 +15,13 @@ interface Present {
 
 @Component({
   selector: 'app-present-stacking-challenge',
-  imports: [CommonModule, TranslateModule, LucideAngularModule, PresentSvgComponent],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    LucideAngularModule,
+    PresentSvgComponent,
+    ChallengeInfoModalComponent,
+  ],
   templateUrl: './present-stacking-challenge.html',
   styleUrl: './present-stacking-challenge.scss',
 })
@@ -80,6 +87,12 @@ export class PresentStackingChallenge implements OnInit, OnDestroy {
   private completionEmitted = false;
 
   ngOnInit(): void {
+    // If already completed, show the win state directly
+    if (this.isCompleted) {
+      this.gameWon = true;
+      this.showInstructions = false;
+    }
+
     // Detect mobile and adjust canvas size
     this.isMobile = window.innerWidth < 640;
     if (this.isMobile) {
@@ -561,6 +574,10 @@ export class PresentStackingChallenge implements OnInit, OnDestroy {
     if (this.completionEmitted) return;
     this.completionEmitted = true;
     this.completed.emit();
+  }
+
+  showReward(): void {
+    this.emitCompletionOnce();
   }
 
   private cleanup(): void {

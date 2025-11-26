@@ -4,7 +4,12 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   {
     day: 1,
     challengeType: 'riddle',
-    funFactKey: 'funFacts.day1',
+    reward: {
+      type: 'video',
+      videoUrl: 'rewards/day1.mp4',
+      videoType: 'mp4',
+      title: 'challenges.success.videoLabel',
+    },
     challengeData: {
       riddleKey: 'challenges.riddle.day1.question',
       answerKey: ['candle', 'ljus', 'stearinljus'],
@@ -238,7 +243,12 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   {
     day: 19,
     challengeType: 'wordScramble',
-    funFactKey: 'funFacts.day19',
+    reward: {
+      type: 'video',
+      videoUrl: 'rewards/day19.mp4',
+      videoType: 'mp4',
+      title: 'challenges.success.videoLabel',
+    },
     challengeData: {
       word: 'gingerbread',
       wordSv: 'pepparkaka',
@@ -309,7 +319,12 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   {
     day: 24,
     challengeType: 'presentStacking',
-    funFactKey: 'funFacts.day24',
+    reward: {
+      type: 'video',
+      videoUrl: 'rewards/day24.mp4',
+      videoType: 'mp4',
+      title: 'challenges.success.videoLabel',
+    },
     challengeData: {
       targetHeight: 300,
       maxPresents: 12,

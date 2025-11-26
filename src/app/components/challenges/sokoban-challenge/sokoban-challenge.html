@@ -125,7 +125,16 @@
           </button>
         </ng-container>
 
-        <button *ngIf="isWon" class="btn btn-primary w-full" (click)="reset()">
+        <ng-container *ngIf="isWon && isCompleted">
+          <button class="btn btn-primary flex-1" (click)="showReward()">
+            {{ 'ui.showReward' | translate }}
+          </button>
+          <button class="btn btn-outline flex-1" (click)="reset()">
+            {{ 'ui.playAgain' | translate }}
+          </button>
+        </ng-container>
+
+        <button *ngIf="isWon && !isCompleted" class="btn btn-primary w-full" (click)="reset()">
           {{ 'ui.playAgain' | translate }}
         </button>
       </div>

@@ -1,66 +1,69 @@
 <div class="flappy-sleigh-container">
   <!-- Header -->
-  <div class="header mb-4 text-center">
-    <div class="flex items-center justify-center gap-3 mb-2">
-      <h2 class="text-xl sm:text-2xl font-bold text-gold">
-        🎅 {{ 'challenges.flappySleigh.title' | translate }} 🎅
-      </h2>
-      <span
-        *ngIf="isCompleted"
-        class="bg-accent-green text-white text-xs px-2 py-1 rounded-full font-bold animate-in fade-in zoom-in flex items-center gap-1"
-      >
-        <lucide-icon [img]="Check" class="w-3 h-3" [strokeWidth]="4"></lucide-icon>
-        {{ 'calendar.completed' | translate }}
-      </span>
+  <!-- Instructions Modal -->
+  <app-challenge-info-modal [show]="showInstructions" (start)="startGame()">
+    <div class="header mb-4 text-center">
+      <div class="flex items-center justify-center gap-3 mb-2">
+        <h2 class="text-xl sm:text-2xl font-bold text-gold">
+          🎅 {{ 'challenges.flappySleigh.title' | translate }} 🎅
+        </h2>
+        <span
+          *ngIf="isCompleted"
+          class="bg-accent-green text-white text-xs px-2 py-1 rounded-full font-bold animate-in fade-in zoom-in flex items-center gap-1"
+        >
+          <lucide-icon [img]="Check" class="w-3 h-3" [strokeWidth]="4"></lucide-icon>
+          {{ 'calendar.completed' | translate }}
+        </span>
+      </div>
+      @if (isInfiniteMode) {
+      <p class="text-sm sm:text-base text-text-muted mb-3">
+        {{ 'challenges.flappySleigh.endless.tagline' | translate }}
+      </p>
+      } @else {
+      <p class="text-sm sm:text-base text-text-muted mb-3">
+        {{ 'challenges.flappySleigh.instruction' | translate }}
+      </p>
+      }
     </div>
-    @if (isInfiniteMode) {
-    <p class="text-sm sm:text-base text-text-muted mb-3">
-      {{ 'challenges.flappySleigh.endless.tagline' | translate }}
-    </p>
-    } @else {
-    <p class="text-sm sm:text-base text-text-muted mb-3">
-      {{ 'challenges.flappySleigh.instruction' | translate }}
-    </p>
-    }
-  </div>
 
-  @if (isInfiniteMode) {
-  <div class="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
-    <div class="rounded-lg border border-gray-700 bg-surface/70 p-3 text-left">
-      <p class="text-xs uppercase tracking-wide text-text-muted">
-        {{ 'challenges.flappySleigh.endless.bestDistance' | translate }}
-      </p>
-      <p class="text-xl font-bold text-gold">{{ bestDistance | number : '1.0-0' }} m</p>
+    @if (isInfiniteMode) {
+    <div class="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div class="rounded-lg border border-gray-700 bg-surface/70 p-3 text-left">
+        <p class="text-xs uppercase tracking-wide text-text-muted">
+          {{ 'challenges.flappySleigh.endless.bestDistance' | translate }}
+        </p>
+        <p class="text-xl font-bold text-gold">{{ bestDistance | number : '1.0-0' }} m</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-surface/70 p-3 text-left">
+        <p class="text-xs uppercase tracking-wide text-text-muted">
+          {{ 'challenges.flappySleigh.endless.bestTime' | translate }}
+        </p>
+        <p class="text-xl font-bold text-gold">
+          {{ bestTimeFormatted }}
+        </p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-surface/70 p-3 text-left">
+        <p class="text-xs uppercase tracking-wide text-text-muted">
+          {{ 'challenges.flappySleigh.endless.lastDistance' | translate }}
+        </p>
+        <p class="text-xl font-bold text-gold">
+          @if (lastDistance > 0) {
+          {{ lastDistance | number : '1.0-0' }} m } @else { -- }
+        </p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-surface/70 p-3 text-left">
+        <p class="text-xs uppercase tracking-wide text-text-muted">
+          {{ 'challenges.flappySleigh.endless.lastTime' | translate }}
+        </p>
+        <p class="text-xl font-bold text-gold">
+          @if (lastTime > 0) {
+          {{ lastTimeFormatted }}
+          } @else { -- }
+        </p>
+      </div>
     </div>
-    <div class="rounded-lg border border-gray-700 bg-surface/70 p-3 text-left">
-      <p class="text-xs uppercase tracking-wide text-text-muted">
-        {{ 'challenges.flappySleigh.endless.bestTime' | translate }}
-      </p>
-      <p class="text-xl font-bold text-gold">
-        {{ bestTimeFormatted }}
-      </p>
-    </div>
-    <div class="rounded-lg border border-gray-700 bg-surface/70 p-3 text-left">
-      <p class="text-xs uppercase tracking-wide text-text-muted">
-        {{ 'challenges.flappySleigh.endless.lastDistance' | translate }}
-      </p>
-      <p class="text-xl font-bold text-gold">
-        @if (lastDistance > 0) {
-        {{ lastDistance | number : '1.0-0' }} m } @else { -- }
-      </p>
-    </div>
-    <div class="rounded-lg border border-gray-700 bg-surface/70 p-3 text-left">
-      <p class="text-xs uppercase tracking-wide text-text-muted">
-        {{ 'challenges.flappySleigh.endless.lastTime' | translate }}
-      </p>
-      <p class="text-xl font-bold text-gold">
-        @if (lastTime > 0) {
-        {{ lastTimeFormatted }}
-        } @else { -- }
-      </p>
-    </div>
-  </div>
-  }
+    }
+  </app-challenge-info-modal>
 
   <!-- Canvas with overlay messages -->
   <div
@@ -205,6 +208,9 @@
       {{ 'challenges.flappySleigh.start' | translate }}
     </button>
     } @if (isCompleted && gameWon) {
+    <button class="btn btn-primary w-full sm:w-auto px-8" (click)="showReward()" type="button">
+      {{ 'ui.showReward' | translate }}
+    </button>
     <button class="btn btn-outline w-full sm:w-auto px-8" (click)="reset()" type="button">
       {{ 'ui.playAgain' | translate }}
     </button>

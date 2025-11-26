@@ -1,35 +1,31 @@
 <div class="present-stacking-container">
   <!-- Instructions Overlay -->
-  <div *ngIf="showInstructions" class="instructions-overlay">
-    <div class="instructions-card">
-      <h2 class="text-2xl font-bold mb-4 text-gold">
-        {{ 'challenges.presentStacking.title' | translate }}
-      </h2>
-      <div class="space-y-3 text-left mb-6">
-        <p class="flex items-start gap-2">
-          <span class="text-gold">🎁</span>
-          <span>{{ 'challenges.presentStacking.instruction1' | translate }}</span>
-        </p>
-        <p class="flex items-start gap-2">
-          <span class="text-gold">📏</span>
-          <span>{{ 'challenges.presentStacking.instruction2' | translate }}</span>
-        </p>
-        <p class="flex items-start gap-2">
-          <span class="text-gold">🎯</span>
-          <span>{{
-            'challenges.presentStacking.instruction3' | translate : { max: maxPresents }
-          }}</span>
-        </p>
-        <p class="flex items-start gap-2">
-          <span class="text-gold">⚖️</span>
-          <span>{{ 'challenges.presentStacking.instruction4' | translate }}</span>
-        </p>
-      </div>
-      <button class="btn btn-primary w-full" (click)="startGame()">
-        {{ 'challenges.presentStacking.startGame' | translate }}
-      </button>
+  <!-- Instructions Overlay -->
+  <app-challenge-info-modal [show]="showInstructions" (start)="startGame()">
+    <h2 class="text-2xl font-bold mb-4 text-gold">
+      {{ 'challenges.presentStacking.title' | translate }}
+    </h2>
+    <div class="space-y-3 text-left mb-6">
+      <p class="flex items-start gap-2">
+        <span class="text-gold">🎁</span>
+        <span>{{ 'challenges.presentStacking.instruction1' | translate }}</span>
+      </p>
+      <p class="flex items-start gap-2">
+        <span class="text-gold">📏</span>
+        <span>{{ 'challenges.presentStacking.instruction2' | translate }}</span>
+      </p>
+      <p class="flex items-start gap-2">
+        <span class="text-gold">🎯</span>
+        <span>{{
+          'challenges.presentStacking.instruction3' | translate : { max: maxPresents }
+        }}</span>
+      </p>
+      <p class="flex items-start gap-2">
+        <span class="text-gold">⚖️</span>
+        <span>{{ 'challenges.presentStacking.instruction4' | translate }}</span>
+      </p>
     </div>
-  </div>
+  </app-challenge-info-modal>
 
   <!-- Game Won Overlay -->
   <div *ngIf="gameWon" class="game-result-overlay won">
@@ -45,8 +41,8 @@
         }}
       </p>
       <div class="flex gap-3">
-        <button class="btn btn-primary flex-1" (click)="emitCompletionOnce()">
-          {{ 'ui.continue' | translate }}
+        <button class="btn btn-primary flex-1" (click)="showReward()">
+          {{ 'ui.showReward' | translate }}
         </button>
         <button class="btn btn-outline flex gap-2 items-center" (click)="resetGame()">
           <lucide-icon [img]="RotateCcw" [size]="20"></lucide-icon>

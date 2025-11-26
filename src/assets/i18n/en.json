@@ -20,7 +20,10 @@
   "challenges": {
     "success": {
       "title": "Congratulations!",
-      "funFactLabel": "Fun Fact:"
+      "funFactLabel": "Fun Fact:",
+      "rewardLabel": "Your Reward:",
+      "imageLabel": "A little surprise for you:",
+      "videoLabel": "🎁 Enjoy today's reward! 🎁"
     },
     "riddle": {
       "title": "Riddle Challenge",
@@ -305,7 +308,7 @@
     "day4": "Placeholder fun fact for day 4.",
     "day5": "Placeholder fun fact for day 5.",
     "day6": "Placeholder fun fact for day 6.",
-    "day7": "Placeholder fun fact for day 7.",
+    "day7": "Did you know there is a theater production company in Jamaica also called Jambiz? Talk about a name with international appeal!",
     "day8": "Placeholder fun fact for day 8.",
     "day9": "Placeholder fun fact for day 9.",
     "day10": "Placeholder fun fact for day 10.",
@@ -313,7 +316,7 @@
     "day12": "Placeholder fun fact for day 12.",
     "day13": "Placeholder fun fact for day 13.",
     "day14": "Placeholder fun fact for day 14.",
-    "day15": "Placeholder fun fact for day 15.",
+    "day15": "The name 'Jambiz' was created by combining the initials of the founders' names: Jorgen And Mikael's Business = JAMBIZ!",
     "day16": "Placeholder fun fact for day 16.",
     "day17": "Placeholder fun fact for day 17.",
     "day18": "Placeholder fun fact for day 18.",
@@ -332,6 +335,7 @@
     "playAgain": "Play Again",
     "showHint": "Show Hint",
     "hideHint": "Hide Hint",
+    "showReward": "Show Reward",
     "back": "Back"
   },
   "extras": {

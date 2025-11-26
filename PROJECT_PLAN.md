@@ -110,16 +110,106 @@ export type ChallengeType =
   | 'memoryCard'
   | 'mazeRunner';
 
+export type RewardType = 'text' | 'image' | 'video';
+
+export interface RewardConfig {
+  type: RewardType;
+  // For text rewards - translation key
+  textKey?: string;
+  // For image rewards
+  imageUrl?: string;
+  imageAlt?: string; // Translation key for alt text
+  caption?: string; // Translation key for optional caption
+  // For video rewards
+  videoUrl?: string;
+  videoType?: 'mp4' | 'webm' | 'youtube' | 'vimeo';
+  videoPoster?: string; // Poster image URL
+  videoCaption?: string; // Translation key for optional caption
+  // Common optional properties
+  title?: string; // Translation key for custom title (overrides default "Fun Fact")
+}
+
 export interface CalendarDayConfig {
   day: number;
   challengeType: ChallengeType;
-  funFactKey: string;
+  funFactKey?: string; // Legacy support for text-only rewards
+  reward?: RewardConfig; // New flexible reward system
 }
 
 export interface DayState {
   day: number;
   completed: boolean;
   completedAt?: Date;
+}
+```
+
+### Reward System
+
+The calendar supports three types of rewards that are displayed after completing a challenge:
+
+**Text Rewards (Legacy & New)**
+```typescript
+// Legacy format (still supported)
+{ day: 1, funFactKey: 'funFacts.day1' }
+
+// New format
+{ 
+  day: 1, 
+  reward: { 
+    type: 'text', 
+    textKey: 'funFacts.day1',
+    title: 'rewards.titles.day1' // Optional custom title
+  } 
+}
+```
+
+**Image Rewards**
+```typescript
+{ 
+  day: 2, 
+  reward: { 
+    type: 'image', 
+    imageUrl: 'assets/rewards/team-photo.jpg',
+    imageAlt: 'rewards.alt.teamPhoto',
+    caption: 'rewards.captions.day2',
+    title: 'challenges.success.imageLabel'
+  } 
+}
+```
+
+**Video Rewards**
+```typescript
+// YouTube video
+{ 
+  day: 3, 
+  reward: { 
+    type: 'video', 
+    videoUrl: 'https://www.youtube.com/watch?v=VIDEO_ID',
+    videoType: 'youtube',
+    videoCaption: 'rewards.captions.day3',
+    title: 'challenges.success.videoLabel'
+  } 
+}
+
+// Vimeo video
+{ 
+  day: 4, 
+  reward: { 
+    type: 'video', 
+    videoUrl: 'https://vimeo.com/123456789',
+    videoType: 'vimeo'
+  } 
+}
+
+// Native video (mp4/webm)
+{ 
+  day: 5, 
+  reward: { 
+    type: 'video', 
+    videoUrl: 'assets/videos/holiday-message.mp4',
+    videoType: 'mp4',
+    videoPoster: 'assets/videos/poster.jpg'
+  } 
 }
 ```
 

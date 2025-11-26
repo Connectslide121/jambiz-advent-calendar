@@ -141,11 +141,11 @@ export class ChallengeHost implements OnInit {
   }
 
   onChallengeComplete(): void {
-    // Only show fun fact if there is one (skip for extras)
-    if (this.dayConfig.funFactKey) {
+    // Only show fun fact if there is one (skip for extras without rewards)
+    if (this.dayConfig.funFactKey || this.dayConfig.reward) {
       this.showFunFact = true;
     } else {
-      // No fun fact, just close the modal
+      // No fun fact or reward, just close the modal
       this.close.emit();
     }
     this.challengeCompleted.emit();

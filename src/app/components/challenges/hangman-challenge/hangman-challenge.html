@@ -248,6 +248,9 @@
       {{ 'challenges.hangman.tryAgain' | translate }}
     </button>
     } @if (isCompleted) {
+    <button class="btn btn-primary w-full sm:w-auto px-8" (click)="showReward()">
+      {{ 'ui.showReward' | translate }}
+    </button>
     <button class="btn btn-outline w-full sm:w-auto px-8" (click)="reset()">
       {{ 'ui.playAgain' | translate }}
     </button>

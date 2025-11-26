@@ -56,6 +56,10 @@ export class RiddleChallenge implements OnInit {
     this.showHint = !this.showHint;
   }
 
+  showReward(): void {
+    this.completed.emit();
+  }
+
   onKeyPress(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
       this.onSubmit();

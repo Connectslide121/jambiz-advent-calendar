@@ -68,4 +68,8 @@ export class RebusChallenge implements OnInit {
     this.showHint = false;
     // Do NOT call this.completed.emit() - preserve completion status
   }
+
+  showReward(): void {
+    this.completed.emit();
+  }
 }
