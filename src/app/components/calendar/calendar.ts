@@ -8,6 +8,10 @@ import { CalendarDayConfig, ChallengeType } from '../../models/calendar.models';
 import { CHALLENGE_ICONS } from '../../config/challenge-icons';
 import { ChallengeHost } from '../challenge-host/challenge-host';
 
+// Grid configuration for puzzle image
+const GRID_COLS = 6;
+const GRID_ROWS = 4;
+
 @Component({
   selector: 'app-calendar',
   imports: [CommonModule, TranslateModule, ChallengeHost, LucideAngularModule],
@@ -21,6 +25,9 @@ export class Calendar implements OnInit {
     (a, b) => (a.gridPosition ?? 0) - (b.gridPosition ?? 0)
   );
   selectedDay: CalendarDayConfig | null = null;
+
+  // Puzzle image path - can be changed later
+  readonly puzzleImagePath = 'assets/Jambiz_xmas_logo.png';
 
   constructor(public stateService: CalendarStateService) {}
 
@@ -49,5 +56,34 @@ export class Calendar implements OnInit {
 
   getChallengeEmoji(challengeType?: ChallengeType): string {
     return challengeType ? CHALLENGE_ICONS[challengeType] : '';
+  }
+
+  getChallengeTitleKey(challengeType?: ChallengeType): string {
+    if (!challengeType) return '';
+    return `challenges.${challengeType}.title`;
+  }
+
+  /**
+   * Get the background position for the puzzle image piece
+   * based on the day's grid position
+   */
+  getPuzzlePieceStyle(gridPosition: number | undefined): { [key: string]: string } {
+    if (gridPosition === undefined) {
+      return {};
+    }
+
+    const col = gridPosition % GRID_COLS;
+    const row = Math.floor(gridPosition / GRID_COLS);
+
+    // Calculate percentage positions for background-position
+    // We need to map 0-5 cols to 0-100% and 0-3 rows to 0-100%
+    const xPercent = GRID_COLS > 1 ? (col / (GRID_COLS - 1)) * 100 : 0;
+    const yPercent = GRID_ROWS > 1 ? (row / (GRID_ROWS - 1)) * 100 : 0;
+
+    return {
+      'background-image': `url('${this.puzzleImagePath}')`,
+      'background-size': `${GRID_COLS * 100}% ${GRID_ROWS * 100}%`,
+      'background-position': `${xPercent}% ${yPercent}%`,
+    };
   }
 }

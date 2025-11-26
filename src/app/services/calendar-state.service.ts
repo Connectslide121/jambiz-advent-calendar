@@ -18,8 +18,37 @@ export class CalendarStateService {
     return Array.from(this.completedDays).sort((a, b) => a - b);
   }
 
+  getCompletedCount(): number {
+    return this.completedDays.size;
+  }
+
   isDayCompleted(day: number): boolean {
     return this.completedDays.has(day);
+  }
+
+  /**
+   * Check if all 24 calendar days are completed
+   */
+  isCalendarComplete(): boolean {
+    return this.completedDays.size >= 24;
+  }
+
+  /**
+   * Check if it's December 25th or later (unlock everything for everyone)
+   */
+  isChristmasDay(): boolean {
+    const now = new Date();
+    const month = now.getMonth(); // 0-indexed, so December = 11
+    const day = now.getDate();
+    return month === 11 && day >= 25;
+  }
+
+  /**
+   * Check if extras and rewards gallery should be unlocked
+   * Either all days are complete OR it's December 25th or later
+   */
+  isFullyUnlocked(): boolean {
+    return this.isCalendarComplete() || this.isChristmasDay();
   }
 
   markDayComplete(day: number): void {

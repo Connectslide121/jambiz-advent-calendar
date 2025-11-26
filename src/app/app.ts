@@ -5,9 +5,18 @@ import { Calendar } from './components/calendar/calendar';
 import { ChallengeHost } from './components/challenge-host/challenge-host';
 import { LandingPage } from './components/landing-page/landing-page';
 import { EXTRA_LEVELS, ExtraGameSection, ExtraLevel } from './config/extras-config';
+import { CALENDAR_DAYS } from './config/calendar-config';
 import { CalendarDayConfig, ChallengeType } from './models/calendar.models';
 import { CHALLENGE_ICONS, DEFAULT_CHALLENGE_ICON } from './config/challenge-icons';
-import { LucideAngularModule, X, ArrowLeft, Check, CheckCheck, XCircle } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  X,
+  ArrowLeft,
+  Check,
+  CheckCheck,
+  XCircle,
+  Lock,
+} from 'lucide-angular';
 import { CalendarStateService } from './services/calendar-state.service';
 
 interface Snowflake {
@@ -38,19 +47,22 @@ export class App implements OnInit {
   readonly Check = Check;
   readonly CheckCheck = CheckCheck;
   readonly XCircle = XCircle;
+  readonly Lock = Lock;
   currentLanguage: string;
   snowflakes: Snowflake[] = [];
   showLandingPage = true;
   showExtrasMenu = false;
   showExtraChallenge = false;
+  showRewardsGallery = false;
   selectedGame: ExtraGameSection | null = null;
   selectedExtraConfig: CalendarDayConfig | null = null;
   selectedExtraId: string | null = null;
   extraLevels = EXTRA_LEVELS;
+  calendarDays = CALENDAR_DAYS;
   private readonly STORAGE_KEY = 'extras-completed';
   private completedExtras = new Set<string>();
 
-  constructor(private translate: TranslateService, private calendarState: CalendarStateService) {
+  constructor(private translate: TranslateService, public calendarState: CalendarStateService) {
     // Initialize language from localStorage or default to Swedish
     const savedLang = localStorage.getItem('language') || 'sv';
     this.currentLanguage = savedLang;
@@ -77,7 +89,13 @@ export class App implements OnInit {
     this.showLandingPage = false;
   }
 
+  // Check if extras and rewards gallery are unlocked
+  isUnlocked(): boolean {
+    return this.calendarState.isFullyUnlocked();
+  }
+
   openExtras(): void {
+    if (!this.isUnlocked()) return;
     this.showExtrasMenu = true;
     this.selectedGame = null;
   }
@@ -85,6 +103,36 @@ export class App implements OnInit {
   closeExtrasMenu(): void {
     this.showExtrasMenu = false;
     this.selectedGame = null;
+  }
+
+  openRewardsGallery(): void {
+    if (!this.isUnlocked()) return;
+    this.showRewardsGallery = true;
+  }
+
+  closeRewardsGallery(): void {
+    this.showRewardsGallery = false;
+  }
+
+  // Get all days sorted by day number for rewards gallery
+  getSortedCalendarDays(): CalendarDayConfig[] {
+    return [...this.calendarDays].sort((a, b) => a.day - b.day);
+  }
+
+  // Get the reward text for a day (either from reward config or funFactKey)
+  getRewardText(day: CalendarDayConfig): string {
+    if (day.reward?.textKey) {
+      return day.reward.textKey;
+    }
+    if (day.funFactKey) {
+      return day.funFactKey;
+    }
+    return '';
+  }
+
+  // Check if day has a video reward
+  hasVideoReward(day: CalendarDayConfig): boolean {
+    return day.reward?.type === 'video';
   }
 
   selectGame(game: ExtraGameSection): void {

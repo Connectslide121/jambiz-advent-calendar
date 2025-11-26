@@ -102,12 +102,50 @@
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
     <app-calendar></app-calendar>
 
-    <!-- Extras Button -->
-    <div class="mt-8 text-center">
-      <button class="btn btn-secondary px-8 py-3 text-lg font-bold" (click)="openExtras()">
-        🎁 {{ 'extras.button' | translate }} 🎁
+    <!-- Action Buttons -->
+    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <!-- Rewards Gallery Button (only when unlocked) -->
+      <button
+        class="btn px-6 py-3 text-base sm:text-lg font-bold flex items-center gap-2"
+        [class.btn-primary]="isUnlocked()"
+        [class.btn-outline]="!isUnlocked()"
+        [class.opacity-50]="!isUnlocked()"
+        [class.cursor-not-allowed]="!isUnlocked()"
+        [disabled]="!isUnlocked()"
+        (click)="openRewardsGallery()"
+        [title]="isUnlocked() ? '' : ('rewards.lockedHint' | translate)"
+      >
+        @if (!isUnlocked()) {
+        <lucide-icon [img]="Lock" class="w-5 h-5" [strokeWidth]="2"></lucide-icon>
+        } 🏆 {{ 'rewards.galleryButton' | translate }}
+      </button>
+
+      <!-- Extras Button -->
+      <button
+        class="btn px-6 py-3 text-base sm:text-lg font-bold flex items-center gap-2"
+        [class.btn-secondary]="isUnlocked()"
+        [class.btn-outline]="!isUnlocked()"
+        [class.opacity-50]="!isUnlocked()"
+        [class.cursor-not-allowed]="!isUnlocked()"
+        [disabled]="!isUnlocked()"
+        (click)="openExtras()"
+        [title]="isUnlocked() ? '' : ('extras.lockedHint' | translate)"
+      >
+        @if (!isUnlocked()) {
+        <lucide-icon [img]="Lock" class="w-5 h-5" [strokeWidth]="2"></lucide-icon>
+        } 🎁 {{ 'extras.button' | translate }} 🎁
       </button>
     </div>
+
+    <!-- Unlock hint when not complete -->
+    @if (!isUnlocked()) {
+    <p class="text-center text-text-muted text-sm mt-4">
+      {{
+        'rewards.unlockHint'
+          | translate : { completed: calendarState.getCompletedCount(), total: 24 }
+      }}
+    </p>
+    }
   </main>
   }
 </div>
@@ -234,4 +272,88 @@
   (close)="closeExtraChallenge()"
   (challengeCompleted)="onExtraChallengeCompleted()"
 ></app-challenge-host>
+}
+
+<!-- Rewards Gallery Modal -->
+@if (showRewardsGallery) {
+<div class="modal-overlay" (click)="closeRewardsGallery()">
+  <div
+    class="modal-content w-full h-full lg:w-[90vw] lg:max-w-5xl lg:max-h-[90vh] lg:rounded-2xl flex flex-col overflow-hidden"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6 flex-shrink-0">
+      <div class="flex items-center gap-4">
+        <h2 class="text-2xl sm:text-3xl font-bold text-text">
+          🏆 {{ 'rewards.galleryTitle' | translate }} 🏆
+        </h2>
+      </div>
+      <button
+        (click)="closeRewardsGallery()"
+        class="btn btn-outline p-2 min-w-0"
+        aria-label="Close"
+      >
+        <lucide-icon [img]="X" class="w-6 h-6" [strokeWidth]="2"></lucide-icon>
+      </button>
+    </div>
+
+    <!-- Rewards List -->
+    <div class="flex-1 overflow-y-auto">
+      <div class="space-y-4">
+        @for (day of getSortedCalendarDays(); track day.day) {
+        <div class="card p-4 sm:p-6">
+          <div class="flex items-start gap-4">
+            <!-- Day Badge -->
+            <div
+              class="flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-accent-red flex items-center justify-center"
+            >
+              <span class="text-lg sm:text-2xl font-bold text-white">{{ day.day }}</span>
+            </div>
+
+            <!-- Reward Content -->
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-2xl">{{ getGameIcon(day.challengeType || '') }}</span>
+                <h3 class="text-lg sm:text-xl font-bold text-gold">
+                  {{ 'calendar.dayLabel' | translate : { day: day.day } }}
+                </h3>
+                @if (hasVideoReward(day)) {
+                <span class="text-sm bg-accent-green text-white px-2 py-0.5 rounded-full"
+                  >🎬 Video</span
+                >
+                }
+              </div>
+
+              <!-- Fun Fact / Text Reward -->
+              @if (getRewardText(day)) {
+              <p class="text-sm sm:text-base text-text leading-relaxed">
+                {{ getRewardText(day) | translate }}
+              </p>
+              }
+
+              <!-- Video Reward -->
+              @if (hasVideoReward(day) && day.reward?.videoUrl) {
+              <div class="mt-4">
+                <video
+                  [src]="day.reward!.videoUrl"
+                  controls
+                  class="max-w-full h-auto rounded-lg shadow-lg"
+                  style="max-height: 200px"
+                  playsinline
+                >
+                  <source
+                    [src]="day.reward!.videoUrl!"
+                    [type]="'video/' + (day.reward!.videoType || 'mp4')"
+                  />
+                </video>
+              </div>
+              }
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
 }

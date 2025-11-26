@@ -1,52 +1,76 @@
 <div class="calendar-container">
   <!-- Calendar Grid -->
-  <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
+  <div class="calendar-grid grid grid-cols-6 gap-1 sm:gap-1.5 lg:gap-2">
     @for (dayConfig of calendarDays; track dayConfig.day) {
-    <button
-      class="day-tile card relative overflow-hidden transition-all duration-300"
-      [class.completed]="isDayCompleted(dayConfig.day)"
-      [class.unpopulated]="!dayConfig.challengeType"
-      [class.hover:scale-105]="dayConfig.challengeType"
-      [class.hover:shadow-xl]="dayConfig.challengeType"
-      [disabled]="!dayConfig.challengeType"
-      (click)="onDaySelected(dayConfig)"
-      [attr.aria-label]="'Day ' + dayConfig.day"
-    >
-      <!-- Challenge Emoji - Tilted and Clipped -->
+    <div class="day-tile-wrapper relative">
+      <!-- Custom Tooltip -->
       @if (dayConfig.challengeType) {
-      <div class="challenge-emoji" [class.grayscale]="!isDayCompleted(dayConfig.day)">
-        {{ getChallengeEmoji(dayConfig.challengeType) }}
+      <div class="tooltip">
+        {{ getChallengeTitleKey(dayConfig.challengeType) | translate }}
       </div>
       }
+      <button
+        class="day-tile card relative overflow-hidden transition-all duration-300"
+        [class.completed]="isDayCompleted(dayConfig.day)"
+        [class.unpopulated]="!dayConfig.challengeType"
+        [class.hover:scale-105]="dayConfig.challengeType"
+        [class.hover:shadow-xl]="dayConfig.challengeType"
+        [disabled]="!dayConfig.challengeType"
+        (click)="onDaySelected(dayConfig)"
+        [attr.aria-label]="'Day ' + dayConfig.day"
+      >
+        <!-- Puzzle Image Piece (revealed when completed) -->
+        <div
+          class="puzzle-piece absolute inset-0 transition-opacity duration-500"
+          [class.revealed]="isDayCompleted(dayConfig.day)"
+          [ngStyle]="getPuzzlePieceStyle(dayConfig.gridPosition)"
+        ></div>
 
-      <!-- Day Number -->
-      <div class="day-number text-2xl sm:text-3xl lg:text-4xl font-bold text-gold mb-2">
-        {{ dayConfig.day }}
-      </div>
+        <!-- Challenge Emoji - Tilted and Clipped -->
+        @if (dayConfig.challengeType) {
+        <div
+          class="challenge-emoji"
+          [class.grayscale]="!isDayCompleted(dayConfig.day)"
+          [class.completed-emoji]="isDayCompleted(dayConfig.day)"
+        >
+          {{ getChallengeEmoji(dayConfig.challengeType) }}
+        </div>
+        }
 
-      <!-- Coming Soon Indicator -->
-      @if (!dayConfig.challengeType) {
-      <div class="text-xs sm:text-sm text-text-muted opacity-70 mt-1">
-        {{ 'calendar.comingSoon' | translate }}
-      </div>
-      }
+        <!-- Day Number (hidden when completed to show puzzle piece) -->
+        <div
+          class="day-number font-bold text-gold mb-0 sm:mb-1 z-10 transition-opacity duration-300"
+          [class.opacity-0]="isDayCompleted(dayConfig.day)"
+        >
+          {{ dayConfig.day }}
+        </div>
 
-      <!-- Completion Indicator -->
-      @if (isDayCompleted(dayConfig.day)) {
-      <div class="absolute top-1 right-1 md:top-2 md:right-2 bg-accent-green rounded-full p-1.5">
-        <lucide-icon
-          [img]="Check"
-          class="w-3 h-3 sm:w-4 sm:h-4 text-white"
-          [strokeWidth]="3"
-        ></lucide-icon>
-      </div>
-      }
+        <!-- Coming Soon Indicator -->
+        @if (!dayConfig.challengeType) {
+        <div class="text-[8px] sm:text-xs text-text-muted opacity-70 z-10 text-center px-1">
+          {{ 'calendar.comingSoon' | translate }}
+        </div>
+        }
 
-      <!-- Hover Effect Overlay -->
-      <div
-        class="absolute inset-0 bg-accent-red opacity-0 hover:opacity-10 transition-opacity duration-300 pointer-events-none"
-      ></div>
-    </button>
+        <!-- Completion Indicator -->
+        @if (isDayCompleted(dayConfig.day)) {
+        <div
+          class="absolute top-0.5 right-0.5 sm:top-1 sm:right-1 md:top-2 md:right-2 bg-accent-green rounded-full p-0.5 sm:p-1 z-20"
+        >
+          <lucide-icon
+            [img]="Check"
+            class="w-2 h-2 sm:w-3 sm:h-3 md:w-4 md:h-4 text-white"
+            [strokeWidth]="3"
+          ></lucide-icon>
+        </div>
+        }
+
+        <!-- Hover Effect Overlay -->
+        <div
+          class="absolute inset-0 bg-accent-red opacity-0 hover:opacity-10 transition-opacity duration-300 pointer-events-none z-10"
+        ></div>
+      </button>
+    </div>
     }
   </div>
 

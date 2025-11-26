@@ -7,24 +7,25 @@
 
       <div class="space-y-4 text-text-muted">
         <p class="text-lg">
-          {{ 'challenges.giftCatcher.instructions' | translate }}
+          {{ 'challenges.giftCatcher.instruction' | translate }}
         </p>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left max-w-lg mx-auto mt-6">
-          <div class="p-4 rounded-lg bg-surface border border-border">
-            <div class="font-bold text-primary mb-1 flex items-center gap-2">
-              <i-lucide name="keyboard" class="w-4 h-4"></i-lucide>
-              Desktop
-            </div>
-            <p class="text-sm">{{ 'challenges.giftCatcher.controlsDesktop' | translate }}</p>
+        <!-- Desktop instructions (hidden on mobile) -->
+        <div
+          class="hidden sm:block p-4 rounded-lg bg-surface border border-border text-left max-w-md mx-auto mt-6"
+        >
+          <div class="font-bold text-primary mb-1 flex items-center gap-2">
+            <lucide-icon [img]="Keyboard" class="w-4 h-4"></lucide-icon>
+            {{ 'challenges.giftCatcher.controlsDesktop' | translate }}
           </div>
+        </div>
 
-          <div class="p-4 rounded-lg bg-surface border border-border">
-            <div class="font-bold text-primary mb-1 flex items-center gap-2">
-              <i-lucide name="smartphone" class="w-4 h-4"></i-lucide>
-              Mobile
-            </div>
-            <p class="text-sm">{{ 'challenges.giftCatcher.controlsMobile' | translate }}</p>
+        <!-- Mobile instructions (hidden on desktop) -->
+        <div
+          class="sm:hidden p-4 rounded-lg bg-surface border border-border text-left max-w-md mx-auto mt-6"
+        >
+          <div class="font-bold text-primary mb-1 flex items-center gap-2">
+            <lucide-icon [img]="Smartphone" class="w-4 h-4"></lucide-icon>
+            {{ 'challenges.giftCatcher.controlsMobile' | translate }}
           </div>
         </div>
 

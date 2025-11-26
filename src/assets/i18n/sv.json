@@ -356,11 +356,18 @@
     "startGame": "Starta spel",
     "back": "Tillbaka"
   },
+  "rewards": {
+    "galleryButton": "Alla belöningar",
+    "galleryTitle": "Alla belöningar",
+    "lockedHint": "Slutför alla 24 dagar för att låsa upp",
+    "unlockHint": "Slutför alla utmaningar för att låsa upp belöningsgalleriet och extras ({{completed}}/{{total}})"
+  },
   "extras": {
     "button": "Extra",
     "title": "Extrautmaningar",
     "challengeTitle": "Extrautmaning",
     "levelsCompleted": "klara",
+    "lockedHint": "Slutför alla 24 dagar för att låsa upp",
     "games": {
       "riddle": {
         "title": "Gåtor",

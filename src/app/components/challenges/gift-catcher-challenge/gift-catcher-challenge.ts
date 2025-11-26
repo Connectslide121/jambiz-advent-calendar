@@ -11,7 +11,14 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { LucideAngularModule, Check, ArrowLeft, ArrowRight } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  Check,
+  ArrowLeft,
+  ArrowRight,
+  Keyboard,
+  Smartphone,
+} from 'lucide-angular';
 import { GameService } from '../../../services/game.service';
 import { KeyboardService } from '../../../services/keyboard.service';
 import { SpriteService } from '../../../services/sprite.service';
@@ -66,6 +73,8 @@ export class GiftCatcherChallenge implements OnInit, AfterViewInit, OnDestroy {
   readonly Check = Check;
   readonly ArrowLeft = ArrowLeft;
   readonly ArrowRight = ArrowRight;
+  readonly Keyboard = Keyboard;
+  readonly Smartphone = Smartphone;
 
   canvas!: HTMLCanvasElement;
   ctx!: CanvasRenderingContext2D;
@@ -221,6 +230,7 @@ export class GiftCatcherChallenge implements OnInit, AfterViewInit, OnDestroy {
   startGame(): void {
     if (!this.ctx) return;
 
+    this.showInstructions = false;
     this.gameStarted = true;
     this.gameWon = false;
     this.gameLost = false;

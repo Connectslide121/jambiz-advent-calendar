@@ -339,11 +339,18 @@
     "startGame": "Start Game",
     "back": "Back"
   },
+  "rewards": {
+    "galleryButton": "All Rewards",
+    "galleryTitle": "All Rewards",
+    "lockedHint": "Complete all 24 days to unlock",
+    "unlockHint": "Complete all challenges to unlock rewards gallery and extras ({{completed}}/{{total}})"
+  },
   "extras": {
     "button": "Extras",
     "title": "Extra Challenges",
     "challengeTitle": "Extra Challenge",
     "levelsCompleted": "completed",
+    "lockedHint": "Complete all 24 days to unlock",
     "games": {
       "riddle": {
         "title": "Riddles",
