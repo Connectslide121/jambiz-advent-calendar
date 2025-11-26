@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { LucideAngularModule, Check } from 'lucide-angular';
+import { LucideAngularModule, Check, Lock } from 'lucide-angular';
 import { CALENDAR_DAYS } from '../../config/calendar-config';
 import { CalendarStateService } from '../../services/calendar-state.service';
 import { CalendarDayConfig, ChallengeType } from '../../models/calendar.models';
@@ -20,6 +20,7 @@ const GRID_ROWS = 4;
 })
 export class Calendar implements OnInit {
   readonly Check = Check;
+  readonly Lock = Lock;
   // Sort calendar days by gridPosition for shuffled display
   calendarDays: CalendarDayConfig[] = [...CALENDAR_DAYS].sort(
     (a, b) => (a.gridPosition ?? 0) - (b.gridPosition ?? 0)
@@ -34,8 +35,8 @@ export class Calendar implements OnInit {
   ngOnInit(): void {}
 
   onDaySelected(day: CalendarDayConfig): void {
-    // Only open challenge if day has a challenge type
-    if (day.challengeType) {
+    // Only open challenge if day has a challenge type AND is unlocked
+    if (day.challengeType && this.isDayUnlocked(day.day)) {
       this.selectedDay = day;
     }
   }
@@ -52,6 +53,17 @@ export class Calendar implements OnInit {
 
   isDayCompleted(day: number): boolean {
     return this.stateService.isDayCompleted(day);
+  }
+
+  isDayUnlocked(day: number): boolean {
+    return this.stateService.isDayUnlocked(day);
+  }
+
+  /**
+   * Check if day is locked (has challenge but not yet unlocked by date)
+   */
+  isDayLocked(dayConfig: CalendarDayConfig): boolean {
+    return !!dayConfig.challengeType && !this.isDayUnlocked(dayConfig.day);
   }
 
   getChallengeEmoji(challengeType?: ChallengeType): string {

@@ -16,6 +16,7 @@ import {
   CheckCheck,
   XCircle,
   Lock,
+  Code,
 } from 'lucide-angular';
 import { CalendarStateService } from './services/calendar-state.service';
 
@@ -48,6 +49,7 @@ export class App implements OnInit {
   readonly CheckCheck = CheckCheck;
   readonly XCircle = XCircle;
   readonly Lock = Lock;
+  readonly Code = Code;
   currentLanguage: string;
   snowflakes: Snowflake[] = [];
   showLandingPage = true;

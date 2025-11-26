@@ -67,6 +67,18 @@
           {{ currentLanguage === 'sv' ? 'EN' : 'SV' }}
         </button>
 
+        <!-- Dev Mode Toggle Button -->
+        <button
+          (click)="calendarState.toggleDevMode()"
+          class="btn shrink-0 text-xs sm:text-sm px-2 sm:px-3 py-1.5 sm:py-2"
+          [class.btn-secondary]="calendarState.devMode"
+          [class.btn-outline]="!calendarState.devMode"
+          [attr.aria-label]="'Toggle developer mode'"
+          title="Dev Mode: {{ calendarState.devMode ? 'ON' : 'OFF' }} (unlocks all days)"
+        >
+          <lucide-icon [img]="Code" class="w-4 h-4 sm:w-5 sm:h-5" [strokeWidth]="2"></lucide-icon>
+        </button>
+
         <!-- Mark All Complete Button -->
         <button
           (click)="markAllComplete()"

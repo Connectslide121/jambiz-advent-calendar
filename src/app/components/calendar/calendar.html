@@ -6,16 +6,21 @@
       <!-- Custom Tooltip -->
       @if (dayConfig.challengeType) {
       <div class="tooltip">
+        @if (isDayLocked(dayConfig)) {
+        {{ 'calendar.locked' | translate }}
+        } @else {
         {{ getChallengeTitleKey(dayConfig.challengeType) | translate }}
+        }
       </div>
       }
       <button
         class="day-tile card relative overflow-hidden transition-all duration-300"
         [class.completed]="isDayCompleted(dayConfig.day)"
         [class.unpopulated]="!dayConfig.challengeType"
-        [class.hover:scale-105]="dayConfig.challengeType"
-        [class.hover:shadow-xl]="dayConfig.challengeType"
-        [disabled]="!dayConfig.challengeType"
+        [class.locked]="isDayLocked(dayConfig)"
+        [class.hover:scale-105]="dayConfig.challengeType && !isDayLocked(dayConfig)"
+        [class.hover:shadow-xl]="dayConfig.challengeType && !isDayLocked(dayConfig)"
+        [disabled]="!dayConfig.challengeType || isDayLocked(dayConfig)"
         (click)="onDaySelected(dayConfig)"
         [attr.aria-label]="'Day ' + dayConfig.day"
       >
@@ -61,6 +66,19 @@
             [img]="Check"
             class="w-2 h-2 sm:w-3 sm:h-3 md:w-4 md:h-4 text-white"
             [strokeWidth]="3"
+          ></lucide-icon>
+        </div>
+        }
+
+        <!-- Locked Indicator -->
+        @if (isDayLocked(dayConfig)) {
+        <div
+          class="absolute top-0.5 right-0.5 sm:top-1 sm:right-1 md:top-2 md:right-2 bg-text-muted/50 rounded-full p-0.5 sm:p-1 z-20"
+        >
+          <lucide-icon
+            [img]="Lock"
+            class="w-2 h-2 sm:w-3 sm:h-3 md:w-4 md:h-4 text-white/70"
+            [strokeWidth]="2.5"
           ></lucide-icon>
         </div>
         }

@@ -6,12 +6,82 @@
 export class CalendarStateService {
   private readonly STORAGE_KEY = 'jambiz-advent-completed-days';
   private readonly STATS_STORAGE_KEY = 'jambiz-advent-game-stats';
+  private readonly DEV_MODE_KEY = 'jambiz-advent-dev-mode';
   private completedDays: Set<number> = new Set();
   private gameStats: Map<string, any> = new Map();
+  private _devMode = false;
 
   constructor() {
     this.loadFromStorage();
     this.loadStatsFromStorage();
+    this.loadDevMode();
+  }
+
+  /**
+   * Developer mode - when enabled, all days are unlocked regardless of date
+   */
+  get devMode(): boolean {
+    return this._devMode;
+  }
+
+  set devMode(value: boolean) {
+    this._devMode = value;
+    this.saveDevMode();
+  }
+
+  toggleDevMode(): void {
+    this.devMode = !this._devMode;
+  }
+
+  private loadDevMode(): void {
+    try {
+      const stored = localStorage.getItem(this.DEV_MODE_KEY);
+      this._devMode = stored === 'true';
+    } catch {
+      this._devMode = false;
+    }
+  }
+
+  private saveDevMode(): void {
+    try {
+      localStorage.setItem(this.DEV_MODE_KEY, String(this._devMode));
+    } catch (error) {
+      console.error('Failed to save dev mode to storage', error);
+    }
+  }
+
+  /**
+   * Check if a specific day is unlocked based on the current date
+   * Days unlock on their corresponding December date (day 1 = Dec 1, etc.)
+   * In dev mode, all days are unlocked
+   */
+  isDayUnlocked(day: number): boolean {
+    // Dev mode unlocks everything
+    if (this._devMode) {
+      return true;
+    }
+
+    // Christmas day or later unlocks everything
+    if (this.isChristmasDay()) {
+      return true;
+    }
+
+    const now = new Date();
+    const month = now.getMonth(); // 0-indexed, December = 11
+    const currentDay = now.getDate();
+
+    // Before December, nothing is unlocked
+    if (month < 11) {
+      return false;
+    }
+
+    // In December, unlock days up to and including today
+    if (month === 11) {
+      return day <= currentDay;
+    }
+
+    // After December (January onwards), everything is unlocked
+    return true;
   }
 
   getCompletedDays(): number[] {
