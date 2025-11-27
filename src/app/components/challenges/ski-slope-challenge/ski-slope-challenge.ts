@@ -12,7 +12,14 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { LucideAngularModule, Check, Keyboard, Smartphone } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  Check,
+  Keyboard,
+  Smartphone,
+  ArrowLeft,
+  ArrowRight,
+} from 'lucide-angular';
 import { GameService } from '../../../services/game.service';
 import { KeyboardService } from '../../../services/keyboard.service';
 import { CalendarStateService } from '../../../services/calendar-state.service';
@@ -180,6 +187,12 @@ export class SkiSlopeChallenge implements OnInit, AfterViewInit, OnDestroy {
   readonly Check = Check;
   readonly Keyboard = Keyboard;
   readonly Smartphone = Smartphone;
+  readonly ArrowLeft = ArrowLeft;
+  readonly ArrowRight = ArrowRight;
+
+  // Mobile controls state
+  private moveLeft = false;
+  private moveRight = false;
 
   canvas!: HTMLCanvasElement;
   ctx!: CanvasRenderingContext2D;
@@ -651,6 +664,17 @@ export class SkiSlopeChallenge implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  // Mobile control handlers
+  startMove(direction: 'left' | 'right'): void {
+    if (direction === 'left') this.moveLeft = true;
+    if (direction === 'right') this.moveRight = true;
+  }
+
+  stopMove(direction: 'left' | 'right'): void {
+    if (direction === 'left') this.moveLeft = false;
+    if (direction === 'right') this.moveRight = false;
+  }
+
   private handleInput(deltaTime: number): void {
     let moveX = 0;
 
@@ -661,8 +685,15 @@ export class SkiSlopeChallenge implements OnInit, AfterViewInit, OnDestroy {
       moveX = 1;
     }
 
-    // Touch input
-    if (this.touchDirection.x !== 0) {
+    // Touch input (buttons)
+    if (this.moveLeft) {
+      moveX = -1;
+    } else if (this.moveRight) {
+      moveX = 1;
+    }
+
+    // Legacy Touch input (joystick - kept for compatibility if needed, but buttons override)
+    if (moveX === 0 && this.touchDirection.x !== 0) {
       moveX = this.touchDirection.x;
     }
 
