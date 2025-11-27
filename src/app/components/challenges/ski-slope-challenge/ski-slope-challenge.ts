@@ -24,7 +24,6 @@ import { GameService } from '../../../services/game.service';
 import { KeyboardService } from '../../../services/keyboard.service';
 import { CalendarStateService } from '../../../services/calendar-state.service';
 import { ChallengeInfoModalComponent } from '../../shared/challenge-info-modal/challenge-info-modal.component';
-import { TouchControlsComponent } from '../../touch-controls/touch-controls';
 
 export type SkiSlopeDifficulty = 'easy' | 'medium' | 'hard' | 'custom';
 
@@ -165,13 +164,7 @@ const DIFFICULTY_PRESETS: Record<SkiSlopeDifficulty, SkiSlopeDifficultyConfig> =
 @Component({
   selector: 'app-ski-slope-challenge',
   standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    LucideAngularModule,
-    ChallengeInfoModalComponent,
-    TouchControlsComponent,
-  ],
+  imports: [CommonModule, TranslateModule, LucideAngularModule, ChallengeInfoModalComponent],
   templateUrl: './ski-slope-challenge.html',
   styleUrl: './ski-slope-challenge.scss',
 })
