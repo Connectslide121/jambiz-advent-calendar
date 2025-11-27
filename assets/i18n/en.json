@@ -343,6 +343,9 @@
   "rewards": {
     "galleryButton": "All Rewards",
     "galleryTitle": "All Rewards",
+    "gallery": {
+      "clickToInteract": "Click to interact!"
+    },
     "lockedHint": "Complete all 24 days to unlock",
     "unlockHint": "Complete all challenges to unlock rewards gallery and extras ({{completed}}/{{total}})",
     "lyricsLabel": "Lyrics",
@@ -373,6 +376,25 @@
     "day18": {
       "title": "🎵 Christmas at Jambiz 🎵",
       "lyrics": "Deck the halls with PowerPoints\nFa-la-la-la-la\nOh what a joint\nCoffee cups and donut crumbs\nWorkplace cheer\nHere it comes\n\nDeadlines jingling all the way\nLast-minute tasks on Santa's sleigh\n\nChristmas at Jambiz\nWe're feeling fine\nSippin' on lattes in a deadline line\nMeetings and greetings and snacks divine\nOh\nChristmas at Jambiz\nIt's grind-and-shine!\n\nSecret Santa\nPick your fate\nOh no\nBob got a stapler plate\nUgly sweaters\nOffice flair\nWho's got eggnog? Do we care?\n\nSpreadsheet elves are on the run\nAdding columns\nHaving fun\n\nChristmas at Jambiz\nWe're feeling fine\nSippin' on lattes in a deadline line\nMeetings and greetings and snacks divine\nOh\nChristmas at Jambiz\nIt's grind-and-shine!"
+    },
+    "snowGlobe": {
+      "title": "🔮 Magical Snow Globe",
+      "instruction": "Click to shake the snow globe!",
+      "plaque": "Jambiz 2025"
+    },
+    "magic8Ball": {
+      "title": "🎱 Santa's Magic Ornament",
+      "instruction": "Think of a question and click to shake!",
+      "answers": {
+        "yes": "Yes, definitely!",
+        "no": "Santa says no",
+        "maybe": "Ask again later",
+        "askAgain": "Cloudy future",
+        "definitely": "It is certain",
+        "unlikely": "Don't count on it",
+        "santaSaysYes": "Santa approves!",
+        "elfSaysNo": "The elves say nope"
+      }
     }
   },
   "extras": {

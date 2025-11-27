@@ -360,6 +360,9 @@
   "rewards": {
     "galleryButton": "Alla belöningar",
     "galleryTitle": "Alla belöningar",
+    "gallery": {
+      "clickToInteract": "Klicka för att interagera!"
+    },
     "lockedHint": "Slutför alla 24 dagar för att låsa upp",
     "unlockHint": "Slutför alla utmaningar för att låsa upp belöningsgalleriet och extras ({{completed}}/{{total}})",
     "lyricsLabel": "Text",
@@ -390,6 +393,25 @@
     "day18": {
       "title": "🎵 Christmas at Jambiz 🎵",
       "lyrics": "Deck the halls with PowerPoints\nFa-la-la-la-la\nOh what a joint\nCoffee cups and donut crumbs\nWorkplace cheer\nHere it comes\n\nDeadlines jingling all the way\nLast-minute tasks on Santa's sleigh\n\nChristmas at Jambiz\nWe're feeling fine\nSippin' on lattes in a deadline line\nMeetings and greetings and snacks divine\nOh\nChristmas at Jambiz\nIt's grind-and-shine!\n\nSecret Santa\nPick your fate\nOh no\nBob got a stapler plate\nUgly sweaters\nOffice flair\nWho's got eggnog? Do we care?\n\nSpreadsheet elves are on the run\nAdding columns\nHaving fun\n\nChristmas at Jambiz\nWe're feeling fine\nSippin' on lattes in a deadline line\nMeetings and greetings and snacks divine\nOh\nChristmas at Jambiz\nIt's grind-and-shine!"
+    },
+    "snowGlobe": {
+      "title": "🔮 Magisk Snöglob",
+      "instruction": "Klicka för att skaka snögloben!",
+      "plaque": "Jambiz 2025"
+    },
+    "magic8Ball": {
+      "title": "🎱 Tomtens Magiska Kula",
+      "instruction": "Tänk på en fråga och klicka för att skaka!",
+      "answers": {
+        "yes": "Ja, absolut!",
+        "no": "Tomten säger nej",
+        "maybe": "Fråga igen senare",
+        "askAgain": "Molnig framtid",
+        "definitely": "Det är säkert",
+        "unlikely": "Räkna inte med det",
+        "santaSaysYes": "Tomten godkänner!",
+        "elfSaysNo": "Nissarna säger nja"
+      }
     }
   },
   "extras": {
