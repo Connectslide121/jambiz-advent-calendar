@@ -80,7 +80,7 @@ export class FunFactReveal implements OnInit {
     for (let i = 0; i < 80; i++) {
       this.snowflakes.push({
         id: this.snowIdCounter++,
-        left: 10 + Math.random() * 80,
+        left: Math.random() * 100,
         top: 70 + Math.random() * 25,
         size: 2 + Math.random() * 4,
         speed: 4 + Math.random() * 6,
@@ -94,7 +94,7 @@ export class FunFactReveal implements OnInit {
   private spawnSnowflake(): void {
     const flake = {
       id: this.snowIdCounter++,
-      left: 10 + Math.random() * 80,
+      left: Math.random() * 100,
       top: -5 - Math.random() * 10,
       size: 2 + Math.random() * 4,
       speed: 5 + Math.random() * 5,
@@ -151,7 +151,7 @@ export class FunFactReveal implements OnInit {
       this.snowflakes = this.snowflakes.map((flake) => ({
         ...flake,
         top: Math.random() * 50,
-        left: 10 + Math.random() * 80,
+        left: Math.random() * 100,
         delay: Math.random() * 0.5,
       }));
 
