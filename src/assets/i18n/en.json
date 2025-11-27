@@ -407,6 +407,14 @@
         "santaSaysYes": "Santa approves!",
         "elfSaysNo": "The elves say nope"
       }
+    },
+    "popupCard": {
+      "title": "🎄 Christmas Pop-up Card",
+      "instruction": "Click to open the card!",
+      "clickToOpen": "Click to Open",
+      "clickToClose": "Click to close the card",
+      "greeting": "From Jambiz with ❤️",
+      "topMessage": "Wishing you a Merry Christmas and a Happy New Year!"
     }
   },
   "extras": {

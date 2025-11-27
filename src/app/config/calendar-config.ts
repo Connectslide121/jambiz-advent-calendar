@@ -91,7 +91,10 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
     day: 6,
     gridPosition: 1, // Top left area
     challengeType: 'rebus',
-    funFactKey: 'funFacts.day6',
+    reward: {
+      type: 'popupCard',
+      title: 'rewards.popupCard.title',
+    },
     challengeData: {
       rebusKey: 'challenges.rebus.day6.puzzle',
       answerKey: ['snowman', 'snögubbe'],

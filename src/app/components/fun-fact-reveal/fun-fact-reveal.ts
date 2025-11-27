@@ -42,6 +42,10 @@ export class FunFactReveal implements OnInit {
   eightBallAnswer: string | null = null;
   showEightBallAnswer = false;
 
+  // Pop-up Card State
+  isCardOpen = false;
+  isCardAnimating = false;
+
   constructor(private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
@@ -178,6 +182,19 @@ export class FunFactReveal implements OnInit {
     ];
     const randomIndex = Math.floor(Math.random() * answers.length);
     this.eightBallAnswer = answers[randomIndex];
+  }
+
+  // Pop-up Card Logic
+  toggleCard(): void {
+    if (this.isCardAnimating) return;
+
+    this.isCardAnimating = true;
+    this.isCardOpen = !this.isCardOpen;
+
+    // Reset animating state after animation completes
+    setTimeout(() => {
+      this.isCardAnimating = false;
+    }, 800);
   }
 
   private prepareVideoUrl(): void {

@@ -23,7 +23,8 @@ export type RewardType =
   | 'audio'
   | 'coupon'
   | 'snowGlobe'
-  | 'magic8Ball';
+  | 'magic8Ball'
+  | 'popupCard';
 
 export interface RewardConfig {
   type: RewardType;

@@ -185,12 +185,18 @@ export class App implements OnInit {
     return day.reward?.type === 'magic8Ball';
   }
 
+  // Check if day has a popup card reward
+  hasPopupCardReward(day: CalendarDayConfig): boolean {
+    return day.reward?.type === 'popupCard';
+  }
+
   // Open interactive reward in modal
   openInteractiveReward(day: CalendarDayConfig): void {
     if (
       day.reward &&
       (day.reward.type === 'snowGlobe' ||
         day.reward.type === 'magic8Ball' ||
+        day.reward.type === 'popupCard' ||
         day.reward.type === 'coupon')
     ) {
       this.interactiveRewardConfig = day.reward;

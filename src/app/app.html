@@ -501,6 +501,10 @@
                 <span class="text-sm bg-purple-600 text-white px-2 py-0.5 rounded-full"
                   >🎱 Magic 8-Ball</span
                 >
+                } @if (hasPopupCardReward(day)) {
+                <span class="text-sm bg-red-600 text-white px-2 py-0.5 rounded-full"
+                  >💌 Pop-up Card</span
+                >
                 }
               </div>
 
@@ -615,6 +619,26 @@
                   <div class="text-left">
                     <h4 class="text-base sm:text-lg font-bold text-gold">
                       {{ 'rewards.magic8Ball.title' | translate }}
+                    </h4>
+                    <p class="text-xs sm:text-sm text-text-muted">
+                      {{ 'rewards.gallery.clickToInteract' | translate }}
+                    </p>
+                  </div>
+                </button>
+              </div>
+              }
+
+              <!-- Pop-up Card Reward -->
+              @if (hasPopupCardReward(day)) {
+              <div class="mt-4">
+                <button
+                  (click)="openInteractiveReward(day)"
+                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-transparent hover:border-red-500"
+                >
+                  <span class="text-4xl">💌</span>
+                  <div class="text-left">
+                    <h4 class="text-base sm:text-lg font-bold text-gold">
+                      {{ 'rewards.popupCard.title' | translate }}
                     </h4>
                     <p class="text-xs sm:text-sm text-text-muted">
                       {{ 'rewards.gallery.clickToInteract' | translate }}

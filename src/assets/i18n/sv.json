@@ -424,6 +424,14 @@
         "santaSaysYes": "Tomten godkänner!",
         "elfSaysNo": "Nissarna säger nja"
       }
+    },
+    "popupCard": {
+      "title": "🎄 Julkort Pop-up",
+      "instruction": "Klicka för att öppna kortet!",
+      "clickToOpen": "Klicka för att öppna",
+      "clickToClose": "Klicka för att stänga kortet",
+      "greeting": "Från Jambiz med ❤️",
+      "topMessage": "Vi önskar dig en God Jul och ett Gott Nytt År!"
     }
   },
   "extras": {
