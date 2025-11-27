@@ -21,6 +21,27 @@ export class FunFactReveal implements OnInit {
   effectiveReward?: RewardConfig;
   safeVideoUrl?: SafeResourceUrl;
 
+  // Snow Globe State
+  snowflakes: Array<{
+    id: number;
+    left: number;
+    top: number;
+    size: number;
+    speed: number;
+    delay: number;
+    chaosX: number;
+    chaosY: number;
+  }> = [];
+  isShakingSnowGlobe = false;
+  isSnowFalling = false;
+  private snowSpawnerInterval: any = null;
+  private snowIdCounter = 0;
+
+  // Magic 8-Ball State
+  isShaking8Ball = false;
+  eightBallAnswer: string | null = null;
+  showEightBallAnswer = false;
+
   constructor(private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
@@ -37,10 +58,142 @@ export class FunFactReveal implements OnInit {
       this.rewardType = 'text';
     }
 
+    // Initialize specific rewards
+    if (this.rewardType === 'snowGlobe') {
+      this.initSnowGlobe();
+    }
+
     // Prepare video URL if needed
     if (this.rewardType === 'video' && this.effectiveReward?.videoUrl) {
       this.prepareVideoUrl();
     }
+  }
+
+  // Snow Globe Logic
+  private initSnowGlobe(): void {
+    this.snowflakes = [];
+    // Start with snow settled at the bottom
+    for (let i = 0; i < 80; i++) {
+      this.snowflakes.push({
+        id: this.snowIdCounter++,
+        left: 10 + Math.random() * 80,
+        top: 70 + Math.random() * 25,
+        size: 2 + Math.random() * 4,
+        speed: 4 + Math.random() * 6,
+        delay: 0,
+        chaosX: (Math.random() - 0.5) * 150,
+        chaosY: (Math.random() - 0.5) * 150,
+      });
+    }
+  }
+
+  private spawnSnowflake(): void {
+    const flake = {
+      id: this.snowIdCounter++,
+      left: 10 + Math.random() * 80,
+      top: -5 - Math.random() * 10,
+      size: 2 + Math.random() * 4,
+      speed: 5 + Math.random() * 5,
+      delay: 0,
+      chaosX: 0,
+      chaosY: 0,
+    };
+    this.snowflakes.push(flake);
+
+    // Remove flake after it falls
+    setTimeout(() => {
+      const index = this.snowflakes.findIndex((f) => f.id === flake.id);
+      if (index > -1) {
+        this.snowflakes.splice(index, 1);
+      }
+    }, flake.speed * 1000 + 1000);
+  }
+
+  private startSnowSpawner(): void {
+    if (this.snowSpawnerInterval) return;
+
+    // Spawn snow continuously
+    this.snowSpawnerInterval = setInterval(() => {
+      // Spawn 2-4 flakes at a time
+      const count = 2 + Math.floor(Math.random() * 3);
+      for (let i = 0; i < count; i++) {
+        this.spawnSnowflake();
+      }
+    }, 100);
+  }
+
+  private stopSnowSpawner(): void {
+    if (this.snowSpawnerInterval) {
+      clearInterval(this.snowSpawnerInterval);
+      this.snowSpawnerInterval = null;
+    }
+  }
+
+  shakeSnowGlobe(): void {
+    if (this.isShakingSnowGlobe) return;
+
+    // Stop any existing spawner
+    this.stopSnowSpawner();
+
+    this.isShakingSnowGlobe = true;
+    this.isSnowFalling = false;
+
+    // Shake phase - snow goes crazy
+    setTimeout(() => {
+      this.isShakingSnowGlobe = false;
+      this.isSnowFalling = true;
+
+      // Scatter existing snow to random positions for falling
+      this.snowflakes = this.snowflakes.map((flake) => ({
+        ...flake,
+        top: Math.random() * 50,
+        left: 10 + Math.random() * 80,
+        delay: Math.random() * 0.5,
+      }));
+
+      // Start spawning new snow
+      this.startSnowSpawner();
+
+      // Stop spawning after 20 seconds, let remaining snow settle
+      setTimeout(() => {
+        this.stopSnowSpawner();
+
+        // Let the last flakes fall, then settle
+        setTimeout(() => {
+          this.isSnowFalling = false;
+          // Settle remaining snow at the bottom
+          this.snowflakes = this.snowflakes.map((flake) => ({
+            ...flake,
+            top: 70 + Math.random() * 25,
+            left: 10 + Math.random() * 80,
+          }));
+        }, 8000);
+      }, 20000);
+    }, 600);
+  }
+
+  // Magic 8-Ball Logic
+  shake8Ball(): void {
+    if (this.isShaking8Ball) return;
+
+    this.isShaking8Ball = true;
+    this.showEightBallAnswer = false;
+
+    setTimeout(() => {
+      this.isShaking8Ball = false;
+      this.showEightBallAnswer = true;
+      this.pickRandomAnswer();
+    }, 1000);
+  }
+
+  private pickRandomAnswer(): void {
+    const answers = this.effectiveReward?.answers || [
+      'rewards.magic8Ball.answers.yes',
+      'rewards.magic8Ball.answers.no',
+      'rewards.magic8Ball.answers.maybe',
+    ];
+    const randomIndex = Math.floor(Math.random() * answers.length);
+    this.eightBallAnswer = answers[randomIndex];
   }
 
   private prepareVideoUrl(): void {

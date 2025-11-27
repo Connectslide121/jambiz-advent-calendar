@@ -15,7 +15,14 @@
   | 'presentStacking'
   | 'giftCatcher';
 
-export type RewardType = 'text' | 'image' | 'video' | 'audio' | 'coupon';
+export type RewardType =
+  | 'text'
+  | 'image'
+  | 'video'
+  | 'audio'
+  | 'coupon'
+  | 'snowGlobe'
+  | 'magic8Ball';
 
 export interface RewardConfig {
   type: RewardType;
@@ -39,6 +46,8 @@ export interface RewardConfig {
   couponDescriptionKey?: string; // Translation key for coupon description
   couponEmoji?: string; // Emoji to display on the coupon
   couponValidityKey?: string; // Translation key for validity text (e.g., "Valid until: End of holiday spirit")
+  // For Magic 8-Ball
+  answers?: string[]; // Array of translation keys for answers
   // Common optional properties
   title?: string; // Translation key for custom title (overrides default "Fun Fact")
 }

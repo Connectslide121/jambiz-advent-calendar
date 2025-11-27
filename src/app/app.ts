@@ -6,8 +6,9 @@ import { ChallengeHost } from './components/challenge-host/challenge-host';
 import { LandingPage } from './components/landing-page/landing-page';
 import { EXTRA_LEVELS, ExtraGameSection, ExtraLevel } from './config/extras-config';
 import { CALENDAR_DAYS } from './config/calendar-config';
-import { CalendarDayConfig, ChallengeType } from './models/calendar.models';
+import { CalendarDayConfig, ChallengeType, RewardConfig } from './models/calendar.models';
 import { CHALLENGE_ICONS, DEFAULT_CHALLENGE_ICON } from './config/challenge-icons';
+import { FunFactReveal } from './components/fun-fact-reveal/fun-fact-reveal';
 import {
   LucideAngularModule,
   X,
@@ -39,6 +40,7 @@ interface Snowflake {
     ChallengeHost,
     LucideAngularModule,
     LandingPage,
+    FunFactReveal,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
@@ -59,6 +61,8 @@ export class App implements OnInit {
   showExtrasMenu = false;
   showExtraChallenge = false;
   showRewardsGallery = false;
+  showInteractiveReward = false;
+  interactiveRewardConfig: RewardConfig | null = null;
   selectedGame: ExtraGameSection | null = null;
   selectedExtraConfig: CalendarDayConfig | null = null;
   selectedExtraId: string | null = null;
@@ -169,6 +173,34 @@ export class App implements OnInit {
   // Check if day has a coupon reward
   hasCouponReward(day: CalendarDayConfig): boolean {
     return day.reward?.type === 'coupon';
+  }
+
+  // Check if day has a snow globe reward
+  hasSnowGlobeReward(day: CalendarDayConfig): boolean {
+    return day.reward?.type === 'snowGlobe';
+  }
+
+  // Check if day has a magic 8-ball reward
+  hasMagic8BallReward(day: CalendarDayConfig): boolean {
+    return day.reward?.type === 'magic8Ball';
+  }
+
+  // Open interactive reward in modal
+  openInteractiveReward(day: CalendarDayConfig): void {
+    if (
+      day.reward &&
+      (day.reward.type === 'snowGlobe' ||
+        day.reward.type === 'magic8Ball' ||
+        day.reward.type === 'coupon')
+    ) {
+      this.interactiveRewardConfig = day.reward;
+      this.showInteractiveReward = true;
+    }
+  }
+
+  closeInteractiveReward(): void {
+    this.showInteractiveReward = false;
+    this.interactiveRewardConfig = null;
   }
 
   selectGame(game: ExtraGameSection): void {

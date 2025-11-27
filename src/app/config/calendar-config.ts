@@ -223,7 +223,10 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
     day: 14,
     gridPosition: 23, // Bottom right corner
     challengeType: 'riddle',
-    funFactKey: 'funFacts.day14',
+    reward: {
+      type: 'snowGlobe',
+      title: 'rewards.snowGlobe.title',
+    },
     challengeData: {
       riddleKey: 'challenges.riddle.day17.question',
       answerKey: ['icicle', 'istapp'],
@@ -331,7 +334,20 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
     day: 21,
     gridPosition: 17, // Bottom right-center
     challengeType: 'rebus',
-    funFactKey: 'funFacts.day21',
+    reward: {
+      type: 'magic8Ball',
+      title: 'rewards.magic8Ball.title',
+      answers: [
+        'rewards.magic8Ball.answers.yes',
+        'rewards.magic8Ball.answers.no',
+        'rewards.magic8Ball.answers.maybe',
+        'rewards.magic8Ball.answers.askAgain',
+        'rewards.magic8Ball.answers.definitely',
+        'rewards.magic8Ball.answers.unlikely',
+        'rewards.magic8Ball.answers.santaSaysYes',
+        'rewards.magic8Ball.answers.elfSaysNo',
+      ],
+    },
     challengeData: {
       rebusKey: 'challenges.rebus.day21.puzzle',
       answerKey: ['winter', 'vinter'],

@@ -90,12 +90,7 @@
       <!-- Audio Player -->
       <div class="flex items-center gap-3 bg-surface rounded-lg p-3">
         <span class="text-2xl">🎵</span>
-        <audio
-          [src]="effectiveReward.audioUrl"
-          controls
-          class="flex-1 h-10"
-          controlsList="nodownload"
-        >
+        <audio [src]="effectiveReward.audioUrl" controls class="flex-1 h-10">
           <source
             [src]="effectiveReward.audioUrl"
             [type]="'audio/' + (effectiveReward.audioType || 'mp3')"
@@ -162,6 +157,62 @@
       <!-- Instruction -->
       <p class="text-xs sm:text-sm text-text-muted mt-4">
         {{ 'rewards.coupon.instruction' | translate }}
+      </p>
+    </div>
+    }
+
+    <!-- Snow Globe Reward -->
+    @if (rewardType === 'snowGlobe') {
+    <div class="snow-globe-container cursor-pointer" (click)="shakeSnowGlobe()">
+      <div class="snow-globe" [class.shaking]="isShakingSnowGlobe" [class.falling]="isSnowFalling">
+        <div class="dome">
+          <div class="scene">
+            <div class="tree">🎄</div>
+            <div class="snowman">⛄</div>
+          </div>
+          @for (flake of snowflakes; track flake.id) {
+          <div
+            class="snowflake"
+            [class.spawned]="flake.top < 0"
+            [style.left.%]="flake.left"
+            [style.top.%]="flake.top"
+            [style.width.px]="flake.size"
+            [style.height.px]="flake.size"
+            [style.--fall-duration.s]="flake.speed"
+            [style.--fall-delay.s]="flake.delay"
+            [style.--chaos-x.px]="flake.chaosX"
+            [style.--chaos-y.px]="flake.chaosY"
+          ></div>
+          }
+        </div>
+        <div class="base">
+          <div class="plaque">{{ 'rewards.snowGlobe.plaque' | translate }}</div>
+        </div>
+      </div>
+      <p class="text-sm text-text-muted mt-4 animate-pulse">
+        {{ 'rewards.snowGlobe.instruction' | translate }}
+      </p>
+    </div>
+    }
+
+    <!-- Magic 8-Ball Reward -->
+    @if (rewardType === 'magic8Ball') {
+    <div class="magic-8ball-container cursor-pointer" (click)="shake8Ball()">
+      <div class="magic-8ball" [class.shaking]="isShaking8Ball">
+        <div class="shine"></div>
+        <div class="window">
+          <div class="triangle" [class.visible]="showEightBallAnswer">
+            @if (eightBallAnswer) {
+            <span class="answer">{{ eightBallAnswer | translate }}</span>
+            }
+          </div>
+          @if (!showEightBallAnswer && !isShaking8Ball) {
+          <div class="number-8">8</div>
+          }
+        </div>
+      </div>
+      <p class="text-sm text-text-muted mt-4 animate-pulse">
+        {{ 'rewards.magic8Ball.instruction' | translate }}
       </p>
     </div>
     } }

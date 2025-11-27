@@ -493,6 +493,14 @@
                 <span class="text-sm bg-accent-red text-white px-2 py-0.5 rounded-full"
                   >🎟️ Coupon</span
                 >
+                } @if (hasSnowGlobeReward(day)) {
+                <span class="text-sm bg-blue-500 text-white px-2 py-0.5 rounded-full"
+                  >🔮 Snow Globe</span
+                >
+                } @if (hasMagic8BallReward(day)) {
+                <span class="text-sm bg-purple-600 text-white px-2 py-0.5 rounded-full"
+                  >🎱 Magic 8-Ball</span
+                >
                 }
               </div>
 
@@ -532,12 +540,7 @@
                     {{ day.reward!.title | translate }}
                   </span>
                   }
-                  <audio
-                    [src]="day.reward!.audioUrl"
-                    controls
-                    class="w-full sm:flex-1 h-10"
-                    controlsList="nodownload"
-                  >
+                  <audio [src]="day.reward!.audioUrl" controls class="w-full sm:flex-1 h-10">
                     <source
                       [src]="day.reward!.audioUrl!"
                       [type]="'audio/' + (day.reward!.audioType || 'mp3')"
@@ -564,19 +567,60 @@
               <!-- Coupon Reward -->
               @if (hasCouponReward(day) && day.reward?.couponTitleKey) {
               <div class="mt-4">
-                <div class="coupon-gallery">
-                  <div class="coupon-gallery-content">
-                    <span class="text-3xl sm:text-4xl">{{ day.reward!.couponEmoji || '🎟️' }}</span>
-                    <div class="flex-1 min-w-0">
-                      <h4 class="text-base sm:text-lg font-bold text-gold">
-                        {{ day.reward!.couponTitleKey | translate }}
-                      </h4>
-                      <p class="text-xs sm:text-sm text-text-muted italic">
-                        "{{ day.reward!.couponDescriptionKey | translate }}"
-                      </p>
-                    </div>
+                <button
+                  (click)="openInteractiveReward(day)"
+                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-transparent hover:border-accent-red"
+                >
+                  <span class="text-3xl sm:text-4xl">{{ day.reward!.couponEmoji || '🎟️' }}</span>
+                  <div class="flex-1 min-w-0 text-left">
+                    <h4 class="text-base sm:text-lg font-bold text-gold">
+                      {{ day.reward!.couponTitleKey | translate }}
+                    </h4>
+                    <p class="text-xs sm:text-sm text-text-muted">
+                      {{ 'rewards.gallery.clickToInteract' | translate }}
+                    </p>
                   </div>
-                </div>
+                </button>
+              </div>
+              }
+
+              <!-- Snow Globe Reward -->
+              @if (hasSnowGlobeReward(day)) {
+              <div class="mt-4">
+                <button
+                  (click)="openInteractiveReward(day)"
+                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-transparent hover:border-blue-500"
+                >
+                  <span class="text-4xl">🔮</span>
+                  <div class="text-left">
+                    <h4 class="text-base sm:text-lg font-bold text-gold">
+                      {{ 'rewards.snowGlobe.title' | translate }}
+                    </h4>
+                    <p class="text-xs sm:text-sm text-text-muted">
+                      {{ 'rewards.gallery.clickToInteract' | translate }}
+                    </p>
+                  </div>
+                </button>
+              </div>
+              }
+
+              <!-- Magic 8-Ball Reward -->
+              @if (hasMagic8BallReward(day)) {
+              <div class="mt-4">
+                <button
+                  (click)="openInteractiveReward(day)"
+                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-transparent hover:border-purple-500"
+                >
+                  <span class="text-4xl">🎱</span>
+                  <div class="text-left">
+                    <h4 class="text-base sm:text-lg font-bold text-gold">
+                      {{ 'rewards.magic8Ball.title' | translate }}
+                    </h4>
+                    <p class="text-xs sm:text-sm text-text-muted">
+                      {{ 'rewards.gallery.clickToInteract' | translate }}
+                    </p>
+                  </div>
+                </button>
               </div>
               }
             </div>
@@ -585,6 +629,31 @@
         }
       </div>
     </div>
+  </div>
+</div>
+}
+
+<!-- Interactive Reward Modal (Snow Globe / Magic 8-Ball) -->
+@if (showInteractiveReward && interactiveRewardConfig) {
+<div class="modal-overlay" (click)="closeInteractiveReward()">
+  <div
+    class="modal-content w-full h-full sm:w-[90vw] sm:max-w-2xl sm:h-auto sm:max-h-[90vh] sm:rounded-2xl flex flex-col items-center justify-center p-8 relative"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Close Button -->
+    <button
+      (click)="closeInteractiveReward()"
+      class="absolute top-4 right-4 btn btn-outline p-2 min-w-0"
+      aria-label="Close"
+    >
+      <lucide-icon [img]="X" class="w-6 h-6" [strokeWidth]="2"></lucide-icon>
+    </button>
+
+    <!-- Interactive Reward Component -->
+    <app-fun-fact-reveal
+      [reward]="interactiveRewardConfig"
+      (continue)="closeInteractiveReward()"
+    ></app-fun-fact-reveal>
   </div>
 </div>
 }
