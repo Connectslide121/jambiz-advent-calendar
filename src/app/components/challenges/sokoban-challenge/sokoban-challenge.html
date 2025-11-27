@@ -55,13 +55,34 @@
     <!-- Sidebar (Stats + Controls) -->
     <div class="flex flex-col landscape:justify-center gap-2 sm:gap-4 shrink-0 z-10">
       <!-- Stats -->
-      <div
-        class="bg-surface border border-gray-700 rounded-lg p-2 sm:p-3 min-w-[100px] sm:min-w-[120px] shadow-lg"
-      >
-        <div class="text-xs text-text-muted text-center mb-1">
-          {{ 'challenges.sokoban.moves' | translate }}
+      <div class="flex flex-row sm:flex-col gap-2 w-full justify-center items-center">
+        <div
+          class="bg-surface border border-gray-700 rounded-lg p-2 sm:p-3 min-w-[100px] sm:min-w-[120px] shadow-lg"
+        >
+          <div class="text-xs text-text-muted text-center mb-1">
+            {{ 'challenges.sokoban.moves' | translate }}
+          </div>
+          <div class="text-xl sm:text-2xl font-bold text-gold text-center">{{ moveCount }}</div>
         </div>
-        <div class="text-xl sm:text-2xl font-bold text-gold text-center">{{ moveCount }}</div>
+
+        <!-- Undo/Reset Buttons (Moved here) -->
+        <div class="flex gap-2" *ngIf="!isWon">
+          <button
+            class="btn btn-outline p-2 sm:p-3 aspect-square flex items-center justify-center"
+            (click)="undo()"
+            [disabled]="moveHistory.length <= 1"
+            title="{{ 'challenges.sokoban.undo' | translate }}"
+          >
+            <lucide-icon [img]="Undo2" class="w-5 h-5"></lucide-icon>
+          </button>
+          <button
+            class="btn btn-outline p-2 sm:p-3 aspect-square flex items-center justify-center"
+            (click)="reset()"
+            title="{{ 'ui.reset' | translate }}"
+          >
+            <lucide-icon [img]="RotateCcw" class="w-5 h-5"></lucide-icon>
+          </button>
+        </div>
       </div>
 
       <!-- D-Pad Controls (Mobile/Touch) -->
@@ -70,7 +91,7 @@
       >
         <div></div>
         <button
-          class="btn btn-secondary p-2 sm:p-3 landscape:p-1.5 flex items-center justify-center active:scale-95 transition-transform touch-manipulation"
+          class="btn btn-secondary p-4 sm:p-5 landscape:p-1.5 flex items-center justify-center active:scale-95 transition-transform touch-manipulation"
           (click)="move('up')"
           [disabled]="isWon"
           aria-label="Move Up"
@@ -80,7 +101,7 @@
         <div></div>
 
         <button
-          class="btn btn-secondary p-2 sm:p-3 landscape:p-1.5 flex items-center justify-center active:scale-95 transition-transform touch-manipulation"
+          class="btn btn-secondary p-4 sm:p-5 landscape:p-1.5 flex items-center justify-center active:scale-95 transition-transform touch-manipulation"
           (click)="move('left')"
           [disabled]="isWon"
           aria-label="Move Left"
@@ -88,7 +109,7 @@
           <lucide-icon [img]="ArrowLeft" class="w-6 h-6 landscape:w-5 landscape:h-5"></lucide-icon>
         </button>
         <button
-          class="btn btn-secondary p-2 sm:p-3 landscape:p-1.5 flex items-center justify-center active:scale-95 transition-transform touch-manipulation"
+          class="btn btn-secondary p-4 sm:p-5 landscape:p-1.5 flex items-center justify-center active:scale-95 transition-transform touch-manipulation"
           (click)="move('down')"
           [disabled]="isWon"
           aria-label="Move Down"
@@ -96,7 +117,7 @@
           <lucide-icon [img]="ArrowDown" class="w-6 h-6 landscape:w-5 landscape:h-5"></lucide-icon>
         </button>
         <button
-          class="btn btn-secondary p-2 sm:p-3 landscape:p-1.5 flex items-center justify-center active:scale-95 transition-transform touch-manipulation"
+          class="btn btn-secondary p-4 sm:p-5 landscape:p-1.5 flex items-center justify-center active:scale-95 transition-transform touch-manipulation"
           (click)="move('right')"
           [disabled]="isWon"
           aria-label="Move Right"
@@ -107,24 +128,6 @@
 
       <!-- Action Buttons -->
       <div class="flex gap-2 justify-center">
-        <ng-container *ngIf="!isWon">
-          <button
-            class="btn btn-outline p-2 flex-1 flex justify-center"
-            (click)="undo()"
-            [disabled]="moveHistory.length <= 1"
-            title="{{ 'challenges.sokoban.undo' | translate }}"
-          >
-            <lucide-icon [img]="Undo2" class="w-5 h-5"></lucide-icon>
-          </button>
-          <button
-            class="btn btn-outline p-2 flex-1 flex justify-center"
-            (click)="reset()"
-            title="{{ 'ui.reset' | translate }}"
-          >
-            <lucide-icon [img]="RotateCcw" class="w-5 h-5"></lucide-icon>
-          </button>
-        </ng-container>
-
         <ng-container *ngIf="isWon && isCompleted">
           <button class="btn btn-primary flex-1" (click)="showReward()">
             {{ 'ui.showReward' | translate }}

@@ -93,7 +93,7 @@
       class="flex flex-col landscape:justify-center gap-1 sm:gap-4 shrink-0 z-10 w-full sm:w-auto"
     >
       <!-- Stats -->
-      <div class="flex flex-row sm:flex-col gap-2 w-full justify-center">
+      <div class="flex flex-row sm:flex-col gap-2 w-full justify-center items-center">
         <div
           class="bg-surface border border-gray-700 rounded-lg p-1 sm:p-3 flex-1 sm:flex-none min-w-[80px] sm:min-w-[120px] shadow-lg"
         >
@@ -116,6 +116,16 @@
             {{ collectedCount }} / {{ collectibleCount }}
           </div>
         </div>
+
+        <!-- Reset Button (Moved here) -->
+        <button
+          class="btn btn-outline p-2 sm:p-3 aspect-square flex items-center justify-center"
+          (click)="reset()"
+          title="{{ 'ui.reset' | translate }}"
+          *ngIf="!isWon"
+        >
+          <lucide-icon [img]="RotateCcw" class="w-5 h-5"></lucide-icon>
+        </button>
       </div>
 
       <!-- D-Pad Controls (Mobile/Touch) -->
@@ -124,7 +134,7 @@
       >
         <div></div>
         <button
-          class="btn btn-secondary p-1 sm:p-3 landscape:p-1.5 flex items-center justify-center active:scale-95 transition-transform touch-manipulation"
+          class="btn btn-secondary p-3 sm:p-4 landscape:p-1.5 flex items-center justify-center active:scale-95 transition-transform touch-manipulation"
           (click)="move('up')"
           [disabled]="isWon"
           aria-label="Move Up"
@@ -137,7 +147,7 @@
         <div></div>
 
         <button
-          class="btn btn-secondary p-1 sm:p-3 landscape:p-1.5 flex items-center justify-center active:scale-95 transition-transform touch-manipulation"
+          class="btn btn-secondary p-3 sm:p-4 landscape:p-1.5 flex items-center justify-center active:scale-95 transition-transform touch-manipulation"
           (click)="move('left')"
           [disabled]="isWon"
           aria-label="Move Left"
@@ -148,7 +158,7 @@
           ></lucide-icon>
         </button>
         <button
-          class="btn btn-secondary p-1 sm:p-3 landscape:p-1.5 flex items-center justify-center active:scale-95 transition-transform touch-manipulation"
+          class="btn btn-secondary p-3 sm:p-4 landscape:p-1.5 flex items-center justify-center active:scale-95 transition-transform touch-manipulation"
           (click)="move('down')"
           [disabled]="isWon"
           aria-label="Move Down"
@@ -159,7 +169,7 @@
           ></lucide-icon>
         </button>
         <button
-          class="btn btn-secondary p-1 sm:p-3 landscape:p-1.5 flex items-center justify-center active:scale-95 transition-transform touch-manipulation"
+          class="btn btn-secondary p-3 sm:p-4 landscape:p-1.5 flex items-center justify-center active:scale-95 transition-transform touch-manipulation"
           (click)="move('right')"
           [disabled]="isWon"
           aria-label="Move Right"
@@ -173,15 +183,6 @@
 
       <!-- Action Buttons -->
       <div class="flex gap-2 justify-center">
-        <button
-          class="btn btn-outline p-1 sm:p-2 flex-1 flex justify-center"
-          (click)="reset()"
-          title="{{ 'ui.reset' | translate }}"
-          *ngIf="!isWon"
-        >
-          <lucide-icon [img]="RotateCcw" class="w-4 h-4 sm:w-5 sm:h-5"></lucide-icon>
-        </button>
-
         <ng-container *ngIf="isWon && isCompleted">
           <button
             class="btn btn-primary flex-1 py-1 sm:py-2 text-sm sm:text-base"
