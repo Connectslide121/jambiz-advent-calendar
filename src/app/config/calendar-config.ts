@@ -104,29 +104,10 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   {
     day: 7,
     gridPosition: 11, // Middle right
-    challengeType: 'wordSearch',
+    challengeType: 'skiSlope',
     funFactKey: 'funFacts.day7',
     challengeData: {
-      grid: [
-        ['S', 'N', 'O', 'W', 'B', 'A', 'L', 'L', 'X', 'M'],
-        ['T', 'Q', 'P', 'W', 'Z', 'K', 'M', 'V', 'B', 'P'],
-        ['A', 'L', 'I', 'G', 'H', 'T', 'S', 'Y', 'N', 'R'],
-        ['R', 'M', 'X', 'Q', 'F', 'W', 'P', 'L', 'D', 'T'],
-        ['Z', 'F', 'R', 'O', 'S', 'T', 'K', 'R', 'V', 'S'],
-        ['K', 'V', 'B', 'N', 'M', 'Q', 'W', 'X', 'Y', 'F'],
-        ['G', 'I', 'F', 'T', 'S', 'Z', 'L', 'P', 'T', 'T'],
-      ],
-      gridSv: [
-        ['S', 'N', 'Ö', 'B', 'O', 'L', 'L', 'T', 'X', 'K'],
-        ['T', 'Q', 'P', 'W', 'Z', 'K', 'M', 'O', 'V', 'R'],
-        ['J', 'L', 'J', 'U', 'S', 'M', 'Q', 'M', 'B', 'W'],
-        ['Ä', 'P', 'X', 'F', 'W', 'Y', 'N', 'T', 'L', 'Y'],
-        ['R', 'Z', 'K', 'V', 'B', 'P', 'M', 'E', 'D', 'B'],
-        ['N', 'M', 'Q', 'W', 'X', 'L', 'T', 'N', 'V', 'N'],
-        ['A', 'G', 'Å', 'V', 'O', 'R', 'K', 'P', 'X', 'M'],
-      ],
-      words: ['SNOWBALL', 'LIGHTS', 'FROST', 'GIFTS', 'STAR'],
-      wordsSv: ['SNÖBOLL', 'LJUS', 'TOMTEN', 'GÅVOR', 'STJÄRNA'],
+      difficulty: 'easy',
     },
   },
   {

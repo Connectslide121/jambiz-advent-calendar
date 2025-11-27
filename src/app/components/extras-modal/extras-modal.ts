@@ -27,6 +27,7 @@ import ClimberChallengeComponent from '../challenges/climber-challenge/climber-c
 import { FlappySleighChallenge } from '../challenges/flappy-sleigh-challenge/flappy-sleigh-challenge';
 import { MazeRunnerChallengeComponent } from '../challenges/maze-runner-challenge/maze-runner-challenge';
 import { GiftCatcherChallenge } from '../challenges/gift-catcher-challenge/gift-catcher-challenge';
+import { SkiSlopeChallenge } from '../challenges/ski-slope-challenge/ski-slope-challenge';
 
 type ViewMode = 'games' | 'levels' | 'playing';
 
@@ -168,6 +169,9 @@ export class ExtrasModalComponent {
         break;
       case 'giftCatcher':
         componentType = GiftCatcherChallenge;
+        break;
+      case 'skiSlope':
+        componentType = SkiSlopeChallenge;
         break;
       default:
         return;

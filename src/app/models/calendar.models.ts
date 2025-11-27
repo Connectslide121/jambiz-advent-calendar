@@ -14,7 +14,8 @@
   | 'flappySleigh'
   | 'presentStacking'
   | 'giftCatcher'
-  | 'slidingPuzzle';
+  | 'slidingPuzzle'
+  | 'skiSlope';
 
 export type RewardType =
   | 'text'

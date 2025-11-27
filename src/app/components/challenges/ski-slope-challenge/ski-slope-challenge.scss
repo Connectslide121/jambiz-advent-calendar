@@ -1,0 +1,59 @@
+.ski-slope-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.canvas-container {
+  position: relative;
+
+  @media (min-width: 640px) {
+    aspect-ratio: 4 / 3;
+  }
+
+  canvas {
+    display: block;
+    touch-action: none;
+  }
+}
+
+// Game area needs to respect canvas height on mobile
+.game-area {
+  @media (max-width: 639px) {
+    aspect-ratio: auto !important;
+    height: auto;
+
+    canvas {
+      height: auto !important;
+    }
+  }
+}
+
+.controls-info {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}

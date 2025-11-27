@@ -271,6 +271,30 @@
       "shuffle": "Shuffle",
       "showReward": "Show Reward"
     },
+    "skiSlope": {
+      "title": "Santa's Ski Slope",
+      "instructions": "Help Santa ski down the snowy hill on his sleigh! Avoid trees and rocks, but watch out - the Grinch is chasing you!",
+      "controlsDesktop": "Use LEFT and RIGHT arrow keys or A/D to steer",
+      "controlsMobile": "Use the directional buttons to steer left or right",
+      "legend": "What to watch for:",
+      "tree": "Tree - Game Over!",
+      "rock": "Rock - Game Over!",
+      "snowdrift": "Snowdrift - Slows you down!",
+      "present": "Present - Collect for points!",
+      "grinchWarning": "The Grinch!",
+      "grinchDescription": "He's chasing you! Every time you slow down, he gets closer. If he catches you, it's game over!",
+      "caught": "The Grinch caught you!",
+      "victory": "You escaped the Grinch!",
+      "distance": "Distance",
+      "presentsCollected": "presents collected",
+      "endless": {
+        "tagline": "Endless slope! Ski as far as you can while escaping the Grinch.",
+        "bestDistance": "Best distance",
+        "bestPresents": "Best presents",
+        "lastDistance": "Last distance",
+        "lastPresents": "Last presents"
+      }
+    },
     "miniQuiz": {
       "title": "Mini Quiz",
       "instruction": "Choose the correct answer!",
@@ -755,6 +779,35 @@
           "extra-sliding-puzzle-3": {
             "name": "Expert Puzzle",
             "description": "6x6 sliding puzzle with 35 tiles"
+          }
+        }
+      },
+      "skiSlope": {
+        "title": "Santa's Ski Slope",
+        "levels": {
+          "extra-ski-slope-1": {
+            "name": "Bunny Slope",
+            "description": "Gentle hill with fewer obstacles"
+          },
+          "extra-ski-slope-2": {
+            "name": "Mountain Run",
+            "description": "Longer slope with more challenges"
+          },
+          "extra-ski-slope-3": {
+            "name": "Black Diamond",
+            "description": "Expert slope - maximum danger!"
+          },
+          "extra-ski-slope-infinite-easy": {
+            "name": "Endless Easy",
+            "description": "Ski forever on an easy slope"
+          },
+          "extra-ski-slope-infinite-medium": {
+            "name": "Endless Medium",
+            "description": "How far can you ski?"
+          },
+          "extra-ski-slope-infinite-hard": {
+            "name": "Endless Expert",
+            "description": "Ultimate survival challenge!"
           }
         }
       }
