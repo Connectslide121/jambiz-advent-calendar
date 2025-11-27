@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { LucideAngularModule, Check } from 'lucide-angular';
+import { LucideAngularModule, Check, Triangle, Keyboard, Smartphone } from 'lucide-angular';
 import { GameService } from '../../../services/game.service';
 import { KeyboardService } from '../../../services/keyboard.service';
 import { SpriteService } from '../../../services/sprite.service';
@@ -167,6 +167,9 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('gameCanvas') canvasRef!: ElementRef<HTMLCanvasElement>;
 
   readonly Check = Check;
+  readonly Triangle = Triangle;
+  readonly Keyboard = Keyboard;
+  readonly Smartphone = Smartphone;
 
   canvas!: HTMLCanvasElement;
   ctx!: CanvasRenderingContext2D;
@@ -186,7 +189,7 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
   }> = [];
 
   // Infinite mode properties
-  private isInfiniteMode = false;
+  isInfiniteMode = false;
   private survivalTime = 0; // Time survived in seconds
   private lastObstacleX = 0; // Track last generated obstacle position
   private lastObstacleType: 'candy' | 'platform' | 'pit' | 'ceilingCandy' | null = null;
@@ -667,6 +670,8 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
   }
 
   startGame(): void {
+    this.gameStarted = true;
+    this.showInstructions = false;
     this.elapsedTime = 0;
     this.survivalTime = 0;
     // Regenerate obstacles for replay variety
@@ -1148,6 +1153,11 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
       // Clear and render initial state
       this.render();
     }
+  }
+
+  restartGame(): void {
+    this.reset();
+    this.startGame();
   }
 
   showReward(): void {

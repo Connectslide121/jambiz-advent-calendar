@@ -161,11 +161,13 @@
     },
     "geometryDash": {
       "title": "Santa's Sprint",
-      "instruction": "Jump over obstacles and reach the finish line!",
+      "instructions": "Jump over obstacles and reach the finish line!",
       "controlsDesktop": "Press SPACE, W, ↑, or click to jump",
       "controlsMobile": "Tap anywhere to jump",
       "jumpButton": "JUMP",
       "start": "Start Game",
+      "gameOver": "Game Over!",
+      "time": "Time",
       "crashed": "Crashed! Try again!",
       "victory": "You made it!",
       "showReward": "Show Reward"
