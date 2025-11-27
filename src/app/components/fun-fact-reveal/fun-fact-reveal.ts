@@ -132,7 +132,7 @@ export class FunFactReveal implements OnInit {
   shakeSnowGlobe(): void {
     if (this.isShakingSnowGlobe) return;
 
-    // Stop any existing spawner
+    // Stop any existing spawner during shake
     this.stopSnowSpawner();
 
     this.isShakingSnowGlobe = true;
@@ -151,24 +151,8 @@ export class FunFactReveal implements OnInit {
         delay: Math.random() * 0.5,
       }));
 
-      // Start spawning new snow
+      // Start spawning new snow - it will continue indefinitely
       this.startSnowSpawner();
-
-      // Stop spawning after 20 seconds, let remaining snow settle
-      setTimeout(() => {
-        this.stopSnowSpawner();
-
-        // Let the last flakes fall, then settle
-        setTimeout(() => {
-          this.isSnowFalling = false;
-          // Settle remaining snow at the bottom
-          this.snowflakes = this.snowflakes.map((flake) => ({
-            ...flake,
-            top: 70 + Math.random() * 25,
-            left: 10 + Math.random() * 80,
-          }));
-        }, 8000);
-      }, 20000);
     }, 600);
   }
 
