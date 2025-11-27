@@ -161,31 +161,37 @@
     },
     "geometryDash": {
       "title": "Tomtens Sprint",
-      "instruction": "Hoppa över hinder och nå mållinjen!",
+      "instructions": "Hoppa över hinder och nå mållinjen!",
       "controlsDesktop": "Tryck MELLANSLAG, W, ↑, eller klicka för att hoppa",
       "controlsMobile": "Tryck var som helst för att hoppa",
       "jumpButton": "HOPPA",
       "start": "Starta Spel",
+      "gameOver": "Game Over!",
+      "time": "Tid",
       "crashed": "Krasch! Försök igen!",
-      "climber": {
-        "title": "Julklättraren",
-        "levels": {
-          "extra-climber-1": {
-            "name": "Lugn klättring",
-            "description": "Kortare klättring med stabila plattformar"
-          },
-          "extra-climber-2": {
-            "name": "Frostig klättring",
-            "description": "Högre toppar med hala överraskningar"
-          },
-          "extra-climber-3": {
-            "name": "Snöstormstopp",
-            "description": "Högt torn med hala avsatser"
-          }
-        }
-      },
       "victory": "Du klarade det!",
       "showReward": "Visa belöning"
+    },
+    "climber": {
+      "title": "Julklättraren",
+      "instruction": "Klättra till stjärnan högst upp! Samla julkulor på vägen.",
+      "controlsDesktop": "Tryck MELLANSLAG eller klicka för att hoppa. Tajma dina hopp noga!",
+      "controlsMobile": "Tryck var som helst för att hoppa. Tajma dina hopp noga!",
+      "staticPlatform": "Normal",
+      "movingPlatform": "Rörlig",
+      "icePlatform": "Isig",
+      "startGame": "Börja klättra",
+      "success": "Du nådde stjärnan!",
+      "gameLost": "Du ramlade! Försök igen.",
+      "ornamentsCollected": "Julkulor insamlade",
+      "endless": {
+        "tagline": "Oändlig klättring! Håll dig på plattformarna och slå ditt rekord.",
+        "bestHeight": "Bästa höjd",
+        "bestTime": "Bästa tid",
+        "lastHeight": "Senaste höjd",
+        "lastTime": "Senaste tid",
+        "gameLost": "Du halkade! Försök igen och klättra ännu högre."
+      }
     },
     "flappySleigh": {
       "title": "Flappy Släde",
@@ -247,27 +253,6 @@
       "completedIn": "Klarat på {{moves}} drag",
       "previouslyCompleted": "Tidigare klarat på {{moves}} drag"
     },
-    "climber": {
-      "title": "Julklättraren",
-      "instruction": "Klättra till stjärnan högst upp! Samla julkulor på vägen.",
-      "controlsDesktop": "Tryck MELLANSLAG eller klicka för att hoppa. Tajma dina hopp noga!",
-      "controlsMobile": "Tryck var som helst för att hoppa. Tajma dina hopp noga!",
-      "staticPlatform": "Normal",
-      "movingPlatform": "Rörlig",
-      "icePlatform": "Isig",
-      "startGame": "Börja klättra",
-      "success": "Du nådde stjärnan!",
-      "gameLost": "Du ramlade! Försök igen.",
-      "ornamentsCollected": "Julkulor insamlade",
-      "endless": {
-        "tagline": "Oändlig klättring! Håll dig på plattformarna och slå ditt rekord.",
-        "bestHeight": "Bästa höjd",
-        "bestTime": "Bästa tid",
-        "lastHeight": "Senaste höjd",
-        "lastTime": "Senaste tid",
-        "gameLost": "Du halkade! Försök igen och klättra ännu högre."
-      }
-    },
     "mazeRunner": {
       "title": "Labyrintlöparen",
       "instruction": "Samla alla julklappar och ta dem till granen!",
@@ -287,6 +272,30 @@
       "completedIn": "Klarat på {{moves}} drag",
       "shuffle": "Blanda",
       "showReward": "Visa belöning"
+    },
+    "skiSlope": {
+      "title": "Tomtens Skidbacke",
+      "instructions": "Hjälp tomten att åka ner för den snöiga backen på sin släde! Undvik träd och stenar, men se upp - Gansen jagar dig!",
+      "controlsDesktop": "Använd VÄNSTER och HÖGER piltangent eller A/D för att styra",
+      "controlsMobile": "Använd riktningsknapparna för att styra vänster eller höger",
+      "legend": "Vad du ska se upp för:",
+      "tree": "Träd - Game Over!",
+      "rock": "Sten - Game Over!",
+      "snowdrift": "Snödriva - Saktar ner dig!",
+      "present": "Present - Samla för poäng!",
+      "grinchWarning": "Gansen!",
+      "grinchDescription": "Han jagar dig! Varje gång du saktar ner kommer han närmare. Om han fångar dig är spelet slut!",
+      "caught": "Gansen fångade dig!",
+      "victory": "Du flydde från Gansen!",
+      "distance": "Sträcka",
+      "presentsCollected": "presenter insamlade",
+      "endless": {
+        "tagline": "Oändlig backe! Åk så långt du kan medan du flyr från Gansen.",
+        "bestDistance": "Bästa sträcka",
+        "bestPresents": "Bästa presenter",
+        "lastDistance": "Senaste sträcka",
+        "lastPresents": "Senaste presenter"
+      }
     },
     "miniQuiz": {
       "title": "Minifrågesport",
@@ -772,6 +781,35 @@
           "extra-sliding-puzzle-3": {
             "name": "Expert pussel",
             "description": "6x6 skjutpussel med 35 brickor"
+          }
+        }
+      },
+      "skiSlope": {
+        "title": "Tomtens Skidbacke",
+        "levels": {
+          "extra-ski-slope-1": {
+            "name": "Barnbacken",
+            "description": "Mjuk backe med färre hinder"
+          },
+          "extra-ski-slope-2": {
+            "name": "Fjällbacken",
+            "description": "Längre backe med fler utmaningar"
+          },
+          "extra-ski-slope-3": {
+            "name": "Svarta pisten",
+            "description": "Expertbacke - maximal fara!"
+          },
+          "extra-ski-slope-infinite-easy": {
+            "name": "Oändlig lätt",
+            "description": "Åk för evigt på en lätt backe"
+          },
+          "extra-ski-slope-infinite-medium": {
+            "name": "Oändlig medel",
+            "description": "Hur långt kan du åka?"
+          },
+          "extra-ski-slope-infinite-hard": {
+            "name": "Oändlig expert",
+            "description": "Ultimat överlevnadsutmaning!"
           }
         }
       }
