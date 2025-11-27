@@ -251,7 +251,8 @@ export class PresentStackingChallenge implements OnInit, OnDestroy {
     ];
 
     // Scale down presents for mobile
-    const scale = this.isMobile ? 0.5 : 1;
+    // Increased from 0.5 to 0.65 to make it easier on mobile (presents were too small)
+    const scale = this.isMobile ? 0.65 : 1;
     const sizes = baseSizes.map((size) => ({
       width: Math.round(size.width * scale),
       height: Math.round(size.height * scale),
