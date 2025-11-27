@@ -31,7 +31,7 @@
       "instruction": "Ditt svar:",
       "placeholder": "Skriv ditt svar här...",
       "submit": "Skicka svar",
-      "showFunFact": "Visa rolig fakta",
+      "showReward": "Visa belöning",
       "correct": "Rätt! Bra jobbat!",
       "incorrect": "Inte riktigt rätt. Försök igen!",
       "showHint": "Visa ledtråd",
@@ -71,7 +71,7 @@
       "youLose": "Game over!",
       "theWordWas": "Ordet var",
       "tryAgain": "Försök igen",
-      "showFunFact": "Visa rolig fakta",
+      "showReward": "Visa belöning",
       "day2": {
         "clue": "En växt förknippad med julpussar",
         "hint": "Du hänger den i dörröppningar under helgerna"
@@ -96,7 +96,7 @@
       "answerLabel": "Ditt svar:",
       "placeholder": "Skriv det sorterade ordet...",
       "submit": "Skicka svar",
-      "showFunFact": "Visa rolig fakta",
+      "showReward": "Visa belöning",
       "incorrect": "Inte riktigt rätt. Försök igen!",
       "reshuffle": "Blanda om bokstäver",
       "showHint": "Visa ledtråd",
@@ -120,7 +120,7 @@
       "wordsToFind": "Ord att hitta:",
       "wordsFound": "{{found}} av {{total}} ord hittade",
       "allFound": "Alla ord hittade!",
-      "showFunFact": "Visa rolig fakta"
+      "showReward": "Visa belöning"
     },
     "spotTheDifference": {
       "title": "Hitta skillnaderna",
@@ -133,7 +133,7 @@
       "answerLabel": "Ditt svar:",
       "placeholder": "Skriv ditt svar här...",
       "submit": "Skicka svar",
-      "showFunFact": "Visa rolig fakta",
+      "showReward": "Visa belöning",
       "incorrect": "Inte riktigt rätt. Försök igen!",
       "showHint": "Visa ledråd",
       "hideHint": "Dölj ledråd",
@@ -157,7 +157,7 @@
       "matches": "Matchningar",
       "win": "Perfekt! Alla par hittade!",
       "finalMoves": "Klarat på {{moves}} drag",
-      "showFunFact": "Visa rolig fakta"
+      "showReward": "Visa belöning"
     },
     "geometryDash": {
       "title": "Tomtens Sprint",
@@ -185,7 +185,7 @@
         }
       },
       "victory": "Du klarade det!",
-      "showFunFact": "Visa Rolig Fakta"
+      "showReward": "Visa belöning"
     },
     "flappySleigh": {
       "title": "Flappy Släde",
@@ -196,7 +196,7 @@
       "start": "Starta Spel",
       "crashed": "Aj! Du krockade!",
       "victory": "Du nådde granen!",
-      "showFunFact": "Visa rolig fakta",
+      "showReward": "Visa belöning",
       "endless": {
         "tagline": "Oändlig flygtur! Smita mellan polkagriskäpparna så länge du kan.",
         "bestDistance": "Bästa sträcka",
@@ -234,7 +234,7 @@
       "start": "Starta Spel",
       "victory": "Du fångade tillräckligt många klappar!",
       "successMessage": "Bra jobbat! Du räddade julen!",
-      "showFunFact": "Visa Rolig Fakta"
+      "showReward": "Visa belöning"
     },
     "sokoban": {
       "title": "Presentpussel",
@@ -276,11 +276,23 @@
       "completedIn": "Klarat på {{moves}} drag",
       "gifts": "Gåvor"
     },
+    "slidingPuzzle": {
+      "title": "Skjutpussel",
+      "instruction": "Skjut brickorna för att ordna dem rätt!",
+      "controlsDesktop": "Klicka på en bricka eller använd piltangenterna",
+      "controlsMobile": "Tryck på en bricka för att flytta den",
+      "moves": "Drag",
+      "goal": "Mål",
+      "win": "Pusslet löst!",
+      "completedIn": "Klarat på {{moves}} drag",
+      "shuffle": "Blanda",
+      "showReward": "Visa belöning"
+    },
     "miniQuiz": {
       "title": "Minifrågesport",
       "instruction": "Välj rätt svar!",
       "submit": "Skicka svar",
-      "showFunFact": "Visa rolig fakta",
+      "showReward": "Visa belöning",
       "correct": "Rätt! Bra jobbat!",
       "incorrect": "Inte riktigt rätt. Försök igen!",
       "tryAgain": "Försök igen",
@@ -412,6 +424,14 @@
         "santaSaysYes": "Tomten godkänner!",
         "elfSaysNo": "Nissarna säger nja"
       }
+    },
+    "popupCard": {
+      "title": "🎄 Julkort Pop-up",
+      "instruction": "Klicka för att öppna kortet!",
+      "clickToOpen": "Klicka för att öppna",
+      "clickToClose": "Klicka för att stänga kortet",
+      "greeting": "Från Jambiz med ❤️",
+      "topMessage": "Vi önskar dig en God Jul och ett Gott Nytt År!"
     }
   },
   "extras": {
@@ -735,6 +755,23 @@
           "extra-gift-catcher-3": {
             "name": "Tomtens stress",
             "description": "Hög hastighet, fånga 40 klappar!"
+          }
+        }
+      },
+      "slidingPuzzle": {
+        "title": "Skjutpussel",
+        "levels": {
+          "extra-sliding-puzzle-1": {
+            "name": "Medel pussel",
+            "description": "4x4 skjutpussel med 15 brickor"
+          },
+          "extra-sliding-puzzle-2": {
+            "name": "Svårt pussel",
+            "description": "5x5 skjutpussel med 24 brickor"
+          },
+          "extra-sliding-puzzle-3": {
+            "name": "Expert pussel",
+            "description": "6x6 skjutpussel med 35 brickor"
           }
         }
       }

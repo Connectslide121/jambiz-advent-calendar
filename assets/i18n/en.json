@@ -31,7 +31,7 @@
       "instruction": "Your answer:",
       "placeholder": "Type your answer here...",
       "submit": "Submit Answer",
-      "showFunFact": "Show Fun Fact",
+      "showReward": "Show Reward",
       "correct": "Correct! Well done!",
       "incorrect": "Not quite right. Try again!",
       "showHint": "Show Hint",
@@ -71,7 +71,7 @@
       "youLose": "Game over!",
       "theWordWas": "The word was",
       "tryAgain": "Try Again",
-      "showFunFact": "Show Fun Fact",
+      "showReward": "Show Reward",
       "day2": {
         "clue": "A plant associated with Christmas kisses",
         "hint": "You hang it in doorways during the holidays"
@@ -96,7 +96,7 @@
       "answerLabel": "Your answer:",
       "placeholder": "Type the unscrambled word...",
       "submit": "Submit Answer",
-      "showFunFact": "Show Fun Fact",
+      "showReward": "Show Reward",
       "incorrect": "Not quite right. Try again!",
       "reshuffle": "Reshuffle Letters",
       "showHint": "Show Hint",
@@ -120,7 +120,7 @@
       "wordsToFind": "Words to find:",
       "wordsFound": "{{found}} of {{total}} words found",
       "allFound": "All words found!",
-      "showFunFact": "Show Fun Fact"
+      "showReward": "Show Reward"
     },
     "spotTheDifference": {
       "title": "Spot the Difference",
@@ -133,7 +133,7 @@
       "answerLabel": "Your answer:",
       "placeholder": "Type your answer here...",
       "submit": "Submit Answer",
-      "showFunFact": "Show Fun Fact",
+      "showReward": "Show Reward",
       "incorrect": "Not quite right. Try again!",
       "showHint": "Show Hint",
       "hideHint": "Hide Hint",
@@ -157,7 +157,7 @@
       "matches": "Matches",
       "win": "Perfect! All pairs found!",
       "finalMoves": "Completed in {{moves}} moves",
-      "showFunFact": "Show Fun Fact"
+      "showReward": "Show Reward"
     },
     "geometryDash": {
       "title": "Santa's Sprint",
@@ -168,7 +168,7 @@
       "start": "Start Game",
       "crashed": "Crashed! Try again!",
       "victory": "You made it!",
-      "showFunFact": "Show Fun Fact"
+      "showReward": "Show Reward"
     },
     "flappySleigh": {
       "title": "Flappy Sleigh",
@@ -179,7 +179,7 @@
       "start": "Start Game",
       "crashed": "Ouch! You hit an obstacle!",
       "victory": "You reached the tree!",
-      "showFunFact": "Show Fun Fact",
+      "showReward": "Show Reward",
       "endless": {
         "tagline": "Endless flight! Glide between candy canes for as long as you can.",
         "bestDistance": "Best distance",
@@ -217,7 +217,7 @@
       "start": "Start Game",
       "victory": "You caught enough gifts!",
       "successMessage": "Great job! You saved Christmas!",
-      "showFunFact": "Show Fun Fact"
+      "showReward": "Show Reward"
     },
     "sokoban": {
       "title": "Gift Puzzle",
@@ -259,11 +259,23 @@
       "completedIn": "Completed in {{moves}} moves",
       "gifts": "Gifts"
     },
+    "slidingPuzzle": {
+      "title": "Sliding Puzzle",
+      "instruction": "Slide the tiles to arrange them in order!",
+      "controlsDesktop": "Click a tile or use arrow keys to move",
+      "controlsMobile": "Tap a tile to slide it",
+      "moves": "Moves",
+      "goal": "Goal",
+      "win": "Puzzle Solved!",
+      "completedIn": "Completed in {{moves}} moves",
+      "shuffle": "Shuffle",
+      "showReward": "Show Reward"
+    },
     "miniQuiz": {
       "title": "Mini Quiz",
       "instruction": "Choose the correct answer!",
       "submit": "Submit Answer",
-      "showFunFact": "Show Fun Fact",
+      "showReward": "Show Reward",
       "correct": "Correct! Well done!",
       "incorrect": "Not quite right. Try again!",
       "tryAgain": "Try Again",
@@ -378,12 +390,12 @@
       "lyrics": "Deck the halls with PowerPoints\nFa-la-la-la-la\nOh what a joint\nCoffee cups and donut crumbs\nWorkplace cheer\nHere it comes\n\nDeadlines jingling all the way\nLast-minute tasks on Santa's sleigh\n\nChristmas at Jambiz\nWe're feeling fine\nSippin' on lattes in a deadline line\nMeetings and greetings and snacks divine\nOh\nChristmas at Jambiz\nIt's grind-and-shine!\n\nSecret Santa\nPick your fate\nOh no\nBob got a stapler plate\nUgly sweaters\nOffice flair\nWho's got eggnog? Do we care?\n\nSpreadsheet elves are on the run\nAdding columns\nHaving fun\n\nChristmas at Jambiz\nWe're feeling fine\nSippin' on lattes in a deadline line\nMeetings and greetings and snacks divine\nOh\nChristmas at Jambiz\nIt's grind-and-shine!"
     },
     "snowGlobe": {
-      "title": "🔮 Magical Snow Globe",
+      "title": "Magical Snow Globe",
       "instruction": "Click to shake the snow globe!",
       "plaque": "Jambiz 2025"
     },
     "magic8Ball": {
-      "title": "🎱 Santa's Magic Ornament",
+      "title": "Santa's Magic Ornament",
       "instruction": "Think of a question and click to shake!",
       "answers": {
         "yes": "Yes, definitely!",
@@ -395,6 +407,14 @@
         "santaSaysYes": "Santa approves!",
         "elfSaysNo": "The elves say nope"
       }
+    },
+    "popupCard": {
+      "title": "🎄 Christmas Pop-up Card",
+      "instruction": "Click to open the card!",
+      "clickToOpen": "Click to Open",
+      "clickToClose": "Click to close the card",
+      "greeting": "From Jambiz with ❤️",
+      "topMessage": "Wishing you a Merry Christmas and a Happy New Year!"
     }
   },
   "extras": {
@@ -718,6 +738,23 @@
           "extra-gift-catcher-3": {
             "name": "Santa's Rush",
             "description": "High speed challenge, catch 40 gifts!"
+          }
+        }
+      },
+      "slidingPuzzle": {
+        "title": "Sliding Puzzle",
+        "levels": {
+          "extra-sliding-puzzle-1": {
+            "name": "Medium Puzzle",
+            "description": "4x4 sliding puzzle with 15 tiles"
+          },
+          "extra-sliding-puzzle-2": {
+            "name": "Hard Puzzle",
+            "description": "5x5 sliding puzzle with 24 tiles"
+          },
+          "extra-sliding-puzzle-3": {
+            "name": "Expert Puzzle",
+            "description": "6x6 sliding puzzle with 35 tiles"
           }
         }
       }
