@@ -1017,4 +1017,38 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
       },
     ],
   },
+
+  // Sliding Puzzle Extras
+  {
+    type: 'slidingPuzzle',
+    levels: [
+      {
+        id: 'extra-sliding-puzzle-1',
+        nameKey: 'extras.games.slidingPuzzle.levels.extra-sliding-puzzle-1.name',
+        descriptionKey: 'extras.games.slidingPuzzle.levels.extra-sliding-puzzle-1.description',
+        challengeType: 'slidingPuzzle',
+        challengeData: {
+          gridSize: 4,
+        },
+      },
+      {
+        id: 'extra-sliding-puzzle-2',
+        nameKey: 'extras.games.slidingPuzzle.levels.extra-sliding-puzzle-2.name',
+        descriptionKey: 'extras.games.slidingPuzzle.levels.extra-sliding-puzzle-2.description',
+        challengeType: 'slidingPuzzle',
+        challengeData: {
+          gridSize: 5,
+        },
+      },
+      {
+        id: 'extra-sliding-puzzle-3',
+        nameKey: 'extras.games.slidingPuzzle.levels.extra-sliding-puzzle-3.name',
+        descriptionKey: 'extras.games.slidingPuzzle.levels.extra-sliding-puzzle-3.description',
+        challengeType: 'slidingPuzzle',
+        challengeData: {
+          gridSize: 6,
+        },
+      },
+    ],
+  },
 ];

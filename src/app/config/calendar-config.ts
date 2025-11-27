@@ -242,7 +242,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   {
     day: 16,
     gridPosition: 19, // Bottom left-center
-    challengeType: 'hangman',
+    challengeType: 'slidingPuzzle',
     reward: {
       type: 'coupon',
       title: 'rewards.coupon.title',
@@ -251,10 +251,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
       couponDescriptionKey: 'rewards.coupon.day16.description',
     },
     challengeData: {
-      word: 'sleigh',
-      wordSv: 'släde',
-      clueKey: 'challenges.hangman.day14.clue',
-      hintKey: 'challenges.hangman.day14.hint',
+      gridSize: 3,
     },
   },
   {

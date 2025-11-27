@@ -13,7 +13,8 @@
   | 'mazeRunner'
   | 'flappySleigh'
   | 'presentStacking'
-  | 'giftCatcher';
+  | 'giftCatcher'
+  | 'slidingPuzzle';
 
 export type RewardType =
   | 'text'
