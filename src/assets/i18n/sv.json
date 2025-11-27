@@ -382,7 +382,7 @@
     "galleryButton": "Alla belöningar",
     "galleryTitle": "Alla belöningar",
     "gallery": {
-      "clickToInteract": "Klicka för att interagera!"
+      "clickToInteract": "Klicka för att öppna!"
     },
     "lockedHint": "Slutför alla 24 dagar för att låsa upp",
     "unlockHint": "Slutför alla utmaningar för att låsa upp belöningsgalleriet och extras ({{completed}}/{{total}})",

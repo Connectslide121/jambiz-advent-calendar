@@ -382,7 +382,7 @@
     "galleryButton": "All Rewards",
     "galleryTitle": "All Rewards",
     "gallery": {
-      "clickToInteract": "Click to interact!"
+      "clickToInteract": "Click to open!"
     },
     "lockedHint": "Complete all 24 days to unlock",
     "unlockHint": "Complete all challenges to unlock rewards gallery and extras ({{completed}}/{{total}})",
