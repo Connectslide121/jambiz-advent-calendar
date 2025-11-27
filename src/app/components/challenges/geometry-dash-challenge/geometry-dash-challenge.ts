@@ -439,7 +439,13 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
           Math.random() * (config.ceilingCandyLength[1] - config.ceilingCandyLength[0]);
 
         // Random height that player must duck under
-        const height = 200 + Math.random() * 200;
+        // Ensure safe gap for player (height 40) + buffer
+        const minGap = 100;
+        const maxSafeHeight = Math.max(50, this.groundY - minGap);
+
+        // Generate height but cap at maxSafeHeight to prevent blocking path on mobile
+        const rawHeight = 100 + Math.random() * 150;
+        const height = Math.min(rawHeight, maxSafeHeight);
 
         this.obstacles.push({
           x: currentX,
@@ -556,7 +562,12 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
         const length =
           config.ceilingCandyLength[0] +
           Math.random() * (config.ceilingCandyLength[1] - config.ceilingCandyLength[0]);
-        const height = 200 + Math.random() * 200;
+
+        // Ensure safe gap for player
+        const minGap = 100;
+        const maxSafeHeight = Math.max(50, this.groundY - minGap);
+        const rawHeight = 100 + Math.random() * 150;
+        const height = Math.min(rawHeight, maxSafeHeight);
 
         this.obstacles.push({
           x: currentX,
