@@ -113,6 +113,7 @@ export class FlappySleighChallenge implements OnInit, AfterViewInit, OnDestroy, 
     );
     if (this.isCompleted) {
       this.gameWon = true;
+      this.showInstructions = false; // Skip instructions for completed challenges
     }
     this.keyboardService.init();
 

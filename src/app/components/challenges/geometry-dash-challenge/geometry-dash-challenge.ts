@@ -230,6 +230,7 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
     // If already completed, show win state
     if (this.isCompleted) {
       this.gameWon = true;
+      this.showInstructions = false; // Skip instructions for completed challenges
     }
 
     // Initialize difficulty and generate obstacles

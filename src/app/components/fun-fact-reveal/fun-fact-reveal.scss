@@ -592,6 +592,184 @@
 }
 
 // ============================================
+// Fortune Cookie Styles
+// ============================================
+
+.fortune-cookie-card {
+  background: linear-gradient(135deg, rgba(16, 36, 55, 0.9) 0%, rgba(6, 18, 31, 0.95) 100%);
+  border: 2px solid rgba(244, 211, 94, 0.3);
+  border-radius: 1rem;
+  padding: 1.5rem 2rem 1.25rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 60px rgba(244, 211, 94, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+
+  @media (min-width: 640px) {
+    padding: 2rem 2.5rem 1.5rem;
+  }
+
+  // Subtle shimmer effect
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(244, 211, 94, 0.5), transparent);
+  }
+
+  // Corner decoration
+  &::after {
+    content: '✨';
+    position: absolute;
+    top: 0.5rem;
+    right: 0.75rem;
+    font-size: 1.25rem;
+    opacity: 0.6;
+  }
+}
+
+.fortune-cookie-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0;
+  min-height: 200px;
+  justify-content: center;
+}
+
+.fortune-cookie {
+  font-size: 6rem;
+  transition: transform 0.3s ease;
+  position: relative;
+
+  @media (min-width: 640px) {
+    font-size: 8rem;
+  }
+
+  &:hover {
+    transform: scale(1.1) rotate(-5deg);
+  }
+
+  &.cracking {
+    animation: cookieCrack 0.6s ease-in-out;
+  }
+}
+
+@keyframes cookieCrack {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  20% {
+    transform: scale(1.2) rotate(-10deg);
+  }
+  40% {
+    transform: scale(1.15) rotate(8deg);
+  }
+  60% {
+    transform: scale(1.1) rotate(-5deg);
+  }
+  80% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+.fortune-reveal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fortuneReveal 0.5s ease-out;
+}
+
+@keyframes fortuneReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cracked-cookie {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1rem;
+
+  .cookie-piece {
+    font-size: 3rem;
+
+    @media (min-width: 640px) {
+      font-size: 4rem;
+    }
+
+    &.left {
+      transform: rotate(-30deg);
+    }
+
+    &.right {
+      transform: rotate(30deg) scaleX(-1);
+    }
+  }
+}
+
+.fortune-slip {
+  background: linear-gradient(135deg, #fff9e6 0%, #fff5d6 100%);
+  border-radius: 4px;
+  padding: 1rem 1.5rem;
+  max-width: 280px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  position: relative;
+  transform: rotate(-2deg);
+
+  @media (min-width: 640px) {
+    max-width: 320px;
+    padding: 1.25rem 2rem;
+  }
+
+  // Paper texture effect
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 20px,
+      rgba(0, 0, 0, 0.02) 20px,
+      rgba(0, 0, 0, 0.02) 21px
+    );
+    pointer-events: none;
+    border-radius: 4px;
+  }
+}
+
+.fortune-text {
+  color: #8b4513;
+  font-size: 0.9rem;
+  font-style: italic;
+  line-height: 1.5;
+  text-align: center;
+  font-family: 'Georgia', serif;
+  margin: 0;
+
+  @media (min-width: 640px) {
+    font-size: 1rem;
+  }
+}
+
+// ============================================
 // Pop-up Card Styles - Realistic 3D Christmas Card
 // ============================================
 

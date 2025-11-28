@@ -351,7 +351,6 @@
     "day2": "Jambiz Group grundades 2010 av två entreprenörer som ville ge småföretag tillgång till samma tjänster som storbolag.",
     "day3": "Jambiz Group har kontor i Malmö (Gustav Adolfs torg 51) och Göteborg/Kungsbacka (Magasinsgatan 8c).",
     "day4": "XBUS (Excellent Business Services) arbetar efter tre ledord: kompetens, hårt arbete och att ha roligt!",
-    "day5": "Sprinta levererar produkter och tjänster för över 100 miljoner kronor årligen till både privat och offentlig sektor i Sverige.",
     "day6": "ProgressLEAD specialiserar sig på strategi, transformation, projekt-, program- och portföljledning.",
     "day7": "Visste du att det finns ett teaterproduktionsbolag på Jamaica som också heter Jambiz? Ett namn med internationell dragningskraft!",
     "day8": "Exceed Consulting fokuserar på att göra skillnad genom att hjälpa organisationer med kvalitet, hållbarhet och affärsutveckling.",
@@ -447,6 +446,24 @@
       "clickToClose": "Klicka för att stänga kortet",
       "greeting": "Från Jambiz med ❤️",
       "topMessage": "Vi önskar dig en God Jul och ett Gott Nytt År!"
+    },
+    "fortuneCookie": {
+      "title": "🥠 Lyckokaka",
+      "instruction": "Klicka för att knäcka din lyckokaka!",
+      "cracked": "Din lycka har avslöjats!",
+      "tryAgain": "Prova en annan lycka",
+      "fortunes": {
+        "fortune1": "En fantastisk möjlighet väntar dig efter helgerna. Håll utkik!",
+        "fortune2": "Din vänlighet kommer tillbaka till dig tiofallt denna säsong.",
+        "fortune3": "Den bästa gåvan du kan ge är din tid och uppmärksamhet.",
+        "fortune4": "Något underbart är på väg i din framtid.",
+        "fortune5": "Ditt hårda arbete kommer att löna sig innan året är slut.",
+        "fortune6": "Ett överraskande meddelande kommer snart att lysa upp din dag.",
+        "fortune7": "Helgerna kommer att föra dig närmare någon speciell.",
+        "fortune8": "Din kreativitet kommer att lysa på ett oväntat sätt.",
+        "fortune9": "Goda saker kommer till den som delar med sig av kakor.",
+        "fortune10": "Det nya året kommer att föra med sig spännande äventyr."
+      }
     }
   },
   "extras": {

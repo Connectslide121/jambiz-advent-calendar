@@ -25,7 +25,8 @@ export type RewardType =
   | 'coupon'
   | 'snowGlobe'
   | 'magic8Ball'
-  | 'popupCard';
+  | 'popupCard'
+  | 'fortuneCookie';
 
 export interface RewardConfig {
   type: RewardType;
@@ -51,6 +52,8 @@ export interface RewardConfig {
   couponValidityKey?: string; // Translation key for validity text (e.g., "Valid until: End of holiday spirit")
   // For Magic 8-Ball
   answers?: string[]; // Array of translation keys for answers
+  // For Fortune Cookie
+  fortunes?: string[]; // Array of translation keys for fortune messages
   // Common optional properties
   title?: string; // Translation key for custom title (overrides default "Fun Fact")
 }

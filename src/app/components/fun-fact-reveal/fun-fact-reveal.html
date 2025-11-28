@@ -360,6 +360,45 @@
         }}
       </p>
     </div>
+    }
+
+    <!-- Fortune Cookie Reward -->
+    @if (rewardType === 'fortuneCookie') {
+    <div class="fortune-cookie-card">
+      <div class="fortune-cookie-container">
+        @if (!isCookieCracked) {
+        <!-- Whole Cookie -->
+        <div
+          class="fortune-cookie cursor-pointer"
+          [class.cracking]="isCookieCracking"
+          (click)="crackCookie()"
+        >
+          <div class="cookie-half left">🥠</div>
+        </div>
+        } @else {
+        <!-- Cracked Cookie with Fortune -->
+        <div class="fortune-reveal">
+          <div class="cracked-cookie">
+            <span class="cookie-piece left">🥠</span>
+            <span class="cookie-piece right">🥠</span>
+          </div>
+          <div class="fortune-slip">
+            <p class="fortune-text">{{ fortuneMessage | translate }}</p>
+          </div>
+          <button class="btn btn-outline btn-sm mt-4" (click)="resetCookie()">
+            {{ 'rewards.fortuneCookie.tryAgain' | translate }}
+          </button>
+        </div>
+        }
+      </div>
+      <p class="text-sm text-text-muted mt-4 animate-pulse text-center">
+        @if (!isCookieCracked) {
+        {{ 'rewards.fortuneCookie.instruction' | translate }}
+        } @else {
+        {{ 'rewards.fortuneCookie.cracked' | translate }}
+        }
+      </p>
+    </div>
     } }
   </div>
 

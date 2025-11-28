@@ -120,6 +120,7 @@ export class GiftCatcherChallenge implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     if (this.isCompleted) {
       this.gameWon = true;
+      this.showInstructions = false; // Skip instructions for completed challenges
     }
     this.keyboardService.init();
 

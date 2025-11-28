@@ -46,6 +46,11 @@ export class FunFactReveal implements OnInit {
   isCardOpen = false;
   isCardAnimating = false;
 
+  // Fortune Cookie State
+  isCookieCracked = false;
+  isCookieCracking = false;
+  fortuneMessage: string | null = null;
+
   constructor(private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
@@ -195,6 +200,34 @@ export class FunFactReveal implements OnInit {
     setTimeout(() => {
       this.isCardAnimating = false;
     }, 800);
+  }
+
+  // Fortune Cookie Logic
+  crackCookie(): void {
+    if (this.isCookieCracking || this.isCookieCracked) return;
+
+    this.isCookieCracking = true;
+
+    setTimeout(() => {
+      this.isCookieCracking = false;
+      this.isCookieCracked = true;
+      this.pickRandomFortune();
+    }, 600);
+  }
+
+  private pickRandomFortune(): void {
+    const fortunes = this.effectiveReward?.fortunes || [
+      'rewards.fortuneCookie.fortunes.fortune1',
+      'rewards.fortuneCookie.fortunes.fortune2',
+      'rewards.fortuneCookie.fortunes.fortune3',
+    ];
+    const randomIndex = Math.floor(Math.random() * fortunes.length);
+    this.fortuneMessage = fortunes[randomIndex];
+  }
+
+  resetCookie(): void {
+    this.isCookieCracked = false;
+    this.fortuneMessage = null;
   }
 
   private prepareVideoUrl(): void {

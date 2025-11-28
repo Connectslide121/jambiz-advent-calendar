@@ -77,7 +77,22 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
     day: 5,
     gridPosition: 22, // Bottom right area
     challengeType: 'flappySleigh',
-    funFactKey: 'funFacts.day5',
+    reward: {
+      type: 'fortuneCookie',
+      title: 'rewards.fortuneCookie.title',
+      fortunes: [
+        'rewards.fortuneCookie.fortunes.fortune1',
+        'rewards.fortuneCookie.fortunes.fortune2',
+        'rewards.fortuneCookie.fortunes.fortune3',
+        'rewards.fortuneCookie.fortunes.fortune4',
+        'rewards.fortuneCookie.fortunes.fortune5',
+        'rewards.fortuneCookie.fortunes.fortune6',
+        'rewards.fortuneCookie.fortunes.fortune7',
+        'rewards.fortuneCookie.fortunes.fortune8',
+        'rewards.fortuneCookie.fortunes.fortune9',
+        'rewards.fortuneCookie.fortunes.fortune10',
+      ],
+    },
     challengeData: {
       levelLength: 3200,
       scrollSpeed: 200,
