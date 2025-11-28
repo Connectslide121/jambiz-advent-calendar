@@ -16,7 +16,13 @@
     "locked": "Locked",
     "completedCount": "{{count}} of 24 completed",
     "comingSoon": "Coming Soon",
-    "unlocksIn": "Unlocks in"
+    "unlocksIn": "Unlocks in",
+    "day25": {
+      "title": "The Big Day",
+      "subtitle": "December 25th",
+      "description": "Complete all 24 challenges to unlock the full rewards gallery and extra games!",
+      "unlocked": "🎉 All rewards unlocked! 🎉"
+    }
   },
   "challenges": {
     "success": {
@@ -385,7 +391,7 @@
       "clickToInteract": "Click to open!"
     },
     "lockedHint": "Complete all 24 days to unlock",
-    "unlockHint": "Complete all challenges to unlock rewards gallery and extras ({{completed}}/{{total}})",
+    "unlockHint": "Complete all challenges to unlock ({{completed}}/{{total}}) – or wait until December 25th when everything unlocks for everyone!",
     "lyricsLabel": "Lyrics",
     "coupon": {
       "title": "🎟️ You earned a coupon!",
@@ -833,7 +839,7 @@
       },
       "rewards": {
         "title": "🏆 Completing Challenges",
-        "content": "When you complete a challenge, you'll get a fun fact about Jambiz and your colleagues! Plus, the day gets marked as complete with a nice green checkmark. Your progress is saved automatically, so you can close the browser and come back anytime."
+        "content": "When you complete a challenge, you unlock a reward – it could be a fun fact, a video, an image, or something else! Plus, each completed day reveals a piece of the big picture puzzle that the calendar forms. Complete all 24 days to see the full masterpiece! Your progress is saved automatically, so you can close the browser and come back anytime."
       },
       "replay": {
         "title": "🔄 Want to Play Again?",
@@ -841,7 +847,7 @@
       },
       "christmas": {
         "title": "🎅 The Big Day - December 25th",
-        "content": "Here's the best part: on Christmas Day (December 25th), EVERYTHING unlocks for everyone! So if you missed a few days or life got busy, don't sweat it. You'll be able to play all the challenges and see all the fun facts anyway."
+        "content": "Here's the best part: on Christmas Day (December 25th), EVERYTHING unlocks for everyone! So if you missed a few days or life got busy, don't sweat it. You'll be able to play all the challenges and see all the rewards anyway."
       },
       "extras": {
         "title": "🎁 Extras & Rewards Gallery",
