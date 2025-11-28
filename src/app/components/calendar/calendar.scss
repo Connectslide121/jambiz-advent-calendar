@@ -240,3 +240,40 @@
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   letter-spacing: 0.05em;
 }
+
+// Day 25 - The Big Day styling
+.day25-tile {
+  width: 100%;
+}
+
+.day25-unlocked {
+  background: linear-gradient(
+    135deg,
+    rgba(42, 157, 143, 0.15) 0%,
+    rgba(244, 211, 94, 0.1) 50%,
+    rgba(230, 57, 70, 0.15) 100%
+  );
+  border: 2px solid var(--color-accent-green);
+  box-shadow: 0 0 20px rgba(42, 157, 143, 0.3), 0 0 40px rgba(244, 211, 94, 0.1);
+
+  &:hover {
+    box-shadow: 0 0 30px rgba(42, 157, 143, 0.4), 0 0 60px rgba(244, 211, 94, 0.2);
+  }
+}
+
+.day25-locked {
+  background: linear-gradient(135deg, rgba(30, 40, 55, 0.95) 0%, rgba(20, 30, 45, 0.98) 100%);
+  border: 2px solid rgba(100, 100, 120, 0.5);
+  position: relative;
+
+  // Dark overlay effect (same as locked day tiles)
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: inherit;
+    z-index: 1;
+    pointer-events: none;
+  }
+}

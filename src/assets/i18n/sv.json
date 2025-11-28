@@ -16,7 +16,13 @@
     "locked": "Låst",
     "completedCount": "{{count}} av 24 klara",
     "comingSoon": "Kommer snart",
-    "unlocksIn": "Öppnas om"
+    "unlocksIn": "Öppnas om",
+    "day25": {
+      "title": "Den stora dagen",
+      "subtitle": "25 december",
+      "description": "Klara alla 24 utmaningar för att låsa upp alla belöningar och extraspel!",
+      "unlocked": "🎉 Alla belöningar upplåsta! 🎉"
+    }
   },
   "challenges": {
     "success": {
@@ -385,7 +391,7 @@
       "clickToInteract": "Klicka för att öppna!"
     },
     "lockedHint": "Slutför alla 24 dagar för att låsa upp",
-    "unlockHint": "Slutför alla utmaningar för att låsa upp belöningsgalleriet och extras ({{completed}}/{{total}})",
+    "unlockHint": "Slutför alla utmaningar för att låsa upp ({{completed}}/{{total}}) – eller vänta till 25 december när allt låses upp för alla!",
     "lyricsLabel": "Text",
     "coupon": {
       "title": "🎟️ Du har fått en kupong!",
@@ -833,7 +839,7 @@
       },
       "rewards": {
         "title": "🏆 Klara utmaningar",
-        "content": "När du klarar en utmaning får du en rolig fakta om Jambiz och dina kollegor! Dessutom markeras dagen som klar med en fin grön bock. Din framsteg sparas automatiskt, så du kan stänga webbläsaren och komma tillbaka när som helst."
+        "content": "När du klarar en utmaning låser du upp en belöning – det kan vara en rolig fakta, en video, en bild eller något annat! Dessutom avslöjar varje klarad dag en pusselbit av den stora bilden som kalendern bildar. Klara alla 24 dagar för att se hela mästerverket! Din framsteg sparas automatiskt, så du kan stänga webbläsaren och komma tillbaka när som helst."
       },
       "replay": {
         "title": "🔄 Vill du spela igen?",
@@ -841,7 +847,7 @@
       },
       "christmas": {
         "title": "🎅 Den stora dagen - 25 december",
-        "content": "Här kommer det bästa: på juldagen (25 december) låses ALLT upp för alla! Så om du missade några dagar eller livet kom emellan, stressa inte. Du kommer kunna spela alla utmaningar och se alla roliga fakta ändå."
+        "content": "Här kommer det bästa: på juldagen (25 december) låses ALLT upp för alla! Så om du missade några dagar eller livet kom emellan, stressa inte. Du kommer kunna spela alla utmaningar och se alla belöningar ändå."
       },
       "extras": {
         "title": "🎁 Extras & Belöningsgalleri",

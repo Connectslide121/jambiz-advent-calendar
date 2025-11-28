@@ -150,52 +150,10 @@
       </button>
     </div>
 
-    <app-calendar></app-calendar>
-
-    <!-- Action Buttons -->
-    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-      <!-- Rewards Gallery Button (only when unlocked) -->
-      <button
-        class="btn px-6 py-3 text-base sm:text-lg font-bold flex items-center gap-2"
-        [class.btn-primary]="isUnlocked()"
-        [class.btn-outline]="!isUnlocked()"
-        [class.opacity-50]="!isUnlocked()"
-        [class.cursor-not-allowed]="!isUnlocked()"
-        [disabled]="!isUnlocked()"
-        (click)="openRewardsGallery()"
-        [title]="isUnlocked() ? '' : ('rewards.lockedHint' | translate)"
-      >
-        @if (!isUnlocked()) {
-        <lucide-icon [img]="Lock" class="w-5 h-5" [strokeWidth]="2"></lucide-icon>
-        } 🏆 {{ 'rewards.galleryButton' | translate }}
-      </button>
-
-      <!-- Extras Button -->
-      <button
-        class="btn px-6 py-3 text-base sm:text-lg font-bold flex items-center gap-2"
-        [class.btn-secondary]="isUnlocked()"
-        [class.btn-outline]="!isUnlocked()"
-        [class.opacity-50]="!isUnlocked()"
-        [class.cursor-not-allowed]="!isUnlocked()"
-        [disabled]="!isUnlocked()"
-        (click)="openExtras()"
-        [title]="isUnlocked() ? '' : ('extras.lockedHint' | translate)"
-      >
-        @if (!isUnlocked()) {
-        <lucide-icon [img]="Lock" class="w-5 h-5" [strokeWidth]="2"></lucide-icon>
-        } 🎁 {{ 'extras.button' | translate }} 🎁
-      </button>
-    </div>
-
-    <!-- Unlock hint when not complete -->
-    @if (!isUnlocked()) {
-    <p class="text-center text-text-muted text-sm mt-4">
-      {{
-        'rewards.unlockHint'
-          | translate : { completed: calendarState.getCompletedCount(), total: 24 }
-      }}
-    </p>
-    }
+    <app-calendar
+      (openRewardsGallery)="openRewardsGallery()"
+      (openExtras)="openExtras()"
+    ></app-calendar>
   </main>
   }
 </div>

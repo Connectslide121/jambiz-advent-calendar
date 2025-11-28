@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { LucideAngularModule, Check, Lock } from 'lucide-angular';
@@ -21,6 +21,10 @@ const GRID_ROWS = 4;
 export class Calendar implements OnInit, OnDestroy {
   readonly Check = Check;
   readonly Lock = Lock;
+
+  @Output() openRewardsGallery = new EventEmitter<void>();
+  @Output() openExtras = new EventEmitter<void>();
+
   // Sort calendar days by gridPosition for shuffled display
   calendarDays: CalendarDayConfig[] = [...CALENDAR_DAYS].sort(
     (a, b) => (a.gridPosition ?? 0) - (b.gridPosition ?? 0)
@@ -173,5 +177,33 @@ export class Calendar implements OnInit, OnDestroy {
       'background-size': `${GRID_COLS * 100}% ${GRID_ROWS * 100}%`,
       'background-position': `${xPercent}% ${yPercent}%`,
     };
+  }
+
+  /**
+   * Check if rewards/extras are unlocked (all 24 days completed OR Christmas day)
+   */
+  isUnlocked(): boolean {
+    return this.stateService.isFullyUnlocked();
+  }
+
+  /**
+   * Get the number of completed days
+   */
+  getCompletedCount(): number {
+    return this.stateService.getCompletedCount();
+  }
+
+  /**
+   * Emit event to open rewards gallery
+   */
+  onOpenRewardsGallery(): void {
+    this.openRewardsGallery.emit();
+  }
+
+  /**
+   * Emit event to open extras
+   */
+  onOpenExtras(): void {
+    this.openExtras.emit();
   }
 }
