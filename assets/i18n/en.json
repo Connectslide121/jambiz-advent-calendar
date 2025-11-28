@@ -351,7 +351,6 @@
     "day2": "Jambiz Group was founded in 2010 by two entrepreneurs who wanted to give small businesses access to the same services as large corporations.",
     "day3": "Jambiz Group has offices in Malmö (Gustav Adolfs torg 51) and Göteborg/Kungsbacka (Magasinsgatan 8c).",
     "day4": "XBUS (Excellent Business Services) works by three core values: competence, hard work, and having fun!",
-    "day5": "Sprinta delivers products and services worth over 100 million SEK annually to both private and public sector in Sweden.",
     "day6": "ProgressLEAD specializes in strategy, transformation, project, program and portfolio management.",
     "day7": "Did you know there is a theater production company in Jamaica also called Jambiz? Talk about a name with international appeal!",
     "day8": "Exceed Consulting focuses on making a positive difference by helping organizations with quality, sustainability, and business development.",
@@ -447,6 +446,24 @@
       "clickToClose": "Click to close the card",
       "greeting": "From Jambiz with ❤️",
       "topMessage": "Wishing you a Merry Christmas and a Happy New Year!"
+    },
+    "fortuneCookie": {
+      "title": "🥠 Fortune Cookie",
+      "instruction": "Click to crack open your fortune!",
+      "cracked": "Your fortune has been revealed!",
+      "tryAgain": "Try Another Fortune",
+      "fortunes": {
+        "fortune1": "A great opportunity awaits you after the holidays. Stay alert!",
+        "fortune2": "Your kindness will come back to you tenfold this season.",
+        "fortune3": "The best gift you can give is your time and attention.",
+        "fortune4": "Something wonderful is brewing in your future.",
+        "fortune5": "Your hard work will pay off before the year ends.",
+        "fortune6": "A surprise message will brighten your day soon.",
+        "fortune7": "The holidays will bring you closer to someone special.",
+        "fortune8": "Your creativity will shine in an unexpected way.",
+        "fortune9": "Good things come to those who share cookies.",
+        "fortune10": "The new year will bring exciting adventures your way."
+      }
     }
   },
   "extras": {
