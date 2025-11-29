@@ -390,7 +390,7 @@
       "clickToInteract": "Klicka för att öppna!"
     },
     "lockedHint": "Slutför alla 24 dagar för att låsa upp",
-    "unlockHint": "Slutför alla utmaningar för att låsa upp ({{completed}}/{{total}}) – eller vänta till 25 december när allt låses upp för alla!",
+    "unlockHint": "Slutför alla utmaningar för att låsa upp denna sektion ({{completed}}/{{total}})",
     "lyricsLabel": "Text",
     "coupon": {
       "title": "🎟️ Du har fått en kupong!",

@@ -390,7 +390,7 @@
       "clickToInteract": "Click to open!"
     },
     "lockedHint": "Complete all 24 days to unlock",
-    "unlockHint": "Complete all challenges to unlock ({{completed}}/{{total}}) – or wait until December 25th when everything unlocks for everyone!",
+    "unlockHint": "Complete all challenges to unlock this section ({{completed}}/{{total}})",
     "lyricsLabel": "Lyrics",
     "coupon": {
       "title": "🎟️ You earned a coupon!",
