@@ -190,6 +190,11 @@ export class App implements OnInit {
     return day.reward?.type === 'popupCard';
   }
 
+  // Check if day has a fortune cookie reward
+  hasFortuneCookieReward(day: CalendarDayConfig): boolean {
+    return day.reward?.type === 'fortuneCookie';
+  }
+
   // Open interactive reward in modal
   openInteractiveReward(day: CalendarDayConfig): void {
     if (
@@ -197,7 +202,8 @@ export class App implements OnInit {
       (day.reward.type === 'snowGlobe' ||
         day.reward.type === 'magic8Ball' ||
         day.reward.type === 'popupCard' ||
-        day.reward.type === 'coupon')
+        day.reward.type === 'coupon' ||
+        day.reward.type === 'fortuneCookie')
     ) {
       this.interactiveRewardConfig = day.reward;
       this.showInteractiveReward = true;

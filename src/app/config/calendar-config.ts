@@ -91,6 +91,12 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
         'rewards.fortuneCookie.fortunes.fortune8',
         'rewards.fortuneCookie.fortunes.fortune9',
         'rewards.fortuneCookie.fortunes.fortune10',
+        'rewards.fortuneCookie.fortunes.fortune11',
+        'rewards.fortuneCookie.fortunes.fortune12',
+        'rewards.fortuneCookie.fortunes.fortune13',
+        'rewards.fortuneCookie.fortunes.fortune14',
+        'rewards.fortuneCookie.fortunes.fortune15',
+        'rewards.fortuneCookie.fortunes.fortune16',
       ],
     },
     challengeData: {
