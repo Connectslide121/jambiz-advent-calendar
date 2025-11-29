@@ -239,6 +239,18 @@ The app includes a version-based reset mechanism to clear all user data when nee
 private readonly CALENDAR_VERSION = '2025-release-v2';
 ```
 
+### Secret Dev Tools
+
+The app includes hidden developer tools for testing. Type **`devtools`** on your keyboard (not in an input field) to toggle visibility.
+
+**Available tools:**
+- Dev Mode Toggle (unlock all days)
+- Date Override (fake December day)
+- Mark All Complete
+- Clear All Progress
+
+> **Note:** Dev tools state is session-only and resets on page refresh.
+
 ## 🎯 Game Controls
 
 ### Desktop

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { Calendar } from './components/calendar/calendar';
@@ -45,7 +45,7 @@ interface Snowflake {
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App implements OnInit {
+export class App implements OnInit, OnDestroy {
   readonly X = X;
   readonly ArrowLeft = ArrowLeft;
   readonly Check = Check;
@@ -58,6 +58,10 @@ export class App implements OnInit {
   snowflakes: Snowflake[] = [];
   showInfoModal = false;
   showLandingPage = true;
+  showDevTools = false;
+  private secretSequence: string[] = [];
+  private readonly SECRET_CODE = ['d', 'e', 'v', 't', 'o', 'o', 'l', 's']; // Type "devtools" to toggle
+  private sequenceTimeout: ReturnType<typeof setTimeout> | null = null;
   showExtrasMenu = false;
   showExtraChallenge = false;
   showRewardsGallery = false;
@@ -93,6 +97,52 @@ export class App implements OnInit {
   toggleLanguage(): void {
     const newLang = this.currentLanguage === 'sv' ? 'en' : 'sv';
     this.switchLanguage(newLang);
+  }
+
+  /**
+   * Secret dev tools toggle: Type "jambiz" anywhere to toggle visibility
+   */
+  @HostListener('document:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent): void {
+    // Ignore if user is typing in an input field
+    const target = event.target as HTMLElement;
+    if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
+      return;
+    }
+
+    const key = event.key.toLowerCase();
+
+    // Only track letter keys
+    if (key.length === 1 && key >= 'a' && key <= 'z') {
+      this.secretSequence.push(key);
+
+      // Keep only the last N characters (length of secret code)
+      if (this.secretSequence.length > this.SECRET_CODE.length) {
+        this.secretSequence.shift();
+      }
+
+      // Clear existing timeout
+      if (this.sequenceTimeout) {
+        clearTimeout(this.sequenceTimeout);
+      }
+
+      // Check if sequence matches
+      if (this.secretSequence.join('') === this.SECRET_CODE.join('')) {
+        this.showDevTools = !this.showDevTools;
+        this.secretSequence = [];
+      }
+
+      // Reset sequence after 3 seconds of inactivity
+      this.sequenceTimeout = setTimeout(() => {
+        this.secretSequence = [];
+      }, 3000);
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.sequenceTimeout) {
+      clearTimeout(this.sequenceTimeout);
+    }
   }
 
   onDateOverrideChange(event: Event): void {

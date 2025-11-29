@@ -70,6 +70,7 @@
             {{ currentLanguage === 'sv' ? 'EN' : 'SV' }}
           </button>
 
+          @if (showDevTools) {
           <!-- Dev Mode Toggle Button -->
           <button
             (click)="calendarState.toggleDevMode()"
@@ -132,6 +133,7 @@
               [strokeWidth]="2"
             ></lucide-icon>
           </button>
+          }
         </div>
       </div>
     </div>
