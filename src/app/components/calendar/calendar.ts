@@ -24,6 +24,7 @@ export class Calendar implements OnInit, OnDestroy {
 
   @Output() openRewardsGallery = new EventEmitter<void>();
   @Output() openExtras = new EventEmitter<void>();
+  @Output() calendarComplete = new EventEmitter<void>();
 
   // Sort calendar days by gridPosition for shuffled display
   calendarDays: CalendarDayConfig[] = [...CALENDAR_DAYS].sort(
@@ -32,7 +33,7 @@ export class Calendar implements OnInit, OnDestroy {
   selectedDay: CalendarDayConfig | null = null;
 
   // Puzzle image path - can be changed later
-  readonly puzzleImagePath = 'assets/Jambiz_xmas_logo.png';
+  readonly puzzleImagePath = 'assets/Calendar_puzzle.png';
 
   // Countdown timer
   countdown: string = '';
@@ -127,7 +128,13 @@ export class Calendar implements OnInit, OnDestroy {
 
   onChallengeCompleted(): void {
     if (this.selectedDay) {
+      const wasAlreadyComplete = this.stateService.isCalendarComplete();
       this.stateService.markDayComplete(this.selectedDay.day);
+
+      // Check if this completion finished the calendar
+      if (!wasAlreadyComplete && this.stateService.isCalendarComplete()) {
+        this.calendarComplete.emit();
+      }
     }
   }
 

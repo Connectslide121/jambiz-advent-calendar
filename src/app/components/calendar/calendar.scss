@@ -173,7 +173,7 @@
 // Day tile wrapper for tooltip positioning
 .day-tile-wrapper {
   position: relative;
-  aspect-ratio: 1;
+  aspect-ratio: 5/6; // Slightly taller than wide for portrait tiles
 }
 
 // Custom tooltip styling - hidden on mobile, only shown on desktop hover

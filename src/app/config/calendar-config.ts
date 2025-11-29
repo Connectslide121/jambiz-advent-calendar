@@ -40,7 +40,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 3,
-    gridPosition: 3, // Top center-right
+    gridPosition: 17, // Bottom right-center
     challengeType: 'wordScramble',
     reward: {
       type: 'audio',
@@ -310,7 +310,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 19,
-    gridPosition: 15, // Bottom center
+    gridPosition: 21, // Bottom center-right
     challengeType: 'wordScramble',
     funFactKey: 'funFacts.day9',
     challengeData: {
@@ -334,7 +334,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 21,
-    gridPosition: 17, // Bottom right-center
+    gridPosition: 3, // Top center-right
     challengeType: 'rebus',
     reward: {
       type: 'magic8Ball',
@@ -386,9 +386,9 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
         ['K', 'L', 'O', 'C', 'K', 'O', 'R', 'X', 'Q', 'G'],
         ['M', 'P', 'V', 'B', 'N', 'W', 'Y', 'L', 'T', 'E'],
         ['K', 'A', 'K', 'O', 'R', 'Z', 'M', 'F', 'K', 'L'],
-        ['F', 'Q', 'W', 'P', 'I', 'X', 'V', 'B', 'Y', 'L'],
-        ['R', 'M', 'K', 'U', 'N', 'D', 'E', 'R', 'Q', 'A'],
-        ['I', 'X', 'V', 'B', 'P', 'M', 'Z', 'F', 'D', 'N'],
+        ['F', 'Q', 'W', 'P', 'I', 'X', 'V', 'B', 'Y', 'S'],
+        ['R', 'M', 'K', 'U', 'N', 'D', 'E', 'R', 'Q', 'N'],
+        ['I', 'X', 'V', 'B', 'P', 'M', 'Z', 'F', 'D', 'Ö'],
         ['D', 'Ä', 'N', 'G', 'E', 'L', 'K', 'Y', 'W', 'G'],
         ['W', 'Q', 'Z', 'M', 'V', 'B', 'N', 'P', 'X', 'E'],
         ['M', 'U', 'R', 'G', 'R', 'Ö', 'N', 'A', 'L', 'L'],
@@ -399,7 +399,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 24,
-    gridPosition: 21, // Bottom center-right
+    gridPosition: 15, // Bottom center
     challengeType: 'presentStacking',
     reward: {
       type: 'video',

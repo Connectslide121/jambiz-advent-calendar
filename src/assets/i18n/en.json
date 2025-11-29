@@ -10,6 +10,13 @@
       "sv": "Swedish"
     }
   },
+  "celebration": {
+    "title": "Congratulations! You Did It!",
+    "message": "You've completed all 24 advent calendar challenges! You're a true Jambiz holiday champion!",
+    "unlocked": "You've unlocked:",
+    "viewRewards": "View All Rewards",
+    "playExtras": "Play Extra Games"
+  },
   "calendar": {
     "dayLabel": "Day {{day}}",
     "completed": "Completed",
@@ -388,6 +395,11 @@
     "galleryTitle": "All Rewards",
     "gallery": {
       "clickToInteract": "Click to open!"
+    },
+    "puzzleComplete": {
+      "title": "The Complete Picture",
+      "description": "You've completed all 24 days and revealed the full advent calendar image!",
+      "download": "Download Image"
     },
     "lockedHint": "Complete all 24 days to unlock",
     "unlockHint": "Complete all challenges to unlock this section ({{completed}}/{{total}})",

@@ -62,6 +62,7 @@ export class App implements OnInit {
   showExtraChallenge = false;
   showRewardsGallery = false;
   showInteractiveReward = false;
+  showCelebration = false;
   interactiveRewardConfig: RewardConfig | null = null;
   selectedGame: ExtraGameSection | null = null;
   selectedExtraConfig: CalendarDayConfig | null = null;
@@ -213,6 +214,18 @@ export class App implements OnInit {
   closeInteractiveReward(): void {
     this.showInteractiveReward = false;
     this.interactiveRewardConfig = null;
+  }
+
+  // Celebration modal handlers
+  onCalendarComplete(): void {
+    // Small delay to let the challenge close animation finish
+    setTimeout(() => {
+      this.showCelebration = true;
+    }, 500);
+  }
+
+  closeCelebration(): void {
+    this.showCelebration = false;
   }
 
   selectGame(game: ExtraGameSection): void {
