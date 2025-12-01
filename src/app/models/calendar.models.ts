@@ -37,6 +37,8 @@ export interface RewardConfig {
   imageUrl?: string;
   imageAlt?: string; // Translation key for alt text
   caption?: string; // Translation key for optional caption
+  downloadable?: boolean; // If true, show download button for the image
+  downloadFileName?: string; // Custom filename for download (without extension)
   // For video rewards
   videoUrl?: string;
   videoType?: 'mp4' | 'webm' | 'youtube' | 'vimeo';

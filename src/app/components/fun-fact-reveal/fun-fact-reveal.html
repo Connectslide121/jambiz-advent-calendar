@@ -41,6 +41,15 @@
       <p class="text-sm sm:text-base text-text-muted mt-4 italic">
         {{ effectiveReward.caption | translate }}
       </p>
+      } @if (effectiveReward.downloadable) {
+      <a
+        [href]="effectiveReward.imageUrl"
+        [download]="(effectiveReward.downloadFileName || 'reward') + '.png'"
+        class="btn btn-primary flex items-center justify-center gap-2 mt-4 mx-auto w-fit"
+      >
+        <span>📥</span>
+        {{ 'rewards.downloadWallpaper' | translate }}
+      </a>
       }
     </div>
     }

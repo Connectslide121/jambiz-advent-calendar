@@ -220,7 +220,15 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
     day: 12,
     gridPosition: 0, // Top left corner
     challengeType: 'wordScramble',
-    funFactKey: 'funFacts.day12',
+    reward: {
+      type: 'image',
+      title: 'rewards.day12.title',
+      imageUrl: 'rewards/day12.png',
+      imageAlt: 'rewards.day12.imageAlt',
+      caption: 'rewards.day12.caption',
+      downloadable: true,
+      downloadFileName: 'Jambiz_Christmas_Wallpaper_2025',
+    },
     challengeData: {
       word: 'reindeer',
       wordSv: 'ren',

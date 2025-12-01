@@ -439,12 +439,16 @@
 
             <!-- Reward Content -->
             <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-2 mb-2">
+              <div class="flex items-center gap-2 mb-2 flex-wrap">
                 <span class="text-2xl">{{ getGameIcon(day.challengeType || '') }}</span>
                 <h3 class="text-lg sm:text-xl font-bold text-gold">
                   {{ 'calendar.dayLabel' | translate : { day: day.day } }}
                 </h3>
-                @if (hasVideoReward(day)) {
+                @if (hasImageReward(day)) {
+                <span class="text-sm bg-pink-500 text-white px-2 py-0.5 rounded-full"
+                  >🖼️ Wallpaper</span
+                >
+                } @if (hasVideoReward(day)) {
                 <span class="text-sm bg-accent-green text-white px-2 py-0.5 rounded-full"
                   >🎬 Video</span
                 >
@@ -482,6 +486,33 @@
               <p class="text-sm sm:text-base text-text leading-relaxed">
                 {{ getRewardText(day) | translate }}
               </p>
+              }
+
+              <!-- Image Reward -->
+              @if (hasImageReward(day) && day.reward?.imageUrl) {
+              <div class="mt-4">
+                <img
+                  [src]="day.reward!.imageUrl"
+                  [alt]="day.reward!.imageAlt ? (day.reward!.imageAlt | translate) : 'Reward image'"
+                  class="max-w-full h-auto rounded-lg shadow-lg"
+                  style="max-height: 300px"
+                  loading="lazy"
+                />
+                @if (day.reward?.caption) {
+                <p class="text-sm text-text-muted mt-2 italic">
+                  {{ day.reward!.caption | translate }}
+                </p>
+                } @if (day.reward?.downloadable) {
+                <a
+                  [href]="day.reward!.imageUrl"
+                  [download]="(day.reward!.downloadFileName || 'reward') + '.png'"
+                  class="btn btn-primary flex items-center gap-2 mt-4 w-fit"
+                >
+                  <span>📥</span>
+                  {{ 'rewards.downloadWallpaper' | translate }}
+                </a>
+                }
+              </div>
               }
 
               <!-- Video Reward -->

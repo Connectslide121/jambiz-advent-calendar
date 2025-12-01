@@ -396,6 +396,12 @@
     "gallery": {
       "clickToInteract": "Click to open!"
     },
+    "downloadWallpaper": "Download Wallpaper",
+    "day12": {
+      "title": "🖼️ Jambiz Christmas Wallpaper!",
+      "imageAlt": "Jambiz Christmas wallpaper 2025",
+      "caption": "A festive wallpaper for your computer or phone!"
+    },
     "puzzleComplete": {
       "title": "The Complete Picture",
       "description": "You've completed all 24 days and revealed the full advent calendar image!",

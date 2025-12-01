@@ -216,6 +216,11 @@ export class App implements OnInit, OnDestroy {
     return day.reward?.type === 'video';
   }
 
+  // Check if day has an image reward
+  hasImageReward(day: CalendarDayConfig): boolean {
+    return day.reward?.type === 'image';
+  }
+
   // Check if day has an audio reward
   hasAudioReward(day: CalendarDayConfig): boolean {
     return day.reward?.type === 'audio';
