@@ -482,6 +482,29 @@
         "fortune15": "Trust your instincts – they will guide you well.",
         "fortune16": "A cozy evening with loved ones is in your near future."
       }
+    },
+    "iceBreaker": {
+      "title": "🧊 Official Ice Breaker",
+      "instruction": "Use this topic to start a conversation with anyone at the party!",
+      "newTopic": "New Topic",
+      "validity": "Valid at the Jambiz Christmas Party 🎄",
+      "topics": {
+        "topic1": "If you were a Christmas decoration, which one would you be and why?",
+        "topic2": "What's the worst Christmas sweater you've ever worn (or wish you owned)?",
+        "topic3": "If Santa had to fire all his reindeer, what animal should pull the sleigh instead?",
+        "topic4": "You're now a professional gift wrapper. What's your signature move?",
+        "topic5": "If you had to survive on only ONE Christmas food for a week, what would it be?",
+        "topic6": "Confess: What's the weirdest thing you've done to peek at presents early?",
+        "topic7": "You're an elf on the shelf. Where do you hide and what chaos do you cause?",
+        "topic8": "If your life was a Christmas movie, what would the title be?",
+        "topic9": "What's the most creative excuse you've used to avoid mistletoe?",
+        "topic10": "If you could add one ridiculous new Christmas tradition, what would it be?",
+        "topic11": "You're trapped in a snow globe. What are you doing in there?",
+        "topic12": "Which Christmas song would be your villain entrance music?",
+        "topic13": "If Grinch was your coworker, how would you deal with him?",
+        "topic14": "What gift would you give your pet if money was no object? (If no pet: what pet + gift?)",
+        "topic15": "You have to carol at the CEO's door. What song and how dramatic is your performance?"
+      }
     }
   },
   "extras": {

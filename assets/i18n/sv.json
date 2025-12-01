@@ -482,6 +482,29 @@
         "fortune15": "Lita på din magkänsla – den kommer att vägleda dig väl.",
         "fortune16": "En mysig kväll med nära och kära finns i din närmaste framtid."
       }
+    },
+    "iceBreaker": {
+      "title": "🧊 Officiell Isbrytare",
+      "instruction": "Använd detta ämne för att starta en konversation med vem som helst på festen!",
+      "newTopic": "Nytt Ämne",
+      "validity": "Giltig på Jambiz Julfest 🎄",
+      "topics": {
+        "topic1": "Om du var en juldekoration, vilken skulle du vara och varför?",
+        "topic2": "Vilken är den värsta jultröjan du någonsin burit (eller önskar att du ägde)?",
+        "topic3": "Om tomten var tvungen att sparka alla renar, vilket djur borde dra släden istället?",
+        "topic4": "Du är nu en professionell klappinslagare. Vad är ditt signatur-move?",
+        "topic5": "Om du var tvungen att överleva på ENDAST en julmat i en vecka, vad skulle det vara?",
+        "topic6": "Erkänn: Vad är det konstigaste du gjort för att tjuvkika på presenter?",
+        "topic7": "Du är en tomtenisse på hyllan. Var gömmer du dig och vilket kaos orsakar du?",
+        "topic8": "Om ditt liv var en julfilm, vad skulle titeln vara?",
+        "topic9": "Vilken är den mest kreativa ursäkten du använt för att undvika misteln?",
+        "topic10": "Om du kunde lägga till en löjlig ny jultradition, vad skulle det vara?",
+        "topic11": "Du är fast i en snöglob. Vad gör du där inne?",
+        "topic12": "Vilken jullåt skulle vara din skurkentrémusik?",
+        "topic13": "Om Gansen var din kollega, hur skulle du hantera honom?",
+        "topic14": "Vilken present skulle du ge ditt husdjur om pengar inte spelade roll? (Inget husdjur: vilket djur + present?)",
+        "topic15": "Du måste sjunga julsånger utanför VD:ns dörr. Vilken sång och hur dramatisk är din framställning?"
+      }
     }
   },
   "extras": {
