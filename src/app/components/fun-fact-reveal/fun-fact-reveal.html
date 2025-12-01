@@ -161,6 +161,69 @@
     </div>
     }
 
+    <!-- Ice Breaker Reward -->
+    @if (rewardType === 'iceBreaker') {
+    <div class="ice-breaker-container">
+      <div class="ice-breaker-card">
+        <!-- Decorative top edge -->
+        <div class="coupon-edge coupon-edge-top"></div>
+
+        <!-- Card content -->
+        <div class="ice-breaker-content">
+          <!-- Emoji -->
+          <div class="text-5xl sm:text-6xl mb-4">🧊</div>
+
+          <!-- Title -->
+          <h4 class="text-xl sm:text-2xl font-bold text-gold mb-3">
+            {{
+              effectiveReward?.iceBreakerTitleKey
+                ? (effectiveReward.iceBreakerTitleKey | translate)
+                : ('rewards.iceBreaker.title' | translate)
+            }}
+          </h4>
+
+          <!-- Instruction -->
+          <p class="text-sm sm:text-base text-text-muted mb-6">
+            {{
+              effectiveReward?.iceBreakerInstructionKey
+                ? (effectiveReward.iceBreakerInstructionKey | translate)
+                : ('rewards.iceBreaker.instruction' | translate)
+            }}
+          </p>
+
+          <!-- Topic Display Card -->
+          <div class="topic-card" [class.spinning]="isSpinningTopic">
+            <div class="topic-text text-base sm:text-lg font-medium text-text">
+              @if (currentTopic) {
+              {{ currentTopic | translate }}
+              }
+            </div>
+          </div>
+
+          <!-- New Topic Button -->
+          <button
+            class="btn btn-primary mt-6"
+            (click)="spinForTopic()"
+            [disabled]="isSpinningTopic"
+          >
+            <span class="flex items-center gap-2">
+              <span [class.animate-spin]="isSpinningTopic">🎲</span>
+              {{ 'rewards.iceBreaker.newTopic' | translate }}
+            </span>
+          </button>
+
+          <!-- Validity text -->
+          <div class="text-xs sm:text-sm text-text-muted mt-4">
+            {{ 'rewards.iceBreaker.validity' | translate }}
+          </div>
+        </div>
+
+        <!-- Decorative bottom edge -->
+        <div class="coupon-edge coupon-edge-bottom"></div>
+      </div>
+    </div>
+    }
+
     <!-- Snow Globe Reward -->
     @if (rewardType === 'snowGlobe') {
     <div class="snow-globe-card">

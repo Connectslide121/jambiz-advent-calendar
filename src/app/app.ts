@@ -246,6 +246,11 @@ export class App implements OnInit, OnDestroy {
     return day.reward?.type === 'fortuneCookie';
   }
 
+  // Check if day has an ice breaker reward
+  hasIceBreakerReward(day: CalendarDayConfig): boolean {
+    return day.reward?.type === 'iceBreaker';
+  }
+
   // Open interactive reward in modal
   openInteractiveReward(day: CalendarDayConfig): void {
     if (
@@ -254,7 +259,8 @@ export class App implements OnInit, OnDestroy {
         day.reward.type === 'magic8Ball' ||
         day.reward.type === 'popupCard' ||
         day.reward.type === 'coupon' ||
-        day.reward.type === 'fortuneCookie')
+        day.reward.type === 'fortuneCookie' ||
+        day.reward.type === 'iceBreaker')
     ) {
       this.interactiveRewardConfig = day.reward;
       this.showInteractiveReward = true;

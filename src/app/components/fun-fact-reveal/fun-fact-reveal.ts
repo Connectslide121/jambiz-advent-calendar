@@ -51,6 +51,10 @@ export class FunFactReveal implements OnInit {
   isCookieCracking = false;
   fortuneMessage: string | null = null;
 
+  // Ice Breaker State
+  currentTopic: string | null = null;
+  isSpinningTopic = false;
+
   constructor(private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
@@ -70,6 +74,11 @@ export class FunFactReveal implements OnInit {
     // Initialize specific rewards
     if (this.rewardType === 'snowGlobe') {
       this.initSnowGlobe();
+    }
+
+    // Initialize ice breaker with a random topic
+    if (this.rewardType === 'iceBreaker') {
+      this.pickRandomTopic();
     }
 
     // Prepare video URL if needed
@@ -228,6 +237,24 @@ export class FunFactReveal implements OnInit {
   resetCookie(): void {
     this.isCookieCracked = false;
     this.fortuneMessage = null;
+  }
+
+  // Ice Breaker Logic
+  spinForTopic(): void {
+    if (this.isSpinningTopic) return;
+
+    this.isSpinningTopic = true;
+
+    setTimeout(() => {
+      this.isSpinningTopic = false;
+      this.pickRandomTopic();
+    }, 600);
+  }
+
+  private pickRandomTopic(): void {
+    const topics = this.effectiveReward?.topics || ['rewards.iceBreaker.topics.topic1'];
+    const randomIndex = Math.floor(Math.random() * topics.length);
+    this.currentTopic = topics[randomIndex];
   }
 
   private prepareVideoUrl(): void {

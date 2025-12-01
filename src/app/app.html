@@ -470,6 +470,10 @@
                 <span class="text-sm bg-amber-500 text-white px-2 py-0.5 rounded-full"
                   >🥠 Fortune Cookie</span
                 >
+                } @if (hasIceBreakerReward(day)) {
+                <span class="text-sm bg-cyan-500 text-white px-2 py-0.5 rounded-full"
+                  >🧊 Ice Breaker</span
+                >
                 }
               </div>
 
@@ -538,7 +542,7 @@
               <div class="mt-4">
                 <button
                   (click)="openInteractiveReward(day)"
-                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-transparent hover:border-accent-red"
+                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-accent-red/50 hover:border-accent-red"
                 >
                   <span class="text-3xl sm:text-4xl">{{ day.reward!.couponEmoji || '🎟️' }}</span>
                   <div class="flex-1 min-w-0 text-left">
@@ -558,7 +562,7 @@
               <div class="mt-4">
                 <button
                   (click)="openInteractiveReward(day)"
-                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-transparent hover:border-blue-500"
+                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-blue-500/50 hover:border-blue-500"
                 >
                   <span class="text-4xl">🔮</span>
                   <div class="text-left">
@@ -578,7 +582,7 @@
               <div class="mt-4">
                 <button
                   (click)="openInteractiveReward(day)"
-                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-transparent hover:border-purple-500"
+                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-purple-500/50 hover:border-purple-500"
                 >
                   <span class="text-4xl">🎱</span>
                   <div class="text-left">
@@ -598,7 +602,7 @@
               <div class="mt-4">
                 <button
                   (click)="openInteractiveReward(day)"
-                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-transparent hover:border-red-500"
+                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-red-500/50 hover:border-red-500"
                 >
                   <span class="text-4xl">💌</span>
                   <div class="text-left">
@@ -618,12 +622,32 @@
               <div class="mt-4">
                 <button
                   (click)="openInteractiveReward(day)"
-                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-transparent hover:border-amber-500"
+                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-amber-500/50 hover:border-amber-500"
                 >
                   <span class="text-4xl">🥠</span>
                   <div class="text-left">
                     <h4 class="text-base sm:text-lg font-bold text-gold">
                       {{ 'rewards.fortuneCookie.title' | translate }}
+                    </h4>
+                    <p class="text-xs sm:text-sm text-text-muted">
+                      {{ 'rewards.gallery.clickToInteract' | translate }}
+                    </p>
+                  </div>
+                </button>
+              </div>
+              }
+
+              <!-- Ice Breaker Reward -->
+              @if (hasIceBreakerReward(day)) {
+              <div class="mt-4">
+                <button
+                  (click)="openInteractiveReward(day)"
+                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-cyan-500/50 hover:border-cyan-500"
+                >
+                  <span class="text-4xl">🧊</span>
+                  <div class="text-left">
+                    <h4 class="text-base sm:text-lg font-bold text-gold">
+                      {{ 'rewards.iceBreaker.title' | translate }}
                     </h4>
                     <p class="text-xs sm:text-sm text-text-muted">
                       {{ 'rewards.gallery.clickToInteract' | translate }}

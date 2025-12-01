@@ -125,6 +125,90 @@
   }
 }
 
+// Ice Breaker Styles
+.ice-breaker-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ice-breaker-card {
+  position: relative;
+  background: linear-gradient(135deg, #1a2a3a 0%, #0d1a26 100%);
+  border: 2px dashed var(--color-gold);
+  border-radius: 12px;
+  padding: 0;
+  max-width: 320px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+
+  @media (min-width: 640px) {
+    max-width: 380px;
+  }
+
+  // Add subtle shimmer animation
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(244, 211, 94, 0.1), transparent);
+    animation: shimmer 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+}
+
+.ice-breaker-content {
+  padding: 24px 20px;
+  text-align: center;
+
+  @media (min-width: 640px) {
+    padding: 32px 28px;
+  }
+}
+
+.topic-card {
+  background: linear-gradient(135deg, rgba(26, 42, 58, 0.9) 0%, rgba(13, 26, 38, 0.95) 100%);
+  border: 1px solid rgba(244, 211, 94, 0.2);
+  border-radius: 8px;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 1rem;
+
+  &:hover {
+    box-shadow: 0 4px 20px rgba(244, 211, 94, 0.2);
+  }
+
+  &.spinning {
+    animation: topicSpin 0.6s ease-in-out;
+  }
+
+  .topic-text {
+    line-height: 1.5;
+  }
+}
+
+@keyframes topicSpin {
+  0% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: rotateX(90deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+}
+
 // Snow Globe Styles
 .snow-globe-card {
   background: linear-gradient(135deg, rgba(16, 36, 55, 0.9) 0%, rgba(6, 18, 31, 0.95) 100%);

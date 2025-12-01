@@ -26,7 +26,8 @@ export type RewardType =
   | 'snowGlobe'
   | 'magic8Ball'
   | 'popupCard'
-  | 'fortuneCookie';
+  | 'fortuneCookie'
+  | 'iceBreaker';
 
 export interface RewardConfig {
   type: RewardType;
@@ -54,6 +55,10 @@ export interface RewardConfig {
   answers?: string[]; // Array of translation keys for answers
   // For Fortune Cookie
   fortunes?: string[]; // Array of translation keys for fortune messages
+  // For Ice Breaker
+  topics?: string[]; // Array of translation keys for ice breaker topics
+  iceBreakerTitleKey?: string; // Translation key for ice breaker title
+  iceBreakerInstructionKey?: string; // Translation key for instruction
   // Common optional properties
   title?: string; // Translation key for custom title (overrides default "Fun Fact")
 }
