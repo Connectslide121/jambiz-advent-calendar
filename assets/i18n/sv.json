@@ -396,6 +396,12 @@
     "gallery": {
       "clickToInteract": "Klicka för att öppna!"
     },
+    "downloadWallpaper": "Ladda ner bakgrundsbild",
+    "day12": {
+      "title": "🖼️ Jambiz Julbakgrund!",
+      "imageAlt": "Jambiz julbakgrundsbild 2025",
+      "caption": "En festlig bakgrundsbild till din dator eller telefon!"
+    },
     "puzzleComplete": {
       "title": "Den kompletta bilden",
       "description": "Du har klarat alla 24 dagar och avslöjat hela adventskalenderbilden!",
