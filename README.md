@@ -150,6 +150,26 @@ src/
 - **Flappy Sleigh Infinite:** Survive as long as possible
 - **Geometry Dash Infinite:** Endless obstacle course
 
+## 🎮 Games included in this advent calendar
+
+Below is a list of all games included in the calendar, with short descriptions. Parentheses include the exact challengeType key used in calendar-config.ts.
+
+- **Riddle** (riddle) — Short text-based brainteasers where users read a riddle and submit the correct answer.
+- **Hangman** (hangman) — Classic letter-guessing game: reveal the word before running out of guesses.
+- **Word Scramble** (wordScramble) — Unscramble shuffled letters to form the correct Christmas-themed word.
+- **Memory Card** (memoryCard) — Flip and match pairs of Christmas icons on a grid to clear all pairs.
+- **Flappy Sleigh** (flappySleigh) — Flappy Bird–style side-scroller where you guide Santa's sleigh through gaps.
+- **Rebus** (rebus) — Decode emoji or pictogram puzzles to guess a word or phrase.
+- **Ski Slope** (skiSlope) — Downhill skiing mini-game with obstacles and scoring based on performance.
+- **Sokoban** (sokoban) — Push boxes/gifts onto target spots to solve spatial puzzles.
+- **Geometry Dash** (geometryDash) — Auto-scrolling platformer where you jump over obstacles to survive.
+- **Gift Catcher** (giftCatcher) — Catch falling presents while avoiding hazards to reach a target score.
+- **Climber** (climber) — Vertical platform-jumping challenge to reach the top or achieve best height.
+- **Sliding Puzzle** (slidingPuzzle) — Classic sliding-tile puzzle (e.g., 3x3) to reorder an image.
+- **Word Search** (wordSearch) — Grid-based word-finding puzzle; select contiguous letters to form words.
+- **Maze Runner** (mazeRunner) — Navigate procedural mazes, collect items, and reach the exit.
+- **Present Stacking** (presentStacking) — Stack moving presents to reach a target height without toppling.
+
 ## 🔧 Development
 
 ### Available Scripts
