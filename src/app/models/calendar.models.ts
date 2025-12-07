@@ -13,9 +13,21 @@
   | 'mazeRunner'
   | 'flappySleigh'
   | 'presentStacking'
-  | 'giftCatcher';
+  | 'giftCatcher'
+  | 'slidingPuzzle'
+  | 'skiSlope';
 
-export type RewardType = 'text' | 'image' | 'video';
+export type RewardType =
+  | 'text'
+  | 'image'
+  | 'video'
+  | 'audio'
+  | 'coupon'
+  | 'snowGlobe'
+  | 'magic8Ball'
+  | 'popupCard'
+  | 'fortuneCookie'
+  | 'iceBreaker';
 
 export interface RewardConfig {
   type: RewardType;
@@ -25,11 +37,30 @@ export interface RewardConfig {
   imageUrl?: string;
   imageAlt?: string; // Translation key for alt text
   caption?: string; // Translation key for optional caption
+  downloadable?: boolean; // If true, show download button for the image
+  downloadFileName?: string; // Custom filename for download (without extension)
   // For video rewards
   videoUrl?: string;
   videoType?: 'mp4' | 'webm' | 'youtube' | 'vimeo';
   videoPoster?: string; // Poster image URL
   videoCaption?: string; // Translation key for optional caption
+  // For audio rewards
+  audioUrl?: string;
+  audioType?: 'mp3' | 'wav' | 'ogg';
+  lyrics?: string; // Translation key for lyrics
+  // For coupon rewards - silly redeemable vouchers (no persistence, just for fun)
+  couponTitleKey?: string; // Translation key for coupon title
+  couponDescriptionKey?: string; // Translation key for coupon description
+  couponEmoji?: string; // Emoji to display on the coupon
+  couponValidityKey?: string; // Translation key for validity text (e.g., "Valid until: End of holiday spirit")
+  // For Magic 8-Ball
+  answers?: string[]; // Array of translation keys for answers
+  // For Fortune Cookie
+  fortunes?: string[]; // Array of translation keys for fortune messages
+  // For Ice Breaker
+  topics?: string[]; // Array of translation keys for ice breaker topics
+  iceBreakerTitleKey?: string; // Translation key for ice breaker title
+  iceBreakerInstructionKey?: string; // Translation key for instruction
   // Common optional properties
   title?: string; // Translation key for custom title (overrides default "Fun Fact")
 }
@@ -41,6 +72,7 @@ export interface CalendarDayConfig {
   reward?: RewardConfig; // New flexible reward system
   challengeData?: any; // Type varies by challenge type
   levelId?: string; // Unique ID for extras levels (for stats persistence)
+  gridPosition?: number; // Position in the shuffled grid (0-23), used for puzzle image reveal
 }
 
 export interface DayState {

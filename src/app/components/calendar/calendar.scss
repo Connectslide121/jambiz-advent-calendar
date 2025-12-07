@@ -2,14 +2,28 @@
   width: 100%;
 }
 
+// Ensure 6 columns on all screen sizes for puzzle image coherence
+.calendar-grid {
+  max-width: 100%;
+}
+
 .day-tile {
-  aspect-ratio: 1;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 2px;
+
+  @media (min-width: 640px) {
+    border-width: 2px;
+    border-radius: 8px;
+    padding: 4px;
+  }
 
   &:hover {
     border-color: var(--color-accent-red);
@@ -17,7 +31,8 @@
 
   &.completed {
     border-color: var(--color-accent-green);
-    background: linear-gradient(135deg, var(--color-surface) 0%, rgba(42, 157, 143, 0.1) 100%);
+    // Remove the gradient background when completed to show puzzle piece clearly
+    background: transparent;
   }
 
   &.unpopulated {
@@ -36,38 +51,116 @@
       opacity: 0.7;
     }
   }
+
+  &.locked {
+    cursor: not-allowed;
+    border-color: rgba(100, 100, 120, 0.5);
+    background: linear-gradient(135deg, rgba(30, 40, 55, 0.95) 0%, rgba(20, 30, 45, 0.98) 100%);
+    position: relative;
+
+    // Dark overlay effect
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: inherit;
+      z-index: 8;
+    }
+
+    &:hover {
+      border-color: rgba(100, 100, 120, 0.5);
+      transform: none;
+      box-shadow: none;
+    }
+
+    .day-number {
+      opacity: 0.8;
+      color: var(--color-text-muted);
+      z-index: 15;
+      position: relative;
+    }
+
+    .challenge-emoji {
+      filter: grayscale(100%) brightness(0.3) drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3));
+      opacity: 0.2;
+    }
+  }
 }
 
 .day-number {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  font-size: 1rem;
+
+  @media (min-width: 640px) {
+    font-size: 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 2rem;
+  }
+
+  // Stronger shadow for completed days to stand out on puzzle piece
+  &.text-shadow-strong {
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.8), 0 2px 6px rgba(0, 0, 0, 0.6),
+      0 0 2px rgba(244, 211, 94, 0.5);
+  }
+}
+
+// Puzzle piece styling
+.puzzle-piece {
+  opacity: 0;
+  background-repeat: no-repeat;
+  z-index: 1;
+  border-radius: inherit;
+
+  &.revealed {
+    opacity: 1;
+  }
 }
 
 .challenge-emoji {
   position: absolute;
-  bottom: -10%;
-  right: -15%;
-  font-size: 3.5rem;
+  bottom: -8%;
+  right: -12%;
+  font-size: 2.2rem;
   transform: rotate(15deg);
   opacity: 0.8;
   pointer-events: none;
   transition: all 0.3s ease;
-  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3));
+  z-index: 5;
 
   @media (min-width: 640px) {
-    font-size: 4.5rem;
+    font-size: 3.5rem;
+    bottom: -10%;
+    right: -15%;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 5rem;
     bottom: -12%;
     right: -18%;
   }
 
-  @media (min-width: 1024px) {
-    font-size: 6rem;
-    bottom: -15%;
-    right: -20%;
+  &.grayscale {
+    filter: grayscale(100%) brightness(0.7) drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3));
+    opacity: 0.5;
+
+    @media (min-width: 640px) {
+      filter: grayscale(100%) brightness(0.7) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+    }
   }
 
-  &.grayscale {
-    filter: grayscale(100%) brightness(0.7) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
-    opacity: 0.5;
+  // Hidden by default when completed, shown on hover
+  &.completed-emoji {
+    opacity: 0;
+    filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3));
+
+    @media (min-width: 640px) {
+      filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+    }
   }
 }
 
@@ -75,4 +168,112 @@
 .day-tile:hover .challenge-emoji:not(.grayscale) {
   transform: rotate(15deg) scale(1.1);
   opacity: 1;
+}
+
+// Day tile wrapper for tooltip positioning
+.day-tile-wrapper {
+  position: relative;
+  aspect-ratio: 5/6; // Slightly taller than wide for portrait tiles
+}
+
+// Custom tooltip styling - hidden on mobile, only shown on desktop hover
+.tooltip {
+  // Hidden on mobile (touch devices get stuck hover states)
+  display: none;
+
+  @media (min-width: 1024px) {
+    display: block;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    background: var(--color-surface);
+    color: var(--color-text);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    z-index: 100;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--color-accent-red);
+
+    // Arrow
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: var(--color-accent-red);
+    }
+  }
+}
+
+.day-tile-wrapper:hover .tooltip {
+  @media (min-width: 1024px) {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+// Countdown timer styling
+.countdown-container {
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 6px;
+  padding: 4px 8px;
+  backdrop-filter: blur(4px);
+
+  @media (min-width: 640px) {
+    padding: 6px 10px;
+    border-radius: 8px;
+  }
+}
+
+.countdown-timer {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.05em;
+}
+
+// Day 25 - The Big Day styling
+.day25-tile {
+  width: 100%;
+}
+
+.day25-unlocked {
+  background: linear-gradient(
+    135deg,
+    rgba(42, 157, 143, 0.15) 0%,
+    rgba(244, 211, 94, 0.1) 50%,
+    rgba(230, 57, 70, 0.15) 100%
+  );
+  border: 2px solid var(--color-accent-green);
+  box-shadow: 0 0 20px rgba(42, 157, 143, 0.3), 0 0 40px rgba(244, 211, 94, 0.1);
+
+  &:hover {
+    box-shadow: 0 0 30px rgba(42, 157, 143, 0.4), 0 0 60px rgba(244, 211, 94, 0.2);
+  }
+}
+
+.day25-locked {
+  background: linear-gradient(135deg, rgba(30, 40, 55, 0.95) 0%, rgba(20, 30, 45, 0.98) 100%);
+  border: 2px solid rgba(100, 100, 120, 0.5);
+  position: relative;
+
+  // Dark overlay effect (same as locked day tiles)
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: inherit;
+    z-index: 1;
+    pointer-events: none;
+  }
 }

@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, OnDestroy, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { LucideAngularModule, RotateCcw, Trophy } from 'lucide-angular';
 import { PresentSvgComponent } from './present-svg';
 import { ChallengeInfoModalComponent } from '../../shared/challenge-info-modal/challenge-info-modal.component';
+import { CalendarStateService } from '../../../services/calendar-state.service';
 import Matter from 'matter-js';
 
 interface Present {
@@ -28,9 +29,11 @@ interface Present {
 export class PresentStackingChallenge implements OnInit, OnDestroy {
   readonly RotateCcw = RotateCcw;
   readonly Trophy = Trophy;
+  private calendarStateService = inject(CalendarStateService);
 
   @Input() config: any;
   @Input() isCompleted = false;
+  @Input() day?: number;
   @Input() autoEmitOnWin = false; // For Extras: persist completion immediately on win
   @Output() completed = new EventEmitter<void>();
 
@@ -221,6 +224,12 @@ export class PresentStackingChallenge implements OnInit, OnDestroy {
       newHeight >= this.targetHeight
     ) {
       this.gameWon = true;
+
+      // Save completion immediately
+      if (this.day) {
+        this.calendarStateService.markDayComplete(this.day);
+      }
+
       // Emit immediately in Extras mode if configured; otherwise wait for Continue
       if (this.autoEmitOnWin) {
         this.emitCompletionOnce();
@@ -251,7 +260,8 @@ export class PresentStackingChallenge implements OnInit, OnDestroy {
     ];
 
     // Scale down presents for mobile
-    const scale = this.isMobile ? 0.5 : 1;
+    // Increased from 0.5 to 0.65 to make it easier on mobile (presents were too small)
+    const scale = this.isMobile ? 0.65 : 1;
     const sizes = baseSizes.map((size) => ({
       width: Math.round(size.width * scale),
       height: Math.round(size.height * scale),

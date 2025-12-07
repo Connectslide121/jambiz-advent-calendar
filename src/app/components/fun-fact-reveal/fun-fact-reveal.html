@@ -41,6 +41,15 @@
       <p class="text-sm sm:text-base text-text-muted mt-4 italic">
         {{ effectiveReward.caption | translate }}
       </p>
+      } @if (effectiveReward.downloadable) {
+      <a
+        [href]="effectiveReward.imageUrl"
+        [download]="(effectiveReward.downloadFileName || 'reward') + '.png'"
+        class="btn btn-primary flex items-center justify-center gap-2 mt-4 mx-auto w-fit"
+      >
+        <span>📥</span>
+        {{ 'rewards.downloadWallpaper' | translate }}
+      </a>
       }
     </div>
     }
@@ -81,6 +90,386 @@
         {{ effectiveReward.videoCaption | translate }}
       </p>
       }
+    </div>
+    }
+
+    <!-- Audio Reward with Lyrics -->
+    @if (rewardType === 'audio' && effectiveReward.audioUrl) {
+    <div class="reward-audio-container space-y-3 text-left">
+      <!-- Audio Player -->
+      <div class="flex items-center gap-3 bg-surface rounded-lg p-3">
+        <span class="text-2xl">🎵</span>
+        <audio [src]="effectiveReward.audioUrl" controls class="flex-1 h-10">
+          <source
+            [src]="effectiveReward.audioUrl"
+            [type]="'audio/' + (effectiveReward.audioType || 'mp3')"
+          />
+          Your browser does not support the audio element.
+        </audio>
+        <span class="text-2xl">🎵</span>
+      </div>
+
+      <!-- Lyrics Display (Expandable) -->
+      @if (effectiveReward.lyrics) {
+      <details class="bg-surface rounded-lg">
+        <summary class="cursor-pointer p-3 text-gold font-semibold flex items-center gap-2">
+          <span>📝</span>
+          <span>{{ 'rewards.lyricsLabel' | translate }}</span>
+        </summary>
+        <pre
+          class="p-3 pt-0 text-sm text-text whitespace-pre-wrap font-sans leading-relaxed max-h-[40vh] overflow-y-auto"
+          >{{ effectiveReward.lyrics | translate }}</pre
+        >
+      </details>
+      }
+    </div>
+    }
+
+    <!-- Coupon Reward -->
+    @if (rewardType === 'coupon' && effectiveReward.couponTitleKey) {
+    <div class="coupon-container">
+      <div class="coupon">
+        <!-- Decorative top edge -->
+        <div class="coupon-edge coupon-edge-top"></div>
+
+        <!-- Coupon content -->
+        <div class="coupon-content">
+          <!-- Emoji -->
+          <div class="text-5xl sm:text-6xl mb-4">
+            {{ effectiveReward.couponEmoji || '🎟️' }}
+          </div>
+
+          <!-- Title -->
+          <h4 class="text-xl sm:text-2xl font-bold text-gold mb-3">
+            {{ effectiveReward.couponTitleKey | translate }}
+          </h4>
+
+          <!-- Description -->
+          <p class="text-sm sm:text-base text-text leading-relaxed mb-4 italic">
+            "{{ effectiveReward.couponDescriptionKey | translate }}"
+          </p>
+
+          <!-- Validity -->
+          <div class="text-xs sm:text-sm text-text-muted">
+            {{
+              effectiveReward.couponValidityKey
+                ? (effectiveReward.couponValidityKey | translate)
+                : ('rewards.coupon.defaultValidity' | translate)
+            }}
+          </div>
+        </div>
+
+        <!-- Decorative bottom edge -->
+        <div class="coupon-edge coupon-edge-bottom"></div>
+      </div>
+
+      <!-- Instruction -->
+      <p class="text-xs sm:text-sm text-text-muted mt-4">
+        {{ 'rewards.coupon.instruction' | translate }}
+      </p>
+    </div>
+    }
+
+    <!-- Ice Breaker Reward -->
+    @if (rewardType === 'iceBreaker') {
+    <div class="ice-breaker-container">
+      <div class="ice-breaker-card">
+        <!-- Decorative top edge -->
+        <div class="coupon-edge coupon-edge-top"></div>
+
+        <!-- Card content -->
+        <div class="ice-breaker-content">
+          <!-- Emoji -->
+          <div class="text-5xl sm:text-6xl mb-4">🧊</div>
+
+          <!-- Title -->
+          <h4 class="text-xl sm:text-2xl font-bold text-gold mb-3">
+            {{
+              effectiveReward.iceBreakerTitleKey
+                ? (effectiveReward.iceBreakerTitleKey | translate)
+                : ('rewards.iceBreaker.title' | translate)
+            }}
+          </h4>
+
+          <!-- Instruction -->
+          <p class="text-sm sm:text-base text-text-muted mb-6">
+            {{
+              effectiveReward.iceBreakerInstructionKey
+                ? (effectiveReward.iceBreakerInstructionKey | translate)
+                : ('rewards.iceBreaker.instruction' | translate)
+            }}
+          </p>
+
+          <!-- Topic Display Card -->
+          <div class="topic-card" [class.spinning]="isSpinningTopic">
+            <div class="topic-text text-base sm:text-lg font-medium text-text">
+              @if (currentTopic) {
+              {{ currentTopic | translate }}
+              }
+            </div>
+          </div>
+
+          <!-- New Topic Button -->
+          <button
+            class="btn btn-primary mt-6"
+            (click)="spinForTopic()"
+            [disabled]="isSpinningTopic"
+          >
+            <span class="flex items-center gap-2">
+              <span [class.animate-spin]="isSpinningTopic">🎲</span>
+              {{ 'rewards.iceBreaker.newTopic' | translate }}
+            </span>
+          </button>
+
+          <!-- Validity text -->
+          <div class="text-xs sm:text-sm text-text-muted mt-4">
+            {{ 'rewards.iceBreaker.validity' | translate }}
+          </div>
+        </div>
+
+        <!-- Decorative bottom edge -->
+        <div class="coupon-edge coupon-edge-bottom"></div>
+      </div>
+    </div>
+    }
+
+    <!-- Snow Globe Reward -->
+    @if (rewardType === 'snowGlobe') {
+    <div class="snow-globe-card">
+      <div class="snow-globe-container cursor-pointer" (click)="shakeSnowGlobe()">
+        <div
+          class="snow-globe"
+          [class.shaking]="isShakingSnowGlobe"
+          [class.falling]="isSnowFalling"
+        >
+          <div class="dome">
+            <div class="scene">
+              <div class="tree">🎄</div>
+              <div class="snowman">⛄</div>
+            </div>
+            @for (flake of snowflakes; track flake.id) {
+            <div
+              class="snowflake"
+              [class.spawned]="flake.top < 0"
+              [style.left.%]="flake.left"
+              [style.top.%]="flake.top"
+              [style.width.px]="flake.size"
+              [style.height.px]="flake.size"
+              [style.--fall-duration.s]="flake.speed"
+              [style.--fall-delay.s]="flake.delay"
+              [style.--chaos-x.px]="flake.chaosX"
+              [style.--chaos-y.px]="flake.chaosY"
+            ></div>
+            }
+          </div>
+          <div class="base">
+            <div class="plaque">
+              <img src="assets/Jambiz_xmas_logo.png" alt="Jambiz" class="plaque-logo" />
+              <span class="plaque-year">2025</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="text-sm text-text-muted mt-4 animate-pulse text-center">
+        {{ 'rewards.snowGlobe.instruction' | translate }}
+      </p>
+    </div>
+    }
+
+    <!-- Magic 8-Ball Reward -->
+    @if (rewardType === 'magic8Ball') {
+    <div class="magic-8ball-card">
+      <div class="magic-8ball-container cursor-pointer" (click)="shake8Ball()">
+        <div class="magic-8ball" [class.shaking]="isShaking8Ball">
+          <div class="shine"></div>
+          <div class="window">
+            <div class="triangle" [class.visible]="showEightBallAnswer">
+              @if (eightBallAnswer) {
+              <span class="answer">{{ eightBallAnswer | translate }}</span>
+              }
+            </div>
+            @if (!showEightBallAnswer && !isShaking8Ball) {
+            <div class="number-8">8</div>
+            }
+          </div>
+        </div>
+      </div>
+      <p class="text-sm text-text-muted mt-4 animate-pulse text-center">
+        {{ 'rewards.magic8Ball.instruction' | translate }}
+      </p>
+    </div>
+    }
+
+    <!-- Pop-up Card Reward -->
+    @if (rewardType === 'popupCard') {
+    <div class="popup-card-wrapper">
+      <div class="popup-card-container cursor-pointer" (click)="toggleCard()">
+        <div class="popup-card" [class.open]="isCardOpen">
+          <!-- Card Base (Bottom half - stationary) -->
+          <div class="card-base">
+            <div class="card-base-content">
+              <!-- Snow ground texture -->
+              <div class="snow-ground">
+                <div class="snow-drift d1"></div>
+                <div class="snow-drift d2"></div>
+                <div class="snow-drift d3"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Lid (Top half - opens) -->
+          <div class="card-lid">
+            <!-- Outside of lid (red cover) -->
+            <div class="lid-outside">
+              <div class="lid-design">
+                <div class="snowflake-pattern">
+                  <span class="flake f1">❄</span>
+                  <span class="flake f2">❄</span>
+                  <span class="flake f3">❄</span>
+                  <span class="flake f4">❄</span>
+                </div>
+                <div class="lid-center">
+                  <span class="tree-icon">🎄</span>
+                  <span class="lid-text">{{ 'rewards.popupCard.clickToOpen' | translate }}</span>
+                </div>
+              </div>
+            </div>
+            <!-- Inside of lid (message) -->
+            <div class="lid-inside">
+              <div class="lid-message">
+                <div class="stars-row">
+                  <span class="star s1">⭐</span>
+                  <span class="star s2">✨</span>
+                  <span class="star s3">⭐</span>
+                </div>
+                <p class="greeting-text">{{ 'rewards.popupCard.topMessage' | translate }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3D Pop-up Scene (attached to lid, moves with it) -->
+          <div class="popup-scene-container">
+            <!-- Back popup - Mountains -->
+            <div class="popup-element popup-back">
+              <div class="mountains">
+                <svg class="mountain-svg" viewBox="0 0 200 80" preserveAspectRatio="xMidYMax meet">
+                  <!-- Left mountain -->
+                  <polygon points="10,80 50,20 90,80" fill="#4a7c7c" />
+                  <polygon points="35,45 50,20 65,45" fill="white" />
+                  <!-- Right mountain -->
+                  <polygon points="110,80 150,25 190,80" fill="#5c8a8a" />
+                  <polygon points="133,48 150,25 167,48" fill="white" />
+                  <!-- Small trees on sides -->
+                  <polygon points="20,80 28,55 36,80" fill="#2d5a4a" />
+                  <polygon points="164,80 172,58 180,80" fill="#2d5a4a" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- Middle popup - Main Tree with Jambiz -->
+            <div class="popup-element popup-middle">
+              <div class="main-tree-scene">
+                <svg class="tree-svg" viewBox="0 0 100 120" preserveAspectRatio="xMidYMax meet">
+                  <!-- Tree layers -->
+                  <polygon points="50,8 20,45 80,45" fill="#1e7a4d" />
+                  <polygon points="50,25 15,70 85,70" fill="#2d8a5a" />
+                  <polygon points="50,45 10,100 90,100" fill="#3d9a6a" />
+                  <!-- Trunk -->
+                  <rect x="42" y="100" width="16" height="15" fill="#5d4037" />
+                  <!-- Star on top -->
+                  <polygon
+                    points="50,0 52,6 58,6 53,10 55,16 50,12 45,16 47,10 42,6 48,6"
+                    fill="#ffd700"
+                  />
+                  <!-- Ornaments -->
+                  <circle cx="35" cy="55" r="4" fill="#e63946" />
+                  <circle cx="65" cy="52" r="4" fill="#f4d35e" />
+                  <circle cx="50" cy="75" r="4" fill="#e63946" />
+                  <circle cx="30" cy="85" r="4" fill="#f4d35e" />
+                  <circle cx="70" cy="82" r="4" fill="#e63946" />
+                </svg>
+                <!-- Jambiz Logo -->
+                <div class="jambiz-badge">
+                  <img src="assets/Jambiz_xmas_logo.png" alt="Jambiz" class="jambiz-logo" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Front popup - Presents, Snowman and Jambiz Logo -->
+            <div class="popup-element popup-front">
+              <div class="front-scene">
+                <div class="present-left">🎁</div>
+                <div class="snowman-center">⛄</div>
+                <div class="present-right">🎁</div>
+              </div>
+              <!-- Jambiz Logo Badge - positioned prominently -->
+              <div class="jambiz-badge-front">
+                <img src="assets/Jambiz_xmas_logo.png" alt="Jambiz" class="jambiz-logo" />
+              </div>
+            </div>
+
+            <!-- Snow particles -->
+            <div class="snow-particles">
+              <div class="particle p1"></div>
+              <div class="particle p2"></div>
+              <div class="particle p3"></div>
+              <div class="particle p4"></div>
+              <div class="particle p5"></div>
+            </div>
+          </div>
+
+          <!-- Greeting at bottom -->
+          <div class="bottom-greeting">
+            <span>{{ 'rewards.popupCard.greeting' | translate }}</span>
+          </div>
+        </div>
+      </div>
+      <p class="text-sm text-text-muted mt-4 animate-pulse text-center">
+        {{
+          isCardOpen
+            ? ('rewards.popupCard.clickToClose' | translate)
+            : ('rewards.popupCard.instruction' | translate)
+        }}
+      </p>
+    </div>
+    }
+
+    <!-- Fortune Cookie Reward -->
+    @if (rewardType === 'fortuneCookie') {
+    <div class="fortune-cookie-card">
+      <div class="fortune-cookie-container">
+        @if (!isCookieCracked) {
+        <!-- Whole Cookie -->
+        <div
+          class="fortune-cookie cursor-pointer"
+          [class.cracking]="isCookieCracking"
+          (click)="crackCookie()"
+        >
+          <div class="cookie-half left">🥠</div>
+        </div>
+        } @else {
+        <!-- Cracked Cookie with Fortune -->
+        <div class="fortune-reveal">
+          <div class="cracked-cookie">
+            <span class="cookie-piece left">🥠</span>
+            <span class="cookie-piece right">🥠</span>
+          </div>
+          <div class="fortune-slip">
+            <p class="fortune-text">{{ fortuneMessage | translate }}</p>
+          </div>
+          <button class="btn btn-outline btn-sm mt-4" (click)="resetCookie()">
+            {{ 'rewards.fortuneCookie.tryAgain' | translate }}
+          </button>
+        </div>
+        }
+      </div>
+      <p class="text-sm text-text-muted mt-4 animate-pulse text-center">
+        @if (!isCookieCracked) {
+        {{ 'rewards.fortuneCookie.instruction' | translate }}
+        } @else {
+        {{ 'rewards.fortuneCookie.cracked' | translate }}
+        }
+      </p>
     </div>
     } }
   </div>

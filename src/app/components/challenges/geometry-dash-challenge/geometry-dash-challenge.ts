@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { LucideAngularModule, Check } from 'lucide-angular';
+import { LucideAngularModule, Check, Triangle, Keyboard, Smartphone } from 'lucide-angular';
 import { GameService } from '../../../services/game.service';
 import { KeyboardService } from '../../../services/keyboard.service';
 import { SpriteService } from '../../../services/sprite.service';
@@ -167,6 +167,9 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('gameCanvas') canvasRef!: ElementRef<HTMLCanvasElement>;
 
   readonly Check = Check;
+  readonly Triangle = Triangle;
+  readonly Keyboard = Keyboard;
+  readonly Smartphone = Smartphone;
 
   canvas!: HTMLCanvasElement;
   ctx!: CanvasRenderingContext2D;
@@ -186,7 +189,7 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
   }> = [];
 
   // Infinite mode properties
-  private isInfiniteMode = false;
+  isInfiniteMode = false;
   private survivalTime = 0; // Time survived in seconds
   private lastObstacleX = 0; // Track last generated obstacle position
   private lastObstacleType: 'candy' | 'platform' | 'pit' | 'ceilingCandy' | null = null;
@@ -227,6 +230,7 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
     // If already completed, show win state
     if (this.isCompleted) {
       this.gameWon = true;
+      this.showInstructions = false; // Skip instructions for completed challenges
     }
 
     // Initialize difficulty and generate obstacles
@@ -436,7 +440,13 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
           Math.random() * (config.ceilingCandyLength[1] - config.ceilingCandyLength[0]);
 
         // Random height that player must duck under
-        const height = 200 + Math.random() * 200;
+        // Ensure safe gap for player (height 40) + buffer
+        const minGap = 100;
+        const maxSafeHeight = Math.max(50, this.groundY - minGap);
+
+        // Generate height but cap at maxSafeHeight to prevent blocking path on mobile
+        const rawHeight = 100 + Math.random() * 150;
+        const height = Math.min(rawHeight, maxSafeHeight);
 
         this.obstacles.push({
           x: currentX,
@@ -553,7 +563,12 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
         const length =
           config.ceilingCandyLength[0] +
           Math.random() * (config.ceilingCandyLength[1] - config.ceilingCandyLength[0]);
-        const height = 200 + Math.random() * 200;
+
+        // Ensure safe gap for player
+        const minGap = 100;
+        const maxSafeHeight = Math.max(50, this.groundY - minGap);
+        const rawHeight = 100 + Math.random() * 150;
+        const height = Math.min(rawHeight, maxSafeHeight);
 
         this.obstacles.push({
           x: currentX,
@@ -667,6 +682,8 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
   }
 
   startGame(): void {
+    this.gameStarted = true;
+    this.showInstructions = false;
     this.elapsedTime = 0;
     this.survivalTime = 0;
     // Regenerate obstacles for replay variety
@@ -1148,6 +1165,11 @@ export class GeometryDashChallenge implements OnInit, AfterViewInit, OnDestroy {
       // Clear and render initial state
       this.render();
     }
+  }
+
+  restartGame(): void {
+    this.reset();
+    this.startGame();
   }
 
   showReward(): void {

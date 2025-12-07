@@ -1,21 +1,35 @@
 ﻿{
   "app": {
-    "title": "Jambiz julkalender",
-    "subtitle": "En liten utmaning om dagen, en rolig Jambiz-faktabit som belöning",
-    "welcome": "Välkommen till Jambiz julkalender!",
-    "intro": "Häng med på 24 dagar av festligt kul, utmaningar och överraskningar. Lås upp en ny lucka varje dag för att avslöja ett minispel eller pussel och lär dig något nytt om dina kollegor och företaget!",
-    "start": "Starta äventyret",
+    "title": "Jambiz Adventskalender",
+    "subtitle": "En liten utmaning om dagen, en överraskning som belöning",
+    "welcome": "Välkommen till Jambiz Adventskalender!",
+    "intro": "Följ med oss på 24 dagar av festlig skoj, utmaningar och överraskningar. Lås upp en ny lucka varje dag för att avslöja ett minispel eller pussel och hämta din belöning - roliga fakta, videor, interaktiva överraskningar och mer!",
+    "start": "Starta Äventyret",
     "language": {
       "en": "Engelska",
       "sv": "Svenska"
     }
+  },
+  "celebration": {
+    "title": "Grattis! Du klarade det!",
+    "message": "Du har klarat alla 24 adventskalenderutmaningar! Du är en riktig Jambiz-julmästare!",
+    "unlocked": "Du har låst upp:",
+    "viewRewards": "Visa alla belöningar",
+    "playExtras": "Spela extraspel"
   },
   "calendar": {
     "dayLabel": "Dag {{day}}",
     "completed": "Klar",
     "locked": "Låst",
     "completedCount": "{{count}} av 24 klara",
-    "comingSoon": "Kommer snart"
+    "comingSoon": "Kommer snart",
+    "unlocksIn": "Öppnas om",
+    "day25": {
+      "title": "Den stora dagen",
+      "subtitle": "25 december",
+      "description": "Klara alla 24 utmaningar för att låsa upp alla belöningar och extraspel!",
+      "unlocked": "🎉 Alla belöningar upplåsta! 🎉"
+    }
   },
   "challenges": {
     "success": {
@@ -30,7 +44,7 @@
       "instruction": "Ditt svar:",
       "placeholder": "Skriv ditt svar här...",
       "submit": "Skicka svar",
-      "showFunFact": "Visa rolig fakta",
+      "showReward": "Visa belöning",
       "correct": "Rätt! Bra jobbat!",
       "incorrect": "Inte riktigt rätt. Försök igen!",
       "showHint": "Visa ledtråd",
@@ -70,7 +84,7 @@
       "youLose": "Game over!",
       "theWordWas": "Ordet var",
       "tryAgain": "Försök igen",
-      "showFunFact": "Visa rolig fakta",
+      "showReward": "Visa belöning",
       "day2": {
         "clue": "En växt förknippad med julpussar",
         "hint": "Du hänger den i dörröppningar under helgerna"
@@ -95,7 +109,7 @@
       "answerLabel": "Ditt svar:",
       "placeholder": "Skriv det sorterade ordet...",
       "submit": "Skicka svar",
-      "showFunFact": "Visa rolig fakta",
+      "showReward": "Visa belöning",
       "incorrect": "Inte riktigt rätt. Försök igen!",
       "reshuffle": "Blanda om bokstäver",
       "showHint": "Visa ledtråd",
@@ -119,7 +133,7 @@
       "wordsToFind": "Ord att hitta:",
       "wordsFound": "{{found}} av {{total}} ord hittade",
       "allFound": "Alla ord hittade!",
-      "showFunFact": "Visa rolig fakta"
+      "showReward": "Visa belöning"
     },
     "spotTheDifference": {
       "title": "Hitta skillnaderna",
@@ -132,7 +146,7 @@
       "answerLabel": "Ditt svar:",
       "placeholder": "Skriv ditt svar här...",
       "submit": "Skicka svar",
-      "showFunFact": "Visa rolig fakta",
+      "showReward": "Visa belöning",
       "incorrect": "Inte riktigt rätt. Försök igen!",
       "showHint": "Visa ledråd",
       "hideHint": "Dölj ledråd",
@@ -156,35 +170,41 @@
       "matches": "Matchningar",
       "win": "Perfekt! Alla par hittade!",
       "finalMoves": "Klarat på {{moves}} drag",
-      "showFunFact": "Visa rolig fakta"
+      "showReward": "Visa belöning"
     },
     "geometryDash": {
       "title": "Tomtens Sprint",
-      "instruction": "Hoppa över hinder och nå mållinjen!",
+      "instructions": "Hoppa över hinder och nå mållinjen!",
       "controlsDesktop": "Tryck MELLANSLAG, W, ↑, eller klicka för att hoppa",
       "controlsMobile": "Tryck var som helst för att hoppa",
       "jumpButton": "HOPPA",
       "start": "Starta Spel",
+      "gameOver": "Game Over!",
+      "time": "Tid",
       "crashed": "Krasch! Försök igen!",
-      "climber": {
-        "title": "Julklättraren",
-        "levels": {
-          "extra-climber-1": {
-            "name": "Lugn klättring",
-            "description": "Kortare klättring med stabila plattformar"
-          },
-          "extra-climber-2": {
-            "name": "Frostig klättring",
-            "description": "Högre toppar med hala överraskningar"
-          },
-          "extra-climber-3": {
-            "name": "Snöstormstopp",
-            "description": "Högt torn med hala avsatser"
-          }
-        }
-      },
       "victory": "Du klarade det!",
-      "showFunFact": "Visa Rolig Fakta"
+      "showReward": "Visa belöning"
+    },
+    "climber": {
+      "title": "Julklättraren",
+      "instruction": "Klättra till stjärnan högst upp! Samla julkulor på vägen.",
+      "controlsDesktop": "Tryck MELLANSLAG eller klicka för att hoppa. Tajma dina hopp noga!",
+      "controlsMobile": "Tryck var som helst för att hoppa. Tajma dina hopp noga!",
+      "staticPlatform": "Normal",
+      "movingPlatform": "Rörlig",
+      "icePlatform": "Isig",
+      "startGame": "Börja klättra",
+      "success": "Du nådde stjärnan!",
+      "gameLost": "Du ramlade! Försök igen.",
+      "ornamentsCollected": "Julkulor insamlade",
+      "endless": {
+        "tagline": "Oändlig klättring! Håll dig på plattformarna och slå ditt rekord.",
+        "bestHeight": "Bästa höjd",
+        "bestTime": "Bästa tid",
+        "lastHeight": "Senaste höjd",
+        "lastTime": "Senaste tid",
+        "gameLost": "Du halkade! Försök igen och klättra ännu högre."
+      }
     },
     "flappySleigh": {
       "title": "Flappy Släde",
@@ -195,7 +215,7 @@
       "start": "Starta Spel",
       "crashed": "Aj! Du krockade!",
       "victory": "Du nådde granen!",
-      "showFunFact": "Visa rolig fakta",
+      "showReward": "Visa belöning",
       "endless": {
         "tagline": "Oändlig flygtur! Smita mellan polkagriskäpparna så länge du kan.",
         "bestDistance": "Bästa sträcka",
@@ -233,7 +253,7 @@
       "start": "Starta Spel",
       "victory": "Du fångade tillräckligt många klappar!",
       "successMessage": "Bra jobbat! Du räddade julen!",
-      "showFunFact": "Visa Rolig Fakta"
+      "showReward": "Visa belöning"
     },
     "sokoban": {
       "title": "Presentpussel",
@@ -246,27 +266,6 @@
       "completedIn": "Klarat på {{moves}} drag",
       "previouslyCompleted": "Tidigare klarat på {{moves}} drag"
     },
-    "climber": {
-      "title": "Julklättraren",
-      "instruction": "Klättra till stjärnan högst upp! Samla julkulor på vägen.",
-      "controlsDesktop": "Tryck MELLANSLAG eller klicka för att hoppa. Tajma dina hopp noga!",
-      "controlsMobile": "Tryck var som helst för att hoppa. Tajma dina hopp noga!",
-      "staticPlatform": "Normal",
-      "movingPlatform": "Rörlig",
-      "icePlatform": "Isig",
-      "startGame": "Börja klättra",
-      "success": "Du nådde stjärnan!",
-      "gameLost": "Du ramlade! Försök igen.",
-      "ornamentsCollected": "Julkulor insamlade",
-      "endless": {
-        "tagline": "Oändlig klättring! Håll dig på plattformarna och slå ditt rekord.",
-        "bestHeight": "Bästa höjd",
-        "bestTime": "Bästa tid",
-        "lastHeight": "Senaste höjd",
-        "lastTime": "Senaste tid",
-        "gameLost": "Du halkade! Försök igen och klättra ännu högre."
-      }
-    },
     "mazeRunner": {
       "title": "Labyrintlöparen",
       "instruction": "Samla alla julklappar och ta dem till granen!",
@@ -275,11 +274,47 @@
       "completedIn": "Klarat på {{moves}} drag",
       "gifts": "Gåvor"
     },
+    "slidingPuzzle": {
+      "title": "Skjutpussel",
+      "instruction": "Skjut brickorna för att ordna dem rätt!",
+      "controlsDesktop": "Klicka på en bricka eller använd piltangenterna",
+      "controlsMobile": "Tryck på en bricka för att flytta den",
+      "moves": "Drag",
+      "goal": "Mål",
+      "win": "Pusslet löst!",
+      "completedIn": "Klarat på {{moves}} drag",
+      "shuffle": "Blanda",
+      "showReward": "Visa belöning"
+    },
+    "skiSlope": {
+      "title": "Tomtens Skidbacke",
+      "instructions": "Hjälp tomten att åka ner för den snöiga backen på sin släde! Undvik träd och stenar, men se upp - Gansen jagar dig!",
+      "controlsDesktop": "Använd VÄNSTER och HÖGER piltangent eller A/D för att styra",
+      "controlsMobile": "Använd riktningsknapparna för att styra vänster eller höger",
+      "legend": "Vad du ska se upp för:",
+      "tree": "Träd - Game Over!",
+      "rock": "Sten - Game Over!",
+      "snowdrift": "Snödriva - Saktar ner dig!",
+      "present": "Present - Samla för poäng!",
+      "grinchWarning": "Gansen!",
+      "grinchDescription": "Han jagar dig! Varje gång du saktar ner kommer han närmare. Om han fångar dig är spelet slut!",
+      "caught": "Gansen fångade dig!",
+      "victory": "Du flydde från Gansen!",
+      "distance": "Sträcka",
+      "presentsCollected": "presenter insamlade",
+      "endless": {
+        "tagline": "Oändlig backe! Åk så långt du kan medan du flyr från Gansen.",
+        "bestDistance": "Bästa sträcka",
+        "bestPresents": "Bästa presenter",
+        "lastDistance": "Senaste sträcka",
+        "lastPresents": "Senaste presenter"
+      }
+    },
     "miniQuiz": {
       "title": "Minifrågesport",
       "instruction": "Välj rätt svar!",
       "submit": "Skicka svar",
-      "showFunFact": "Visa rolig fakta",
+      "showReward": "Visa belöning",
       "correct": "Rätt! Bra jobbat!",
       "incorrect": "Inte riktigt rätt. Försök igen!",
       "tryAgain": "Försök igen",
@@ -323,7 +358,6 @@
     "day2": "Jambiz Group grundades 2010 av två entreprenörer som ville ge småföretag tillgång till samma tjänster som storbolag.",
     "day3": "Jambiz Group har kontor i Malmö (Gustav Adolfs torg 51) och Göteborg/Kungsbacka (Magasinsgatan 8c).",
     "day4": "XBUS (Excellent Business Services) arbetar efter tre ledord: kompetens, hårt arbete och att ha roligt!",
-    "day5": "Sprinta levererar produkter och tjänster för över 100 miljoner kronor årligen till både privat och offentlig sektor i Sverige.",
     "day6": "ProgressLEAD specialiserar sig på strategi, transformation, projekt-, program- och portföljledning.",
     "day7": "Visste du att det finns ett teaterproduktionsbolag på Jamaica som också heter Jambiz? Ett namn med internationell dragningskraft!",
     "day8": "Exceed Consulting fokuserar på att göra skillnad genom att hjälpa organisationer med kvalitet, hållbarhet och affärsutveckling.",
@@ -340,8 +374,8 @@
     "day19": "Platshållar-fun fact för dag 19.",
     "day20": "Podium Systems molnplattform levererar skräddarsydda lösningar till kunder inom offentlig sektor, logistik, turism och transport.",
     "day21": "LearningLEADs instruktörer är SAFe® Program Consultants, PMP®-certifierade och LEGO® Serious Play®-certifierade facilitatorer.",
-    "day22": "Jambiz Development Center i Göteborg bildas av utvecklare från både Sprinta och Podium System som arbetar tillsammans med innovativa lösningar.",
-    "day23": "Kvalitet, engagemang och lekfullhet genomsyrar hela Jambiz Groups verksamhet och arbetssätt.",
+    "day22": "Jambiz Development Center bildas av utvecklare från både Sprinta och Podium System som arbetar tillsammans med innovativa lösningar.",
+    "day23": "Jambiz äger en lägenhet som heter 'Casa Progresso' i soliga Almuñecar, Spanien! Anställda kan boka den till ett specialpris för sin semester. ☀️🏖️",
     "day24": "Platshållar-fun fact för dag 24."
   },
   "ui": {
@@ -356,11 +390,135 @@
     "startGame": "Starta spel",
     "back": "Tillbaka"
   },
+  "rewards": {
+    "galleryButton": "Alla belöningar",
+    "galleryTitle": "Alla belöningar",
+    "gallery": {
+      "clickToInteract": "Klicka för att öppna!"
+    },
+    "downloadWallpaper": "Ladda ner bakgrundsbild",
+    "day12": {
+      "title": "🖼️ Jambiz Julbakgrund!",
+      "imageAlt": "Jambiz julbakgrundsbild 2025",
+      "caption": "En festlig bakgrundsbild till din dator eller telefon!"
+    },
+    "puzzleComplete": {
+      "title": "Den kompletta bilden",
+      "description": "Du har klarat alla 24 dagar och avslöjat hela adventskalenderbilden!",
+      "download": "Ladda ner bild"
+    },
+    "lockedHint": "Slutför alla 24 dagar för att låsa upp",
+    "unlockHint": "Slutför alla utmaningar för att låsa upp denna sektion ({{completed}}/{{total}})",
+    "lyricsLabel": "Text",
+    "coupon": {
+      "title": "🎟️ Du har fått en kupong!",
+      "instruction": "Visa denna för en kollega för att lösa in!",
+      "defaultValidity": "Giltig tills: Julstämningen tar slut ✨",
+      "day4": {
+        "title": "Officiell Isbrytare",
+        "description": "Visa denna kupong för att starta en konversation med vem som helst på festen. De MÅSTE svara med entusiasm!",
+        "validity": "Giltig på Jambiz Julfest 🎄"
+      },
+      "day11": {
+        "title": "Berättarpass",
+        "description": "Visa denna för valfri kollega för att tvinga dem att lyssna på din helgberättelse med FULL entusiasm och lämpliga reaktioner!",
+        "validity": "Giltig tills: Julstämningen tar slut ✨"
+      },
+      "day16": {
+        "title": "Dåligt Skämt-licens",
+        "description": "Innehavaren får berätta ETT fruktansvärt julordvits utan att få suckar, himlade ögon eller stön. Artig skrattskyldighet gäller!",
+        "validity": "Giltig tills: Julstämningen tar slut ✨"
+      }
+    },
+    "day3": {
+      "title": "🎵 Jambiz Joy 🎵",
+      "lyrics": "Jingle bells on my desk\nJambiz glow no stress\nLaptops snowed in light\nWe clock in feeling bright\n\nCoffee steam and candy canes\nSlides and charts like reindeer trains\nYou need help you call my name\nWe high five in picture frames\n\nJambiz Jambiz holiday cheer\nTeamwork ringing loud and clear\nSide by side we crush this year\nFa la la we love it here\nJambiz Jambiz hearts at work\nLaughing while we go berserk\nTis the season we all shine\nYour joy plus mine our bottom line\n\nSecret Santa sticky notes\nUgly sweaters keynote jokes\nCalendar stuffed like it might explode\nBut we dance down every road\n\nSnow outside but inside glow\nJambiz fam on a sugar rush flow\nRaise your mugs let the emails wait\nWe make this workplace holidate"
+    },
+    "day18": {
+      "title": "🎵 Christmas at Jambiz 🎵",
+      "lyrics": "Deck the halls with PowerPoints\nFa-la-la-la-la\nOh what a joint\nCoffee cups and donut crumbs\nWorkplace cheer\nHere it comes\n\nDeadlines jingling all the way\nLast-minute tasks on Santa's sleigh\n\nChristmas at Jambiz\nWe're feeling fine\nSippin' on lattes in a deadline line\nMeetings and greetings and snacks divine\nOh\nChristmas at Jambiz\nIt's grind-and-shine!\n\nSecret Santa\nPick your fate\nOh no\nBob got a stapler plate\nUgly sweaters\nOffice flair\nWho's got eggnog? Do we care?\n\nSpreadsheet elves are on the run\nAdding columns\nHaving fun\n\nChristmas at Jambiz\nWe're feeling fine\nSippin' on lattes in a deadline line\nMeetings and greetings and snacks divine\nOh\nChristmas at Jambiz\nIt's grind-and-shine!"
+    },
+    "snowGlobe": {
+      "title": "🔮 Magisk Snöglob",
+      "instruction": "Klicka för att skaka snögloben!",
+      "plaque": "Jambiz 2025"
+    },
+    "magic8Ball": {
+      "title": "🎱 Tomtens Magiska Kula",
+      "instruction": "Tänk på en fråga och klicka för att skaka!",
+      "answers": {
+        "yes": "Ja, absolut!",
+        "no": "Tomten säger nej",
+        "maybe": "Fråga igen senare",
+        "askAgain": "Molnig framtid",
+        "definitely": "Det är säkert",
+        "unlikely": "Räkna inte med det",
+        "santaSaysYes": "Tomten godkänner!",
+        "elfSaysNo": "Nissarna säger nja"
+      }
+    },
+    "popupCard": {
+      "title": "🎄 Julkort Pop-up",
+      "instruction": "Klicka för att öppna kortet!",
+      "clickToOpen": "Klicka för att öppna",
+      "clickToClose": "Klicka för att stänga kortet",
+      "greeting": "Från Jambiz med ❤️",
+      "topMessage": "Vi önskar dig en God Jul och ett Gott Nytt År!"
+    },
+    "fortuneCookie": {
+      "title": "🥠 Lyckokaka",
+      "instruction": "Klicka för att knäcka din lyckokaka!",
+      "cracked": "Din lycka har avslöjats!",
+      "tryAgain": "Prova en annan lycka",
+      "fortunes": {
+        "fortune1": "En fantastisk möjlighet väntar dig efter helgerna. Håll utkik!",
+        "fortune2": "Din vänlighet kommer tillbaka till dig tiofallt denna säsong.",
+        "fortune3": "Den bästa gåvan du kan ge är din tid och uppmärksamhet.",
+        "fortune4": "Något underbart är på väg i din framtid.",
+        "fortune5": "Ditt hårda arbete kommer att löna sig innan året är slut.",
+        "fortune6": "Ett överraskande meddelande kommer snart att lysa upp din dag.",
+        "fortune7": "Helgerna kommer att föra dig närmare någon speciell.",
+        "fortune8": "Din kreativitet kommer att lysa på ett oväntat sätt.",
+        "fortune9": "Goda saker kommer till den som delar med sig av kakor.",
+        "fortune10": "Det nya året kommer att föra med sig spännande äventyr.",
+        "fortune11": "En varm kopp choklad och gott sällskap väntar dig idag.",
+        "fortune12": "Ditt leende smittar av sig – dela med dig generöst!",
+        "fortune13": "Ett oväntat samarbete kommer att leda till stor framgång.",
+        "fortune14": "Julandan du delar kommer att bli till varaktiga vänskaper.",
+        "fortune15": "Lita på din magkänsla – den kommer att vägleda dig väl.",
+        "fortune16": "En mysig kväll med nära och kära finns i din närmaste framtid."
+      }
+    },
+    "iceBreaker": {
+      "title": "🧊 Officiell Isbrytare",
+      "instruction": "Använd detta ämne för att starta en konversation med vem som helst på festen!",
+      "newTopic": "Nytt Ämne",
+      "validity": "Giltig på Jambiz Julfest 🎄",
+      "topics": {
+        "topic1": "Om du var en juldekoration, vilken skulle du vara och varför?",
+        "topic2": "Vilken är den värsta jultröjan du någonsin burit (eller önskar att du ägde)?",
+        "topic3": "Om tomten var tvungen att sparka alla renar, vilket djur borde dra släden istället?",
+        "topic4": "Du är nu en professionell klappinslagare. Vad är ditt signatur-move?",
+        "topic5": "Om du var tvungen att överleva på ENDAST en julmat i en vecka, vad skulle det vara?",
+        "topic6": "Erkänn: Vad är det konstigaste du gjort för att tjuvkika på presenter?",
+        "topic7": "Du är en tomtenisse på hyllan. Var gömmer du dig och vilket kaos orsakar du?",
+        "topic8": "Om ditt liv var en julfilm, vad skulle titeln vara?",
+        "topic9": "Vilken är den mest kreativa ursäkten du använt för att undvika misteln?",
+        "topic10": "Om du kunde lägga till en löjlig ny jultradition, vad skulle det vara?",
+        "topic11": "Du är fast i en snöglob. Vad gör du där inne?",
+        "topic12": "Vilken jullåt skulle vara din skurkentrémusik?",
+        "topic13": "Om Gansen var din kollega, hur skulle du hantera honom?",
+        "topic14": "Vilken present skulle du ge ditt husdjur om pengar inte spelade roll? (Inget husdjur: vilket djur + present?)",
+        "topic15": "Du måste sjunga julsånger utanför VD:ns dörr. Vilken sång och hur dramatisk är din framställning?"
+      }
+    }
+  },
   "extras": {
     "button": "Extra",
     "title": "Extrautmaningar",
     "challengeTitle": "Extrautmaning",
     "levelsCompleted": "klara",
+    "lockedHint": "Slutför alla 24 dagar för att låsa upp",
     "games": {
       "riddle": {
         "title": "Gåtor",
@@ -678,8 +836,93 @@
             "description": "Hög hastighet, fånga 40 klappar!"
           }
         }
+      },
+      "slidingPuzzle": {
+        "title": "Skjutpussel",
+        "levels": {
+          "extra-sliding-puzzle-1": {
+            "name": "Medel pussel",
+            "description": "4x4 skjutpussel med 15 brickor"
+          },
+          "extra-sliding-puzzle-2": {
+            "name": "Svårt pussel",
+            "description": "5x5 skjutpussel med 24 brickor"
+          },
+          "extra-sliding-puzzle-3": {
+            "name": "Expert pussel",
+            "description": "6x6 skjutpussel med 35 brickor"
+          }
+        }
+      },
+      "skiSlope": {
+        "title": "Tomtens Skidbacke",
+        "levels": {
+          "extra-ski-slope-1": {
+            "name": "Barnbacken",
+            "description": "Mjuk backe med färre hinder"
+          },
+          "extra-ski-slope-2": {
+            "name": "Fjällbacken",
+            "description": "Längre backe med fler utmaningar"
+          },
+          "extra-ski-slope-3": {
+            "name": "Svarta pisten",
+            "description": "Expertbacke - maximal fara!"
+          },
+          "extra-ski-slope-infinite-easy": {
+            "name": "Oändlig lätt",
+            "description": "Åk för evigt på en lätt backe"
+          },
+          "extra-ski-slope-infinite-medium": {
+            "name": "Oändlig medel",
+            "description": "Hur långt kan du åka?"
+          },
+          "extra-ski-slope-infinite-hard": {
+            "name": "Oändlig expert",
+            "description": "Ultimat överlevnadsutmaning!"
+          }
+        }
       }
     }
+  },
+  "info": {
+    "button": "Så funkar det",
+    "title": "Så funkar kalendern",
+    "sections": {
+      "welcome": {
+        "title": "🎄 Välkommen till julkalendern!",
+        "content": "Hej! Det här är vår Jambiz-julkalender – 24 miniutmaningar för att lysa upp din december. Oavsett om du är här för en snabb hjärngympa eller bara vill lära dig något kul om Jambiz, så har vi något för dig!"
+      },
+      "unlocking": {
+        "title": "🔓 Hur luckor låses upp",
+        "content": "Precis som en riktig adventskalender öppnas varje lucka på sitt datum i december. Så dag 1 öppnas den 1 december, dag 5 den 5 december, och så vidare. Du ser ett lås på luckor som inte är tillgängliga än – men oroa dig inte, de blir redo när tiden kommer!"
+      },
+      "challenges": {
+        "title": "🎮 Utmaningarna",
+        "content": "Varje dag har ett annorlunda minispel eller pussel som väntar på dig. Vi har gåtor, ordspel, minnesutmaningar och till och med lite arkadaction! Stressa inte över att vara perfekt – målet är att ha kul."
+      },
+      "rewards": {
+        "title": "🏆 Klara utmaningar",
+        "content": "När du klarar en utmaning låser du upp en belöning – det kan vara en rolig fakta, en video, en bild eller något annat! Dessutom avslöjar varje klarad dag en pusselbit av den stora bilden som kalendern bildar. Klara alla 24 dagar för att se hela mästerverket! Din framsteg sparas automatiskt, så du kan stänga webbläsaren och komma tillbaka när som helst."
+      },
+      "replay": {
+        "title": "🔄 Vill du spela igen?",
+        "content": "Redan klar med en utmaning men vill köra en gång till? Inga problem! Du kan spela om alla klarade utmaningar hur många gånger du vill. Det påverkar inte din klarstatus – en gång klar är alltid klar!"
+      },
+      "christmas": {
+        "title": "🎅 Den stora dagen - 25 december",
+        "content": "Här kommer det bästa: på juldagen (25 december) låses ALLT upp för alla! Så om du missade några dagar eller livet kom emellan, stressa inte. Du kommer kunna spela alla utmaningar och se alla belöningar ändå."
+      },
+      "extras": {
+        "title": "🎁 Extras & Belöningsgalleri",
+        "content": "Klara alla 24 utmaningar (eller vänta bara till jul!) så låser du upp Extras-sektionen med ännu fler spel och ett galleri med alla belöningar. Se det som en liten bonus för de dedikerade äventyrarna!"
+      },
+      "tip": {
+        "title": "💡 Tips",
+        "content": "Din framsteg sparas i webbläsarens lokala lagring, så vi rekommenderar att du använder samma enhet och webbläsare under hela december för att behålla dina framsteg. Om du byter enhet börjar du om från början där – men kom ihåg, allt låses upp på juldagen ändå!"
+      }
+    },
+    "closing": "Ha det kul, och god jul från Jambiz-teamet! 🎄✨"
   },
   "admin": {
     "markAllComplete": "Markera alla som klara",

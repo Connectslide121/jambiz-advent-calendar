@@ -1,13 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { Calendar } from './components/calendar/calendar';
 import { ChallengeHost } from './components/challenge-host/challenge-host';
 import { LandingPage } from './components/landing-page/landing-page';
 import { EXTRA_LEVELS, ExtraGameSection, ExtraLevel } from './config/extras-config';
-import { CalendarDayConfig, ChallengeType } from './models/calendar.models';
+import { CALENDAR_DAYS } from './config/calendar-config';
+import { CalendarDayConfig, ChallengeType, RewardConfig } from './models/calendar.models';
 import { CHALLENGE_ICONS, DEFAULT_CHALLENGE_ICON } from './config/challenge-icons';
-import { LucideAngularModule, X, ArrowLeft, Check, CheckCheck, XCircle } from 'lucide-angular';
+import { FunFactReveal } from './components/fun-fact-reveal/fun-fact-reveal';
+import {
+  LucideAngularModule,
+  X,
+  ArrowLeft,
+  Check,
+  CheckCheck,
+  XCircle,
+  Lock,
+  Code,
+  Info,
+} from 'lucide-angular';
 import { CalendarStateService } from './services/calendar-state.service';
 
 interface Snowflake {
@@ -28,29 +40,43 @@ interface Snowflake {
     ChallengeHost,
     LucideAngularModule,
     LandingPage,
+    FunFactReveal,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App implements OnInit {
+export class App implements OnInit, OnDestroy {
   readonly X = X;
   readonly ArrowLeft = ArrowLeft;
   readonly Check = Check;
   readonly CheckCheck = CheckCheck;
   readonly XCircle = XCircle;
+  readonly Lock = Lock;
+  readonly Code = Code;
+  readonly Info = Info;
   currentLanguage: string;
   snowflakes: Snowflake[] = [];
+  showInfoModal = false;
   showLandingPage = true;
+  showDevTools = false;
+  private secretSequence: string[] = [];
+  private readonly SECRET_CODE = ['d', 'e', 'v', 't', 'o', 'o', 'l', 's']; // Type "devtools" to toggle
+  private sequenceTimeout: ReturnType<typeof setTimeout> | null = null;
   showExtrasMenu = false;
   showExtraChallenge = false;
+  showRewardsGallery = false;
+  showInteractiveReward = false;
+  showCelebration = false;
+  interactiveRewardConfig: RewardConfig | null = null;
   selectedGame: ExtraGameSection | null = null;
   selectedExtraConfig: CalendarDayConfig | null = null;
   selectedExtraId: string | null = null;
   extraLevels = EXTRA_LEVELS;
+  calendarDays = CALENDAR_DAYS;
   private readonly STORAGE_KEY = 'extras-completed';
   private completedExtras = new Set<string>();
 
-  constructor(private translate: TranslateService, private calendarState: CalendarStateService) {
+  constructor(private translate: TranslateService, public calendarState: CalendarStateService) {
     // Initialize language from localStorage or default to Swedish
     const savedLang = localStorage.getItem('language') || 'sv';
     this.currentLanguage = savedLang;
@@ -73,11 +99,84 @@ export class App implements OnInit {
     this.switchLanguage(newLang);
   }
 
+  /**
+   * Secret dev tools toggle: Type "jambiz" anywhere to toggle visibility
+   */
+  @HostListener('document:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent): void {
+    // Ignore if user is typing in an input field
+    const target = event.target as HTMLElement;
+    if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
+      return;
+    }
+
+    const key = event.key.toLowerCase();
+
+    // Only track letter keys
+    if (key.length === 1 && key >= 'a' && key <= 'z') {
+      this.secretSequence.push(key);
+
+      // Keep only the last N characters (length of secret code)
+      if (this.secretSequence.length > this.SECRET_CODE.length) {
+        this.secretSequence.shift();
+      }
+
+      // Clear existing timeout
+      if (this.sequenceTimeout) {
+        clearTimeout(this.sequenceTimeout);
+      }
+
+      // Check if sequence matches
+      if (this.secretSequence.join('') === this.SECRET_CODE.join('')) {
+        this.showDevTools = !this.showDevTools;
+        this.secretSequence = [];
+      }
+
+      // Reset sequence after 3 seconds of inactivity
+      this.sequenceTimeout = setTimeout(() => {
+        this.secretSequence = [];
+      }, 3000);
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.sequenceTimeout) {
+      clearTimeout(this.sequenceTimeout);
+    }
+  }
+
+  onDateOverrideChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const value = input.value.trim();
+    if (value === '') {
+      this.calendarState.dateOverride = null;
+    } else {
+      const day = parseInt(value, 10);
+      if (!isNaN(day) && day >= 1 && day <= 31) {
+        this.calendarState.dateOverride = day;
+      }
+    }
+  }
+
   startCalendar(): void {
     this.showLandingPage = false;
   }
 
+  openInfoModal(): void {
+    this.showInfoModal = true;
+  }
+
+  closeInfoModal(): void {
+    this.showInfoModal = false;
+  }
+
+  // Check if extras and rewards gallery are unlocked
+  isUnlocked(): boolean {
+    return this.calendarState.isFullyUnlocked();
+  }
+
   openExtras(): void {
+    if (!this.isUnlocked()) return;
     this.showExtrasMenu = true;
     this.selectedGame = null;
   }
@@ -85,6 +184,109 @@ export class App implements OnInit {
   closeExtrasMenu(): void {
     this.showExtrasMenu = false;
     this.selectedGame = null;
+  }
+
+  openRewardsGallery(): void {
+    if (!this.isUnlocked()) return;
+    this.showRewardsGallery = true;
+  }
+
+  closeRewardsGallery(): void {
+    this.showRewardsGallery = false;
+  }
+
+  // Get all days sorted by day number for rewards gallery
+  getSortedCalendarDays(): CalendarDayConfig[] {
+    return [...this.calendarDays].sort((a, b) => a.day - b.day);
+  }
+
+  // Get the reward text for a day (either from reward config or funFactKey)
+  getRewardText(day: CalendarDayConfig): string {
+    if (day.reward?.textKey) {
+      return day.reward.textKey;
+    }
+    if (day.funFactKey) {
+      return day.funFactKey;
+    }
+    return '';
+  }
+
+  // Check if day has a video reward
+  hasVideoReward(day: CalendarDayConfig): boolean {
+    return day.reward?.type === 'video';
+  }
+
+  // Check if day has an image reward
+  hasImageReward(day: CalendarDayConfig): boolean {
+    return day.reward?.type === 'image';
+  }
+
+  // Check if day has an audio reward
+  hasAudioReward(day: CalendarDayConfig): boolean {
+    return day.reward?.type === 'audio';
+  }
+
+  // Check if day has a coupon reward
+  hasCouponReward(day: CalendarDayConfig): boolean {
+    return day.reward?.type === 'coupon';
+  }
+
+  // Check if day has a snow globe reward
+  hasSnowGlobeReward(day: CalendarDayConfig): boolean {
+    return day.reward?.type === 'snowGlobe';
+  }
+
+  // Check if day has a magic 8-ball reward
+  hasMagic8BallReward(day: CalendarDayConfig): boolean {
+    return day.reward?.type === 'magic8Ball';
+  }
+
+  // Check if day has a popup card reward
+  hasPopupCardReward(day: CalendarDayConfig): boolean {
+    return day.reward?.type === 'popupCard';
+  }
+
+  // Check if day has a fortune cookie reward
+  hasFortuneCookieReward(day: CalendarDayConfig): boolean {
+    return day.reward?.type === 'fortuneCookie';
+  }
+
+  // Check if day has an ice breaker reward
+  hasIceBreakerReward(day: CalendarDayConfig): boolean {
+    return day.reward?.type === 'iceBreaker';
+  }
+
+  // Open interactive reward in modal
+  openInteractiveReward(day: CalendarDayConfig): void {
+    if (
+      day.reward &&
+      (day.reward.type === 'snowGlobe' ||
+        day.reward.type === 'magic8Ball' ||
+        day.reward.type === 'popupCard' ||
+        day.reward.type === 'coupon' ||
+        day.reward.type === 'fortuneCookie' ||
+        day.reward.type === 'iceBreaker')
+    ) {
+      this.interactiveRewardConfig = day.reward;
+      this.showInteractiveReward = true;
+    }
+  }
+
+  closeInteractiveReward(): void {
+    this.showInteractiveReward = false;
+    this.interactiveRewardConfig = null;
+  }
+
+  // Celebration modal handlers
+  onCalendarComplete(): void {
+    // Small delay to let the challenge close animation finish
+    setTimeout(() => {
+      this.showCelebration = true;
+    }, 500);
+  }
+
+  closeCelebration(): void {
+    this.showCelebration = false;
   }
 
   selectGame(game: ExtraGameSection): void {

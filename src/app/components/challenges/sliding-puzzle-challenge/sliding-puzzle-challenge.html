@@ -1,0 +1,102 @@
+<div class="sliding-puzzle-container" tabindex="0" (keydown)="onKeyDown($event)">
+  <!-- Header -->
+  <div class="text-center mb-4">
+    <h2 class="text-xl sm:text-2xl font-bold text-gold mb-2">
+      {{ 'challenges.slidingPuzzle.title' | translate }}
+    </h2>
+    <p class="text-text-muted text-sm sm:text-base">
+      {{ 'challenges.slidingPuzzle.instruction' | translate }}
+    </p>
+  </div>
+
+  <!-- Controls info -->
+  <div class="text-center mb-4 text-text-muted text-xs sm:text-sm">
+    <span class="hidden sm:inline">{{
+      'challenges.slidingPuzzle.controlsDesktop' | translate
+    }}</span>
+    <span class="sm:hidden">{{ 'challenges.slidingPuzzle.controlsMobile' | translate }}</span>
+  </div>
+
+  <!-- Stats -->
+  <div class="flex justify-center gap-6 mb-4">
+    <div class="stat-box">
+      <span class="stat-label">{{ 'challenges.slidingPuzzle.moves' | translate }}</span>
+      <span class="stat-value">{{ moves }}</span>
+    </div>
+  </div>
+
+  <!-- Puzzle Grid -->
+  <div class="puzzle-wrapper">
+    <div
+      class="puzzle-grid"
+      [class.solved]="gameWon"
+      [class.grid-4]="gridSize === 4"
+      [class.grid-5]="gridSize === 5"
+      [class.grid-6]="gridSize === 6"
+      [style.aspectRatio]="'1/1'"
+    >
+      @for (tile of tiles; track tile.value) {
+      <div
+        [class]="getTileClasses(tile)"
+        [style]="getTileStyle(tile)"
+        (click)="onTileClick(tile)"
+        [attr.aria-label]="tile.value === 0 ? 'Empty' : 'Tile ' + tile.value"
+      >
+        @if (tile.value !== 0) {
+        <span class="tile-content">{{ getTileDisplay(tile) }}</span>
+        }
+      </div>
+      }
+    </div>
+
+    <!-- Goal hint image -->
+    <div
+      class="goal-hint"
+      [class.grid-4]="gridSize === 4"
+      [class.grid-5]="gridSize === 5"
+      [class.grid-6]="gridSize === 6"
+    >
+      <div class="goal-label">{{ 'challenges.slidingPuzzle.goal' | translate }}</div>
+      <div class="goal-grid" [style.gridTemplateColumns]="'repeat(' + gridSize + ', 1fr)'">
+        @for (i of getGoalTiles(); track i) {
+        <div class="goal-tile" [class.empty]="i === 0">
+          {{ i === 0 ? '' : getTileDisplay({ value: i, row: 0, col: 0 }) }}
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Win State -->
+  @if (gameWon) {
+  <div class="win-message mt-4 text-center">
+    <div class="flex items-center justify-center gap-2 text-accent-green mb-2">
+      <lucide-icon [img]="Check" class="w-6 h-6"></lucide-icon>
+      <span class="text-lg font-bold">{{ 'challenges.slidingPuzzle.win' | translate }}</span>
+    </div>
+    <p class="text-text-muted">
+      {{ 'challenges.slidingPuzzle.completedIn' | translate : { moves: completedMoves } }}
+    </p>
+  </div>
+  }
+
+  <!-- Action Buttons -->
+  <div class="flex justify-center gap-3 mt-4">
+    @if (!gameWon) {
+    <button class="btn btn-outline flex items-center gap-2" (click)="resetGame()">
+      <lucide-icon [img]="Shuffle" class="w-4 h-4"></lucide-icon>
+      {{ 'challenges.slidingPuzzle.shuffle' | translate }}
+    </button>
+    } @if (gameWon || isCompleted) {
+    <button class="btn btn-outline flex items-center gap-2" (click)="resetGame()">
+      <lucide-icon [img]="RotateCcw" class="w-4 h-4"></lucide-icon>
+      {{ 'ui.playAgain' | translate }}
+    </button>
+
+    @if (day) {
+    <button class="btn btn-primary" (click)="showReward()">
+      {{ 'challenges.slidingPuzzle.showReward' | translate }}
+    </button>
+    } }
+  </div>
+</div>

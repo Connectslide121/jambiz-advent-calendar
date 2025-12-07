@@ -2,7 +2,7 @@
   <app-challenge-info-modal [show]="showInstructions" (start)="startGame()">
     <div class="text-center space-y-6">
       <div class="inline-block p-4 rounded-full bg-primary/10 mb-2">
-        <i-lucide name="triangle" class="w-12 h-12 text-primary"></i-lucide>
+        <span class="text-4xl">🎅</span>
       </div>
 
       <div class="space-y-4 text-text-muted">
@@ -10,18 +10,21 @@
           {{ 'challenges.geometryDash.instructions' | translate }}
         </p>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left max-w-lg mx-auto mt-6">
-          <div class="p-4 rounded-lg bg-surface border border-border">
+        <!-- Show only applicable controls -->
+        <div class="max-w-md mx-auto mt-6">
+          <!-- Desktop controls -->
+          <div class="hidden sm:block p-4 rounded-lg bg-surface border border-border">
             <div class="font-bold text-primary mb-1 flex items-center gap-2">
-              <i-lucide name="keyboard" class="w-4 h-4"></i-lucide>
+              <lucide-icon [img]="Keyboard" class="w-4 h-4"></lucide-icon>
               Desktop
             </div>
             <p class="text-sm">{{ 'challenges.geometryDash.controlsDesktop' | translate }}</p>
           </div>
 
-          <div class="p-4 rounded-lg bg-surface border border-border">
+          <!-- Mobile controls -->
+          <div class="sm:hidden p-4 rounded-lg bg-surface border border-border">
             <div class="font-bold text-primary mb-1 flex items-center gap-2">
-              <i-lucide name="smartphone" class="w-4 h-4"></i-lucide>
+              <lucide-icon [img]="Smartphone" class="w-4 h-4"></lucide-icon>
               Mobile
             </div>
             <p class="text-sm">{{ 'challenges.geometryDash.controlsMobile' | translate }}</p>
@@ -29,6 +32,7 @@
         </div>
 
         <!-- Infinite Mode Stats -->
+        @if (isInfiniteMode) {
         <div class="mt-6 pt-6 border-t border-border">
           <h3 class="text-lg font-bold text-primary mb-3">Infinite Mode</h3>
           <div class="grid grid-cols-2 gap-4">
@@ -46,6 +50,7 @@
             </div>
           </div>
         </div>
+        }
       </div>
     </div>
   </app-challenge-info-modal>
@@ -92,7 +97,7 @@
       </p>
       <button
         class="btn btn-outline px-12 py-4 text-lg hover:scale-105 transition-transform"
-        (click)="reset()"
+        (click)="restartGame()"
         type="button"
       >
         {{ 'ui.playAgain' | translate }}
@@ -153,7 +158,7 @@
     <button class="btn btn-primary w-full sm:w-auto px-8" (click)="showReward()" type="button">
       {{ 'ui.showReward' | translate }}
     </button>
-    <button class="btn btn-outline w-full sm:w-auto px-8" (click)="reset()" type="button">
+    <button class="btn btn-outline w-full sm:w-auto px-8" (click)="restartGame()" type="button">
       {{ 'ui.playAgain' | translate }}
     </button>
     }

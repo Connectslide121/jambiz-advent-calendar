@@ -1,8 +1,18 @@
 ﻿import { CalendarDayConfig } from '../models/calendar.models';
 
+// Grid position mapping for shuffled calendar layout
+// The days are arranged in a visually interesting pattern for the puzzle image reveal
+// Grid is 6 columns x 4 rows = 24 positions (0-23)
+// Position layout:
+//  0  1  2  3  4  5
+//  6  7  8  9 10 11
+// 12 13 14 15 16 17
+// 18 19 20 21 22 23
+
 export const CALENDAR_DAYS: CalendarDayConfig[] = [
   {
     day: 1,
+    gridPosition: 7, // Center area
     challengeType: 'riddle',
     reward: {
       type: 'video',
@@ -18,6 +28,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 2,
+    gridPosition: 18, // Bottom left
     challengeType: 'hangman',
     funFactKey: 'funFacts.day2',
     challengeData: {
@@ -29,8 +40,15 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 3,
+    gridPosition: 17, // Bottom right-center
     challengeType: 'wordScramble',
-    funFactKey: 'funFacts.day3',
+    reward: {
+      type: 'audio',
+      audioUrl: 'rewards/day3.mp3',
+      audioType: 'mp3',
+      title: 'rewards.day3.title',
+      lyrics: 'rewards.day3.lyrics',
+    },
     challengeData: {
       word: 'snowflake',
       wordSv: 'snöflinga',
@@ -40,8 +58,31 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 4,
+    gridPosition: 14, // Bottom center
     challengeType: 'memoryCard',
-    funFactKey: 'funFacts.day4',
+    reward: {
+      type: 'iceBreaker',
+      title: 'rewards.iceBreaker.title',
+      iceBreakerTitleKey: 'rewards.iceBreaker.title',
+      iceBreakerInstructionKey: 'rewards.iceBreaker.instruction',
+      topics: [
+        'rewards.iceBreaker.topics.topic1',
+        'rewards.iceBreaker.topics.topic2',
+        'rewards.iceBreaker.topics.topic3',
+        'rewards.iceBreaker.topics.topic4',
+        'rewards.iceBreaker.topics.topic5',
+        'rewards.iceBreaker.topics.topic6',
+        'rewards.iceBreaker.topics.topic7',
+        'rewards.iceBreaker.topics.topic8',
+        'rewards.iceBreaker.topics.topic9',
+        'rewards.iceBreaker.topics.topic10',
+        'rewards.iceBreaker.topics.topic11',
+        'rewards.iceBreaker.topics.topic12',
+        'rewards.iceBreaker.topics.topic13',
+        'rewards.iceBreaker.topics.topic14',
+        'rewards.iceBreaker.topics.topic15',
+      ],
+    },
     challengeData: {
       gridSize: 4,
       icons: ['🎅', '⛄', '🎄', '🎁', '⭐', '🔔', '🕯️', '🦌'],
@@ -49,8 +90,30 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 5,
+    gridPosition: 22, // Bottom right area
     challengeType: 'flappySleigh',
-    funFactKey: 'funFacts.day5',
+    reward: {
+      type: 'fortuneCookie',
+      title: 'rewards.fortuneCookie.title',
+      fortunes: [
+        'rewards.fortuneCookie.fortunes.fortune1',
+        'rewards.fortuneCookie.fortunes.fortune2',
+        'rewards.fortuneCookie.fortunes.fortune3',
+        'rewards.fortuneCookie.fortunes.fortune4',
+        'rewards.fortuneCookie.fortunes.fortune5',
+        'rewards.fortuneCookie.fortunes.fortune6',
+        'rewards.fortuneCookie.fortunes.fortune7',
+        'rewards.fortuneCookie.fortunes.fortune8',
+        'rewards.fortuneCookie.fortunes.fortune9',
+        'rewards.fortuneCookie.fortunes.fortune10',
+        'rewards.fortuneCookie.fortunes.fortune11',
+        'rewards.fortuneCookie.fortunes.fortune12',
+        'rewards.fortuneCookie.fortunes.fortune13',
+        'rewards.fortuneCookie.fortunes.fortune14',
+        'rewards.fortuneCookie.fortunes.fortune15',
+        'rewards.fortuneCookie.fortunes.fortune16',
+      ],
+    },
     challengeData: {
       levelLength: 3200,
       scrollSpeed: 200,
@@ -62,8 +125,12 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 6,
+    gridPosition: 1, // Top left area
     challengeType: 'rebus',
-    funFactKey: 'funFacts.day6',
+    reward: {
+      type: 'popupCard',
+      title: 'rewards.popupCard.title',
+    },
     challengeData: {
       rebusKey: 'challenges.rebus.day6.puzzle',
       answerKey: ['snowman', 'snögubbe'],
@@ -72,33 +139,16 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 7,
-    challengeType: 'wordSearch',
+    gridPosition: 11, // Middle right
+    challengeType: 'skiSlope',
     funFactKey: 'funFacts.day7',
     challengeData: {
-      grid: [
-        ['S', 'N', 'O', 'W', 'B', 'A', 'L', 'L', 'X', 'M'],
-        ['T', 'Q', 'P', 'W', 'Z', 'K', 'M', 'V', 'B', 'P'],
-        ['A', 'L', 'I', 'G', 'H', 'T', 'S', 'Y', 'N', 'R'],
-        ['R', 'M', 'X', 'Q', 'F', 'W', 'P', 'L', 'D', 'T'],
-        ['Z', 'F', 'R', 'O', 'S', 'T', 'K', 'R', 'V', 'S'],
-        ['K', 'V', 'B', 'N', 'M', 'Q', 'W', 'X', 'Y', 'F'],
-        ['G', 'I', 'F', 'T', 'S', 'Z', 'L', 'P', 'T', 'T'],
-      ],
-      gridSv: [
-        ['S', 'N', 'Ö', 'B', 'O', 'L', 'L', 'T', 'X', 'K'],
-        ['T', 'Q', 'P', 'W', 'Z', 'K', 'M', 'O', 'V', 'R'],
-        ['J', 'L', 'J', 'U', 'S', 'M', 'Q', 'M', 'B', 'W'],
-        ['Ä', 'P', 'X', 'F', 'W', 'Y', 'N', 'T', 'L', 'Y'],
-        ['R', 'Z', 'K', 'V', 'B', 'P', 'M', 'E', 'D', 'B'],
-        ['N', 'M', 'Q', 'W', 'X', 'L', 'T', 'N', 'V', 'N'],
-        ['A', 'G', 'Å', 'V', 'O', 'R', 'K', 'P', 'X', 'M'],
-      ],
-      words: ['SNOWBALL', 'LIGHTS', 'FROST', 'GIFTS', 'STAR'],
-      wordsSv: ['SNÖBOLL', 'LJUS', 'TOMTEN', 'GÅVOR', 'STJÄRNA'],
+      difficulty: 'easy',
     },
   },
   {
     day: 8,
+    gridPosition: 20, // Bottom center
     challengeType: 'sokoban',
     funFactKey: 'funFacts.day8',
     challengeData: {
@@ -125,14 +175,21 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 9,
+    gridPosition: 5, // Top right
     challengeType: 'geometryDash',
     challengeData: {
       difficulty: 'easy',
     },
-    funFactKey: 'funFacts.day9',
+    reward: {
+      type: 'video',
+      videoUrl: 'rewards/day19.mp4',
+      videoType: 'mp4',
+      title: 'challenges.success.videoLabel',
+    },
   },
   {
     day: 10,
+    gridPosition: 12, // Middle left
     challengeType: 'giftCatcher',
     funFactKey: 'funFacts.day10',
     challengeData: {
@@ -143,8 +200,15 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 11,
+    gridPosition: 16, // Bottom center-right
     challengeType: 'hangman',
-    funFactKey: 'funFacts.day11',
+    reward: {
+      type: 'coupon',
+      title: 'rewards.coupon.title',
+      couponEmoji: '🗣️',
+      couponTitleKey: 'rewards.coupon.day11.title',
+      couponDescriptionKey: 'rewards.coupon.day11.description',
+    },
     challengeData: {
       word: 'stocking',
       wordSv: 'julstrumpa',
@@ -154,8 +218,17 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 12,
+    gridPosition: 0, // Top left corner
     challengeType: 'wordScramble',
-    funFactKey: 'funFacts.day12',
+    reward: {
+      type: 'image',
+      title: 'rewards.day12.title',
+      imageUrl: 'rewards/day12.png',
+      imageAlt: 'rewards.day12.imageAlt',
+      caption: 'rewards.day12.caption',
+      downloadable: true,
+      downloadFileName: 'Jambiz_Christmas_Wallpaper_2025',
+    },
     challengeData: {
       word: 'reindeer',
       wordSv: 'ren',
@@ -165,6 +238,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 13,
+    gridPosition: 9, // Center
     challengeType: 'rebus',
     funFactKey: 'funFacts.day13',
     challengeData: {
@@ -175,8 +249,12 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 14,
+    gridPosition: 23, // Bottom right corner
     challengeType: 'riddle',
-    funFactKey: 'funFacts.day14',
+    reward: {
+      type: 'snowGlobe',
+      title: 'rewards.snowGlobe.title',
+    },
     challengeData: {
       riddleKey: 'challenges.riddle.day17.question',
       answerKey: ['icicle', 'istapp'],
@@ -185,22 +263,28 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 15,
+    gridPosition: 4, // Top center-right
     challengeType: 'climber',
     funFactKey: 'funFacts.day15',
   },
   {
     day: 16,
-    challengeType: 'hangman',
-    funFactKey: 'funFacts.day16',
+    gridPosition: 19, // Bottom left-center
+    challengeType: 'slidingPuzzle',
+    reward: {
+      type: 'coupon',
+      title: 'rewards.coupon.title',
+      couponEmoji: '🃏',
+      couponTitleKey: 'rewards.coupon.day16.title',
+      couponDescriptionKey: 'rewards.coupon.day16.description',
+    },
     challengeData: {
-      word: 'sleigh',
-      wordSv: 'släde',
-      clueKey: 'challenges.hangman.day14.clue',
-      hintKey: 'challenges.hangman.day14.hint',
+      gridSize: 3,
     },
   },
   {
     day: 17,
+    gridPosition: 10, // Middle center
     challengeType: 'wordSearch',
     funFactKey: 'funFacts.day17',
     challengeData: {
@@ -232,8 +316,15 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 18,
+    gridPosition: 6, // Middle left
     challengeType: 'mazeRunner',
-    funFactKey: 'funFacts.day18',
+    reward: {
+      type: 'audio',
+      audioUrl: 'rewards/day18.mp3',
+      audioType: 'mp3',
+      title: 'rewards.day18.title',
+      lyrics: 'rewards.day18.lyrics',
+    },
     challengeData: {
       rows: 21,
       cols: 21,
@@ -242,13 +333,9 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 19,
+    gridPosition: 21, // Bottom center-right
     challengeType: 'wordScramble',
-    reward: {
-      type: 'video',
-      videoUrl: 'rewards/day19.mp4',
-      videoType: 'mp4',
-      title: 'challenges.success.videoLabel',
-    },
+    funFactKey: 'funFacts.day9',
     challengeData: {
       word: 'gingerbread',
       wordSv: 'pepparkaka',
@@ -258,6 +345,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 20,
+    gridPosition: 2, // Top center
     challengeType: 'hangman',
     funFactKey: 'funFacts.day20',
     challengeData: {
@@ -269,8 +357,22 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 21,
+    gridPosition: 3, // Top center-right
     challengeType: 'rebus',
-    funFactKey: 'funFacts.day21',
+    reward: {
+      type: 'magic8Ball',
+      title: 'rewards.magic8Ball.title',
+      answers: [
+        'rewards.magic8Ball.answers.yes',
+        'rewards.magic8Ball.answers.no',
+        'rewards.magic8Ball.answers.maybe',
+        'rewards.magic8Ball.answers.askAgain',
+        'rewards.magic8Ball.answers.definitely',
+        'rewards.magic8Ball.answers.unlikely',
+        'rewards.magic8Ball.answers.santaSaysYes',
+        'rewards.magic8Ball.answers.elfSaysNo',
+      ],
+    },
     challengeData: {
       rebusKey: 'challenges.rebus.day21.puzzle',
       answerKey: ['winter', 'vinter'],
@@ -279,6 +381,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 22,
+    gridPosition: 13, // Middle center-left
     challengeType: 'geometryDash',
     challengeData: {
       difficulty: 'medium',
@@ -287,6 +390,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 23,
+    gridPosition: 8, // Middle center
     challengeType: 'wordSearch',
     funFactKey: 'funFacts.day23',
     challengeData: {
@@ -305,9 +409,9 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
         ['K', 'L', 'O', 'C', 'K', 'O', 'R', 'X', 'Q', 'G'],
         ['M', 'P', 'V', 'B', 'N', 'W', 'Y', 'L', 'T', 'E'],
         ['K', 'A', 'K', 'O', 'R', 'Z', 'M', 'F', 'K', 'L'],
-        ['F', 'Q', 'W', 'P', 'I', 'X', 'V', 'B', 'Y', 'L'],
-        ['R', 'M', 'K', 'U', 'N', 'D', 'E', 'R', 'Q', 'A'],
-        ['I', 'X', 'V', 'B', 'P', 'M', 'Z', 'F', 'D', 'N'],
+        ['F', 'Q', 'W', 'P', 'I', 'X', 'V', 'B', 'Y', 'S'],
+        ['R', 'M', 'K', 'U', 'N', 'D', 'E', 'R', 'Q', 'N'],
+        ['I', 'X', 'V', 'B', 'P', 'M', 'Z', 'F', 'D', 'Ö'],
         ['D', 'Ä', 'N', 'G', 'E', 'L', 'K', 'Y', 'W', 'G'],
         ['W', 'Q', 'Z', 'M', 'V', 'B', 'N', 'P', 'X', 'E'],
         ['M', 'U', 'R', 'G', 'R', 'Ö', 'N', 'A', 'L', 'L'],
@@ -318,6 +422,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 24,
+    gridPosition: 15, // Bottom center
     challengeType: 'presentStacking',
     reward: {
       type: 'video',

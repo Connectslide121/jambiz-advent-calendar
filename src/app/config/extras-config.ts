@@ -1017,4 +1017,111 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
       },
     ],
   },
+
+  // Sliding Puzzle Extras
+  {
+    type: 'slidingPuzzle',
+    levels: [
+      {
+        id: 'extra-sliding-puzzle-1',
+        nameKey: 'extras.games.slidingPuzzle.levels.extra-sliding-puzzle-1.name',
+        descriptionKey: 'extras.games.slidingPuzzle.levels.extra-sliding-puzzle-1.description',
+        challengeType: 'slidingPuzzle',
+        challengeData: {
+          gridSize: 4,
+        },
+      },
+      {
+        id: 'extra-sliding-puzzle-2',
+        nameKey: 'extras.games.slidingPuzzle.levels.extra-sliding-puzzle-2.name',
+        descriptionKey: 'extras.games.slidingPuzzle.levels.extra-sliding-puzzle-2.description',
+        challengeType: 'slidingPuzzle',
+        challengeData: {
+          gridSize: 5,
+        },
+      },
+      {
+        id: 'extra-sliding-puzzle-3',
+        nameKey: 'extras.games.slidingPuzzle.levels.extra-sliding-puzzle-3.name',
+        descriptionKey: 'extras.games.slidingPuzzle.levels.extra-sliding-puzzle-3.description',
+        challengeType: 'slidingPuzzle',
+        challengeData: {
+          gridSize: 6,
+        },
+      },
+    ],
+  },
+
+  // Ski Slope Extras
+  {
+    type: 'skiSlope',
+    levels: [
+      {
+        id: 'extra-ski-slope-1',
+        nameKey: 'extras.games.skiSlope.levels.extra-ski-slope-1.name',
+        descriptionKey: 'extras.games.skiSlope.levels.extra-ski-slope-1.description',
+        challengeType: 'skiSlope',
+        challengeData: {
+          difficulty: 'easy',
+        },
+      },
+      {
+        id: 'extra-ski-slope-2',
+        nameKey: 'extras.games.skiSlope.levels.extra-ski-slope-2.name',
+        descriptionKey: 'extras.games.skiSlope.levels.extra-ski-slope-2.description',
+        challengeType: 'skiSlope',
+        challengeData: {
+          difficulty: 'medium',
+          difficultyConfig: {
+            slopeLength: 8000,
+          },
+        },
+      },
+      {
+        id: 'extra-ski-slope-3',
+        nameKey: 'extras.games.skiSlope.levels.extra-ski-slope-3.name',
+        descriptionKey: 'extras.games.skiSlope.levels.extra-ski-slope-3.description',
+        challengeType: 'skiSlope',
+        challengeData: {
+          difficulty: 'hard',
+          difficultyConfig: {
+            slopeLength: 12000,
+          },
+        },
+      },
+      {
+        id: 'extra-ski-slope-infinite-easy',
+        nameKey: 'extras.games.skiSlope.levels.extra-ski-slope-infinite-easy.name',
+        descriptionKey: 'extras.games.skiSlope.levels.extra-ski-slope-infinite-easy.description',
+        challengeType: 'skiSlope',
+        isInfinite: true,
+        challengeData: {
+          difficulty: 'easy',
+          infiniteMode: true,
+        },
+      },
+      {
+        id: 'extra-ski-slope-infinite-medium',
+        nameKey: 'extras.games.skiSlope.levels.extra-ski-slope-infinite-medium.name',
+        descriptionKey: 'extras.games.skiSlope.levels.extra-ski-slope-infinite-medium.description',
+        challengeType: 'skiSlope',
+        isInfinite: true,
+        challengeData: {
+          difficulty: 'medium',
+          infiniteMode: true,
+        },
+      },
+      {
+        id: 'extra-ski-slope-infinite-hard',
+        nameKey: 'extras.games.skiSlope.levels.extra-ski-slope-infinite-hard.name',
+        descriptionKey: 'extras.games.skiSlope.levels.extra-ski-slope-infinite-hard.description',
+        challengeType: 'skiSlope',
+        isInfinite: true,
+        challengeData: {
+          difficulty: 'hard',
+          infiniteMode: true,
+        },
+      },
+    ],
+  },
 ];

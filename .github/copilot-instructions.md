@@ -293,3 +293,78 @@ npm start  # Runs on http://localhost:4200
 - **December 1-24 only** - calendar represents advent period
 - **Fun facts** reveal after challenge completion
 - **State persists** via localStorage across sessions
+
+## Version-Based Data Reset
+
+The calendar includes a version-based reset mechanism to clear user data when needed (e.g., clearing beta tester data before official launch).
+
+### How It Works
+
+1. A `CALENDAR_VERSION` constant is defined in `CalendarStateService`
+2. On app startup, the stored version is compared to the current version
+3. If they don't match, all advent calendar localStorage data is cleared
+4. The new version is saved to localStorage
+
+### When to Update the Version
+
+- **Before official launch**: Change version to clear beta tester data
+- **New advent season**: Change version for next year's calendar
+- **Breaking data changes**: When localStorage structure changes incompatibly
+
+### ⚠️ IMPORTANT: Do NOT Change During Active Season
+
+**Once the calendar is released (December 2025), do NOT modify `CALENDAR_VERSION` unless absolutely necessary.**
+
+Changing it will **reset ALL user progress** including:
+
+- Completed days
+- Game stats and high scores
+- Dev mode settings
+
+The current release version is `'2025-release'`. Only change this if you intentionally want to wipe everyone's data.
+
+### How to Trigger a Reset
+
+1. Open `src/app/services/calendar-state.service.ts`
+2. Change the `CALENDAR_VERSION` constant to a new value
+3. Add a comment to the Version History documenting the change
+4. Deploy the updated app
+
+```typescript
+// Example: Bump version to reset all data
+private readonly CALENDAR_VERSION = '2025-release-v2';
+```
+
+### Version History
+
+Maintain version history in the service file:
+
+```typescript
+/**
+ * Version History:
+ * - "2025-release": Official December 2025 launch (resets all beta tester data)
+ * - "2025-release-v2": Fixed critical bug, needed data reset
+ */
+```
+
+## Secret Dev Tools
+
+The app includes hidden developer tools for testing purposes. These are not visible to regular users.
+
+### How to Toggle Dev Tools
+
+Type **`devtools`** on your keyboard (anywhere on the page, not in an input field) to toggle dev tools visibility.
+
+### Features Available in Dev Tools
+
+- **Dev Mode Toggle**: Unlocks all calendar days regardless of date
+- **Date Override**: Set a fake December day (1-31) for testing day-based logic
+- **Mark All Complete**: Instantly mark all challenges as completed
+- **Clear All Progress**: Reset all progress and completion states
+
+### Important Notes
+
+- Dev tools state is **session-only** (not persisted to localStorage)
+- Refreshing the page hides dev tools again
+- The keyboard sequence is ignored when typing in input fields or textareas
+- The sequence auto-resets after 3 seconds of inactivity

@@ -233,6 +233,12 @@ export default class ClimberChallengeComponent
     this.generateLevel();
     this.initialized = true;
 
+    // Skip instructions and show win state if already completed
+    if (this.isCompleted) {
+      this.showInstructions.set(false);
+      this.gameWon.set(true);
+    }
+
     // Load saved stats if completed
     if (this.isCompleted && this.day > 0) {
       const savedStats = this.stateService.getGameStats(this.day);

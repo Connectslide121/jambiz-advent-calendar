@@ -41,11 +41,13 @@
     </div>
     } @else {
     <!-- Fun Fact Display -->
-    <app-fun-fact-reveal
-      [funFactKey]="dayConfig.funFactKey"
-      [reward]="dayConfig.reward"
-      (continue)="onCloseFunFact()"
-    ></app-fun-fact-reveal>
+    <div class="flex-1 overflow-y-auto pb-4 sm:pb-0">
+      <app-fun-fact-reveal
+        [funFactKey]="dayConfig.funFactKey"
+        [reward]="dayConfig.reward"
+        (continue)="onCloseFunFact()"
+      ></app-fun-fact-reveal>
+    </div>
     }
   </div>
 </div>

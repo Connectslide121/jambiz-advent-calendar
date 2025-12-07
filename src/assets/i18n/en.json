@@ -1,21 +1,35 @@
 ﻿{
   "app": {
     "title": "Jambiz Advent Calendar",
-    "subtitle": "One tiny challenge a day, one fun fact as a reward",
+    "subtitle": "One tiny challenge a day, one surprise as a reward",
     "welcome": "Welcome to the Jambiz Advent Calendar!",
-    "intro": "Join us for 24 days of festive fun, challenges, and surprises. Unlock a new door each day to reveal a mini-game or puzzle and learn something new about your colleagues and company!",
+    "intro": "Join us for 24 days of festive fun, challenges, and surprises. Unlock a new door each day to reveal a mini-game or puzzle and claim your reward - fun facts, videos, interactive surprises, and more!",
     "start": "Start the Adventure",
     "language": {
       "en": "English",
       "sv": "Swedish"
     }
   },
+  "celebration": {
+    "title": "Congratulations! You Did It!",
+    "message": "You've completed all 24 advent calendar challenges! You're a true Jambiz holiday champion!",
+    "unlocked": "You've unlocked:",
+    "viewRewards": "View All Rewards",
+    "playExtras": "Play Extra Games"
+  },
   "calendar": {
     "dayLabel": "Day {{day}}",
     "completed": "Completed",
     "locked": "Locked",
     "completedCount": "{{count}} of 24 completed",
-    "comingSoon": "Coming Soon"
+    "comingSoon": "Coming Soon",
+    "unlocksIn": "Unlocks in",
+    "day25": {
+      "title": "The Big Day",
+      "subtitle": "December 25th",
+      "description": "Complete all 24 challenges to unlock the full rewards gallery and extra games!",
+      "unlocked": "🎉 All rewards unlocked! 🎉"
+    }
   },
   "challenges": {
     "success": {
@@ -30,7 +44,7 @@
       "instruction": "Your answer:",
       "placeholder": "Type your answer here...",
       "submit": "Submit Answer",
-      "showFunFact": "Show Fun Fact",
+      "showReward": "Show Reward",
       "correct": "Correct! Well done!",
       "incorrect": "Not quite right. Try again!",
       "showHint": "Show Hint",
@@ -70,7 +84,7 @@
       "youLose": "Game over!",
       "theWordWas": "The word was",
       "tryAgain": "Try Again",
-      "showFunFact": "Show Fun Fact",
+      "showReward": "Show Reward",
       "day2": {
         "clue": "A plant associated with Christmas kisses",
         "hint": "You hang it in doorways during the holidays"
@@ -95,7 +109,7 @@
       "answerLabel": "Your answer:",
       "placeholder": "Type the unscrambled word...",
       "submit": "Submit Answer",
-      "showFunFact": "Show Fun Fact",
+      "showReward": "Show Reward",
       "incorrect": "Not quite right. Try again!",
       "reshuffle": "Reshuffle Letters",
       "showHint": "Show Hint",
@@ -119,7 +133,7 @@
       "wordsToFind": "Words to find:",
       "wordsFound": "{{found}} of {{total}} words found",
       "allFound": "All words found!",
-      "showFunFact": "Show Fun Fact"
+      "showReward": "Show Reward"
     },
     "spotTheDifference": {
       "title": "Spot the Difference",
@@ -132,7 +146,7 @@
       "answerLabel": "Your answer:",
       "placeholder": "Type your answer here...",
       "submit": "Submit Answer",
-      "showFunFact": "Show Fun Fact",
+      "showReward": "Show Reward",
       "incorrect": "Not quite right. Try again!",
       "showHint": "Show Hint",
       "hideHint": "Hide Hint",
@@ -156,18 +170,20 @@
       "matches": "Matches",
       "win": "Perfect! All pairs found!",
       "finalMoves": "Completed in {{moves}} moves",
-      "showFunFact": "Show Fun Fact"
+      "showReward": "Show Reward"
     },
     "geometryDash": {
       "title": "Santa's Sprint",
-      "instruction": "Jump over obstacles and reach the finish line!",
+      "instructions": "Jump over obstacles and reach the finish line!",
       "controlsDesktop": "Press SPACE, W, ↑, or click to jump",
       "controlsMobile": "Tap anywhere to jump",
       "jumpButton": "JUMP",
       "start": "Start Game",
+      "gameOver": "Game Over!",
+      "time": "Time",
       "crashed": "Crashed! Try again!",
       "victory": "You made it!",
-      "showFunFact": "Show Fun Fact"
+      "showReward": "Show Reward"
     },
     "flappySleigh": {
       "title": "Flappy Sleigh",
@@ -178,7 +194,7 @@
       "start": "Start Game",
       "crashed": "Ouch! You hit an obstacle!",
       "victory": "You reached the tree!",
-      "showFunFact": "Show Fun Fact",
+      "showReward": "Show Reward",
       "endless": {
         "tagline": "Endless flight! Glide between candy canes for as long as you can.",
         "bestDistance": "Best distance",
@@ -216,7 +232,7 @@
       "start": "Start Game",
       "victory": "You caught enough gifts!",
       "successMessage": "Great job! You saved Christmas!",
-      "showFunFact": "Show Fun Fact"
+      "showReward": "Show Reward"
     },
     "sokoban": {
       "title": "Gift Puzzle",
@@ -258,11 +274,47 @@
       "completedIn": "Completed in {{moves}} moves",
       "gifts": "Gifts"
     },
+    "slidingPuzzle": {
+      "title": "Sliding Puzzle",
+      "instruction": "Slide the tiles to arrange them in order!",
+      "controlsDesktop": "Click a tile or use arrow keys to move",
+      "controlsMobile": "Tap a tile to slide it",
+      "moves": "Moves",
+      "goal": "Goal",
+      "win": "Puzzle Solved!",
+      "completedIn": "Completed in {{moves}} moves",
+      "shuffle": "Shuffle",
+      "showReward": "Show Reward"
+    },
+    "skiSlope": {
+      "title": "Santa's Ski Slope",
+      "instructions": "Help Santa ski down the snowy hill on his sleigh! Avoid trees and rocks, but watch out - the Grinch is chasing you!",
+      "controlsDesktop": "Use LEFT and RIGHT arrow keys or A/D to steer",
+      "controlsMobile": "Use the directional buttons to steer left or right",
+      "legend": "What to watch for:",
+      "tree": "Tree - Game Over!",
+      "rock": "Rock - Game Over!",
+      "snowdrift": "Snowdrift - Slows you down!",
+      "present": "Present - Collect for points!",
+      "grinchWarning": "The Grinch!",
+      "grinchDescription": "He's chasing you! Every time you slow down, he gets closer. If he catches you, it's game over!",
+      "caught": "The Grinch caught you!",
+      "victory": "You escaped the Grinch!",
+      "distance": "Distance",
+      "presentsCollected": "presents collected",
+      "endless": {
+        "tagline": "Endless slope! Ski as far as you can while escaping the Grinch.",
+        "bestDistance": "Best distance",
+        "bestPresents": "Best presents",
+        "lastDistance": "Last distance",
+        "lastPresents": "Last presents"
+      }
+    },
     "miniQuiz": {
       "title": "Mini Quiz",
       "instruction": "Choose the correct answer!",
       "submit": "Submit Answer",
-      "showFunFact": "Show Fun Fact",
+      "showReward": "Show Reward",
       "correct": "Correct! Well done!",
       "incorrect": "Not quite right. Try again!",
       "tryAgain": "Try Again",
@@ -306,7 +358,6 @@
     "day2": "Jambiz Group was founded in 2010 by two entrepreneurs who wanted to give small businesses access to the same services as large corporations.",
     "day3": "Jambiz Group has offices in Malmö (Gustav Adolfs torg 51) and Göteborg/Kungsbacka (Magasinsgatan 8c).",
     "day4": "XBUS (Excellent Business Services) works by three core values: competence, hard work, and having fun!",
-    "day5": "Sprinta delivers products and services worth over 100 million SEK annually to both private and public sector in Sweden.",
     "day6": "ProgressLEAD specializes in strategy, transformation, project, program and portfolio management.",
     "day7": "Did you know there is a theater production company in Jamaica also called Jambiz? Talk about a name with international appeal!",
     "day8": "Exceed Consulting focuses on making a positive difference by helping organizations with quality, sustainability, and business development.",
@@ -323,8 +374,8 @@
     "day19": "Placeholder fun fact for day 19.",
     "day20": "Podium System's cloud platform delivers tailored solutions for customers in public sector, logistics, tourism and transport.",
     "day21": "LearningLEAD instructors are SAFe® Program Consultants, PMP® certified, and LEGO® Serious Play® certified facilitators.",
-    "day22": "The Jambiz Development Center in Göteborg is formed by developers from both Sprinta and Podium System working together on innovative solutions.",
-    "day23": "Quality, engagement, and playfulness permeate all of Jambiz Group's operations and work methods.",
+    "day22": "The Jambiz Development Center is formed by developers from both Sprinta and Podium System working together on innovative solutions.",
+    "day23": "Jambiz owns an apartment called 'Casa Progresso' in sunny Almuñecar, Spain! Employees can book it at a special price for their vacation getaways. ☀️🏖️",
     "day24": "Placeholder fun fact for day 24."
   },
   "ui": {
@@ -339,11 +390,135 @@
     "startGame": "Start Game",
     "back": "Back"
   },
+  "rewards": {
+    "galleryButton": "All Rewards",
+    "galleryTitle": "All Rewards",
+    "gallery": {
+      "clickToInteract": "Click to open!"
+    },
+    "downloadWallpaper": "Download Wallpaper",
+    "day12": {
+      "title": "🖼️ Jambiz Christmas Wallpaper!",
+      "imageAlt": "Jambiz Christmas wallpaper 2025",
+      "caption": "A festive wallpaper for your computer or phone!"
+    },
+    "puzzleComplete": {
+      "title": "The Complete Picture",
+      "description": "You've completed all 24 days and revealed the full advent calendar image!",
+      "download": "Download Image"
+    },
+    "lockedHint": "Complete all 24 days to unlock",
+    "unlockHint": "Complete all challenges to unlock this section ({{completed}}/{{total}})",
+    "lyricsLabel": "Lyrics",
+    "coupon": {
+      "title": "🎟️ You earned a coupon!",
+      "instruction": "Show this to a colleague to redeem!",
+      "defaultValidity": "Valid until: The end of holiday spirit ✨",
+      "day4": {
+        "title": "Official Ice Breaker",
+        "description": "Present this coupon to start a conversation with anyone at the party. They MUST respond with enthusiasm!",
+        "validity": "Valid at the Jambiz Christmas Party 🎄"
+      },
+      "day11": {
+        "title": "Story Time Pass",
+        "description": "Present this to any colleague to make them listen to your weekend story with FULL enthusiasm and appropriate reactions!",
+        "validity": "Valid until: The end of holiday spirit ✨"
+      },
+      "day16": {
+        "title": "Bad Joke License",
+        "description": "Bearer may tell ONE terrible Christmas pun without receiving groans, eye-rolls, or sighs. Polite laughter required!",
+        "validity": "Valid until: The end of holiday spirit ✨"
+      }
+    },
+    "day3": {
+      "title": "🎵 Jambiz Joy 🎵",
+      "lyrics": "Jingle bells on my desk\nJambiz glow no stress\nLaptops snowed in light\nWe clock in feeling bright\n\nCoffee steam and candy canes\nSlides and charts like reindeer trains\nYou need help you call my name\nWe high five in picture frames\n\nJambiz Jambiz holiday cheer\nTeamwork ringing loud and clear\nSide by side we crush this year\nFa la la we love it here\nJambiz Jambiz hearts at work\nLaughing while we go berserk\nTis the season we all shine\nYour joy plus mine our bottom line\n\nSecret Santa sticky notes\nUgly sweaters keynote jokes\nCalendar stuffed like it might explode\nBut we dance down every road\n\nSnow outside but inside glow\nJambiz fam on a sugar rush flow\nRaise your mugs let the emails wait\nWe make this workplace holidate"
+    },
+    "day18": {
+      "title": "🎵 Christmas at Jambiz 🎵",
+      "lyrics": "Deck the halls with PowerPoints\nFa-la-la-la-la\nOh what a joint\nCoffee cups and donut crumbs\nWorkplace cheer\nHere it comes\n\nDeadlines jingling all the way\nLast-minute tasks on Santa's sleigh\n\nChristmas at Jambiz\nWe're feeling fine\nSippin' on lattes in a deadline line\nMeetings and greetings and snacks divine\nOh\nChristmas at Jambiz\nIt's grind-and-shine!\n\nSecret Santa\nPick your fate\nOh no\nBob got a stapler plate\nUgly sweaters\nOffice flair\nWho's got eggnog? Do we care?\n\nSpreadsheet elves are on the run\nAdding columns\nHaving fun\n\nChristmas at Jambiz\nWe're feeling fine\nSippin' on lattes in a deadline line\nMeetings and greetings and snacks divine\nOh\nChristmas at Jambiz\nIt's grind-and-shine!"
+    },
+    "snowGlobe": {
+      "title": "Magical Snow Globe",
+      "instruction": "Click to shake the snow globe!",
+      "plaque": "Jambiz 2025"
+    },
+    "magic8Ball": {
+      "title": "Santa's Magic Ornament",
+      "instruction": "Think of a question and click to shake!",
+      "answers": {
+        "yes": "Yes, definitely!",
+        "no": "Santa says no",
+        "maybe": "Ask again later",
+        "askAgain": "Cloudy future",
+        "definitely": "It is certain",
+        "unlikely": "Don't count on it",
+        "santaSaysYes": "Santa approves!",
+        "elfSaysNo": "The elves say nope"
+      }
+    },
+    "popupCard": {
+      "title": "🎄 Christmas Pop-up Card",
+      "instruction": "Click to open the card!",
+      "clickToOpen": "Click to Open",
+      "clickToClose": "Click to close the card",
+      "greeting": "From Jambiz with ❤️",
+      "topMessage": "Wishing you a Merry Christmas and a Happy New Year!"
+    },
+    "fortuneCookie": {
+      "title": "🥠 Fortune Cookie",
+      "instruction": "Click to crack open your fortune!",
+      "cracked": "Your fortune has been revealed!",
+      "tryAgain": "Try Another Fortune",
+      "fortunes": {
+        "fortune1": "A great opportunity awaits you after the holidays. Stay alert!",
+        "fortune2": "Your kindness will come back to you tenfold this season.",
+        "fortune3": "The best gift you can give is your time and attention.",
+        "fortune4": "Something wonderful is brewing in your future.",
+        "fortune5": "Your hard work will pay off before the year ends.",
+        "fortune6": "A surprise message will brighten your day soon.",
+        "fortune7": "The holidays will bring you closer to someone special.",
+        "fortune8": "Your creativity will shine in an unexpected way.",
+        "fortune9": "Good things come to those who share cookies.",
+        "fortune10": "The new year will bring exciting adventures your way.",
+        "fortune11": "A warm cup of cocoa and good company await you today.",
+        "fortune12": "Your smile is contagious – spread it generously!",
+        "fortune13": "An unexpected collaboration will lead to great success.",
+        "fortune14": "The holiday spirit you share will return as lasting friendships.",
+        "fortune15": "Trust your instincts – they will guide you well.",
+        "fortune16": "A cozy evening with loved ones is in your near future."
+      }
+    },
+    "iceBreaker": {
+      "title": "🧊 Official Ice Breaker",
+      "instruction": "Use this topic to start a conversation with anyone at the party!",
+      "newTopic": "New Topic",
+      "validity": "Valid at the Jambiz Christmas Party 🎄",
+      "topics": {
+        "topic1": "If you were a Christmas decoration, which one would you be and why?",
+        "topic2": "What's the worst Christmas sweater you've ever worn (or wish you owned)?",
+        "topic3": "If Santa had to fire all his reindeer, what animal should pull the sleigh instead?",
+        "topic4": "You're now a professional gift wrapper. What's your signature move?",
+        "topic5": "If you had to survive on only ONE Christmas food for a week, what would it be?",
+        "topic6": "Confess: What's the weirdest thing you've done to peek at presents early?",
+        "topic7": "You're an elf on the shelf. Where do you hide and what chaos do you cause?",
+        "topic8": "If your life was a Christmas movie, what would the title be?",
+        "topic9": "What's the most creative excuse you've used to avoid mistletoe?",
+        "topic10": "If you could add one ridiculous new Christmas tradition, what would it be?",
+        "topic11": "You're trapped in a snow globe. What are you doing in there?",
+        "topic12": "Which Christmas song would be your villain entrance music?",
+        "topic13": "If Grinch was your coworker, how would you deal with him?",
+        "topic14": "What gift would you give your pet if money was no object? (If no pet: what pet + gift?)",
+        "topic15": "You have to carol at the CEO's door. What song and how dramatic is your performance?"
+      }
+    }
+  },
   "extras": {
     "button": "Extras",
     "title": "Extra Challenges",
     "challengeTitle": "Extra Challenge",
     "levelsCompleted": "completed",
+    "lockedHint": "Complete all 24 days to unlock",
     "games": {
       "riddle": {
         "title": "Riddles",
@@ -661,8 +836,93 @@
             "description": "High speed challenge, catch 40 gifts!"
           }
         }
+      },
+      "slidingPuzzle": {
+        "title": "Sliding Puzzle",
+        "levels": {
+          "extra-sliding-puzzle-1": {
+            "name": "Medium Puzzle",
+            "description": "4x4 sliding puzzle with 15 tiles"
+          },
+          "extra-sliding-puzzle-2": {
+            "name": "Hard Puzzle",
+            "description": "5x5 sliding puzzle with 24 tiles"
+          },
+          "extra-sliding-puzzle-3": {
+            "name": "Expert Puzzle",
+            "description": "6x6 sliding puzzle with 35 tiles"
+          }
+        }
+      },
+      "skiSlope": {
+        "title": "Santa's Ski Slope",
+        "levels": {
+          "extra-ski-slope-1": {
+            "name": "Bunny Slope",
+            "description": "Gentle hill with fewer obstacles"
+          },
+          "extra-ski-slope-2": {
+            "name": "Mountain Run",
+            "description": "Longer slope with more challenges"
+          },
+          "extra-ski-slope-3": {
+            "name": "Black Diamond",
+            "description": "Expert slope - maximum danger!"
+          },
+          "extra-ski-slope-infinite-easy": {
+            "name": "Endless Easy",
+            "description": "Ski forever on an easy slope"
+          },
+          "extra-ski-slope-infinite-medium": {
+            "name": "Endless Medium",
+            "description": "How far can you ski?"
+          },
+          "extra-ski-slope-infinite-hard": {
+            "name": "Endless Expert",
+            "description": "Ultimate survival challenge!"
+          }
+        }
       }
     }
+  },
+  "info": {
+    "button": "How It Works",
+    "title": "How the Calendar Works",
+    "sections": {
+      "welcome": {
+        "title": "🎄 Welcome to the Advent Calendar!",
+        "content": "Hey there! This is our Jambiz Advent Calendar – 24 mini-challenges to brighten up your December. Whether you're here for a quick brain teaser or just want to learn something fun about Jambiz, we've got you covered!"
+      },
+      "unlocking": {
+        "title": "🔓 How Days Unlock",
+        "content": "Just like a real advent calendar, each day unlocks on its date in December. So day 1 opens on December 1st, day 5 opens on December 5th, and so on. You'll see a lock icon on days that aren't available yet – but don't worry, they'll be ready when the time comes!"
+      },
+      "challenges": {
+        "title": "🎮 The Challenges",
+        "content": "Each day has a different mini-game or puzzle waiting for you. We've got riddles, word games, memory challenges, and even some arcade-style action! Don't stress about being perfect – the goal is to have fun."
+      },
+      "rewards": {
+        "title": "🏆 Completing Challenges",
+        "content": "When you complete a challenge, you unlock a reward – it could be a fun fact, a video, an image, or something else! Plus, each completed day reveals a piece of the big picture puzzle that the calendar forms. Complete all 24 days to see the full masterpiece! Your progress is saved automatically, so you can close the browser and come back anytime."
+      },
+      "replay": {
+        "title": "🔄 Want to Play Again?",
+        "content": "Already finished a challenge but want another go? No problem! You can replay any completed challenge as many times as you like. It won't affect your completion status – once done is done!"
+      },
+      "christmas": {
+        "title": "🎅 The Big Day - December 25th",
+        "content": "Here's the best part: on Christmas Day (December 25th), EVERYTHING unlocks for everyone! So if you missed a few days or life got busy, don't sweat it. You'll be able to play all the challenges and see all the rewards anyway."
+      },
+      "extras": {
+        "title": "🎁 Extras & Rewards Gallery",
+        "content": "Complete all 24 challenges (or just wait until Christmas!) and you'll unlock the Extras section with even more games and a gallery with all the rewards. Think of it as a little bonus for the dedicated adventurers!"
+      },
+      "tip": {
+        "title": "💡 Pro Tip",
+        "content": "Your progress is saved in your browser's local storage, so we recommend using the same device and browser throughout December to keep your progress. If you switch devices, you'll start fresh on the new one – but remember, everything unlocks on Christmas anyway!"
+      }
+    },
+    "closing": "Have fun, and happy holidays from the Jambiz team! 🎄✨"
   },
   "admin": {
     "markAllComplete": "Mark All Complete",

@@ -10,7 +10,7 @@ An interactive Christmas advent calendar web application featuring 24 daily chal
 ## ✨ Features
 
 ### 🎮 Diverse Challenge Types
-- **Simple Puzzles:** Riddles, Hangman, Word Scramble, Word Search, Rebus
+- **Simple Puzzles:** Riddles, Hangman, Word Scramble, Word Search, Rebus, Mini Quiz, Sliding Puzzle
 - **Complex Minigames:** 
   - 🎯 Geometry Dash (rhythm-based obstacle avoider)
   - 📦 Sokoban (box-pushing puzzles)
@@ -18,6 +18,9 @@ An interactive Christmas advent calendar web application featuring 24 daily chal
   - 🎴 Memory Cards (Christmas-themed matching)
   - 🌀 Maze Runner (navigate procedural mazes)
   - 🛷 Flappy Sleigh (Flappy Bird style)
+  - 🎁 Gift Catcher (catch falling presents)
+  - 🏗️ Present Stacking (physics-based stacking)
+  - ⛷️ Ski Slope (downhill skiing avoider)
 
 ### 🎁 Extra Challenges
 - **Bonus Levels:** Additional challenges beyond the 24 advent days
@@ -46,6 +49,7 @@ An interactive Christmas advent calendar web application featuring 24 daily chal
 - **Stats Persistence:** Save game statistics (moves, time, scores)
 - **Replay Functionality:** Replay completed challenges without losing progress
 - **localStorage:** Client-side state with no backend required
+- **Version-Based Reset:** Automatic data reset when new version is deployed (clears beta tester data)
 
 ## 🚀 Getting Started
 
@@ -97,17 +101,22 @@ src/
 │   │   ├── fun-fact-reveal/       # Fun fact display
 │   │   ├── touch-controls/        # Mobile game controls
 │   │   └── challenges/            # Individual challenge components
-│   │       ├── riddle-challenge/
-│   │       ├── hangman-challenge/
-│   │       ├── word-scramble-challenge/
-│   │       ├── word-search-challenge/
-│   │       ├── rebus-challenge/
-│   │       ├── memory-card-challenge/
-│   │       ├── geometry-dash-challenge/
-│   │       ├── sokoban-challenge/
 │   │       ├── climber-challenge/
 │   │       ├── flappy-sleigh-challenge/
-│   │       └── maze-runner-challenge/
+│   │       ├── geometry-dash-challenge/
+│   │       ├── gift-catcher-challenge/
+│   │       ├── hangman-challenge/
+│   │       ├── maze-runner-challenge/
+│   │       ├── memory-card-challenge/
+│   │       ├── mini-quiz-challenge/
+│   │       ├── present-stacking-challenge/
+│   │       ├── rebus-challenge/
+│   │       ├── riddle-challenge/
+│   │       ├── ski-slope-challenge/
+│   │       ├── sliding-puzzle-challenge/
+│   │       ├── sokoban-challenge/
+│   │       ├── word-scramble-challenge/
+│   │       └── word-search-challenge/
 │   ├── config/
 │   │   ├── calendar-config.ts     # 24 days configuration
 │   │   └── extras-config.ts       # Extra levels configuration
@@ -126,28 +135,6 @@ src/
 │   └── sprites/                   # Game sprites
 └── styles.scss                    # Global styles
 ```
-
-## 🎮 Challenge Types
-
-### Simple Challenges
-- **Riddle:** Solve text-based riddles
-- **Hangman:** Guess the word letter by letter
-- **Word Scramble:** Unscramble Christmas words
-- **Word Search:** Find words in a grid
-- **Rebus:** Decode emoji puzzles
-
-### Minigames
-- **Memory Cards:** Match pairs of Christmas icons (4x4, 6x6, 8x8 grids)
-- **Geometry Dash:** Jump over obstacles in an auto-scrolling level
-- **Sokoban:** Push gift boxes onto target spots
-- **Climber:** Jump between platforms to reach the star
-- **Flappy Sleigh:** Navigate through gaps (Flappy Bird style)
-- **Maze Runner:** Find collectibles and reach the exit
-
-### Endless Modes
-- **Climber Infinite:** Climb forever, track best height and time
-- **Flappy Sleigh Infinite:** Survive as long as possible
-- **Geometry Dash Infinite:** Endless obstacle course
 
 ## 🔧 Development
 
@@ -217,6 +204,38 @@ Modify CSS variables in `src/styles.scss` for theming:
   --color-text-muted: #adb5bd;   // Muted text
 }
 ```
+
+### Version-Based Data Reset
+
+The app includes a version-based reset mechanism to clear all user data when needed (e.g., clearing beta tester data before official launch).
+
+**How it works:**
+1. A `CALENDAR_VERSION` constant is defined in `CalendarStateService`
+2. On app startup, the stored version is compared to the current version
+3. If they don't match, all localStorage data is cleared automatically
+4. The new version is saved
+
+**To trigger a reset:**
+1. Open `src/app/services/calendar-state.service.ts`
+2. Change the `CALENDAR_VERSION` constant to a new value
+3. Deploy the updated app
+
+```typescript
+// Example: Bump version to reset all data
+private readonly CALENDAR_VERSION = '2025-release-v2';
+```
+
+### Secret Dev Tools
+
+The app includes hidden developer tools for testing. Type **`devtools`** on your keyboard (not in an input field) to toggle visibility.
+
+**Available tools:**
+- Dev Mode Toggle (unlock all days)
+- Date Override (fake December day)
+- Mark All Complete
+- Clear All Progress
+
+> **Note:** Dev tools state is session-only and resets on page refresh.
 
 ## 🎯 Game Controls
 
