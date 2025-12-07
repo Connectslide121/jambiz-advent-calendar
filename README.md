@@ -10,7 +10,7 @@ An interactive Christmas advent calendar web application featuring 24 daily chal
 ## ✨ Features
 
 ### 🎮 Diverse Challenge Types
-- **Simple Puzzles:** Riddles, Hangman, Word Scramble, Word Search, Rebus
+- **Simple Puzzles:** Riddles, Hangman, Word Scramble, Word Search, Rebus, Mini Quiz, Sliding Puzzle
 - **Complex Minigames:** 
   - 🎯 Geometry Dash (rhythm-based obstacle avoider)
   - 📦 Sokoban (box-pushing puzzles)
@@ -18,6 +18,9 @@ An interactive Christmas advent calendar web application featuring 24 daily chal
   - 🎴 Memory Cards (Christmas-themed matching)
   - 🌀 Maze Runner (navigate procedural mazes)
   - 🛷 Flappy Sleigh (Flappy Bird style)
+  - 🎁 Gift Catcher (catch falling presents)
+  - 🏗️ Present Stacking (physics-based stacking)
+  - ⛷️ Ski Slope (downhill skiing avoider)
 
 ### 🎁 Extra Challenges
 - **Bonus Levels:** Additional challenges beyond the 24 advent days
@@ -98,17 +101,22 @@ src/
 │   │   ├── fun-fact-reveal/       # Fun fact display
 │   │   ├── touch-controls/        # Mobile game controls
 │   │   └── challenges/            # Individual challenge components
-│   │       ├── riddle-challenge/
-│   │       ├── hangman-challenge/
-│   │       ├── word-scramble-challenge/
-│   │       ├── word-search-challenge/
-│   │       ├── rebus-challenge/
-│   │       ├── memory-card-challenge/
-│   │       ├── geometry-dash-challenge/
-│   │       ├── sokoban-challenge/
 │   │       ├── climber-challenge/
 │   │       ├── flappy-sleigh-challenge/
-│   │       └── maze-runner-challenge/
+│   │       ├── geometry-dash-challenge/
+│   │       ├── gift-catcher-challenge/
+│   │       ├── hangman-challenge/
+│   │       ├── maze-runner-challenge/
+│   │       ├── memory-card-challenge/
+│   │       ├── mini-quiz-challenge/
+│   │       ├── present-stacking-challenge/
+│   │       ├── rebus-challenge/
+│   │       ├── riddle-challenge/
+│   │       ├── ski-slope-challenge/
+│   │       ├── sliding-puzzle-challenge/
+│   │       ├── sokoban-challenge/
+│   │       ├── word-scramble-challenge/
+│   │       └── word-search-challenge/
 │   ├── config/
 │   │   ├── calendar-config.ts     # 24 days configuration
 │   │   └── extras-config.ts       # Extra levels configuration
@@ -127,28 +135,6 @@ src/
 │   └── sprites/                   # Game sprites
 └── styles.scss                    # Global styles
 ```
-
-## 🎮 Challenge Types
-
-### Simple Challenges
-- **Riddle:** Solve text-based riddles
-- **Hangman:** Guess the word letter by letter
-- **Word Scramble:** Unscramble Christmas words
-- **Word Search:** Find words in a grid
-- **Rebus:** Decode emoji puzzles
-
-### Minigames
-- **Memory Cards:** Match pairs of Christmas icons (4x4, 6x6, 8x8 grids)
-- **Geometry Dash:** Jump over obstacles in an auto-scrolling level
-- **Sokoban:** Push gift boxes onto target spots
-- **Climber:** Jump between platforms to reach the star
-- **Flappy Sleigh:** Navigate through gaps (Flappy Bird style)
-- **Maze Runner:** Find collectibles and reach the exit
-
-### Endless Modes
-- **Climber Infinite:** Climb forever, track best height and time
-- **Flappy Sleigh Infinite:** Survive as long as possible
-- **Geometry Dash Infinite:** Endless obstacle course
 
 ## 🔧 Development
 
