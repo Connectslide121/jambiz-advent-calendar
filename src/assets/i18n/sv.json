@@ -351,6 +351,13 @@
         "option4": "Vatten och bröd"
       }
     }
+    ,
+    "busses": {
+      "title": "Bussar",
+      "timesPlayed": "Spelade gånger",
+      "carsLeft": "Bussar kvar",
+      "crashes": "Krockar"
+    }
   },
   "funFacts": {
     "title": "Visste du att...",

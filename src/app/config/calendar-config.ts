@@ -201,19 +201,20 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   {
     day: 11,
     gridPosition: 16, // Bottom center-right
-    challengeType: 'hangman',
+    challengeType: 'busses',
     reward: {
-      type: 'coupon',
-      title: 'rewards.coupon.title',
-      couponEmoji: '🗣️',
-      couponTitleKey: 'rewards.coupon.day11.title',
-      couponDescriptionKey: 'rewards.coupon.day11.description',
+      type: 'fortuneCookie',
+      title: 'rewards.fortuneCookie.title',
+      fortunes: [
+        'rewards.fortuneCookie.fortunes.fortune1',
+        'rewards.fortuneCookie.fortunes.fortune2',
+        'rewards.fortuneCookie.fortunes.fortune3',
+        'rewards.fortuneCookie.fortunes.fortune4',
+        'rewards.fortuneCookie.fortunes.fortune5'
+      ],
     },
     challengeData: {
-      word: 'stocking',
-      wordSv: 'julstrumpa',
-      clueKey: 'challenges.hangman.day8.clue',
-      hintKey: 'challenges.hangman.day8.hint',
+      // busses has no special config for now
     },
   },
   {

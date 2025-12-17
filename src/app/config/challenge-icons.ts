@@ -9,6 +9,7 @@ export const CHALLENGE_ICONS: Record<ChallengeType, string> = {
   memoryCard: '🃏',
   geometryDash: '🎅',
   sokoban: '🚚',
+  busses: '🚌',
   climber: '🧗',
   mazeRunner: '🌀',
   flappySleigh: '🛷',

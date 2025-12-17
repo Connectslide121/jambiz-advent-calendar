@@ -1,0 +1,27 @@
+<div class="busses-root">
+  <div class="stats">
+    <div>{{ 'challenges.busses.timesPlayed' | translate }}: {{ carsLeft + crashes }}</div>
+    <div>{{ 'challenges.busses.carsLeft' | translate }}: {{ carsLeft }}</div>
+    <div>{{ 'challenges.busses.crashes' | translate }}: {{ crashes }}</div>
+  </div>
+
+  <div class="grid" role="grid" aria-label="Busses grid">
+    <ng-container *ngFor="let row of cells; let r = index">
+      <div class="row" role="row">
+        <ng-container *ngFor="let cell of row; let c = index">
+          <div
+            class="cell {{ cellClasses(r, c) }}"
+            (click)="onClickBus(cell)"
+            [attr.data-row]="r"
+            [attr.data-col]="c"
+          >
+            <ng-container *ngIf="cell">
+              <i [ngClass]="iconFor(cell)" [style.color]="cell.color"></i>
+              <i *ngIf="cell.exploding" class="fa-solid fa-xmark crash-icon"></i>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+</div>

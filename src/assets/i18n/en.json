@@ -351,6 +351,13 @@
         "option4": "Water and bread"
       }
     }
+    ,
+    "busses": {
+      "title": "Busses",
+      "timesPlayed": "Times played",
+      "carsLeft": "Busses left",
+      "crashes": "Crashes"
+    }
   },
   "funFacts": {
     "title": "Fun Fact!",
