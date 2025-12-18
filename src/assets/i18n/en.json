@@ -358,7 +358,9 @@
       "timesPlayed": "Times played",
       "carsLeft": "Cars left",
       "crashes": "Car crashes",
-      "win": "All buses have cleared the lot!"
+      "win": "All buses have cleared the lot!",
+      "reset": "Restart",
+      "previouslyCompleted": "Previously completed with {{crashes}} crashes"
     }
   },
   "funFacts": {

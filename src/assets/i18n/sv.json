@@ -358,7 +358,9 @@
       "timesPlayed": "Spelade rundor",
       "carsLeft": "Bussar kvar",
       "crashes": "Krockar",
-      "win": "Alla bussar har lämnat parkeringen!"
+      "win": "Alla bussar har lämnat parkeringen!",
+      "reset": "Starta om",
+      "previouslyCompleted": "Förra gången klarade du det med {{crashes}} krockar"
     }
   },
   "funFacts": {

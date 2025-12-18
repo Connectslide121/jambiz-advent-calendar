@@ -1,44 +1,4 @@
-﻿import { CalendarDayConfig, RewardConfig } from '../models/calendar.models';
-
-const BUS_REWARD_OPTIONS: RewardConfig[] = [
-  {
-    type: 'video',
-    videoUrl: 'rewards/day19.mp4',
-    videoType: 'mp4',
-    title: 'challenges.success.videoLabel',
-  },
-  {
-    type: 'audio',
-    audioUrl: 'rewards/day18.mp3',
-    audioType: 'mp3',
-    title: 'rewards.day18.title',
-    lyrics: 'rewards.day18.lyrics',
-  },
-  {
-    type: 'coupon',
-    title: 'rewards.coupon.title',
-    couponEmoji: '??',
-    couponTitleKey: 'rewards.coupon.day11.title',
-    couponDescriptionKey: 'rewards.coupon.day11.description',
-  },
-  {
-    type: 'fortuneCookie',
-    title: 'rewards.fortuneCookie.title',
-    fortunes: [
-      'rewards.fortuneCookie.fortunes.fortune1',
-      'rewards.fortuneCookie.fortunes.fortune2',
-      'rewards.fortuneCookie.fortunes.fortune3',
-      'rewards.fortuneCookie.fortunes.fortune4',
-      'rewards.fortuneCookie.fortunes.fortune5',
-    ],
-  },
-  {
-    type: 'popupCard',
-    title: 'rewards.popupCard.title',
-  },
-];
-
-const BUS_REWARD = BUS_REWARD_OPTIONS[Math.floor(Math.random() * BUS_REWARD_OPTIONS.length)];
+﻿import { CalendarDayConfig } from '../models/calendar.models';
 
 // Grid position mapping for shuffled calendar layout
 // The days are arranged in a visually interesting pattern for the puzzle image reveal
@@ -241,10 +201,19 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   {
     day: 11,
     gridPosition: 16, // Bottom center-right
-    challengeType: 'busses',
-    reward: BUS_REWARD,
+    challengeType: 'hangman',
+    reward: {
+      type: 'coupon',
+      title: 'rewards.coupon.title',
+      couponEmoji: '🗣️',
+      couponTitleKey: 'rewards.coupon.day11.title',
+      couponDescriptionKey: 'rewards.coupon.day11.description',
+    },
     challengeData: {
-      // busses has no special config for now
+      word: 'stocking',
+      wordSv: 'julstrumpa',
+      clueKey: 'challenges.hangman.day8.clue',
+      hintKey: 'challenges.hangman.day8.hint',
     },
   },
   {
@@ -389,7 +358,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   {
     day: 21,
     gridPosition: 3, // Top center-right
-    challengeType: 'rebus',
+    challengeType: 'busses',
     reward: {
       type: 'magic8Ball',
       title: 'rewards.magic8Ball.title',
@@ -405,9 +374,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
       ],
     },
     challengeData: {
-      rebusKey: 'challenges.rebus.day21.puzzle',
-      answerKey: ['winter', 'vinter'],
-      hintKey: 'challenges.rebus.day21.hint',
+      // busses has no special config for now
     },
   },
   {

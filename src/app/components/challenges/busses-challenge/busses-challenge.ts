@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { LucideAngularModule, Check } from 'lucide-angular';
 import { CalendarStateService } from '../../../services/calendar-state.service';
 
 type Dir = 'N' | 'S' | 'E' | 'W';
@@ -31,7 +32,7 @@ interface Bus {
 @Component({
   selector: 'app-busses-challenge',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, LucideAngularModule],
   templateUrl: './busses-challenge.html',
   styleUrls: ['./busses-challenge.scss'],
 })
@@ -39,6 +40,8 @@ export class BussesChallenge implements OnInit, OnDestroy {
   @Input() day?: number;
   @Input() isCompleted = false;
   @Output() completed = new EventEmitter<void>();
+
+  readonly Check = Check;
 
   readonly GRID = 11;
   readonly PARK_START = 2;
@@ -51,6 +54,7 @@ export class BussesChallenge implements OnInit, OnDestroy {
   carsLeft = 0;
   crashes = 0;
   isSleighMode = false;
+  savedCrashes: number | null = null;
 
   private nextId = 1;
   private activeBusId: number | null = null;
@@ -61,10 +65,34 @@ export class BussesChallenge implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.isSleighMode = this.stateService.getEffectiveDecemberDay() >= 24;
-    this.loadStats();
-    this.resetGrid();
-    if (this.isCompleted) {
-      this.isCompleted = false;
+    
+    // Restore saved stats when returning to a completed game
+    if (this.isCompleted && this.day !== undefined) {
+      const savedStats = this.stateService.getGameStats(this.day);
+      if (savedStats) {
+        if (savedStats.crashes !== undefined) {
+          this.savedCrashes = savedStats.crashes;
+        }
+        if (savedStats.carsLeft !== undefined) {
+          // We'll restore these after resetGrid
+        }
+      }
+    }
+    
+    // Don't save stats on init for completed games (would overwrite saved data)
+    this.resetGrid(!this.isCompleted);
+    
+    // Restore the counters after grid reset for completed games
+    if (this.isCompleted && this.day !== undefined) {
+      const savedStats = this.stateService.getGameStats(this.day);
+      if (savedStats) {
+        if (savedStats.crashes !== undefined) {
+          this.crashes = savedStats.crashes;
+        }
+        if (savedStats.carsLeft !== undefined) {
+          this.carsLeft = savedStats.carsLeft;
+        }
+      }
     }
   }
 
@@ -329,12 +357,14 @@ export class BussesChallenge implements OnInit, OnDestroy {
     return choices[Math.floor(Math.random() * choices.length)];
   }
 
-  private resetGrid(): void {
+  resetGrid(saveToStorage: boolean = true): void {
     this.clearTimers();
     this.cells = Array.from({ length: this.GRID }, () => Array(this.GRID).fill(null));
     this.buses = [];
     this.activeBusId = null;
     this.nextId = 1;
+    this.carsLeft = 0;
+    this.crashes = 0;
 
     for (let row = this.PARK_START; row <= this.PARK_END; row++) {
       for (let col = this.PARK_START; col <= this.PARK_END; col++) {
@@ -360,7 +390,9 @@ export class BussesChallenge implements OnInit, OnDestroy {
         this.cells[row][col] = bus;
       }
     }
-    this.saveStats();
+    if (saveToStorage) {
+      this.saveStats();
+    }
   }
 
   private checkWin(): void {
@@ -436,6 +468,15 @@ export class BussesChallenge implements OnInit, OnDestroy {
 
   iconFor(): string {
     return this.isSleighMode ? 'fa-sleigh' : 'fa-bus-side';
+  }
+
+  showReward(): void {
+    this.completed.emit();
+  }
+
+  playAgain(): void {
+    this.isCompleted = false;
+    this.resetGrid();
   }
 
   getTransform(angle: number, offsetX = 0, offsetY = 0): string {
