@@ -1,0 +1,59 @@
+<div class="busses-root">
+  <div class="header">
+    <div class="title">{{ 'challenges.busses.title' | translate }}</div>
+    <p class="instruction">{{ 'challenges.busses.instruction' | translate }}</p>
+  </div>
+
+  <div class="stats" role="status" aria-live="polite">
+    <div class="stat">
+      <span class="label">{{ 'challenges.busses.timesPlayed' | translate }}</span>
+      <span class="value">{{ timesPlayed }}</span>
+    </div>
+    <div class="stat">
+      <span class="label">{{ 'challenges.busses.carsLeft' | translate }}</span>
+      <span class="value">{{ carsLeft }}</span>
+    </div>
+    <div class="stat">
+      <span class="label">{{ 'challenges.busses.crashes' | translate }}</span>
+      <span class="value">{{ crashes }}</span>
+    </div>
+  </div>
+
+  <div class="grid-area" role="grid" aria-label="Bus parking grid">
+    <div class="grid">
+      <ng-container *ngFor="let row of cells; let r = index">
+        <div class="row">
+          <ng-container *ngFor="let cell of row; let c = index">
+            <div class="cell {{ cellClasses(r, c) }}"></div>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+    <div class="bus-overlay">
+      <ng-container *ngFor="let bus of buses">
+        <div
+          class="bus-target-cell"
+          [style.gridRowStart]="bus.row + 1"
+          [style.gridColumnStart]="bus.col + 1"
+          role="gridcell"
+          aria-label="Bus"
+        >
+              <i
+                class="fa-solid {{ iconFor() }} {{ bus.animating }} bus-icon"
+                [style.color]="bus.color"
+                [style.transform]="getTransform(bus.angle ?? angleForDir(bus.dir), bus.offsetX ?? 0, bus.offsetY ?? 0)"
+                [style.transition-timing-function]="bus.timing || 'ease-in-out'"
+                (click)="onClickBus(bus)"
+              ></i>
+          <span *ngIf="bus.exploding" class="explosion">
+            <i class="fa-solid fa-burst"></i>
+          </span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="win-message" *ngIf="buses.length === 0">
+    {{ 'challenges.busses.win' | translate }}
+  </div>
+</div>

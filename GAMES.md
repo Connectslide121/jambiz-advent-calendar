@@ -8,7 +8,7 @@ Derived from `src/app/config/calendar-config.ts`. Each game is identified by its
 | flappySleigh | 5 |
 | geometryDash | 9, 22 |
 | giftCatcher | 10 |
-| hangman | 2, 11, 20 |
+| hangman | 2, 20 |
 | mazeRunner | 18 |
 | memoryCard | 4 |
 | presentStacking | 24 |
@@ -19,6 +19,7 @@ Derived from `src/app/config/calendar-config.ts`. Each game is identified by its
 | sokoban | 8 |
 | wordScramble | 3, 12, 19 |
 | wordSearch | 17, 23 |
+| busses | 11 |
 
 ## Game Details
 
@@ -63,6 +64,14 @@ Derived from `src/app/config/calendar-config.ts`. Each game is identified by its
 - **Controls:** Keyboard arrows/WASD immediately move the avatar and a short `moveInterval` keeps movement responsive while a key is held. Mobile players rely on the dedicated D-pad buttons shown below the maze grid.
 - **Rewards:** Day 18 grants an audio file reward (`rewards/day18.mp3` with lyrics metadata).
 - **Notes:** The sidebar highlights total gifts versus collected ones, and the component records stats to `CalendarStateService` so completed runs show the original move count.
+
+### Busses (`challengeType: busses`)
+- **Description:** The calendar instantiates `src/app/components/challenges/busses-challenge/busses-challenge.ts`, which keeps the 11×11 grid and 7×7 parking block while overlaying animated bus sprites that rotate, translate, and track path history as they cruise toward the corners and exit.
+- **How to play:** Tap a bus to let it drive straight until it reaches a border, turn toward the nearest corner when it hits an edge, and keep going until it leaves the board. Collisions flash an explosion, the vehicle retraces its recorded path, crashes increment the counter, and the run finishes once every vehicle has cleared.
+- **Controls:** Click/tap directly on the bus icon; there are no keyboard shortcuts because each vehicle follows its own automated path once launched.
+- **Rewards:** Day 11 pulls a random reward from the shared palette (video, audio, coupon, fortune cookie, or popup card) so each completion feels fresh.
+- **Notes:** `CalendarStateService` stores `carsLeft`, `crashes`, and `timesPlayed`, the HUD mirrors those stats, and `isSleighMode()` swaps the icon/color after December 24 for a sleigh-themed finale.
+- **Alternate implementation:** `src/app/components/challenges/busses-copilot-challenge/busses-challenge.ts` is a simpler prototype that moves buses step-by-step with fixed `setTimeout` delays, lacks the animated overlay and path history, and immediately resets a crashed bus after 600ms; it is not wired into `ChallengeHost`, so the calendar always renders the richer `busses-challenge.ts` variant.
 
 ### Memory Card (`challengeType: memoryCard`)
 - **Description:** A 4×4 flip-and-match board with emoji icons (Santa, snowman, tree, gift, etc.) shuffled every run.
