@@ -91,8 +91,7 @@ export class BussesChallenge implements OnInit, OnDestroy {
   }
 
   onClickBus(bus: Bus | null): void {
-    const activeBus = this.getActiveBus();
-    if (!bus || this.isCompleted || bus.exploding || (activeBus && this.isInParkingArea(activeBus))) {
+    if (!bus || this.activeBusId != null || this.isCompleted || bus.exploding) {
       return;
     }
     this.launchBus(bus);
@@ -404,10 +403,6 @@ export class BussesChallenge implements OnInit, OnDestroy {
       window.clearTimeout(this.animationTimer);
       this.animationTimer = undefined;
     }
-  }
-
-  private getActiveBus(): Bus | undefined {
-    return this.activeBusId ? this.buses.find((bus) => bus.id === this.activeBusId) : undefined;
   }
 
   private isInParkingArea(bus: Bus): boolean {
