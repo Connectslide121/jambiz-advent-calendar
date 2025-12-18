@@ -76,6 +76,10 @@ export class BussesChallenge implements OnInit, OnDestroy {
     return this.carsLeft + this.crashes;
   }
 
+  get moveDuration(): string {
+    return `${this.moveDelay / 1000}s`;
+  }
+
   cellClasses(row: number, col: number): string {
     if (row >= this.PARK_START && row <= this.PARK_END && col >= this.PARK_START && col <= this.PARK_END) {
       return 'parking';

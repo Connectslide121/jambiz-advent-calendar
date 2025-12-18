@@ -1,3 +1,4 @@
+- 2025-12-18 10:18:48 +01:00 [f4180cf] - Sync the animation duration with the bus move delay so CSS and logic share the same timing.
 - 2025-12-18 09:56:36 +01:00 [62d0fcf] - Change the active busses challenge to the Codex-powered version and make the day-11 reward selection configurable.
 - 2025-12-18 09:55:09 +01:00 [a7f8c49] - Add Font Awesome to the main index file so icons can be used across the UI without extra bundling steps.
 - 2025-12-18 09:54:19 +01:00 [bd72296] - Introduce the Codex-derived busses challenge component, HTML template, and CSS while tuning animation timing for smoother movement.

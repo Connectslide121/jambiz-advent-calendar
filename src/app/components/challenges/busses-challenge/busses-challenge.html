@@ -43,6 +43,7 @@
                 [style.color]="bus.color"
                 [style.transform]="getTransform(bus.angle ?? angleForDir(bus.dir), bus.offsetX ?? 0, bus.offsetY ?? 0)"
                 [style.transition-timing-function]="bus.timing || 'ease-in-out'"
+                [style.--bus-transition-duration]="moveDuration"
                 (click)="onClickBus(bus)"
               ></i>
           <span *ngIf="bus.exploding" class="explosion">
