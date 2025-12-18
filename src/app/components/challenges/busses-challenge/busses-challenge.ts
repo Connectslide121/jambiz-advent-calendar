@@ -116,6 +116,10 @@ export class BussesChallenge implements OnInit, OnDestroy {
 
     const occupant = this.cells[nextRow][nextCol];
     if (occupant) {
+      if (this.hasLeftParking(bus)) {
+        this.waitForNextTile(bus, nextRow, nextCol);
+        return;
+      }
       this.handleCrash(bus);
       return;
     }
@@ -416,6 +420,18 @@ export class BussesChallenge implements OnInit, OnDestroy {
 
   private hasLeftParking(bus: Bus): boolean {
     return !this.isInParkingArea(bus);
+  }
+
+  private waitForNextTile(bus: Bus, targetRow: number, targetCol: number): void {
+    const tryMove = () => {
+      const occupant = this.cells[targetRow][targetCol];
+      if (occupant) {
+        this.animationTimer = window.setTimeout(tryMove, this.moveDelay);
+        return;
+      }
+      this.stepForward(bus);
+    };
+    this.animationTimer = window.setTimeout(tryMove, this.moveDelay);
   }
 
   iconFor(): string {

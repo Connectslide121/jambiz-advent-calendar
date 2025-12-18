@@ -1,3 +1,4 @@
+- 2025-12-18 11:42:51 +01:00 [50ca981] - fix: pause an outside-parking bus until the next tile clears instead of colliding when the road is busy.
 - 2025-12-18 10:18:48 +01:00 [04e21ba] - fix: sync the bus animation duration with the move delay so CSS and logic share the same timing.
 - 2025-12-18 09:56:36 +01:00 [60fc867] - feat: change the active busses challenge to the Codex-powered version and make the day-11 reward selection configurable.
 - 2025-12-18 09:55:09 +01:00 [924bd43] - feat: add Font Awesome to the main index file so icons can be used across the UI without extra bundling steps.
