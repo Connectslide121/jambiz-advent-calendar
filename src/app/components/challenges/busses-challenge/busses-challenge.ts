@@ -43,7 +43,7 @@ export class BussesChallenge implements OnInit, OnDestroy {
   readonly GRID = 11;
   readonly PARK_START = 2;
   readonly PARK_END = 8;
-  readonly moveDelay = 380;
+  readonly moveDelay = 180;
   readonly colors = ['#6ec3ff', '#8af5a1', 'red', 'yellow', 'cyan'];
 
   cells: (Bus | null)[][] = [];
