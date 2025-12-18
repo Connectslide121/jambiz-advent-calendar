@@ -1,0 +1,10 @@
+- 2025-12-18 09:56:36 +01:00 [62d0fcf] - Change the active busses challenge to the Codex-powered version and make the day-11 reward selection configurable.
+- 2025-12-18 09:55:09 +01:00 [a7f8c49] - Add Font Awesome to the main index file so icons can be used across the UI without extra bundling steps.
+- 2025-12-18 09:54:19 +01:00 [bd72296] - Introduce the Codex-derived busses challenge component, HTML template, and CSS while tuning animation timing for smoother movement.
+- 2025-12-17 22:22:27 +01:00 [b87b229] - Ship the Copilot prototype of the busses challenge featuring grid-based logic and reward wiring for future iterations.
+- 2025-12-07 22:57:48 +01:00 [cf3df73] - Expand the set of playable challenges with several new puzzles and mini-games to diversify the advent experience.
+- 2025-12-07 22:54:36 +01:00 [e2c4c5b] - Clarify the English and Swedish fun-fact text for day 22 so the message reads smoothly in both locales.
+- 2025-12-02 22:48:31 +01:00 [0e8962f] - Relax the lyrics display height ceiling so longer text remains readable in the audio reward modal.
+- 2025-12-01 22:45:44 +01:00 [eceddf8] - Add the day-12 image reward with a downloadable option plus translations so players can keep the artwork.
+- 2025-12-01 10:44:18 +01:00 [8cc5e16] - Remove optional chaining from the ice-breaker translation keys to ensure titles and instructions always render.
+- 2025-12-01 10:43:48 +01:00 [9559e4a] - Introduce the ice-breaker reward feature with curated topics and styling for richer post-win interaction.
