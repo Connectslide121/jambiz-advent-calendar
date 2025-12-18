@@ -28,6 +28,7 @@ import { PresentStackingChallenge } from '../challenges/present-stacking-challen
 import { GiftCatcherChallenge } from '../challenges/gift-catcher-challenge/gift-catcher-challenge';
 import { SlidingPuzzleChallenge } from '../challenges/sliding-puzzle-challenge/sliding-puzzle-challenge';
 import { SkiSlopeChallenge } from '../challenges/ski-slope-challenge/ski-slope-challenge';
+import { BussesChallenge } from '../challenges/busses-challenge/busses-challenge';
 
 @Component({
   selector: 'app-challenge-host',
@@ -99,6 +100,9 @@ export class ChallengeHost implements OnInit {
         break;
       case 'giftCatcher':
         componentType = GiftCatcherChallenge;
+        break;
+      case 'busses':
+        componentType = BussesChallenge;
         break;
       case 'slidingPuzzle':
         componentType = SlidingPuzzleChallenge;

@@ -351,6 +351,15 @@
         "option4": "Water and bread"
       }
     }
+    ,
+    "busses": {
+      "title": "Busses",
+      "instruction": "Click a bus to push it toward the corners. It keeps driving until it exits unless another bus blocks its way.",
+      "timesPlayed": "Times played",
+      "carsLeft": "Cars left",
+      "crashes": "Car crashes",
+      "win": "All buses have cleared the lot!"
+    }
   },
   "funFacts": {
     "title": "Fun Fact!",

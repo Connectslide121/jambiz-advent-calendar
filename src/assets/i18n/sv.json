@@ -351,6 +351,15 @@
         "option4": "Vatten och bröd"
       }
     }
+    ,
+    "busses": {
+      "title": "Bussarna",
+      "instruction": "Klicka på en buss för att skicka den mot hörnen. Den fortsätter tills den lämnar banan eller kör in i en annan buss.",
+      "timesPlayed": "Spelade rundor",
+      "carsLeft": "Bussar kvar",
+      "crashes": "Krockar",
+      "win": "Alla bussar har lämnat parkeringen!"
+    }
   },
   "funFacts": {
     "title": "Visste du att...",
