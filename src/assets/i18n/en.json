@@ -354,9 +354,11 @@
     ,
     "busses": {
       "title": "Busses",
+      "instruction": "Click a bus to push it toward the corners. It keeps driving until it exits unless another bus blocks its way.",
       "timesPlayed": "Times played",
-      "carsLeft": "Busses left",
-      "crashes": "Crashes"
+      "carsLeft": "Cars left",
+      "crashes": "Car crashes",
+      "win": "All buses have cleared the lot!"
     }
   },
   "funFacts": {

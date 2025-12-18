@@ -353,10 +353,12 @@
     }
     ,
     "busses": {
-      "title": "Bussar",
-      "timesPlayed": "Spelade gånger",
+      "title": "Bussarna",
+      "instruction": "Klicka på en buss för att skicka den mot hörnen. Den fortsätter tills den lämnar banan eller kör in i en annan buss.",
+      "timesPlayed": "Spelade rundor",
       "carsLeft": "Bussar kvar",
-      "crashes": "Krockar"
+      "crashes": "Krockar",
+      "win": "Alla bussar har lämnat parkeringen!"
     }
   },
   "funFacts": {

@@ -1,4 +1,44 @@
-﻿import { CalendarDayConfig } from '../models/calendar.models';
+﻿import { CalendarDayConfig, RewardConfig } from '../models/calendar.models';
+
+const BUS_REWARD_OPTIONS: RewardConfig[] = [
+  {
+    type: 'video',
+    videoUrl: 'rewards/day19.mp4',
+    videoType: 'mp4',
+    title: 'challenges.success.videoLabel',
+  },
+  {
+    type: 'audio',
+    audioUrl: 'rewards/day18.mp3',
+    audioType: 'mp3',
+    title: 'rewards.day18.title',
+    lyrics: 'rewards.day18.lyrics',
+  },
+  {
+    type: 'coupon',
+    title: 'rewards.coupon.title',
+    couponEmoji: '??',
+    couponTitleKey: 'rewards.coupon.day11.title',
+    couponDescriptionKey: 'rewards.coupon.day11.description',
+  },
+  {
+    type: 'fortuneCookie',
+    title: 'rewards.fortuneCookie.title',
+    fortunes: [
+      'rewards.fortuneCookie.fortunes.fortune1',
+      'rewards.fortuneCookie.fortunes.fortune2',
+      'rewards.fortuneCookie.fortunes.fortune3',
+      'rewards.fortuneCookie.fortunes.fortune4',
+      'rewards.fortuneCookie.fortunes.fortune5',
+    ],
+  },
+  {
+    type: 'popupCard',
+    title: 'rewards.popupCard.title',
+  },
+];
+
+const BUS_REWARD = BUS_REWARD_OPTIONS[Math.floor(Math.random() * BUS_REWARD_OPTIONS.length)];
 
 // Grid position mapping for shuffled calendar layout
 // The days are arranged in a visually interesting pattern for the puzzle image reveal
@@ -202,17 +242,7 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
     day: 11,
     gridPosition: 16, // Bottom center-right
     challengeType: 'busses',
-    reward: {
-      type: 'fortuneCookie',
-      title: 'rewards.fortuneCookie.title',
-      fortunes: [
-        'rewards.fortuneCookie.fortunes.fortune1',
-        'rewards.fortuneCookie.fortunes.fortune2',
-        'rewards.fortuneCookie.fortunes.fortune3',
-        'rewards.fortuneCookie.fortunes.fortune4',
-        'rewards.fortuneCookie.fortunes.fortune5'
-      ],
-    },
+    reward: BUS_REWARD,
     challengeData: {
       // busses has no special config for now
     },
