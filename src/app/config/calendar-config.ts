@@ -201,19 +201,10 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   {
     day: 11,
     gridPosition: 16, // Bottom center-right
-    challengeType: 'hangman',
+    challengeType: 'mahjong',
     reward: {
-      type: 'coupon',
-      title: 'rewards.coupon.title',
-      couponEmoji: '🗣️',
-      couponTitleKey: 'rewards.coupon.day11.title',
-      couponDescriptionKey: 'rewards.coupon.day11.description',
-    },
-    challengeData: {
-      word: 'stocking',
-      wordSv: 'julstrumpa',
-      clueKey: 'challenges.hangman.day8.clue',
-      hintKey: 'challenges.hangman.day8.hint',
+      type: 'popupCard',
+      title: 'rewards.popupCard.title',
     },
   },
   {

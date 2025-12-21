@@ -361,6 +361,21 @@
       "win": "Alla bussar har lämnat parkeringen!",
       "reset": "Starta om",
       "previouslyCompleted": "Förra gången klarade du det med {{crashes}} krockar"
+    },
+    "mahjong": {
+      "title": "Mahjong",
+      "instruction": "Matcha fria brickor i par för att rensa bordet.",
+      "sleighFound": "Du hittade släden! Bonuspoäng väntar.",
+      "sleighFoundHelp": "Du hittade släden med hjälp, så inga bonuspoäng.",
+      "controls": "Kontroller",
+      "reshuffle": "Blanda om",
+      "destroy": "Förstör",
+      "hint": "Tips",
+      "points": "Poäng",
+      "wrongTiles": "Fel brickor",
+      "helpUsed": "Hjälp använd",
+      "sleighReward": "Slädebonus",
+      "win": "Bordet är rensat!"
     }
   },
   "funFacts": {

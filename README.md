@@ -16,9 +16,11 @@ An interactive Christmas advent calendar web application featuring 24 daily chal
   - 📦 Sokoban (box-pushing puzzles)
   - 🧗 Climber (vertical platform jumper)
   - 🎴 Memory Cards (Christmas-themed matching)
+  - 🀄 Mahjong (layered matching with special tiles)
   - 🌀 Maze Runner (navigate procedural mazes)
   - 🛷 Flappy Sleigh (Flappy Bird style)
   - 🎁 Gift Catcher (catch falling presents)
+  - 🚌 Busses (parking lot puzzle)
   - 🏗️ Present Stacking (physics-based stacking)
   - ⛷️ Ski Slope (downhill skiing avoider)
 
@@ -87,6 +89,7 @@ An interactive Christmas advent calendar web application featuring 24 daily chal
 | **Tailwind CSS 3.4** | Utility-first styling |
 | **ngx-translate 17** | Internationalization |
 | **Lucide Icons** | SVG icon library |
+| **Font Awesome** | Icon font library |
 | **SCSS** | Component-level styling |
 
 ## 📁 Project Structure
@@ -102,10 +105,12 @@ src/
 │   │   ├── touch-controls/        # Mobile game controls
 │   │   └── challenges/            # Individual challenge components
 │   │       ├── climber-challenge/
+│   │       ├── busses-challenge/
 │   │       ├── flappy-sleigh-challenge/
 │   │       ├── geometry-dash-challenge/
 │   │       ├── gift-catcher-challenge/
 │   │       ├── hangman-challenge/
+│   │       ├── mahjong-challenge/
 │   │       ├── maze-runner-challenge/
 │   │       ├── memory-card-challenge/
 │   │       ├── mini-quiz-challenge/
@@ -272,7 +277,7 @@ This project is licensed under the MIT License.
 
 - **Framework:** Angular Team
 - **Design:** Tailwind CSS
-- **Icons:** Lucide Icons
+- **Icons:** Lucide Icons, Font Awesome
 - **Translations:** ngx-translate
 
 ## 🐛 Known Issues

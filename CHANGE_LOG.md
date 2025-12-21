@@ -1,3 +1,8 @@
+- 2025-12-21 01:09:41 +01:00 [964f673] - Add mahjong challenge and update docs
+- 2025-12-19 00:45:42 +01:00 [2726e50] - feat: enhance busses challenge with completion stats and reset functionality
+- 2025-12-18 23:32:53 +01:00 [539b7cc] - Merge pull request #4 from aalbuquerque73/feature/games/busses
+- 2025-12-18 23:27:19 +01:00 [63d52e9] - clean: remove copilot files (old, non-working game)
+- 2025-12-18 23:26:47 +01:00 [86be0ff] - fix: increase bus velocity
 - 2025-12-18 11:42:51 +01:00 [50ca981] - fix: pause an outside-parking bus until the next tile clears instead of colliding when the road is busy.
 - 2025-12-18 10:18:48 +01:00 [04e21ba] - fix: sync the bus animation duration with the move delay so CSS and logic share the same timing.
 - 2025-12-18 09:56:36 +01:00 [60fc867] - feat: change the active busses challenge to the Codex-powered version and make the day-11 reward selection configurable.

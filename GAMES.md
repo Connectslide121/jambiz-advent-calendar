@@ -9,17 +9,18 @@ Derived from `src/app/config/calendar-config.ts`. Each game is identified by its
 | geometryDash | 9, 22 |
 | giftCatcher | 10 |
 | hangman | 2, 20 |
+| mahjong | 11 |
 | mazeRunner | 18 |
 | memoryCard | 4 |
 | presentStacking | 24 |
-| rebus | 6, 13, 21 |
+| rebus | 6, 13 |
 | riddle | 1, 14 |
 | skiSlope | 7 |
 | slidingPuzzle | 16 |
 | sokoban | 8 |
 | wordScramble | 3, 12, 19 |
 | wordSearch | 17, 23 |
-| busses | 11 |
+| busses | 21 |
 
 ## Game Details
 
@@ -55,7 +56,7 @@ Derived from `src/app/config/calendar-config.ts`. Each game is identified by its
 - **Description:** Classic hangman with a festive gallows drawing and translation keys for the clue and optional hint; up to six wrong guesses draw Santa’s outline.
 - **How to play:** Use the clue/hint to deduce the word, click a letter from the alphabet grid, and avoid filling all six wrong slots before revealing every letter.
 - **Controls:** Only the on-screen letter buttons are exposed (no keyboard shortcut), and the alphabet expands with `ÅÄÖ` when the current language is Swedish.
-- **Rewards:** Day 11 unlocks a coupon (piggybacked onto `rewards.coupon.day11.*`), while the day 2 and day 20 appearances show fun facts only.
+- **Rewards:** The day 2 and day 20 appearances show fun facts only.
 - **Notes:** Wrong guesses persist for already-completed runs so the stored tally can be shown instead of resetting to zero, and the hint toggles without counting as a guess.
 
 ### Maze Runner (`challengeType: mazeRunner`)
@@ -65,13 +66,19 @@ Derived from `src/app/config/calendar-config.ts`. Each game is identified by its
 - **Rewards:** Day 18 grants an audio file reward (`rewards/day18.mp3` with lyrics metadata).
 - **Notes:** The sidebar highlights total gifts versus collected ones, and the component records stats to `CalendarStateService` so completed runs show the original move count.
 
+### Mahjong (`challengeType: mahjong`)
+- **Description:** Classic Mahjong-style matching across three layered stacks using Font Awesome icons, plus a hidden sleigh bonus tile tucked under the pile.
+- **How to play:** You can only select a free tile (no tile on top and at least one side open). Select two free tiles with the same icon to remove them and earn a point.
+- **Controls:** Click/tap free tiles to select them; use the controls below the board to reshuffle, destroy a valid matching pair (no points), or request a hint for the currently selected tile (highlights possible matches).
+- **Rewards:** Day 11 grants a popup card reward (`reward.type: popupCard`).
+- **Notes:** The sleigh tile is red, appears only once on the lowest layer, and does not count toward clearing the board; it spawns in a random position and only grants double points if the player reveals it without using the Destroy help (Destroy-revealed sleigh tiles are locked for the rest of the run).
+
 ### Busses (`challengeType: busses`)
 - **Description:** The calendar instantiates `src/app/components/challenges/busses-challenge/busses-challenge.ts`, which keeps the 11×11 grid and 7×7 parking block while overlaying animated bus sprites that rotate, translate, and track path history as they cruise toward the corners and exit.
 - **How to play:** Tap a bus to let it drive straight until it reaches a border, turn toward the nearest corner when it hits an edge, and keep going until it leaves the board. Collisions flash an explosion, the vehicle retraces its recorded path, crashes increment the counter, and the run finishes once every vehicle has cleared.
 - **Controls:** Click/tap directly on the bus icon; there are no keyboard shortcuts because each vehicle follows its own automated path once launched.
-- **Rewards:** Day 11 pulls a random reward from the shared palette (video, audio, coupon, fortune cookie, or popup card) so each completion feels fresh.
+- **Rewards:** Day 21 delivers a magic 8-ball reward (`rewards.magic8Ball.*`) with randomized answers.
 - **Notes:** `CalendarStateService` stores `carsLeft`, `crashes`, and `timesPlayed`, the HUD mirrors those stats, and `isSleighMode()` swaps the icon/color after December 24 for a sleigh-themed finale.
-- **Alternate implementation:** `src/app/components/challenges/busses-copilot-challenge/busses-challenge.ts` is a simpler prototype that moves buses step-by-step with fixed `setTimeout` delays, lacks the animated overlay and path history, and immediately resets a crashed bus after 600ms; it is not wired into `ChallengeHost`, so the calendar always renders the richer `busses-challenge.ts` variant.
 
 ### Memory Card (`challengeType: memoryCard`)
 - **Description:** A 4×4 flip-and-match board with emoji icons (Santa, snowman, tree, gift, etc.) shuffled every run.
@@ -91,7 +98,7 @@ Derived from `src/app/config/calendar-config.ts`. Each game is identified by its
 - **Description:** Emoji/text puzzles hint at a word or phrase; translation keys make the rebus and hint text easy to localize.
 - **How to play:** Read the rebus, optionally reveal the hint, type the answer in the input, and press Enter or tap Submit; wrong answers flash a brief error message.
 - **Controls:** Text input with Enter key handling; hints and submit are standard buttons, so mouse and keyboard are both supported.
-- **Rewards:** Day 6 shows a popup card reward, day 13 only delivers a fun fact, and day 21 yields a magic 8-ball message from the master reward.
+- **Rewards:** Day 6 shows a popup card reward, while day 13 only delivers a fun fact.
 - **Notes:** Answers are normalized via `normalize('NFC')` so accented characters and letter case are ignored.
 
 ### Riddle (`challengeType: riddle`)

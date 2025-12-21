@@ -1,0 +1,117 @@
+<div class="mahjong-root">
+  <div class="header">
+    <div class="title-row">
+      <h3 class="title">{{ 'challenges.mahjong.title' | translate }}</h3>
+      <span
+        *ngIf="sleighCollected"
+        class="gift-badge"
+        aria-label="Gift bonus active"
+        title="Gift bonus active"
+      >
+        <i class="fa-solid fa-gift"></i>
+      </span>
+      <span
+        *ngIf="isCompleted || gameCompleted"
+        class="bg-accent-green text-white text-xs px-2 py-1 rounded-full font-bold animate-in fade-in zoom-in flex items-center gap-1"
+      >
+        <lucide-icon [img]="Check" class="w-3 h-3" [strokeWidth]="4"></lucide-icon>
+        {{ 'calendar.completed' | translate }}
+      </span>
+    </div>
+    <p class="instruction">{{ 'challenges.mahjong.instruction' | translate }}</p>
+    <p class="instruction" *ngIf="showSleighBonusMessage">
+      {{ 'challenges.mahjong.sleighFound' | translate }}
+    </p>
+    <p class="instruction" *ngIf="showSleighHelpMessage">
+      {{ 'challenges.mahjong.sleighFoundHelp' | translate }}
+    </p>
+  </div>
+
+  <div class="board-area">
+    <div
+      class="board"
+      *ngIf="!gameCompleted"
+      [style.width.px]="boardWidth"
+      [style.height.px]="boardHeight"
+      role="grid"
+      aria-label="Mahjong board"
+    >
+      <ng-container *ngFor="let tile of tiles">
+        <button
+          class="tile"
+          [class.tile--removed]="tile.removed"
+          [class.tile--blocked]="isTileBlocked(tile)"
+          [class.tile--selected]="isTileSelected(tile)"
+          [class.tile--hint]="isHinted(tile)"
+          [class.tile--wrong]="isWrong(tile)"
+          [class.tile--special]="tile.isSpecial"
+          [ngStyle]="getTileStyle(tile)"
+          (click)="onTileClick(tile)"
+          type="button"
+        >
+          <i class="fa-solid {{ tile.icon }}"></i>
+        </button>
+      </ng-container>
+    </div>
+    <div class="board board-win" *ngIf="gameCompleted">
+      <div class="win-message card bg-accent-green p-4 text-center my-4">
+        <p class="text-lg sm:text-xl font-bold text-white">
+          {{ 'challenges.mahjong.win' | translate }}
+        </p>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary w-full sm:w-auto" (click)="showReward()" type="button">
+          {{ 'ui.showReward' | translate }}
+        </button>
+        <button class="btn btn-outline w-full sm:w-auto" (click)="playAgain()" type="button">
+          {{ 'ui.playAgain' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls" *ngIf="!gameCompleted">
+    <div class="controls-title">{{ 'challenges.mahjong.controls' | translate }}</div>
+    <div class="controls-buttons">
+      <button class="btn btn-outline" type="button" (click)="reshuffle()">
+        {{ 'challenges.mahjong.reshuffle' | translate }}
+      </button>
+      <button class="btn btn-outline" type="button" (click)="destroyPair()">
+        {{ 'challenges.mahjong.destroy' | translate }}
+      </button>
+      <button class="btn btn-outline" type="button" (click)="showHint()">
+        {{ 'challenges.mahjong.hint' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <div class="stats" [style.--board-width.px]="boardWidth">
+    <div class="stat">
+      <span class="label">{{ 'challenges.mahjong.points' | translate }}</span>
+      <span class="value">{{ displayPoints }} / {{ maxPoints }}</span>
+      <span *ngIf="gameCompleted && sleighCollected" class="bonus-icon">
+        <i class="fa-solid fa-gift"></i>
+      </span>
+    </div>
+    <div class="stat">
+      <span class="label">{{ 'challenges.mahjong.wrongTiles' | translate }}</span>
+      <span class="value">{{ wrongTiles }}</span>
+    </div>
+    <div class="stat">
+      <span class="label">{{ 'challenges.mahjong.helpUsed' | translate }}</span>
+      <span class="value">
+        {{ 'challenges.mahjong.reshuffle' | translate }}: {{ shuffleUsed }},
+        {{ 'challenges.mahjong.destroy' | translate }}: {{ destroyUsed }},
+        {{ 'challenges.mahjong.hint' | translate }}: {{ hintUsed }}
+      </span>
+    </div>
+    <div class="stat" *ngIf="sleighCollected">
+      <span class="label">{{ 'challenges.mahjong.sleighReward' | translate }}</span>
+      <span class="value">&nbsp;</span>
+      <span class="bonus-icon">
+        <i class="fa-solid fa-sleigh sleigh-icon"></i>
+      </span>
+    </div>
+  </div>
+
+</div>
