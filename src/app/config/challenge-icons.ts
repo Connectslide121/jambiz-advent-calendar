@@ -17,6 +17,7 @@ export const CHALLENGE_ICONS: Record<ChallengeType, string> = {
   giftCatcher: '🎁',
   slidingPuzzle: '🖼️',
   skiSlope: '⛷️',
+  mahjong: '🀄',
 };
 
 export const DEFAULT_CHALLENGE_ICON = '🎁';

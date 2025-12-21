@@ -361,6 +361,21 @@
       "win": "All buses have cleared the lot!",
       "reset": "Restart",
       "previouslyCompleted": "Previously completed with {{crashes}} crashes"
+    },
+    "mahjong": {
+      "title": "Mahjong",
+      "instruction": "Match free tiles in pairs to clear the board.",
+      "sleighFound": "You found the sleigh! Bonus points await.",
+      "sleighFoundHelp": "You found the sleigh with help, so no bonus points.",
+      "controls": "Controls",
+      "reshuffle": "Reshuffle",
+      "destroy": "Destroy",
+      "hint": "Hint",
+      "points": "Points",
+      "wrongTiles": "Wrong tiles",
+      "helpUsed": "Help used",
+      "sleighReward": "Sleigh bonus",
+      "win": "Board cleared!"
     }
   },
   "funFacts": {

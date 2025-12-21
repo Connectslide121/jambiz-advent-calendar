@@ -16,7 +16,8 @@
   | 'giftCatcher'
   | 'slidingPuzzle'
   | 'skiSlope'
-  | 'busses';
+  | 'busses'
+  | 'mahjong';
 
 export type RewardType =
   | 'text'
