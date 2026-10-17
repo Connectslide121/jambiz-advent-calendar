@@ -40,7 +40,13 @@ export class TreeLightsChallenge implements OnInit, OnDestroy {
   @Input() config: TreeLightsConfig = {};
   @Input() isCompleted = false;
   @Input() day?: number;
+  @Input() levelId?: string;
   @Output() completed = new EventEmitter<void>();
+
+  /** Calendar day or extras level id, used to store best results */
+  private get statsKey(): number | string | undefined {
+    return this.day ?? this.levelId;
+  }
 
   readonly Check = Check;
   readonly Lightbulb = Lightbulb;
@@ -86,7 +92,7 @@ export class TreeLightsChallenge implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.rows = Math.max(3, Math.min(7, this.config?.rows ?? 5));
-    const stats = this.day ? this.stateService.getGameStats(this.day) : null;
+    const stats = this.statsKey ? this.stateService.getGameStats(this.statsKey) : null;
     this.bestMoves = stats?.bestMoves ?? null;
     this.newPuzzle();
   }
@@ -171,10 +177,10 @@ export class TreeLightsChallenge implements OnInit, OnDestroy {
   private onWin(): void {
     this.won = true;
     this.sound.fanfare();
-    if (this.day) {
+    if (this.statsKey) {
       const best = this.bestMoves === null ? this.moves : Math.min(this.bestMoves, this.moves);
       this.bestMoves = best;
-      this.stateService.saveGameStats(this.day, { bestMoves: best });
+      this.stateService.saveGameStats(this.statsKey, { bestMoves: best });
     }
     // Let the star light up before the reward slides in
     this.winTimer = setTimeout(() => this.completed.emit(), 1800);

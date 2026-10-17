@@ -35,7 +35,13 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
   @Input() config: JingleBellsConfig = {};
   @Input() isCompleted = false;
   @Input() day?: number;
+  @Input() levelId?: string;
   @Output() completed = new EventEmitter<void>();
+
+  /** Calendar day or extras level id, used to store best results */
+  private get statsKey(): number | string | undefined {
+    return this.day ?? this.levelId;
+  }
 
   readonly Check = Check;
   readonly Play = Play;
@@ -75,7 +81,7 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.targetLength = Math.max(3, Math.min(15, this.config?.targetLength ?? 7));
-    const stats = this.day ? this.stateService.getGameStats(this.day) : null;
+    const stats = this.statsKey ? this.stateService.getGameStats(this.statsKey) : null;
     this.bestRound = stats?.bestRound ?? 0;
   }
 
@@ -154,8 +160,8 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
   private recordBest(round: number): void {
     if (round <= this.bestRound) return;
     this.bestRound = round;
-    if (this.day) {
-      this.stateService.saveGameStats(this.day, { bestRound: round });
+    if (this.statsKey) {
+      this.stateService.saveGameStats(this.statsKey, { bestRound: round });
     }
   }
 

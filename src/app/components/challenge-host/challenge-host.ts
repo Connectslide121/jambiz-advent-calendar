@@ -13,24 +13,7 @@ import { LucideAngularModule, X } from 'lucide-angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { CalendarDayConfig } from '../../models/calendar.models';
 import { FunFactReveal } from '../fun-fact-reveal/fun-fact-reveal';
-import { RiddleChallenge } from '../challenges/riddle-challenge/riddle-challenge';
-import { WordScrambleChallenge } from '../challenges/word-scramble-challenge/word-scramble-challenge';
-import { HangmanChallenge } from '../challenges/hangman-challenge/hangman-challenge';
-import { WordSearchChallenge } from '../challenges/word-search-challenge/word-search-challenge';
-import { RebusChallenge } from '../challenges/rebus-challenge/rebus-challenge';
-import { MemoryCardChallenge } from '../challenges/memory-card-challenge/memory-card-challenge';
-import { GeometryDashChallenge } from '../challenges/geometry-dash-challenge/geometry-dash-challenge';
-import { SokobanChallengeComponent } from '../challenges/sokoban-challenge/sokoban-challenge';
-import { FlappySleighChallenge } from '../challenges/flappy-sleigh-challenge/flappy-sleigh-challenge';
-import ClimberChallengeComponent from '../challenges/climber-challenge/climber-challenge';
-import { MazeRunnerChallengeComponent } from '../challenges/maze-runner-challenge/maze-runner-challenge';
-import { PresentStackingChallenge } from '../challenges/present-stacking-challenge/present-stacking-challenge';
-import { GiftCatcherChallenge } from '../challenges/gift-catcher-challenge/gift-catcher-challenge';
-import { SlidingPuzzleChallenge } from '../challenges/sliding-puzzle-challenge/sliding-puzzle-challenge';
-import { SkiSlopeChallenge } from '../challenges/ski-slope-challenge/ski-slope-challenge';
-import { BussesChallenge } from '../challenges/busses-challenge/busses-challenge';
-import { TreeLightsChallenge } from '../challenges/tree-lights-challenge/tree-lights-challenge';
-import { JingleBellsChallenge } from '../challenges/jingle-bells-challenge/jingle-bells-challenge';
+import { CHALLENGE_COMPONENTS } from '../../config/challenge-registry';
 
 @Component({
   selector: 'app-challenge-host',
@@ -57,101 +40,30 @@ export class ChallengeHost implements OnInit {
   }
 
   private loadChallengeComponent(): void {
-    if (!this.challengeContainer) return;
+    if (!this.challengeContainer || !this.dayConfig.challengeType) return;
 
     this.challengeContainer.clear();
 
-    let componentType: any;
-
-    switch (this.dayConfig.challengeType) {
-      case 'riddle':
-        componentType = RiddleChallenge;
-        break;
-      case 'wordScramble':
-        componentType = WordScrambleChallenge;
-        break;
-      case 'hangman':
-        componentType = HangmanChallenge;
-        break;
-      case 'wordSearch':
-        componentType = WordSearchChallenge;
-        break;
-      case 'rebus':
-        componentType = RebusChallenge;
-        break;
-      case 'memoryCard':
-        componentType = MemoryCardChallenge;
-        break;
-      case 'geometryDash':
-        componentType = GeometryDashChallenge;
-        break;
-      case 'sokoban':
-        componentType = SokobanChallengeComponent;
-        break;
-      case 'flappySleigh':
-        componentType = FlappySleighChallenge;
-        break;
-      case 'climber':
-        componentType = ClimberChallengeComponent;
-        break;
-      case 'mazeRunner':
-        componentType = MazeRunnerChallengeComponent;
-        break;
-      case 'presentStacking':
-        componentType = PresentStackingChallenge;
-        break;
-      case 'giftCatcher':
-        componentType = GiftCatcherChallenge;
-        break;
-      case 'busses':
-        componentType = BussesChallenge;
-        break;
-      case 'slidingPuzzle':
-        componentType = SlidingPuzzleChallenge;
-        break;
-      case 'skiSlope':
-        componentType = SkiSlopeChallenge;
-        break;
-      case 'treeLights':
-        componentType = TreeLightsChallenge;
-        break;
-      case 'jingleBells':
-        componentType = JingleBellsChallenge;
-        break;
-      default:
-        // For unimplemented challenge types, show placeholder
-        return;
+    const componentType = CHALLENGE_COMPONENTS[this.dayConfig.challengeType];
+    if (!componentType) {
+      // Unknown challenge type: the template shows a placeholder
+      return;
     }
 
     this.challengeComponentRef = this.challengeContainer.createComponent(componentType);
+    const ref = this.challengeComponentRef;
 
-    // Pass config data to the challenge component
-    if (this.dayConfig.challengeData) {
-      // Use 'challengeData' for Sokoban, 'config' for others
-      if (this.dayConfig.challengeType === 'sokoban') {
-        this.challengeComponentRef.instance.challengeData = this.dayConfig.challengeData;
-      } else {
-        this.challengeComponentRef.instance.config = this.dayConfig.challengeData;
-      }
+    // Every game takes the same inputs (see GAME_SPEC in the README)
+    ref.setInput('config', this.dayConfig.challengeData ?? {});
+    ref.setInput('isCompleted', this.isCompleted);
+    if (this.dayConfig.day > 0) {
+      ref.setInput('day', this.dayConfig.day);
+    }
+    if (this.dayConfig.levelId) {
+      ref.setInput('levelId', this.dayConfig.levelId);
     }
 
-    // Pass completed state
-    if (this.challengeComponentRef.instance.isCompleted !== undefined) {
-      this.challengeComponentRef.instance.isCompleted = this.isCompleted;
-    }
-
-    // Pass day number if component has day property
-    if ('day' in this.challengeComponentRef.instance) {
-      this.challengeComponentRef.instance.day = this.dayConfig.day;
-    }
-
-    // Pass levelId if available (for extras)
-    if ('levelId' in this.challengeComponentRef.instance && this.dayConfig.levelId) {
-      this.challengeComponentRef.instance.levelId = this.dayConfig.levelId;
-    }
-
-    // Subscribe to completion event
-    this.challengeComponentRef.instance.completed.subscribe(() => {
+    ref.instance.completed.subscribe(() => {
       this.onChallengeComplete();
     });
   }
@@ -161,11 +73,10 @@ export class ChallengeHost implements OnInit {
   }
 
   onChallengeComplete(): void {
-    // Only show fun fact if there is one (skip for extras without rewards)
+    // Only show the reward screen if there is one (extras have no rewards)
     if (this.dayConfig.funFactKey || this.dayConfig.reward) {
       this.showFunFact = true;
     } else {
-      // No fun fact or reward, just close the modal
       this.close.emit();
     }
     this.challengeCompleted.emit();
