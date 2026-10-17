@@ -1,17 +1,184 @@
-// Snowfall animation
-@keyframes snowfall {
-  0% {
-    transform: translateY(0) rotate(0deg);
-  }
-  100% {
-    transform: translateY(100vh) rotate(360deg);
+// App shell sits above the fixed winter scene. It lets clicks fall through to the scene
+// (the moon is clickable) everywhere except on actual content.
+.app-shell {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
   }
 }
 
-.snowflake {
-  animation: snowfall linear infinite;
-  user-select: none;
-  will-change: transform;
+.landing-host {
+  flex: 1;
+}
+
+.landing-controls {
+  position: absolute;
+  top: 64px;
+  right: 16px;
+  z-index: 40;
+  display: flex;
+  gap: 8px;
+}
+
+// Round frosted icon buttons used in the header
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  color: var(--color-text);
+  background: rgba(10, 14, 38, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: var(--color-bg);
+    background: var(--color-gold);
+    border-color: var(--color-gold);
+    box-shadow: var(--glow-gold);
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+
+  &.on {
+    color: var(--color-gold);
+    border-color: rgba(247, 200, 115, 0.5);
+  }
+
+  &.lang {
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+  }
+}
+
+// Header
+.topbar {
+  position: relative;
+  z-index: 20;
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 68px 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  @media (min-width: 640px) {
+    padding: 74px 24px 0;
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  background: none;
+  border: 0;
+  padding: 0;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+}
+
+.brand-tag {
+  flex: none;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: radial-gradient(circle at 30% 20%, #fffdf6, #f3e7cd);
+  box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.7);
+  transform: rotate(-3deg);
+  transition: transform 0.3s var(--ease-bounce);
+
+  img {
+    display: block;
+    height: 36px;
+    width: auto;
+
+    @media (min-width: 640px) {
+      height: 46px;
+    }
+  }
+}
+
+.brand:hover .brand-tag {
+  transform: rotate(3deg) scale(1.05);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.brand-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(1.2rem, 3.4vw, 1.9rem);
+  line-height: 1.1;
+  color: var(--color-text);
+  text-shadow: 0 2px 20px rgba(247, 200, 115, 0.3);
+}
+
+.brand-sub {
+  font-size: clamp(0.72rem, 1.6vw, 0.88rem);
+  color: var(--color-text-muted);
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.devtools {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px dashed rgba(247, 200, 115, 0.4);
+}
+
+.main {
+  pointer-events: none; // calendar content re-enables it
+  flex: 1;
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 24px 12px 40px;
+
+  @media (min-width: 640px) {
+    padding: 28px 24px 48px;
+  }
+}
+
+.footer {
+  text-align: center;
+  padding: 0 16px 28px;
+  font-size: 0.8rem;
+  color: rgba(253, 246, 236, 0.55);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
 }
 
 // Coupon display in rewards gallery

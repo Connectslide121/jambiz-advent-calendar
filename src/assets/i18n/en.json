@@ -1,14 +1,15 @@
 ﻿{
   "app": {
-    "title": "Jambiz Advent Calendar",
-    "subtitle": "One tiny challenge a day, one surprise as a reward",
+    "title": "Jambiz Advent Calendar 2026",
+    "subtitle": "24 doors · 24 cozy minigames · 24 surprises",
     "welcome": "Welcome to the Jambiz Advent Calendar!",
-    "intro": "Join us for 24 days of festive fun, challenges, and surprises. Unlock a new door each day to reveal a mini-game or puzzle and claim your reward - fun facts, videos, interactive surprises, and more!",
-    "start": "Start the Adventure",
+    "intro": "Grab a cup of glögg and get comfy. Every morning in December a new door opens with a little Christmas game behind it. Beat it to unwrap a surprise from all of us at Jambiz.",
+    "start": "Open the calendar",
     "language": {
       "en": "English",
       "sv": "Swedish"
-    }
+    },
+    "footer": "Made with 🎄, ❄️ and lots of glögg by the Jambiz team · Psst… try clicking the moon"
   },
   "celebration": {
     "title": "Congratulations! You Did It!",
@@ -25,11 +26,18 @@
     "comingSoon": "Coming Soon",
     "unlocksIn": "Unlocks in",
     "day25": {
-      "title": "The Big Day",
+      "title": "Christmas Day",
       "subtitle": "December 25th",
       "description": "Complete all 24 challenges to unlock the full rewards gallery and extra games!",
       "unlocked": "🎉 All rewards unlocked! 🎉"
-    }
+    },
+    "boardTitle": "Door by door to Christmas",
+    "boardSubtitle": "A new door opens every morning in December",
+    "nextDoor": "Door {{day}} opens in",
+    "soon": "Soon",
+    "today": "Today",
+    "opensOn": "🔒 Opens December {{day}}",
+    "ornamentsLit": "ornaments lit"
   },
   "challenges": {
     "success": {
@@ -350,8 +358,7 @@
         "option3": "Juice and candy",
         "option4": "Water and bread"
       }
-    }
-    ,
+    },
     "busses": {
       "title": "Busses",
       "instruction": "Click a bus to push it toward the corners. It keeps driving until it exits unless another bus blocks its way.",
@@ -361,6 +368,33 @@
       "win": "All buses have cleared the lot!",
       "reset": "Restart",
       "previouslyCompleted": "Previously completed with {{crashes}} crashes"
+    },
+    "treeLights": {
+      "title": "Light Up the Tree",
+      "instruction": "Tapping a bulb flips it and its neighbours. Light every bulb to make the star shine!",
+      "lit": "Lit",
+      "moves": "Moves",
+      "best": "Best",
+      "newTree": "New tree",
+      "win": "The tree is glowing!"
+    },
+    "jingleBells": {
+      "title": "Bell Choir",
+      "instruction": "Listen to the bells, then ring them back in the same order. Play a melody of {{target}} notes to win!",
+      "ready": "Ready when you are!",
+      "listen": "Listen…",
+      "yourTurn": "Your turn! ({{current}}/{{total}})",
+      "oops": "Oops! Listen again…",
+      "win": "Beautiful! The choir is complete!",
+      "round": "Notes",
+      "best": "Best",
+      "soundTip": "Best with sound on – but you can also follow the glowing bells.",
+      "bells": {
+        "red": "Red bell",
+        "gold": "Gold bell",
+        "green": "Green bell",
+        "blue": "Blue bell"
+      }
     }
   },
   "funFacts": {
@@ -399,7 +433,9 @@
     "hideHint": "Hide Hint",
     "showReward": "Show Reward",
     "startGame": "Start Game",
-    "back": "Back"
+    "back": "Back",
+    "soundOn": "Turn sound on",
+    "soundOff": "Turn sound off"
   },
   "rewards": {
     "galleryButton": "All Rewards",
@@ -942,5 +978,21 @@
     "clearAll": "Clear All Progress",
     "confirmClearAll": "Are you sure you want to clear all progress? This will reset all calendar days and extras. This cannot be undone.",
     "allCleared": "All progress has been cleared!"
+  },
+  "landing": {
+    "eyebrow": "Jambiz presents",
+    "title": "Advent Calendar",
+    "countdownLabel": "The first door opens in",
+    "days": "days",
+    "hours": "hours",
+    "minutes": "min",
+    "seconds": "sec",
+    "todayOpen": "Door {{day}} is open – come on in!",
+    "christmas": "Merry Christmas! Every door is open.",
+    "chips": {
+      "doors": "24 doors",
+      "games": "Christmas minigames",
+      "rewards": "Jambiz surprises"
+    }
   }
 }

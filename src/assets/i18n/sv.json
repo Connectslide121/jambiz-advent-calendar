@@ -1,14 +1,15 @@
 ﻿{
   "app": {
-    "title": "Jambiz Adventskalender",
-    "subtitle": "En liten utmaning om dagen, en överraskning som belöning",
+    "title": "Jambiz Julkalender 2026",
+    "subtitle": "24 luckor · 24 mysiga minispel · 24 överraskningar",
     "welcome": "Välkommen till Jambiz Adventskalender!",
-    "intro": "Följ med oss på 24 dagar av festlig skoj, utmaningar och överraskningar. Lås upp en ny lucka varje dag för att avslöja ett minispel eller pussel och hämta din belöning - roliga fakta, videor, interaktiva överraskningar och mer!",
-    "start": "Starta Äventyret",
+    "intro": "Ta en kopp glögg och gör det mysigt. Varje morgon i december öppnas en ny lucka med ett litet julspel bakom. Klara det för att öppna en överraskning från oss alla på Jambiz.",
+    "start": "Öppna kalendern",
     "language": {
       "en": "Engelska",
       "sv": "Svenska"
-    }
+    },
+    "footer": "Gjord med 🎄, ❄️ och massor av glögg av Jambiz-teamet · Psst… prova att klicka på månen"
   },
   "celebration": {
     "title": "Grattis! Du klarade det!",
@@ -25,11 +26,18 @@
     "comingSoon": "Kommer snart",
     "unlocksIn": "Öppnas om",
     "day25": {
-      "title": "Den stora dagen",
+      "title": "Juldagen",
       "subtitle": "25 december",
       "description": "Klara alla 24 utmaningar för att låsa upp alla belöningar och extraspel!",
       "unlocked": "🎉 Alla belöningar upplåsta! 🎉"
-    }
+    },
+    "boardTitle": "Lucka för lucka mot jul",
+    "boardSubtitle": "En ny lucka öppnas varje morgon i december",
+    "nextDoor": "Lucka {{day}} öppnas om",
+    "soon": "Snart",
+    "today": "Idag",
+    "opensOn": "🔒 Öppnas {{day}} december",
+    "ornamentsLit": "kulor tända"
   },
   "challenges": {
     "success": {
@@ -350,8 +358,7 @@
         "option3": "Juice och godis",
         "option4": "Vatten och bröd"
       }
-    }
-    ,
+    },
     "busses": {
       "title": "Bussarna",
       "instruction": "Klicka på en buss för att skicka den mot hörnen. Den fortsätter tills den lämnar banan eller kör in i en annan buss.",
@@ -361,6 +368,33 @@
       "win": "Alla bussar har lämnat parkeringen!",
       "reset": "Starta om",
       "previouslyCompleted": "Förra gången klarade du det med {{crashes}} krockar"
+    },
+    "treeLights": {
+      "title": "Tänd granen",
+      "instruction": "När du trycker på en lampa växlar den och dess grannar. Tänd alla lampor så att stjärnan lyser!",
+      "lit": "Tända",
+      "moves": "Drag",
+      "best": "Bästa",
+      "newTree": "Ny gran",
+      "win": "Granen lyser!"
+    },
+    "jingleBells": {
+      "title": "Klockkören",
+      "instruction": "Lyssna på klockorna och ring sedan i samma ordning. Spela en melodi på {{target}} toner för att vinna!",
+      "ready": "Redo när du är!",
+      "listen": "Lyssna…",
+      "yourTurn": "Din tur! ({{current}}/{{total}})",
+      "oops": "Hoppsan! Lyssna igen…",
+      "win": "Vackert! Kören är komplett!",
+      "round": "Toner",
+      "best": "Bästa",
+      "soundTip": "Bäst med ljud på – men du kan också följa de lysande klockorna.",
+      "bells": {
+        "red": "Röd klocka",
+        "gold": "Guldklocka",
+        "green": "Grön klocka",
+        "blue": "Blå klocka"
+      }
     }
   },
   "funFacts": {
@@ -399,7 +433,9 @@
     "hideHint": "Dölj Tips",
     "showReward": "Visa belöning",
     "startGame": "Starta spel",
-    "back": "Tillbaka"
+    "back": "Tillbaka",
+    "soundOn": "Slå på ljud",
+    "soundOff": "Stäng av ljud"
   },
   "rewards": {
     "galleryButton": "Alla belöningar",
@@ -942,5 +978,21 @@
     "clearAll": "Rensa alla framsteg",
     "confirmClearAll": "Är du säker på att du vill rensa alla framsteg? Detta återställer alla kalenderdagar och extranivåer. Detta kan inte ångras.",
     "allCleared": "Alla framsteg har rensats!"
+  },
+  "landing": {
+    "eyebrow": "Jambiz presenterar",
+    "title": "Julkalender",
+    "countdownLabel": "Första luckan öppnas om",
+    "days": "dagar",
+    "hours": "tim",
+    "minutes": "min",
+    "seconds": "sek",
+    "todayOpen": "Lucka {{day}} är öppen – kom in i värmen!",
+    "christmas": "God Jul! Alla luckor är öppna.",
+    "chips": {
+      "doors": "24 luckor",
+      "games": "Julspel",
+      "rewards": "Jambiz-överraskningar"
+    }
   }
 }

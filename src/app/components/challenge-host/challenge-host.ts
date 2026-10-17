@@ -29,6 +29,8 @@ import { GiftCatcherChallenge } from '../challenges/gift-catcher-challenge/gift-
 import { SlidingPuzzleChallenge } from '../challenges/sliding-puzzle-challenge/sliding-puzzle-challenge';
 import { SkiSlopeChallenge } from '../challenges/ski-slope-challenge/ski-slope-challenge';
 import { BussesChallenge } from '../challenges/busses-challenge/busses-challenge';
+import { TreeLightsChallenge } from '../challenges/tree-lights-challenge/tree-lights-challenge';
+import { JingleBellsChallenge } from '../challenges/jingle-bells-challenge/jingle-bells-challenge';
 
 @Component({
   selector: 'app-challenge-host',
@@ -109,6 +111,12 @@ export class ChallengeHost implements OnInit {
         break;
       case 'skiSlope':
         componentType = SkiSlopeChallenge;
+        break;
+      case 'treeLights':
+        componentType = TreeLightsChallenge;
+        break;
+      case 'jingleBells':
+        componentType = JingleBellsChallenge;
         break;
       default:
         // For unimplemented challenge types, show placeholder

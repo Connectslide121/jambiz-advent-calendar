@@ -1,29 +1,24 @@
-<!-- Jambiz Advent Calendar App -->
+<!-- Jambiz Julkalender 2026 -->
+<app-winter-scene [compact]="!showLandingPage"></app-winter-scene>
 
-<div class="min-h-screen flex flex-col bg-gradient-to-b from-bg to-surface relative">
-  <!-- Global Snowflakes -->
-  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-    @for (snowflake of snowflakes; track $index) {
-    <div
-      class="snowflake absolute text-white"
-      [style.left.%]="snowflake.left"
-      [style.top.px]="snowflake.startY"
-      [style.animation-duration.s]="snowflake.animationDuration"
-      [style.animation-delay.s]="snowflake.animationDelay"
-      [style.font-size.px]="snowflake.fontSize"
-      [style.opacity]="snowflake.opacity"
-    >
-      ❄
-    </div>
-    }
-  </div>
+<div class="app-shell">
+  <app-string-lights></app-string-lights>
 
   @if (showLandingPage) {
-  <!-- Language Toggle for Landing Page -->
-  <div class="absolute top-4 right-4 z-20">
+  <!-- Floating controls for the landing page -->
+  <div class="landing-controls">
+    <button
+      (click)="sound.toggle()"
+      class="icon-btn"
+      [class.on]="sound.enabled()"
+      [attr.aria-label]="(sound.enabled() ? 'ui.soundOff' : 'ui.soundOn') | translate"
+      [title]="(sound.enabled() ? 'ui.soundOff' : 'ui.soundOn') | translate"
+    >
+      <lucide-icon [img]="sound.enabled() ? Volume2 : VolumeX" class="w-5 h-5" [strokeWidth]="2"></lucide-icon>
+    </button>
     <button
       (click)="toggleLanguage()"
-      class="btn btn-outline text-sm px-3 py-2"
+      class="icon-btn lang"
       [attr.aria-label]="'Switch to ' + (currentLanguage === 'sv' ? 'English' : 'Swedish')"
     >
       {{ currentLanguage === 'sv' ? 'EN' : 'SV' }}
@@ -33,131 +28,111 @@
   <app-landing-page
     (start)="startCalendar()"
     (showInfo)="openInfoModal()"
-    class="flex-1 flex items-center justify-center relative z-10"
+    class="landing-host"
   ></app-landing-page>
   } @else {
   <!-- Header -->
-  <header class="bg-surface border-b-2 border-accent-red shadow-lg relative z-10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
-      <div class="flex items-center justify-between gap-4">
-        <!-- Logo and Title -->
-        <div class="flex items-center gap-3 sm:gap-4 flex-1">
-          <div class="bg-white rounded-lg p-2 sm:p-2.5 shadow-md">
-            <img
-              src="assets/Jambiz_xmas_logo.png"
-              alt="Jambiz Logo"
-              class="h-12 w-20 sm:h-14 sm:w-24 lg:h-16 lg:w-32 object-contain"
-            />
-          </div>
-          <div class="text-left">
-            <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-text leading-tight">
-              {{ 'app.title' | translate }}
-            </h1>
-            <p class="text-xs sm:text-sm text-text-muted mt-0.5 sm:mt-1">
-              {{ 'app.subtitle' | translate }}
-            </p>
-          </div>
-        </div>
+  <header class="topbar">
+    <button class="brand" (click)="showLandingPage = true" [attr.aria-label]="'app.title' | translate">
+      <span class="brand-tag">
+        <img src="assets/Jambiz_xmas_logo_transparent.png" alt="Jambiz" />
+      </span>
+      <span class="brand-text">
+        <span class="brand-title">{{ 'app.title' | translate }}</span>
+        <span class="brand-sub">{{ 'app.subtitle' | translate }}</span>
+      </span>
+    </button>
 
-        <!-- Controls Container - wraps on mobile -->
-        <div class="flex flex-wrap items-center gap-2 sm:gap-3 justify-end">
-          <!-- Language Toggle - Single Button -->
+    <div class="topbar-actions">
+      @if (showDevTools) {
+      <div class="devtools">
+        <button
+          (click)="calendarState.toggleDevMode()"
+          class="btn text-xs px-2.5 py-1.5"
+          [class.btn-secondary]="calendarState.devMode"
+          [class.btn-outline]="!calendarState.devMode"
+          [attr.aria-label]="'Toggle developer mode'"
+          title="Dev Mode: {{ calendarState.devMode ? 'ON' : 'OFF' }} (unlocks all days)"
+        >
+          <lucide-icon [img]="Code" class="w-4 h-4" [strokeWidth]="2"></lucide-icon>
+        </button>
+        <div class="flex items-center gap-1">
+          <input
+            type="number"
+            min="1"
+            max="31"
+            [value]="calendarState.dateOverride ?? ''"
+            (input)="onDateOverrideChange($event)"
+            placeholder="Day"
+            class="input w-16 px-2 py-1.5 text-xs text-center"
+            title="Set fake December day (1-31) for testing"
+          />
+          @if (calendarState.dateOverride !== null) {
           <button
-            (click)="toggleLanguage()"
-            class="btn btn-outline shrink-0 text-xs sm:text-sm px-2 sm:px-3 py-1.5 sm:py-2 min-w-[3rem] sm:min-w-[3.5rem]"
-            [attr.aria-label]="'Switch to ' + (currentLanguage === 'sv' ? 'English' : 'Swedish')"
+            (click)="calendarState.dateOverride = null"
+            class="btn btn-outline p-1 min-w-0"
+            title="Clear date override"
           >
-            {{ currentLanguage === 'sv' ? 'EN' : 'SV' }}
-          </button>
-
-          @if (showDevTools) {
-          <!-- Dev Mode Toggle Button -->
-          <button
-            (click)="calendarState.toggleDevMode()"
-            class="btn shrink-0 text-xs sm:text-sm px-2 sm:px-3 py-1.5 sm:py-2"
-            [class.btn-secondary]="calendarState.devMode"
-            [class.btn-outline]="!calendarState.devMode"
-            [attr.aria-label]="'Toggle developer mode'"
-            title="Dev Mode: {{ calendarState.devMode ? 'ON' : 'OFF' }} (unlocks all days)"
-          >
-            <lucide-icon [img]="Code" class="w-4 h-4 sm:w-5 sm:h-5" [strokeWidth]="2"></lucide-icon>
-          </button>
-
-          <!-- Date Override Input (for testing) -->
-          <div class="flex items-center gap-1">
-            <input
-              type="number"
-              min="1"
-              max="31"
-              [value]="calendarState.dateOverride ?? ''"
-              (input)="onDateOverrideChange($event)"
-              placeholder="Day"
-              class="w-14 px-2 py-1.5 text-xs sm:text-sm bg-surface border border-border rounded text-text text-center"
-              title="Set fake December day (1-31) for testing"
-            />
-            @if (calendarState.dateOverride !== null) {
-            <button
-              (click)="calendarState.dateOverride = null"
-              class="btn btn-outline p-1 min-w-0"
-              title="Clear date override"
-            >
-              <lucide-icon [img]="X" class="w-3 h-3" [strokeWidth]="2"></lucide-icon>
-            </button>
-            }
-          </div>
-
-          <!-- Mark All Complete Button -->
-          <button
-            (click)="markAllComplete()"
-            class="btn btn-secondary shrink-0 text-xs sm:text-sm px-2 sm:px-3 py-1.5 sm:py-2"
-            [attr.aria-label]="'Mark all challenges as completed'"
-            title="{{ 'admin.markAllComplete' | translate }}"
-          >
-            <lucide-icon
-              [img]="CheckCheck"
-              class="w-4 h-4 sm:w-5 sm:h-5"
-              [strokeWidth]="2"
-            ></lucide-icon>
-          </button>
-
-          <!-- Clear All Progress Button -->
-          <button
-            (click)="clearAllProgress()"
-            class="btn btn-primary shrink-0 text-xs sm:text-sm px-2 sm:px-3 py-1.5 sm:py-2"
-            [attr.aria-label]="'Clear all progress'"
-            title="{{ 'admin.clearAll' | translate }}"
-          >
-            <lucide-icon
-              [img]="XCircle"
-              class="w-4 h-4 sm:w-5 sm:h-5"
-              [strokeWidth]="2"
-            ></lucide-icon>
+            <lucide-icon [img]="X" class="w-3 h-3" [strokeWidth]="2"></lucide-icon>
           </button>
           }
         </div>
+        <button
+          (click)="markAllComplete()"
+          class="btn btn-secondary text-xs px-2.5 py-1.5"
+          [attr.aria-label]="'Mark all challenges as completed'"
+          title="{{ 'admin.markAllComplete' | translate }}"
+        >
+          <lucide-icon [img]="CheckCheck" class="w-4 h-4" [strokeWidth]="2"></lucide-icon>
+        </button>
+        <button
+          (click)="clearAllProgress()"
+          class="btn btn-primary text-xs px-2.5 py-1.5"
+          [attr.aria-label]="'Clear all progress'"
+          title="{{ 'admin.clearAll' | translate }}"
+        >
+          <lucide-icon [img]="XCircle" class="w-4 h-4" [strokeWidth]="2"></lucide-icon>
+        </button>
       </div>
+      }
+
+      <button
+        (click)="openInfoModal()"
+        class="icon-btn"
+        [attr.aria-label]="'info.button' | translate"
+        [title]="'info.button' | translate"
+      >
+        <lucide-icon [img]="Info" class="w-5 h-5" [strokeWidth]="2"></lucide-icon>
+      </button>
+      <button
+        (click)="sound.toggle()"
+        class="icon-btn"
+        [class.on]="sound.enabled()"
+        [attr.aria-label]="(sound.enabled() ? 'ui.soundOff' : 'ui.soundOn') | translate"
+        [title]="(sound.enabled() ? 'ui.soundOff' : 'ui.soundOn') | translate"
+      >
+        <lucide-icon [img]="sound.enabled() ? Volume2 : VolumeX" class="w-5 h-5" [strokeWidth]="2"></lucide-icon>
+      </button>
+      <button
+        (click)="toggleLanguage()"
+        class="icon-btn lang"
+        [attr.aria-label]="'Switch to ' + (currentLanguage === 'sv' ? 'English' : 'Swedish')"
+      >
+        {{ currentLanguage === 'sv' ? 'EN' : 'SV' }}
+      </button>
     </div>
   </header>
 
   <!-- Main Content -->
-  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
-    <!-- Info Button -->
-    <div class="flex justify-center mb-6">
-      <button
-        (click)="openInfoModal()"
-        class="btn btn-outline px-4 py-2 text-sm sm:text-base flex items-center gap-2"
-      >
-        <lucide-icon [img]="Info" class="w-4 h-4 sm:w-5 sm:h-5" [strokeWidth]="2"></lucide-icon>
-        {{ 'info.button' | translate }}
-      </button>
-    </div>
-
+  <main class="main">
     <app-calendar
       (openRewardsGallery)="openRewardsGallery()"
       (openExtras)="openExtras()"
       (calendarComplete)="onCalendarComplete()"
     ></app-calendar>
   </main>
+
+  <footer class="footer">{{ 'app.footer' | translate }}</footer>
   }
 </div>
 

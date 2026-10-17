@@ -3,20 +3,40 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CSS Variables - Design System */
+/* ==========================================================================
+   Jambiz Julkalender 2026 - "Nordic Christmas Night" design system
+   ========================================================================== */
 :root {
-  /* Colors */
-  --color-bg: #06121f; // Dark night blue
-  --color-surface: #102437; // Card background
-  --color-accent-red: #e63946; // Christmas red
-  --color-accent-green: #2a9d8f; // Christmas green
-  --color-gold: #f4d35e; // Gold accent
-  --color-text: #f8f9fa; // Light text
-  --color-text-muted: #adb5bd; // Muted text
+  /* Night sky */
+  --color-bg: #0a0f24; // Midnight blue
+  --color-bg-deep: #05071a; // Deepest night
+  --color-surface: #161c40; // Card background
+  --color-surface-2: #1f2754; // Raised card
+  --color-border: rgba(255, 255, 255, 0.1);
+
+  /* Christmas accents */
+  --color-accent-red: #e0475b; // Cranberry
+  --color-accent-red-dark: #a8243a;
+  --color-accent-green: #3aae8a; // Pine
+  --color-accent-green-dark: #1f6f58;
+  --color-gold: #f7c873; // Candle gold
+  --color-ember: #ff9f43; // Warm ember glow
+  --color-frost: #cfe6ff; // Frost blue
+  --color-aurora: #5cf2b3; // Aurora green
+
+  /* Text */
+  --color-text: #fdf6ec; // Warm snow white
+  --color-text-muted: #b6b4cf; // Lavender grey
 
   /* Typography */
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-    sans-serif;
+  --font-sans: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+
+  /* Effects */
+  --glow-gold: 0 0 24px rgba(247, 200, 115, 0.45);
+  --shadow-soft: 0 18px 50px -12px rgba(0, 0, 0, 0.65);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* Global Styles */
@@ -24,12 +44,31 @@
   box-sizing: border-box;
 }
 
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
   margin: 0;
   font-family: var(--font-sans);
-  background-color: var(--color-bg);
+  background-color: var(--color-bg-deep);
   color: var(--color-text);
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  letter-spacing: -0.01em;
+}
+
+::selection {
+  background: rgba(247, 200, 115, 0.35);
+  color: var(--color-text);
 }
 
 /* Custom Scrollbar Styling */
@@ -39,36 +78,40 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-bg);
-  border-radius: 4px;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-surface);
-  border-radius: 4px;
-  border: 2px solid var(--color-bg);
+  background: rgba(247, 200, 115, 0.25);
+  border-radius: 8px;
 
   &:hover {
-    background: #1a3a52;
+    background: rgba(247, 200, 115, 0.45);
   }
 }
 
 ::-webkit-scrollbar-corner {
-  background: var(--color-bg);
+  background: transparent;
 }
 
 /* Firefox scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-surface) var(--color-bg);
+  scrollbar-color: rgba(247, 200, 115, 0.3) transparent;
 }
 
-/* Global Component Styles */
+/* Global Component Styles - every challenge reuses these */
 @layer components {
   /* Base button styles */
   .btn {
-    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200;
-    @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-bg;
+    @apply px-4 py-2 rounded-xl font-bold transition-all duration-200;
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-bg;
+    position: relative;
+    letter-spacing: 0.01em;
+
+    &:active:not(:disabled) {
+      transform: translateY(1px) scale(0.98);
+    }
 
     &:disabled {
       @apply opacity-50 cursor-not-allowed;
@@ -76,26 +119,50 @@ body {
   }
 
   .btn-primary {
-    @apply bg-accent-red text-white hover:bg-opacity-90;
-    @apply focus:ring-accent-red;
+    @apply text-white focus-visible:ring-accent-red;
+    background: linear-gradient(180deg, #ef5b6f 0%, var(--color-accent-red) 45%, #b72e45 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 6px 18px -6px rgba(224, 71, 91, 0.75);
+
+    &:hover:not(:disabled) {
+      filter: brightness(1.08);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 10px 26px -6px rgba(224, 71, 91, 0.9);
+    }
   }
 
   .btn-secondary {
-    @apply bg-accent-green text-white hover:bg-opacity-90;
-    @apply focus:ring-accent-green;
+    @apply text-white focus-visible:ring-accent-green;
+    background: linear-gradient(180deg, #4cc59f 0%, var(--color-accent-green) 45%, #23795f 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 6px 18px -6px rgba(58, 174, 138, 0.7);
+
+    &:hover:not(:disabled) {
+      filter: brightness(1.08);
+    }
   }
 
   .btn-outline {
-    @apply border-2 border-gold text-gold hover:bg-gold hover:text-bg;
-    @apply focus:ring-gold;
+    @apply text-gold focus-visible:ring-gold;
+    background: rgba(247, 200, 115, 0.06);
+    border: 1.5px solid rgba(247, 200, 115, 0.55);
+
+    &:hover:not(:disabled) {
+      background: var(--color-gold);
+      color: var(--color-bg);
+      box-shadow: var(--glow-gold);
+    }
   }
 
   /* Form inputs */
   .input {
-    @apply w-full px-4 py-2 rounded-lg;
-    @apply bg-surface border border-gray-600 text-text;
-    @apply focus:outline-none focus:ring-2 focus:ring-accent-red focus:border-transparent;
-    @apply placeholder:text-gray-400;
+    @apply w-full px-4 py-2.5 rounded-xl text-text;
+    @apply focus:outline-none placeholder:text-gray-400;
+    background: rgba(5, 7, 26, 0.55);
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:focus {
+      border-color: var(--color-gold);
+      box-shadow: 0 0 0 4px rgba(247, 200, 115, 0.15);
+    }
 
     &:disabled {
       @apply opacity-50 cursor-not-allowed;
@@ -104,19 +171,80 @@ body {
 
   /* Cards */
   .card {
-    @apply bg-surface rounded-xl p-6 shadow-lg;
-    @apply border border-gray-700;
+    @apply rounded-2xl p-6;
+    // Colour only (no gradient image) so games can recolour cards with bg-* utilities
+    background-color: #1b2250;
+    border: 1px solid var(--color-border);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), inset 0 -40px 60px -40px rgba(0, 0, 0, 0.35),
+      var(--shadow-soft);
   }
 
   /* Modal overlay */
   .modal-overlay {
-    @apply fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center;
+    @apply fixed inset-0 flex items-center justify-center;
     @apply z-50 p-0 lg:p-4;
+    pointer-events: auto;
+    background: radial-gradient(ellipse at 50% 30%, rgba(20, 24, 60, 0.82), rgba(3, 4, 14, 0.94));
+    animation: overlayIn 0.3s ease-out both;
   }
 
   .modal-content {
-    @apply bg-surface w-full h-full lg:h-auto lg:rounded-2xl p-4 lg:p-6;
-    @apply shadow-2xl border-0 lg:border border-gray-700;
+    @apply w-full h-full lg:h-auto lg:rounded-3xl p-4 lg:p-6;
     @apply lg:max-h-[90vh] overflow-y-auto;
+    position: relative;
+    background: radial-gradient(120% 60% at 50% 0%, rgba(247, 200, 115, 0.08), transparent 60%),
+      linear-gradient(170deg, #1d2452 0%, #121738 55%, #0d1130 100%);
+    box-shadow: 0 0 0 1px rgba(247, 200, 115, 0.18), 0 30px 80px -10px rgba(0, 0, 0, 0.8),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    animation: modalIn 0.45s var(--ease-bounce) both;
+  }
+
+  /* Small glowing pill used for badges */
+  .pill {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold;
+    background: rgba(247, 200, 115, 0.12);
+    border: 1px solid rgba(247, 200, 115, 0.35);
+    color: var(--color-gold);
+  }
+
+  /* Script-like display heading with warm glow */
+  .glow-title {
+    font-family: var(--font-display);
+    background: linear-gradient(180deg, #fff8e8 10%, var(--color-gold) 60%, #e9a64a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 2px 18px rgba(247, 200, 115, 0.35));
+  }
+}
+
+@keyframes overlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    // No scale here: canvas games measure their container while this runs
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

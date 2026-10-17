@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, inject } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { Calendar } from './components/calendar/calendar';
@@ -19,17 +19,13 @@ import {
   Lock,
   Code,
   Info,
+  Volume2,
+  VolumeX,
 } from 'lucide-angular';
 import { CalendarStateService } from './services/calendar-state.service';
-
-interface Snowflake {
-  left: number;
-  animationDuration: number;
-  animationDelay: number;
-  startY: number;
-  fontSize: number;
-  opacity: number;
-}
+import { SoundService } from './services/sound.service';
+import { WinterScene } from './components/winter-scene/winter-scene';
+import { StringLights } from './components/string-lights/string-lights';
 
 @Component({
   selector: 'app-root',
@@ -41,11 +37,13 @@ interface Snowflake {
     LucideAngularModule,
     LandingPage,
     FunFactReveal,
+    WinterScene,
+    StringLights,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App implements OnInit, OnDestroy {
+export class App implements OnDestroy {
   readonly X = X;
   readonly ArrowLeft = ArrowLeft;
   readonly Check = Check;
@@ -54,8 +52,10 @@ export class App implements OnInit, OnDestroy {
   readonly Lock = Lock;
   readonly Code = Code;
   readonly Info = Info;
+  readonly Volume2 = Volume2;
+  readonly VolumeX = VolumeX;
+  readonly sound = inject(SoundService);
   currentLanguage: string;
-  snowflakes: Snowflake[] = [];
   showInfoModal = false;
   showLandingPage = true;
   showDevTools = false;
@@ -82,10 +82,6 @@ export class App implements OnInit, OnDestroy {
     this.currentLanguage = savedLang;
     this.translate.use(savedLang);
     this.loadCompletedExtras();
-  }
-
-  ngOnInit(): void {
-    this.generateSnowflakes();
   }
 
   switchLanguage(lang: string): void {
@@ -282,6 +278,7 @@ export class App implements OnInit, OnDestroy {
     // Small delay to let the challenge close animation finish
     setTimeout(() => {
       this.showCelebration = true;
+      this.sound.fanfare();
     }, 500);
   }
 
@@ -384,19 +381,5 @@ export class App implements OnInit, OnDestroy {
   private saveCompletedExtras(): void {
     const array = Array.from(this.completedExtras);
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(array));
-  }
-
-  private generateSnowflakes(): void {
-    const count = 100;
-    for (let i = 0; i < count; i++) {
-      this.snowflakes.push({
-        left: Math.random() * 100,
-        animationDuration: 10 + Math.random() * 20,
-        animationDelay: Math.random() * 10,
-        startY: -(Math.random() * 100),
-        fontSize: 10 + Math.random() * 20,
-        opacity: 0.3 + Math.random() * 0.5,
-      });
-    }
   }
 }

@@ -7,6 +7,20 @@ An interactive Christmas advent calendar web application featuring 24 daily chal
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
+## 🌌 2026 Edition – "Nordic Christmas Night"
+
+> The 2025 calendar is archived on the [`advent-2025`](../../tree/advent-2025) branch.
+
+- **Living winter scene** – twinkling star canvas with shooting stars, animated aurora borealis, a moon (click it 🎅), parallax hills with pines and a cabin with flickering windows and chimney smoke, and depth-layered snow that drifts with the mouse. It pauses while a game is open so games keep the full frame budget.
+- **String lights** – a swaying garland of twinkling bulbs across the top. Tap a bulb to ring it.
+- **3D advent doors** – six hand-painted door designs that peek open on hover, swing open on click with a sparkle burst, shiver when locked, and stay ajar once completed to reveal the puzzle piece. Today's door glows and knocks.
+- **Progress tree** – lights one ornament per completed day, from the bottom branches up to the star.
+- **Synthesized sounds** – Web Audio bells and chimes (no audio files). Off by default, toggle in the header.
+- **New games** – 💡 *Tree Lights* (lights-out on a Christmas tree, always solvable, exact hints) on day 20 and 🔔 *Bell Choir* (Simon-says with singing bells) on day 2.
+- **Design system** – tokens in `src/styles.scss` (Fraunces + Nunito, cranberry / pine / candle-gold on midnight). All existing games inherit it through `.btn`, `.card`, `.input` and `.modal-*`.
+- Storage version is `2026-dev`; bump `CALENDAR_VERSION` to `2026-release` on launch to wipe beta progress.
+- Rewards and the puzzle image (`assets/Calendar_puzzle.png`) are still last year's placeholders.
+
 ## ✨ Features
 
 ### 🎮 Diverse Challenge Types

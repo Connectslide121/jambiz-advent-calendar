@@ -16,7 +16,10 @@
   | 'giftCatcher'
   | 'slidingPuzzle'
   | 'skiSlope'
-  | 'busses';
+  | 'busses'
+  // New for 2026
+  | 'treeLights'
+  | 'jingleBells';
 
 export type RewardType =
   | 'text'

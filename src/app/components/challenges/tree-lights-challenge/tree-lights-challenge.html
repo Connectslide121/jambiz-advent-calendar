@@ -1,0 +1,111 @@
+<div class="tree-lights">
+  <!-- Header -->
+  <div class="flex flex-col items-center text-center mb-3">
+    <div class="flex items-center justify-center gap-3 mb-1 flex-wrap">
+      <h3 class="text-xl sm:text-2xl font-bold text-gold">
+        🎄 {{ 'challenges.treeLights.title' | translate }}
+      </h3>
+      @if (isCompleted) {
+      <span class="pill">
+        <lucide-icon [img]="Check" class="w-3 h-3" [strokeWidth]="4"></lucide-icon>
+        {{ 'calendar.completed' | translate }}
+      </span>
+      }
+    </div>
+    <p class="text-sm sm:text-base text-text-muted max-w-md">
+      {{ 'challenges.treeLights.instruction' | translate }}
+    </p>
+  </div>
+
+  <!-- Stats -->
+  <div class="flex justify-center gap-5 text-sm sm:text-base mb-2">
+    <span>
+      <span class="text-text-muted">{{ 'challenges.treeLights.lit' | translate }}:</span>
+      <span class="text-gold font-bold ml-1">{{ litCount }} / {{ bulbs.length }}</span>
+    </span>
+    <span>
+      <span class="text-text-muted">{{ 'challenges.treeLights.moves' | translate }}:</span>
+      <span class="text-gold font-bold ml-1">{{ moves }}</span>
+    </span>
+    @if (bestMoves !== null) {
+    <span>
+      <span class="text-text-muted">{{ 'challenges.treeLights.best' | translate }}:</span>
+      <span class="text-gold font-bold ml-1">{{ bestMoves }}</span>
+    </span>
+    }
+  </div>
+
+  <!-- The tree -->
+  <div class="stage" [class.won]="won">
+    <svg [attr.viewBox]="'0 0 ' + viewWidth + ' ' + viewHeight" class="tree-svg">
+      <defs>
+        <linearGradient id="tl-tree" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#2f9a74" />
+          <stop offset="1" stop-color="#124634" />
+        </linearGradient>
+        <radialGradient id="tl-shine" cx="0.35" cy="0.3" r="0.55">
+          <stop offset="0" stop-color="#fff" stop-opacity="0.9" />
+          <stop offset="1" stop-color="#fff" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+
+      <rect [attr.x]="centerX - 14" [attr.y]="trunkY" width="28" height="30" rx="3" fill="#5a3324" />
+      <path [attr.d]="treePath" fill="url(#tl-tree)" stroke="#0d3a2b" stroke-width="2" stroke-linejoin="round" />
+
+      <!-- Star -->
+      <g [attr.transform]="'translate(' + centerX + ' 28)'" class="star">
+        <path
+          d="M0 -18 L5.3 -5.8 L18 -5.5 L8.1 2.9 L11.3 15.8 L0 8.5 L-11.3 15.8 L-8.1 2.9 L-18 -5.5 L-5.3 -5.8 Z"
+          [attr.fill]="won ? '#ffd772' : '#6b6044'"
+        />
+      </g>
+
+      @for (b of bulbs; track b.id) {
+      <g
+        class="bulb"
+        [class.lit]="b.lit"
+        [class.hint]="hintId === b.id"
+        [class.ripple]="rippleId === b.id"
+        [attr.transform]="'translate(' + b.x + ' ' + b.y + ')'"
+        (click)="press(b)"
+        role="button"
+        [attr.aria-label]="'Bulb ' + (b.id + 1) + (b.lit ? ' on' : ' off')"
+        [attr.aria-pressed]="b.lit"
+        tabindex="0"
+        (keydown.enter)="press(b)"
+        (keydown.space)="$event.preventDefault(); press(b)"
+      >
+        <circle r="26" fill="transparent" />
+        <circle r="22" class="halo" [attr.fill]="b.color" />
+        <rect x="-5" y="-21" width="10" height="7" rx="2" fill="#c9a65a" />
+        <circle r="14" class="glass" [attr.fill]="b.lit ? b.color : '#1c2346'" />
+        <circle r="14" fill="url(#tl-shine)" [attr.opacity]="b.lit ? 0.9 : 0.25" />
+      </g>
+      }
+    </svg>
+
+    @if (won) {
+    <div class="win-banner">✨ {{ 'challenges.treeLights.win' | translate }} ✨</div>
+    }
+  </div>
+
+  <!-- Actions -->
+  <div class="flex flex-col sm:flex-row justify-center gap-3 mt-3">
+    @if (isCompleted && !won) {
+    <button class="btn btn-primary w-full sm:w-auto" (click)="showReward()" type="button">
+      {{ 'ui.showReward' | translate }}
+    </button>
+    }
+    <button class="btn btn-outline w-full sm:w-auto flex items-center justify-center gap-2" (click)="showHint()" [disabled]="won" type="button">
+      <lucide-icon [img]="Lightbulb" class="w-4 h-4" [strokeWidth]="2.25"></lucide-icon>
+      {{ 'ui.showHint' | translate }}
+    </button>
+    <button class="btn btn-outline w-full sm:w-auto flex items-center justify-center gap-2" (click)="restart()" type="button">
+      <lucide-icon [img]="RotateCcw" class="w-4 h-4" [strokeWidth]="2.25"></lucide-icon>
+      {{ 'ui.reset' | translate }}
+    </button>
+    <button class="btn btn-secondary w-full sm:w-auto" (click)="newPuzzle()" type="button">
+      🎲 {{ 'challenges.treeLights.newTree' | translate }}
+    </button>
+  </div>
+</div>

@@ -1,279 +1,872 @@
-.calendar-container {
+:host {
+  display: block;
   width: 100%;
+  pointer-events: none; // let clicks reach the moon behind
 }
 
-// Ensure 6 columns on all screen sizes for puzzle image coherence
-.calendar-grid {
-  max-width: 100%;
+.cabinet,
+.side {
+  pointer-events: auto;
 }
 
-.day-tile {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  padding: 2px;
-
-  @media (min-width: 640px) {
-    border-width: 2px;
-    border-radius: 8px;
-    padding: 4px;
-  }
-
-  &:hover {
-    border-color: var(--color-accent-red);
-  }
-
-  &.completed {
-    border-color: var(--color-accent-green);
-    // Remove the gradient background when completed to show puzzle piece clearly
-    background: transparent;
-  }
-
-  &.unpopulated {
-    opacity: 0.5;
-    cursor: not-allowed;
-    border-color: var(--color-text-muted);
-    background: linear-gradient(135deg, var(--color-surface) 0%, rgba(173, 181, 189, 0.05) 100%);
-
-    &:hover {
-      border-color: var(--color-text-muted);
-      transform: none;
-      box-shadow: none;
-    }
-
-    .day-number {
-      opacity: 0.7;
-    }
-  }
-
-  &.locked {
-    cursor: not-allowed;
-    border-color: rgba(100, 100, 120, 0.5);
-    background: linear-gradient(135deg, rgba(30, 40, 55, 0.95) 0%, rgba(20, 30, 45, 0.98) 100%);
-    position: relative;
-
-    // Dark overlay effect
-    &::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: inherit;
-      z-index: 8;
-    }
-
-    &:hover {
-      border-color: rgba(100, 100, 120, 0.5);
-      transform: none;
-      box-shadow: none;
-    }
-
-    .day-number {
-      opacity: 0.8;
-      color: var(--color-text-muted);
-      z-index: 15;
-      position: relative;
-    }
-
-    .challenge-emoji {
-      filter: grayscale(100%) brightness(0.3) drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3));
-      opacity: 0.2;
-    }
-  }
-}
-
-.day-number {
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  font-size: 1rem;
-
-  @media (min-width: 640px) {
-    font-size: 1.5rem;
-  }
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+.calendar-layout {
+  display: grid;
+  gap: clamp(16px, 2.5vw, 28px);
+  grid-template-columns: minmax(0, 1fr);
 
   @media (min-width: 1024px) {
-    font-size: 2rem;
-  }
-
-  // Stronger shadow for completed days to stand out on puzzle piece
-  &.text-shadow-strong {
-    text-shadow: 0 0 8px rgba(0, 0, 0, 0.8), 0 2px 6px rgba(0, 0, 0, 0.6),
-      0 0 2px rgba(244, 211, 94, 0.5);
+    grid-template-columns: minmax(0, 1fr) 290px;
+    align-items: start;
   }
 }
 
-// Puzzle piece styling
+/* ==========================================================================
+   The cabinet (wooden frame around the doors)
+   ========================================================================== */
+.cabinet {
+  position: relative;
+  border-radius: 28px;
+  padding: clamp(12px, 2.4vw, 28px);
+  padding-top: clamp(16px, 2.4vw, 26px);
+  background: repeating-linear-gradient(
+      92deg,
+      rgba(255, 255, 255, 0.018) 0 2px,
+      transparent 2px 11px
+    ),
+    radial-gradient(120% 80% at 50% 0%, rgba(255, 170, 90, 0.12), transparent 60%),
+    linear-gradient(170deg, #3d2029 0%, #2a141c 55%, #1f0f16 100%);
+  box-shadow: inset 0 0 0 1px rgba(247, 200, 115, 0.28), inset 0 0 0 6px rgba(0, 0, 0, 0.18),
+    inset 0 0 0 7px rgba(247, 200, 115, 0.12), inset 0 2px 0 rgba(255, 255, 255, 0.08),
+    0 40px 90px -20px rgba(0, 0, 0, 0.85);
+  animation: rise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.cabinet-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px 20px;
+  margin-bottom: clamp(16px, 2.2vw, 24px);
+  padding: 0 4px;
+}
+
+.cabinet-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  background: linear-gradient(180deg, #fff6e3, var(--color-gold) 70%, #e49b45);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.cabinet-sub {
+  margin: 2px 0 0;
+  font-size: clamp(0.78rem, 1.6vw, 0.95rem);
+  color: rgba(253, 246, 236, 0.65);
+}
+
+.next-unlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 8px 14px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(247, 200, 115, 0.22);
+}
+
+.next-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(253, 246, 236, 0.6);
+}
+
+.next-time {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  color: var(--color-gold);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   Door grid
+   ========================================================================== */
+.door-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(6px, 1.5vw, 18px) clamp(5px, 1.3vw, 16px);
+  padding-top: 6px;
+}
+
+.slot {
+  --radius: clamp(6px, 1.1vw, 12px);
+  position: relative;
+  aspect-ratio: 4 / 5;
+  perspective: 1400px;
+  container-type: inline-size;
+  animation: slotIn 0.7s var(--ease-bounce) both;
+  animation-delay: calc(var(--i) * 35ms + 250ms);
+}
+
+@keyframes slotIn {
+  from {
+    opacity: 0;
+    transform: translateY(-24px) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Inside (behind the door) ---------- */
+.inside {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 75%, #4a2320, #1c0c10 75%);
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.5), inset 0 8px 18px rgba(0, 0, 0, 0.75);
+}
+
 .puzzle-piece {
+  position: absolute;
+  inset: 0;
   opacity: 0;
   background-repeat: no-repeat;
-  z-index: 1;
-  border-radius: inherit;
+  transition: opacity 0.6s ease 0.3s;
 
   &.revealed {
     opacity: 1;
   }
-}
 
-.challenge-emoji {
-  position: absolute;
-  bottom: -8%;
-  right: -12%;
-  font-size: 2.2rem;
-  transform: rotate(15deg);
-  opacity: 0.8;
-  pointer-events: none;
-  transition: all 0.3s ease;
-  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3));
-  z-index: 5;
-
-  @media (min-width: 640px) {
-    font-size: 3.5rem;
-    bottom: -10%;
-    right: -15%;
-    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
-  }
-
-  @media (min-width: 1024px) {
-    font-size: 5rem;
-    bottom: -12%;
-    right: -18%;
-  }
-
-  &.grayscale {
-    filter: grayscale(100%) brightness(0.7) drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3));
-    opacity: 0.5;
-
-    @media (min-width: 640px) {
-      filter: grayscale(100%) brightness(0.7) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
-    }
-  }
-
-  // Hidden by default when completed, shown on hover
-  &.completed-emoji {
-    opacity: 0;
-    filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3));
-
-    @media (min-width: 640px) {
-      filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
-    }
-  }
-}
-
-// Add hover effect to emoji
-.day-tile:hover .challenge-emoji:not(.grayscale) {
-  transform: rotate(15deg) scale(1.1);
-  opacity: 1;
-}
-
-// Day tile wrapper for tooltip positioning
-.day-tile-wrapper {
-  position: relative;
-  aspect-ratio: 5/6; // Slightly taller than wide for portrait tiles
-}
-
-// Custom tooltip styling - hidden on mobile, only shown on desktop hover
-.tooltip {
-  // Hidden on mobile (touch devices get stuck hover states)
-  display: none;
-
-  @media (min-width: 1024px) {
-    display: block;
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%) scale(0.9);
-    background: var(--color-surface);
-    color: var(--color-text);
-    padding: 8px 14px;
-    border-radius: 6px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.2s ease;
-    z-index: 100;
-    pointer-events: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    border: 1px solid var(--color-accent-red);
-
-    // Arrow
-    &::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border: 6px solid transparent;
-      border-top-color: var(--color-accent-red);
-    }
-  }
-}
-
-.day-tile-wrapper:hover .tooltip {
-  @media (min-width: 1024px) {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) scale(1);
-  }
-}
-
-// Countdown timer styling
-.countdown-container {
-  background: rgba(0, 0, 0, 0.7);
-  border-radius: 6px;
-  padding: 4px 8px;
-  backdrop-filter: blur(4px);
-
-  @media (min-width: 640px) {
-    padding: 6px 10px;
-    border-radius: 8px;
-  }
-}
-
-.countdown-timer {
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-  letter-spacing: 0.05em;
-}
-
-// Day 25 - The Big Day styling
-.day25-tile {
-  width: 100%;
-}
-
-.day25-unlocked {
-  background: linear-gradient(
-    135deg,
-    rgba(42, 157, 143, 0.15) 0%,
-    rgba(244, 211, 94, 0.1) 50%,
-    rgba(230, 57, 70, 0.15) 100%
-  );
-  border: 2px solid var(--color-accent-green);
-  box-shadow: 0 0 20px rgba(42, 157, 143, 0.3), 0 0 40px rgba(244, 211, 94, 0.1);
-
-  &:hover {
-    box-shadow: 0 0 30px rgba(42, 157, 143, 0.4), 0 0 60px rgba(244, 211, 94, 0.2);
-  }
-}
-
-.day25-locked {
-  background: linear-gradient(135deg, rgba(30, 40, 55, 0.95) 0%, rgba(20, 30, 45, 0.98) 100%);
-  border: 2px solid rgba(100, 100, 120, 0.5);
-  position: relative;
-
-  // Dark overlay effect (same as locked day tiles)
-  &::before {
+  // Warm candle-lit edge
+  &::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: inherit;
-    z-index: 1;
+    box-shadow: inset 0 0 18px rgba(30, 10, 0, 0.6);
+  }
+}
+
+.candle-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 65%,
+    rgba(255, 200, 110, 0.95) 0%,
+    rgba(255, 140, 60, 0.45) 30%,
+    transparent 70%
+  );
+  animation: candle 2.4s ease-in-out infinite alternate;
+}
+
+.inside-emoji {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 46cqw;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+  animation: bob 2.2s ease-in-out infinite;
+}
+
+@keyframes candle {
+  0% {
+    opacity: 0.75;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes bob {
+  50% {
+    transform: translateY(-6%);
+  }
+}
+
+/* ---------- The door ---------- */
+.door {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transform-origin: 0% 50%;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.25, 0.9, 0.3, 1.15), filter 0.3s;
+  border-radius: var(--radius);
+  -webkit-tap-highlight-color: transparent;
+
+  &:focus-visible {
+    outline: 3px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+}
+
+.door-front,
+.door-back {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.door-front {
+  display: grid;
+  place-items: center;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18), inset 0 0 0 3px rgba(0, 0, 0, 0.18),
+    inset 0 -10px 18px rgba(0, 0, 0, 0.22), 0 8px 18px -6px rgba(0, 0, 0, 0.7);
+  transition: box-shadow 0.3s, filter 0.3s;
+
+  // Glossy sheen
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      155deg,
+      rgba(255, 255, 255, 0.28) 0%,
+      rgba(255, 255, 255, 0.04) 38%,
+      transparent 60%
+    );
     pointer-events: none;
   }
+}
+
+.door-back {
+  transform: rotateY(180deg);
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.08) 0 2px, transparent 2px 7px),
+    linear-gradient(90deg, #6b3b2a, #8a5038);
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.door-pattern {
+  position: absolute;
+  inset: 0;
+}
+
+.medallion {
+  position: relative;
+  z-index: 1;
+  width: 62%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 35% 30%, #fffdf6, #f5e9cf 65%, #e6d0a3);
+  box-shadow: 0 0 0 2px rgba(247, 200, 115, 0.9), 0 0 0 4px rgba(0, 0, 0, 0.18),
+    0 4px 10px rgba(0, 0, 0, 0.45), inset 0 -3px 6px rgba(160, 110, 40, 0.25);
+}
+
+.medallion-num {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-style: italic;
+  font-size: 30cqw;
+  line-height: 1;
+  color: #9b2335;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  transform: translateY(-2%);
+}
+
+.knob {
+  position: absolute;
+  right: 7%;
+  top: 50%;
+  width: 7%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff1c4, var(--color-gold) 55%, #a8721e);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+/* ---------- Six hand-painted door designs ---------- */
+.theme-0 .door-front {
+  // Candy cane stripes
+  background: repeating-linear-gradient(
+    -45deg,
+    #c22f45 0 9px,
+    #e0475b 9px 14px,
+    #f7efe4 14px 18px,
+    #e0475b 18px 23px
+  );
+}
+
+.theme-1 .door-front {
+  // Pine with golden polka dots
+  background: radial-gradient(circle, rgba(247, 200, 115, 0.75) 1.4px, transparent 2px) 0 0 / 14px
+      14px,
+    radial-gradient(circle, rgba(247, 200, 115, 0.45) 1px, transparent 1.6px) 7px 7px / 14px 14px,
+    linear-gradient(160deg, #2c8c6e, #17573f);
+}
+
+.theme-2 .door-front {
+  // Midnight with snow
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 1.2px, transparent 1.8px) 0 0 / 18px
+      22px,
+    radial-gradient(circle, rgba(255, 255, 255, 0.45) 0.9px, transparent 1.4px) 9px 11px / 18px
+      22px,
+    linear-gradient(170deg, #2a3a8c, #141c52);
+}
+
+.theme-3 .door-front {
+  // Golden gift with a red ribbon
+  background: linear-gradient(
+      90deg,
+      transparent 43%,
+      #c22f45 43%,
+      #e0475b 50%,
+      #c22f45 57%,
+      transparent 57%
+    ),
+    linear-gradient(0deg, transparent 43%, #c22f45 43%, #e0475b 50%, #c22f45 57%, transparent 57%),
+    linear-gradient(160deg, #f7d27e, #d99a3c);
+}
+
+.theme-4 .door-front {
+  // Frosty blue plaid
+  background: repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.14) 0 5px,
+      transparent 5px 16px
+    ),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.14) 0 5px, transparent 5px 16px),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.12) 0 1px, transparent 1px 8px),
+    linear-gradient(160deg, #4f72c4, #2a4387);
+}
+
+.theme-5 .door-front {
+  // Plum with golden stars
+  background: radial-gradient(circle, rgba(247, 200, 115, 0.9) 1.3px, transparent 2px) 3px 4px /
+      23px 19px,
+    radial-gradient(circle, rgba(255, 255, 255, 0.5) 0.9px, transparent 1.5px) 13px 12px / 23px
+      19px,
+    linear-gradient(160deg, #7a3a8c, #43184f);
+}
+
+/* ==========================================================================
+   States
+   ========================================================================== */
+
+// Peek on hover
+@media (hover: hover) {
+  .slot:not(.is-locked):not(.is-open):not(.is-empty):hover .door {
+    transform: rotateY(-32deg);
+    filter: brightness(1.08);
+  }
+}
+
+// Swing open (opening or completed)
+.slot.is-open .door {
+  transform: rotateY(-100deg);
+}
+
+.slot.is-completed.is-open:hover .door {
+  transform: rotateY(-88deg);
+}
+
+.slot.is-completed {
+  cursor: pointer;
+}
+
+// Locked: frosted over
+.slot.is-locked {
+  .door-front {
+    filter: saturate(0.55) brightness(0.7);
+  }
+
+  .door {
+    cursor: not-allowed;
+  }
+}
+
+.frost {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: radial-gradient(circle at 15% 8%, rgba(255, 255, 255, 0.55), transparent 38%),
+    radial-gradient(circle at 90% 95%, rgba(255, 255, 255, 0.45), transparent 42%),
+    radial-gradient(circle at 85% 15%, rgba(220, 235, 255, 0.3), transparent 30%),
+    linear-gradient(180deg, rgba(210, 228, 255, 0.28), rgba(210, 228, 255, 0.08));
+  mix-blend-mode: screen;
+}
+
+.slot.is-shaking .door {
+  animation: shiver 0.5s ease-in-out;
+}
+
+@keyframes shiver {
+  0%,
+  100% {
+    transform: none;
+  }
+  20% {
+    transform: translateX(-4%) rotate(-2deg);
+  }
+  40% {
+    transform: translateX(4%) rotate(2deg);
+  }
+  60% {
+    transform: translateX(-3%) rotate(-1deg);
+  }
+  80% {
+    transform: translateX(2%);
+  }
+}
+
+// Today: glowing and inviting
+.slot.is-today {
+  z-index: 3;
+
+  .door-front {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3), 0 0 0 2px var(--color-gold),
+      0 0 26px 4px rgba(247, 200, 115, 0.65);
+    animation: todayGlow 2s ease-in-out infinite;
+  }
+
+  .door {
+    animation: knock 5s ease-in-out 2s infinite;
+  }
+
+  &:hover .door,
+  &.is-open .door {
+    animation: none;
+  }
+}
+
+@keyframes todayGlow {
+  50% {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3), 0 0 0 3px var(--color-gold),
+      0 0 40px 10px rgba(247, 200, 115, 0.85);
+  }
+}
+
+@keyframes knock {
+  0%,
+  84%,
+  100% {
+    transform: none;
+  }
+  87% {
+    transform: rotateY(-16deg);
+  }
+  91% {
+    transform: rotateY(-4deg);
+  }
+  95% {
+    transform: rotateY(-12deg);
+  }
+}
+
+/* ---------- Decorations & badges ---------- */
+.snowcap {
+  position: absolute;
+  z-index: 4;
+  top: -4px;
+  left: -3px;
+  right: -3px;
+  height: clamp(6px, 1.2vw, 11px);
+  pointer-events: none;
+  background: linear-gradient(180deg, #ffffff, #dbe6ff);
+  border-radius: 999px 999px 60% 40% / 100% 100% 60% 60%;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.35);
+
+  // Little drips
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 60%;
+    width: 16%;
+    height: 120%;
+    background: inherit;
+    border-radius: 0 0 999px 999px;
+  }
+
+  &::before {
+    left: 18%;
+  }
+
+  &::after {
+    right: 26%;
+    width: 10%;
+    height: 90%;
+  }
+}
+
+.badge {
+  position: absolute;
+  z-index: 5;
+  top: 6%;
+  right: 6%;
+  width: clamp(14px, 22cqw, 26px);
+  aspect-ratio: 1;
+  padding: 3px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.badge-done {
+  color: #fff;
+  background: radial-gradient(circle at 35% 30%, #6fe0b8, var(--color-accent-green) 60%, #17573f);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85), 0 3px 8px rgba(0, 0, 0, 0.5);
+  animation: popIn 0.5s var(--ease-bounce) both;
+}
+
+.badge-lock {
+  color: var(--color-gold);
+  background: radial-gradient(circle at 35% 30%, #c94a5c, #8f1d31 70%);
+  box-shadow: 0 0 0 1.5px rgba(247, 200, 115, 0.8), 0 3px 8px rgba(0, 0, 0, 0.5);
+}
+
+.replay-hint {
+  position: absolute;
+  z-index: 5;
+  left: 6%;
+  bottom: 6%;
+  min-width: clamp(16px, 26cqw, 30px);
+  padding: 1px 4px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-style: italic;
+  font-size: clamp(0.6rem, 16cqw, 0.95rem);
+  text-align: center;
+  color: #9b2335;
+  background: rgba(255, 248, 232, 0.92);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}
+
+.soon {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%);
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: clamp(0.5rem, 11cqw, 0.7rem);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #2a1606;
+  background: var(--color-gold);
+  box-shadow: 0 0 12px rgba(247, 200, 115, 0.6);
+  pointer-events: none;
+  animation: soonPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes soonPulse {
+  50% {
+    box-shadow: 0 0 22px rgba(247, 200, 115, 0.95);
+  }
+}
+
+.today-ribbon {
+  position: absolute;
+  z-index: 6;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-4deg);
+  padding: 2px 9px;
+  border-radius: 4px;
+  font-size: clamp(0.5rem, 12cqw, 0.75rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  color: #fff;
+  background: linear-gradient(180deg, #ef5b6f, #b72e45);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  animation: ribbonSwing 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes ribbonSwing {
+  from {
+    transform: translateX(-50%) rotate(-5deg);
+  }
+  to {
+    transform: translateX(-50%) rotate(4deg);
+  }
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* ---------- Sparkle burst ---------- */
+.burst {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  pointer-events: none;
+
+  i {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    margin: -3.5px;
+    background: var(--color-gold);
+    clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+    animation: burst 0.8s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+
+    &:nth-child(3n) {
+      background: #fff;
+    }
+
+    &:nth-child(3n + 1) {
+      background: #ffb3be;
+    }
+  }
+}
+
+@keyframes burst {
+  from {
+    transform: rotate(var(--a)) translateX(0) scale(1.4);
+    opacity: 1;
+  }
+  to {
+    transform: rotate(var(--a)) translateX(var(--d)) scale(0);
+    opacity: 0;
+  }
+}
+
+/* ---------- Tooltip ---------- */
+.tooltip {
+  display: none;
+
+  @media (hover: hover) and (min-width: 1024px) {
+    display: block;
+    position: absolute;
+    z-index: 20;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    padding: 7px 12px;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    white-space: nowrap;
+    color: var(--color-text);
+    background: rgba(10, 13, 34, 0.95);
+    border: 1px solid rgba(247, 200, 115, 0.4);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.18s ease;
+    pointer-events: none;
+  }
+}
+
+.slot:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ==========================================================================
+   Sidebar
+   ========================================================================== */
+.side {
+  display: grid;
+  gap: clamp(16px, 2.5vw, 24px);
+  grid-template-columns: minmax(0, 1fr);
+  animation: rise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s both;
+
+  @media (min-width: 640px) and (max-width: 1023px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (min-width: 1024px) {
+    position: sticky;
+    top: 24px;
+  }
+}
+
+.side-card {
+  border-radius: 24px;
+  padding: 18px;
+  background: linear-gradient(165deg, rgba(31, 39, 84, 0.86), rgba(14, 18, 46, 0.92));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 30px 60px -20px rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+}
+
+.tree-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (max-width: 639px) {
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+
+    app-progress-tree {
+      max-width: 150px;
+    }
+
+    .tree-caption {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+    }
+
+    .tree-label {
+      margin-left: 0;
+    }
+  }
+}
+
+.tree-caption {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 4px 0 0;
+}
+
+.tree-count {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.8rem;
+  color: var(--color-gold);
+}
+
+.tree-of {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+}
+
+.tree-label {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-left: 4px;
+}
+
+/* ---------- Day 25 ---------- */
+.day25 {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '🎁';
+    position: absolute;
+    right: -14px;
+    bottom: -18px;
+    font-size: 6.5rem;
+    opacity: 0.08;
+    transform: rotate(-12deg);
+    pointer-events: none;
+  }
+
+  &.unlocked {
+    box-shadow: inset 0 0 0 1.5px rgba(247, 200, 115, 0.6), 0 0 40px rgba(247, 200, 115, 0.25),
+      0 30px 60px -20px rgba(0, 0, 0, 0.75);
+  }
+}
+
+.day25-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.day25-num {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 800;
+  font-size: 1.6rem;
+  color: #3a1d06;
+  background: radial-gradient(circle at 35% 30%, #fff1c4, var(--color-gold) 55%, #c98a2c);
+  box-shadow: 0 0 0 3px rgba(247, 200, 115, 0.25), 0 0 24px rgba(247, 200, 115, 0.45);
+}
+
+.day25.unlocked .day25-num {
+  animation: pulseGold 2.2s ease-in-out infinite;
+}
+
+@keyframes pulseGold {
+  50% {
+    box-shadow: 0 0 0 6px rgba(247, 200, 115, 0.2), 0 0 40px rgba(247, 200, 115, 0.8);
+  }
+}
+
+.day25-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--color-text);
+}
+
+.day25-sub {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.day25-text {
+  margin: 14px 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.unlocked-text {
+  color: var(--color-aurora);
+  font-weight: 700;
+}
+
+.day25-actions {
+  display: grid;
+  gap: 10px;
 }

@@ -29,13 +29,11 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   {
     day: 2,
     gridPosition: 18, // Bottom left
-    challengeType: 'hangman',
+    challengeType: 'jingleBells',
     funFactKey: 'funFacts.day2',
     challengeData: {
-      word: 'mistletoe',
-      wordSv: 'mistel',
-      clueKey: 'challenges.hangman.day2.clue',
-      hintKey: 'challenges.hangman.day2.hint',
+      targetLength: 6,
+      startSpeed: 650,
     },
   },
   {
@@ -346,13 +344,11 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   {
     day: 20,
     gridPosition: 2, // Top center
-    challengeType: 'hangman',
+    challengeType: 'treeLights',
     funFactKey: 'funFacts.day20',
     challengeData: {
-      word: 'nutcracker',
-      wordSv: 'nötknäppare',
-      clueKey: 'challenges.hangman.day20.clue',
-      hintKey: 'challenges.hangman.day20.hint',
+      rows: 5,
+      scrambleTaps: 5,
     },
   },
   {

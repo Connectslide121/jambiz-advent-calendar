@@ -16,8 +16,10 @@ export class CalendarStateService {
    * Version History:
    * - "beta": Beta testing phase (Nov 2025)
    * - "2025-release": Official December 2025 launch (resets all beta tester data)
+   * - "2026-dev": Development of the 2026 calendar (clears last year's progress)
+   *   -> bump to "2026-release" on launch day to wipe beta testers' progress
    */
-  private readonly CALENDAR_VERSION = '2025-release';
+  private readonly CALENDAR_VERSION = '2026-dev';
   private readonly VERSION_KEY = 'jambiz-advent-version';
 
   private readonly STORAGE_KEY = 'jambiz-advent-completed-days';

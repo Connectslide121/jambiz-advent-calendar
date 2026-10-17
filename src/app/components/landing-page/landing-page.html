@@ -1,41 +1,80 @@
-<div
-  class="flex flex-col items-center justify-center min-h-[80vh] text-center px-4 animate-fade-in mt-16 sm:mt-0"
->
-  <!-- Hero Logo -->
-  <div
-    class="bg-white rounded-2xl p-6 shadow-xl mb-8 transform hover:scale-105 transition-transform duration-500"
-  >
-    <img
-      src="assets/Jambiz_xmas_logo.png"
-      alt="Jambiz Logo"
-      class="h-24 w-auto sm:h-32 lg:h-40 object-contain"
-    />
+<div class="landing">
+  <!-- Hanging gift tag with the logo -->
+  <div class="tag-wrap">
+    <div class="tag-string"></div>
+    <div class="tag">
+      <span class="tag-hole"></span>
+      <img src="assets/Jambiz_xmas_logo_transparent.png" alt="Jambiz" class="tag-logo" />
+    </div>
   </div>
 
-  <!-- Welcome Text -->
-  <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-text mb-6 drop-shadow-lg">
-    {{ 'app.welcome' | translate }}
+  <p class="eyebrow">✦ {{ 'landing.eyebrow' | translate }} ✦</p>
+
+  <h1 class="title" [attr.aria-label]="'landing.title' | translate">
+    @for (ch of ('landing.title' | translate).split(''); track $index) {
+    <span class="letter" [style.animation-delay.ms]="200 + $index * 70" aria-hidden="true">{{
+      ch === ' ' ? ' ' : ch
+    }}</span>
+    }
   </h1>
+  <div class="year" aria-hidden="true">
+    @for (d of ('' + year).split(''); track $index) {
+    <span [style.animation-delay.ms]="900 + $index * 120">{{ d }}</span>
+    }
+  </div>
 
-  <p class="text-lg sm:text-xl text-text-muted max-w-2xl mb-12 leading-relaxed">
-    {{ 'app.intro' | translate }}
-  </p>
+  <p class="intro">{{ 'app.intro' | translate }}</p>
 
-  <!-- Start Button -->
-  <button
-    (click)="onStart()"
-    class="btn btn-primary text-xl px-10 py-4 rounded-full shadow-lg hover:shadow-accent-red/50 transform hover:-translate-y-1 transition-all duration-300 flex items-center gap-3 group"
-  >
+  <!-- Countdown / status -->
+  <div class="status">
+    @switch (phase()) { @case ('before') {
+    <p class="status-label">{{ 'landing.countdownLabel' | translate }}</p>
+    <div class="countdown">
+      <div class="unit">
+        <span class="num">{{ countdown().days }}</span>
+        <span class="lbl">{{ 'landing.days' | translate }}</span>
+      </div>
+      <span class="sep">:</span>
+      <div class="unit">
+        <span class="num">{{ countdown().hours }}</span>
+        <span class="lbl">{{ 'landing.hours' | translate }}</span>
+      </div>
+      <span class="sep">:</span>
+      <div class="unit">
+        <span class="num">{{ countdown().minutes }}</span>
+        <span class="lbl">{{ 'landing.minutes' | translate }}</span>
+      </div>
+      <span class="sep">:</span>
+      <div class="unit">
+        <span class="num">{{ countdown().seconds }}</span>
+        <span class="lbl">{{ 'landing.seconds' | translate }}</span>
+      </div>
+    </div>
+    } @case ('advent') {
+    <p class="today-open">
+      <span class="today-num">{{ today() }}</span>
+      {{ 'landing.todayOpen' | translate : { day: today() } }}
+    </p>
+    } @case ('christmas') {
+    <p class="today-open">🎄 {{ 'landing.christmas' | translate }}</p>
+    } }
+  </div>
+
+  <!-- Call to action -->
+  <button (click)="onStart()" class="cta">
+    <span class="cta-shine"></span>
+    <span class="cta-bell">🔔</span>
     <span>{{ 'app.start' | translate }}</span>
-    <span class="group-hover:translate-x-1 transition-transform">🎅</span>
   </button>
 
-  <!-- Info Button -->
-  <button
-    (click)="onShowInfo()"
-    class="btn btn-outline mt-6 px-6 py-3 text-base flex items-center gap-2"
-  >
-    <lucide-icon [img]="Info" class="w-5 h-5" [strokeWidth]="2"></lucide-icon>
+  <button (click)="onShowInfo()" class="info-link">
+    <lucide-icon [img]="Info" class="w-4 h-4" [strokeWidth]="2.25"></lucide-icon>
     {{ 'info.button' | translate }}
   </button>
+
+  <ul class="chips">
+    <li>🚪 {{ 'landing.chips.doors' | translate }}</li>
+    <li>🎮 {{ 'landing.chips.games' | translate }}</li>
+    <li>🎁 {{ 'landing.chips.rewards' | translate }}</li>
+  </ul>
 </div>
