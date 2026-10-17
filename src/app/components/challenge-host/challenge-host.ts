@@ -13,7 +13,7 @@ import { LucideAngularModule, X } from 'lucide-angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { CalendarDayConfig } from '../../models/calendar.models';
 import { FunFactReveal } from '../fun-fact-reveal/fun-fact-reveal';
-import { CHALLENGE_COMPONENTS } from '../../config/challenge-registry';
+import { CHALLENGE_LOADERS } from '../../config/challenge-registry';
 
 @Component({
   selector: 'app-challenge-host',
@@ -39,16 +39,17 @@ export class ChallengeHost implements OnInit {
     setTimeout(() => this.loadChallengeComponent(), 0);
   }
 
-  private loadChallengeComponent(): void {
+  private async loadChallengeComponent(): Promise<void> {
     if (!this.challengeContainer || !this.dayConfig.challengeType) return;
 
-    this.challengeContainer.clear();
-
-    const componentType = CHALLENGE_COMPONENTS[this.dayConfig.challengeType];
-    if (!componentType) {
+    const loader = CHALLENGE_LOADERS[this.dayConfig.challengeType];
+    if (!loader) {
       // Unknown challenge type: the template shows a placeholder
       return;
     }
+    // Each game is its own chunk, downloaded the first time its door opens
+    const componentType = await loader();
+    this.challengeContainer.clear();
 
     this.challengeComponentRef = this.challengeContainer.createComponent(componentType);
     const ref = this.challengeComponentRef;

@@ -47,327 +47,607 @@
       "imageLabel": "En liten överraskning till dig:",
       "videoLabel": "🎁 Njut av dagens belöning! 🎁"
     },
-    "riddle": {
-      "title": "Gåta",
-      "instruction": "Ditt svar:",
-      "placeholder": "Skriv ditt svar här...",
-      "submit": "Skicka svar",
-      "showReward": "Visa belöning",
-      "correct": "Rätt! Bra jobbat!",
-      "incorrect": "Inte riktigt rätt. Försök igen!",
-      "showHint": "Visa ledtråd",
-      "hideHint": "Dölj ledtråd",
-      "day1": {
-        "question": "Jag är lång när jag är ung, och kort när jag är gammal. Vad är jag?",
-        "hint": "Du tänder mig under firanden och strömavbrott."
+    "juldle": {
+      "title": "Juldle",
+      "instruction": "Gissa det hemliga julordet på {{count}} bokstäver – du har {{guesses}} försök.",
+      "guess": "Gissning",
+      "best": "Bästa",
+      "enter": "GISSA",
+      "notEnough": "Ordet har {{count}} bokstäver ✍️",
+      "win": "Rätt ord – god jul!",
+      "lostTitle": "Nästan! Ordet gömmer sig i snön",
+      "lostText": "Inga fler rader den här gången. Samma ord väntar på dig – och nu ligger ledtråden framme.",
+      "marks": {
+        "correct": "rätt plats",
+        "present": "finns i ordet",
+        "absent": "finns inte"
       },
-      "day5": {
-        "question": "Jag har grenar, men ingen frukt, stam eller löv. Vad är jag?",
-        "hint": "Du dekorerar mig under julen"
-      },
-      "day10": {
-        "question": "Jag är vit, jag är kall, jag faller från himlen, och barn älskar att leka i mig. Vad är jag?",
-        "hint": "Man kan bygga en snögubbe av mig"
-      },
-      "day11": {
-        "question": "Vad får man om man korsar en snögubbe med en vampyr?",
-        "hint": "Tänk kallt och bitigt!"
-      },
-      "day17": {
-        "question": "Jag hänger från taket och är gjord av fruset vatten. Vad är jag?",
-        "hint": "Jag växer när det är kallt och droppar när det blir varmt."
-      },
-      "day24": {
-        "question": "Vem bär röd kostym och bringar glädje till barn runt om i världen på julafton?",
-        "hint": "Han har vitt skägg och säger 'Ho ho ho!'"
-      }
+      "defaultClueSv": "Han smyger runt på gården i röd luva och vill ha gröt på julafton.",
+      "defaultClueEn": "Santa's ride, pulled through the night sky by reindeer."
     },
-    "hangman": {
-      "title": "Hänga gubbe",
-      "instruction": "Gissa ordet!",
-      "clue": "Ledråd:",
-      "wrongGuesses": "Felgissningar: {{count}} / {{max}}",
-      "completedIn": "Ursprungligen klarat med {{count}} felgissningar",
-      "youWin": "Du vann!",
-      "youLose": "Game over!",
-      "theWordWas": "Ordet var",
-      "tryAgain": "Försök igen",
-      "showReward": "Visa belöning",
-      "day2": {
-        "clue": "En växt förknippad med julpussar",
-        "hint": "Du hänger den i dörröppningar under helgerna"
-      },
-      "day8": {
-        "clue": "Hänger vid skorstenen med omsorg",
-        "hint": "Tomten fyller den med godsaker och presenter"
-      },
-      "day14": {
-        "clue": "Tomtens fordon för snöiga leveranser",
-        "hint": "Dragen av renar över himlen"
-      },
-      "day20": {
-        "clue": "En soldat som knäcker nötter i en berömd balett",
-        "hint": "Medverkar i Tjajkovskijs berömda julbalett"
-      }
-    },
-    "wordScramble": {
-      "title": "Ordpussel",
-      "instruction": "Sortera bokstäverna för att bilda ett ord!",
-      "clue": "Ledtråd:",
-      "answerLabel": "Ditt svar:",
-      "placeholder": "Skriv det sorterade ordet...",
-      "submit": "Skicka svar",
-      "showReward": "Visa belöning",
-      "incorrect": "Inte riktigt rätt. Försök igen!",
-      "reshuffle": "Blanda om bokstäver",
-      "showHint": "Visa ledtråd",
-      "hideHint": "Dölj ledtråd",
-      "day3": {
-        "clue": "En unik iskristall som faller från himlen",
-        "hint": "Det används ofta för att beskriva vinternederbörd"
-      },
-      "day12": {
-        "clue": "Tomtens släddragande djur",
-        "hint": "Rudolf är en av dessa"
-      },
-      "day19": {
-        "clue": "En kryddad kaka ofta formad som en person",
-        "hint": "Ofta dekorerad med glasyr och godis"
-      }
-    },
-    "wordSearch": {
-      "title": "Ordsök",
-      "instruction": "Hitta alla ord i rutnätet!",
-      "wordsToFind": "Ord att hitta:",
-      "wordsFound": "{{found}} av {{total}} ord hittade",
-      "allFound": "Alla ord hittade!",
-      "showReward": "Visa belöning"
-    },
-    "spotTheDifference": {
-      "title": "Hitta skillnaderna",
-      "instruction": "Hitta alla skillnader!",
-      "differencesFound": "{{found}} av {{total}} skillnader hittade"
-    },
-    "rebus": {
-      "title": "Rebus",
-      "instruction": "Lös rebuset!",
-      "answerLabel": "Ditt svar:",
-      "placeholder": "Skriv ditt svar här...",
-      "submit": "Skicka svar",
-      "showReward": "Visa belöning",
-      "incorrect": "Inte riktigt rätt. Försök igen!",
-      "showHint": "Visa ledråd",
-      "hideHint": "Dölj ledråd",
-      "day6": {
-        "puzzle": "❄️ + 👨",
-        "hint": "En frostig vän med morotsnäsa"
-      },
-      "day13": {
-        "puzzle": "🎄 + 🎁",
-        "hint": "Den mest underbara tiden på året"
-      },
-      "day21": {
-        "puzzle": "❄️ + ⛷️",
-        "hint": "Den kallaste årstiden"
-      }
-    },
-    "memoryCard": {
-      "title": "Minnesutmaning",
-      "instruction": "Hitta alla matchande par!",
-      "moves": "Drag",
-      "matches": "Matchningar",
-      "win": "Perfekt! Alla par hittade!",
-      "finalMoves": "Klarat på {{moves}} drag",
-      "showReward": "Visa belöning"
-    },
-    "geometryDash": {
-      "title": "Tomtens Sprint",
-      "instructions": "Hoppa över hinder och nå mållinjen!",
-      "controlsDesktop": "Tryck MELLANSLAG, W, ↑, eller klicka för att hoppa",
-      "controlsMobile": "Tryck var som helst för att hoppa",
-      "jumpButton": "HOPPA",
-      "start": "Starta Spel",
-      "gameOver": "Game Over!",
-      "time": "Tid",
-      "crashed": "Krasch! Försök igen!",
-      "victory": "Du klarade det!",
-      "showReward": "Visa belöning"
-    },
-    "climber": {
-      "title": "Julklättraren",
-      "instruction": "Klättra till stjärnan högst upp! Samla julkulor på vägen.",
-      "controlsDesktop": "Tryck MELLANSLAG eller klicka för att hoppa. Tajma dina hopp noga!",
-      "controlsMobile": "Tryck var som helst för att hoppa. Tajma dina hopp noga!",
-      "staticPlatform": "Normal",
-      "movingPlatform": "Rörlig",
-      "icePlatform": "Isig",
-      "startGame": "Börja klättra",
-      "success": "Du nådde stjärnan!",
-      "gameLost": "Du ramlade! Försök igen.",
-      "ornamentsCollected": "Julkulor insamlade",
-      "endless": {
-        "tagline": "Oändlig klättring! Håll dig på plattformarna och slå ditt rekord.",
-        "bestHeight": "Bästa höjd",
-        "bestTime": "Bästa tid",
-        "lastHeight": "Senaste höjd",
-        "lastTime": "Senaste tid",
-        "gameLost": "Du halkade! Försök igen och klättra ännu högre."
-      }
-    },
-    "flappySleigh": {
-      "title": "Flappy Släde",
-      "instruction": "Tryck eller använd MELLANSLAG för att flyga! Undvik polkagrisarna och nå julgranen!",
-      "controlsDesktop": "Tryck MELLANSLAG, UPP-pil, eller klicka för att flyga",
-      "controlsMobile": "Tryck var som helst för att flyga",
-      "flapButton": "FLY!",
-      "start": "Starta Spel",
-      "crashed": "Aj! Du krockade!",
-      "victory": "Du nådde granen!",
-      "showReward": "Visa belöning",
-      "endless": {
-        "tagline": "Oändlig flygtur! Smita mellan polkagriskäpparna så länge du kan.",
-        "bestDistance": "Bästa sträcka",
-        "bestTime": "Bästa tid",
-        "lastDistance": "Senaste sträcka",
-        "lastTime": "Senaste tid",
-        "gameLost": "Du slog i en polkagriskäpp! Dags för ett nytt försök?"
-      }
-    },
-    "presentStacking": {
-      "title": "Presenttornsutmaning",
-      "instruction1": "Klicka var som helst på skärmen för att släppa en present",
-      "instruction2": "Stapla presenter för att nå den gyllene linjen",
-      "instruction3": "Du har {{max}} presenter att använda",
-      "instruction4": "Planera dina släpp noggrant för ett stabilt torn!",
-      "startGame": "Börja stapla",
-      "presentsUsed": "Använda presenter",
-      "heightProgress": "Höjdframsteg",
-      "currentPresent": "Nuvarande present",
-      "nextPresent": "Nästa present",
-      "clickToDrop": "Klicka för att släppa present",
-      "success": "Tornet klart!",
-      "successMessage": "Utmärkt stapling! Du använde {{used}} av {{max}} presenter.",
-      "failed": "Tornet misslyckades",
-      "failedMessage": "En present ramlade utanför! Försök stapla mer försiktigt.",
-      "playAgain": "Spela igen",
-      "tryAgain": "Försök igen",
-      "reset": "Återställ spel"
-    },
-    "giftCatcher": {
-      "title": "Klappjakten",
-      "instruction": "Fånga de fallande julklapparna! Undvik kolet!",
-      "controlsDesktop": "Använd VÄNSTER och HÖGER piltangent för att flytta",
-      "controlsMobile": "Tryck på VÄNSTER eller HÖGER sida av skärmen",
-      "start": "Starta Spel",
-      "victory": "Du fångade tillräckligt många klappar!",
-      "successMessage": "Bra jobbat! Du räddade julen!",
-      "showReward": "Visa belöning"
-    },
-    "sokoban": {
-      "title": "Presentpussel",
-      "instruction": "Skjut alla presenter till julgranen för att vinna!",
-      "controlsDesktop": "Använd piltangenterna eller WASD för att röra dig",
-      "controlsMobile": "Svep för att röra dig",
-      "moves": "Drag",
-      "undo": "Ångra",
-      "success": "Pusslel löst!",
-      "completedIn": "Klarat på {{moves}} drag",
-      "previouslyCompleted": "Tidigare klarat på {{moves}} drag"
-    },
-    "mazeRunner": {
-      "title": "Labyrintlöparen",
-      "instruction": "Samla alla julklappar och ta dem till granen!",
-      "moves": "Drag",
-      "success": "Labyrinten löst!",
-      "completedIn": "Klarat på {{moves}} drag",
-      "gifts": "Gåvor"
-    },
-    "slidingPuzzle": {
-      "title": "Skjutpussel",
-      "instruction": "Skjut brickorna för att ordna dem rätt!",
-      "controlsDesktop": "Klicka på en bricka eller använd piltangenterna",
-      "controlsMobile": "Tryck på en bricka för att flytta den",
-      "moves": "Drag",
+    "emojiCarols": {
+      "title": "Emoji-julklassiker",
+      "instruction": "Vilken julklassiker döljer sig bakom emojina? Klara {{pass}} av {{total}}!",
+      "score": "Rätt",
       "goal": "Mål",
-      "win": "Pusslet löst!",
-      "completedIn": "Klarat på {{moves}} drag",
-      "shuffle": "Blanda",
-      "showReward": "Visa belöning"
-    },
-    "skiSlope": {
-      "title": "Tomtens Skidbacke",
-      "instructions": "Hjälp tomten att åka ner för den snöiga backen på sin släde! Undvik träd och stenar, men se upp - Gansen jagar dig!",
-      "controlsDesktop": "Använd VÄNSTER och HÖGER piltangent eller A/D för att styra",
-      "controlsMobile": "Använd riktningsknapparna för att styra vänster eller höger",
-      "legend": "Vad du ska se upp för:",
-      "tree": "Träd - Game Over!",
-      "rock": "Sten - Game Over!",
-      "snowdrift": "Snödriva - Saktar ner dig!",
-      "present": "Present - Samla för poäng!",
-      "grinchWarning": "Gansen!",
-      "grinchDescription": "Han jagar dig! Varje gång du saktar ner kommer han närmare. Om han fångar dig är spelet slut!",
-      "caught": "Gansen fångade dig!",
-      "victory": "Du flydde från Gansen!",
-      "distance": "Sträcka",
-      "presentsCollected": "presenter insamlade",
-      "endless": {
-        "tagline": "Oändlig backe! Åk så långt du kan medan du flyr från Gansen.",
-        "bestDistance": "Bästa sträcka",
-        "bestPresents": "Bästa presenter",
-        "lastDistance": "Senaste sträcka",
-        "lastPresents": "Senaste presenter"
+      "best": "Bästa",
+      "next": "Nästa",
+      "seeResult": "Se resultatet",
+      "kind": {
+        "song": "Låt",
+        "movie": "Film",
+        "food": "Julmat"
+      },
+      "question": {
+        "song": "Vilken julsång är det?",
+        "movie": "Vilken julfilm är det?",
+        "food": "Vilken julmat är det?"
+      },
+      "cheers": [
+        "Pricken över i:et! 🎯",
+        "Tomten är imponerad! 🎅",
+        "Helt rätt – pepparkaka till dig! 🍪",
+        "Klockrent! 🔔",
+        "Du är ju en riktig julexpert! ⭐"
+      ],
+      "jeers": [
+        "Aj då – nära men ingen julskinka! 🐷",
+        "Hoppsan, där halkade du på isen! ⛸️",
+        "Nej, men nu vet du till nästa gång! 📝",
+        "Tomten skakar vänligt på huvudet 🎅",
+        "Inte riktigt – men glöggen är fortfarande varm ☕"
+      ],
+      "win": "Du kan dina julklassiker!",
+      "winText": "Tomten nynnar med – bra jobbat!",
+      "failTitle": "Nära! Prova igen",
+      "failText": "Du behöver {{pass}} rätt. Frågorna blandas om – du klarar det!",
+      "sets": {
+        "a": [
+          {
+            "kind": "song",
+            "emoji": "🔔 🔔 🛷 ❄️",
+            "answer": "Bjällerklang",
+            "wrong": [
+              "Stilla natt",
+              "Tänd ett ljus",
+              "Nu tändas tusen juleljus"
+            ],
+            "fact": "Texten nämner faktiskt aldrig julen – den handlar om en kälkfärd i snön!"
+          },
+          {
+            "kind": "movie",
+            "emoji": "🏠 👦 😱 ✈️",
+            "answer": "Ensam hemma",
+            "wrong": [
+              "Elf",
+              "Polarexpressen",
+              "Grinchen"
+            ],
+            "fact": "Familjen flyger till Paris och glömmer Kevin – som försvarar huset mot två inbrottstjuvar."
+          },
+          {
+            "kind": "song",
+            "emoji": "🦌 🔴 👃",
+            "answer": "Rudolf med röda mulen",
+            "wrong": [
+              "Bjällerklang",
+              "Hej tomtegubbar",
+              "Räven raskar över isen"
+            ],
+            "fact": "Rudolf skapades 1939 för ett reklamhäfte från ett amerikanskt varuhus."
+          },
+          {
+            "kind": "movie",
+            "emoji": "💚 😠 🎁 🏔️",
+            "answer": "Grinchen",
+            "wrong": [
+              "Ensam hemma",
+              "Elf",
+              "En julsaga"
+            ],
+            "fact": "Den gröna surpuppan bor på ett berg – och till slut växer hans hjärta tre storlekar."
+          },
+          {
+            "kind": "song",
+            "emoji": "❤️ 🎁 ➡️ 💔 🎄",
+            "answer": "Last Christmas",
+            "wrong": [
+              "Jingle Bell Rock",
+              "Feliz Navidad",
+              "Tänd ett ljus"
+            ],
+            "fact": "Wham! släppte den 1984 – men den toppade inte brittiska listan förrän 2021."
+          },
+          {
+            "kind": "movie",
+            "emoji": "🧝 📏 🏙️ 🍝",
+            "answer": "Elf",
+            "wrong": [
+              "Ensam hemma",
+              "Grinchen",
+              "The Holiday"
+            ],
+            "fact": "Buddys fyra livsmedelsgrupper: godis, polkagrisar, godismajs och sirap – gärna på spagettin."
+          }
+        ],
+        "b": [
+          {
+            "kind": "song",
+            "emoji": "🤫 🌙 ⭐ 👶",
+            "answer": "Stilla natt",
+            "wrong": [
+              "O helga natt",
+              "Gläns över sjö och strand",
+              "Nu tändas tusen juleljus"
+            ],
+            "fact": "Den skrevs i Österrike 1818 och sjungs i dag på hundratals språk."
+          },
+          {
+            "kind": "movie",
+            "emoji": "💘 🪧 ✈️ 🎄",
+            "answer": "Love Actually",
+            "wrong": [
+              "The Holiday",
+              "Ett päron till farsa firar jul",
+              "Miraklet på 34:e gatan"
+            ],
+            "fact": "En handfull kärlekshistorier i juletidens London – och en dansande premiärminister."
+          },
+          {
+            "kind": "song",
+            "emoji": "🙅‍♀️ 🎁 🎄 ➡️ 🫵 ❤️",
+            "answer": "All I Want for Christmas Is You",
+            "wrong": [
+              "Last Christmas",
+              "Santa Baby",
+              "Tänd ett ljus"
+            ],
+            "fact": "Mariah Carey släppte den 1994 – och varje december klättrar den på listorna igen."
+          },
+          {
+            "kind": "movie",
+            "emoji": "🏢 💥 👮 🎄",
+            "answer": "Die Hard",
+            "wrong": [
+              "Ensam hemma",
+              "Gremlins",
+              "Bad Santa"
+            ],
+            "fact": "John McClane räddar firmans julfest i Nakatomi Plaza. Är det en julfilm? Debatten fortsätter!"
+          },
+          {
+            "kind": "song",
+            "emoji": "👉 ❄️ ❄️ ❄️",
+            "answer": "Let It Snow!",
+            "wrong": [
+              "Winter Wonderland",
+              "Jag drömmer om en jul hemma",
+              "Bjällerklang"
+            ],
+            "fact": "Den skrevs under en stekhet julidag i Hollywood 1945 – en dröm om kyla."
+          },
+          {
+            "kind": "movie",
+            "emoji": "🚂 ❄️ 🎫 🔔",
+            "answer": "Polarexpressen",
+            "wrong": [
+              "Ensam hemma",
+              "Elf",
+              "Miraklet på 34:e gatan"
+            ],
+            "fact": "Tom Hanks gör inte mindre än sex roller i filmen – bland annat konduktören och tomten."
+          }
+        ],
+        "c": [
+          {
+            "kind": "song",
+            "emoji": "👋 🎅 🎅 🥂",
+            "answer": "Hej tomtegubbar",
+            "wrong": [
+              "Räven raskar över isen",
+              "Staffan var en stalledräng",
+              "Nu är det jul igen"
+            ],
+            "fact": "Vi dansar runt granen till den – fast texten (”slå i glasen”) är egentligen en dryckesvisa!"
+          },
+          {
+            "kind": "song",
+            "emoji": "1️⃣0️⃣0️⃣0️⃣ 🕯️ ✨",
+            "answer": "Nu tändas tusen juleljus",
+            "wrong": [
+              "Tänd ett ljus",
+              "Gläns över sjö och strand",
+              "Stilla natt"
+            ],
+            "fact": "Emmy Köhler skrev både text och melodi år 1898."
+          },
+          {
+            "kind": "song",
+            "emoji": "🐴 🐴 🐴 🐴 🐴 ⭐",
+            "answer": "Staffan var en stalledräng",
+            "wrong": [
+              "Sankta Lucia",
+              "Gläns över sjö och strand",
+              "Räven raskar över isen"
+            ],
+            "fact": "Den sjungs i luciatåget: Staffan vattnar sina fålar fem – allt för den ljusa stjärnan."
+          },
+          {
+            "kind": "song",
+            "emoji": "🕯️ 🔥 🌍 🙏",
+            "answer": "Tänd ett ljus",
+            "wrong": [
+              "Nu tändas tusen juleljus",
+              "Stilla natt",
+              "Gläns över sjö och strand"
+            ],
+            "fact": "Triad släppte den 1987 och den har blivit en av Sveriges mest älskade jullåtar."
+          },
+          {
+            "kind": "song",
+            "emoji": "💭 ⚪ 🎄 ❄️",
+            "answer": "Jag drömmer om en jul hemma",
+            "wrong": [
+              "Let It Snow!",
+              "Stilla natt",
+              "Bjällerklang"
+            ],
+            "fact": "På engelska heter den ”White Christmas” – Bing Crosbys version är världens mest sålda singel."
+          },
+          {
+            "kind": "song",
+            "emoji": "🦊 🧊 🏃 💨",
+            "answer": "Räven raskar över isen",
+            "wrong": [
+              "Hej tomtegubbar",
+              "Staffan var en stalledräng",
+              "Tomtarnas julnatt"
+            ],
+            "fact": "En klassisk danslek kring granen – på julafton eller när granen dansas ut på tjugondag Knut."
+          }
+        ],
+        "d": [
+          {
+            "kind": "movie",
+            "emoji": "👻 👻 👻 💰 👴",
+            "answer": "En julsaga",
+            "wrong": [
+              "Grinchen",
+              "Livet är underbart",
+              "Miraklet på 34:e gatan"
+            ],
+            "fact": "Charles Dickens skrev berättelsen om snålen Scrooge på bara sex veckor år 1843."
+          },
+          {
+            "kind": "movie",
+            "emoji": "🍐 👨 🎄 💡 ⚡",
+            "answer": "Ett päron till farsa firar jul",
+            "wrong": [
+              "Ensam hemma",
+              "Tomten är far till alla barnen",
+              "Love Actually"
+            ],
+            "fact": "Clark Griswold pyntar huset med 25 000 lampor – så många att elverket måste koppla in reservkraft."
+          },
+          {
+            "kind": "movie",
+            "emoji": "🐾 💧 🌙 🍗 🚫",
+            "answer": "Gremlins",
+            "wrong": [
+              "Die Hard",
+              "Bad Santa",
+              "Ensam hemma"
+            ],
+            "fact": "Tre regler: inget starkt ljus, inget vatten – och mata aldrig efter midnatt!"
+          },
+          {
+            "kind": "movie",
+            "emoji": "😇 🔔 🌉 👼",
+            "answer": "Livet är underbart",
+            "wrong": [
+              "Miraklet på 34:e gatan",
+              "En julsaga",
+              "Polarexpressen"
+            ],
+            "fact": "”Varje gång en klocka ringer får en ängel sina vingar.”"
+          },
+          {
+            "kind": "movie",
+            "emoji": "🎃 💀 ➡️ 🎄 🎅",
+            "answer": "The Nightmare Before Christmas",
+            "wrong": [
+              "Gremlins",
+              "Grinchen",
+              "Polarexpressen"
+            ],
+            "fact": "Jack Skellington från Halloweenstaden försöker ta över julen – det går sådär."
+          },
+          {
+            "kind": "movie",
+            "emoji": "🏠 🔁 🏡 💕",
+            "answer": "The Holiday",
+            "wrong": [
+              "Love Actually",
+              "Elf",
+              "Livet är underbart"
+            ],
+            "fact": "Två kvinnor byter hem över julen – en villa i Los Angeles mot en stuga i England."
+          }
+        ],
+        "e": [
+          {
+            "kind": "song",
+            "emoji": "💃 🎸 🎄 🌶️",
+            "answer": "Feliz Navidad",
+            "wrong": [
+              "Last Christmas",
+              "Jingle Bell Rock",
+              "Wonderful Christmastime"
+            ],
+            "fact": "José Feliciano spelade in den 1970 – på både spanska och engelska."
+          },
+          {
+            "kind": "song",
+            "emoji": "🚗 🚦 🏠 🎄",
+            "answer": "Driving Home for Christmas",
+            "wrong": [
+              "Last Christmas",
+              "Tänd ett ljus",
+              "Jingle Bell Rock"
+            ],
+            "fact": "Chris Rea kom på låten när han satt fast i bilkö på väg hem till jul."
+          },
+          {
+            "kind": "song",
+            "emoji": "🎸 🎄 💃 🕺",
+            "answer": "Rockin' Around the Christmas Tree",
+            "wrong": [
+              "Jingle Bell Rock",
+              "Merry Christmas Everyone",
+              "Wonderful Christmastime"
+            ],
+            "fact": "Brenda Lee var 13 när hon spelade in den 1958 – och 65 år senare toppade den USA-listan."
+          },
+          {
+            "kind": "song",
+            "emoji": "🤔 🌍 🎄 🙏",
+            "answer": "Do They Know It's Christmas?",
+            "wrong": [
+              "Driving Home for Christmas",
+              "Last Christmas",
+              "Merry Christmas Everyone"
+            ],
+            "fact": "Band Aid spelade in den 1984 för att samla in pengar till de svältande i Etiopien."
+          },
+          {
+            "kind": "song",
+            "emoji": "🧚 📖 🗽 🍺",
+            "answer": "Fairytale of New York",
+            "wrong": [
+              "Last Christmas",
+              "Wonderful Christmastime",
+              "Step Into Christmas"
+            ],
+            "fact": "The Pogues och Kirsty MacColl, 1987 – den nådde aldrig förstaplatsen i Storbritannien."
+          },
+          {
+            "kind": "song",
+            "emoji": "❄️ 🎉 🎄 👋",
+            "answer": "Merry Christmas Everyone",
+            "wrong": [
+              "Wonderful Christmastime",
+              "Jingle Bell Rock",
+              "Santa Baby"
+            ],
+            "fact": "Shakin’ Stevens låt var etta i Storbritannien julen 1985."
+          }
+        ],
+        "f": [
+          {
+            "kind": "food",
+            "emoji": "🌶️ 🍪 ⭐ 🏠",
+            "answer": "Pepparkakor",
+            "wrong": [
+              "Lussekatter",
+              "Knäck",
+              "Ischoklad"
+            ],
+            "fact": "Man sägs bli snäll av att äta pepparkakor – värt ett försök!"
+          },
+          {
+            "kind": "food",
+            "emoji": "👸 🕯️ 🟡 🐱",
+            "answer": "Lussekatter",
+            "wrong": [
+              "Pepparkakor",
+              "Kanelbullar",
+              "Semlor"
+            ],
+            "fact": "Saffransbullar formade som ett S med russin – de bakas till lucia den 13 december."
+          },
+          {
+            "kind": "food",
+            "emoji": "🍚 🥛 🥄 🌰",
+            "answer": "Risgrynsgröt",
+            "wrong": [
+              "Ris à la Malta",
+              "Ostkaka",
+              "Havregrynsgröt"
+            ],
+            "fact": "Den som hittar mandeln i gröten sägs bli gift inom ett år!"
+          },
+          {
+            "kind": "food",
+            "emoji": "🥔 🐟 😈 🧑",
+            "answer": "Janssons frestelse",
+            "wrong": [
+              "Sillsallad",
+              "Lutfisk",
+              "Potatisgratäng"
+            ],
+            "fact": "Fisken i Janssons kallas ansjovis men är egentligen skarpsill."
+          },
+          {
+            "kind": "food",
+            "emoji": "🍷 🔥 🍇 🌰",
+            "answer": "Glögg",
+            "wrong": [
+              "Julmust",
+              "Varm choklad",
+              "Saft"
+            ],
+            "fact": "Namnet kommer av ”glödgat vin” – alltså vin som värmts upp."
+          },
+          {
+            "kind": "food",
+            "emoji": "🐷 🍖 🟡 🍞",
+            "answer": "Julskinka",
+            "wrong": [
+              "Prinskorv",
+              "Revbensspjäll",
+              "Köttbullar"
+            ],
+            "fact": "Den griljeras med senap, ägg och ströbröd innan den hamnar på julbordet."
+          }
+        ],
+        "g": [
+          {
+            "kind": "song",
+            "emoji": "👀 👩 💋 🎅",
+            "answer": "Jag såg mamma kyssa tomten",
+            "wrong": [
+              "Tomtarnas julnatt",
+              "Hej tomtegubbar",
+              "Rudolf med röda mulen"
+            ],
+            "fact": "Originalet spelades in 1952 av Jimmy Boyd – som bara var 13 år."
+          },
+          {
+            "kind": "movie",
+            "emoji": "🎅 ⚖️ 3️⃣4️⃣ 🛣️",
+            "answer": "Miraklet på 34:e gatan",
+            "wrong": [
+              "Livet är underbart",
+              "Polarexpressen",
+              "Tomten är far till alla barnen"
+            ],
+            "fact": "Tomten hamnar i rätten och måste bevisa att han är äkta. Originalet från 1947 vann tre Oscar."
+          },
+          {
+            "kind": "movie",
+            "emoji": "📮 🎁 🦸 🎩",
+            "answer": "Karl-Bertil Jonssons julafton",
+            "wrong": [
+              "Sunes jul",
+              "Tomten är far till alla barnen",
+              "Fanny och Alexander"
+            ],
+            "fact": "Karl-Bertil ”omfördelar” de rikas julklappar på posten – en julaftonsklassiker i SVT sedan 1975."
+          },
+          {
+            "kind": "movie",
+            "emoji": "🐸 🐷 👻 💰",
+            "answer": "Mupparnas julsaga",
+            "wrong": [
+              "En julsaga",
+              "Grinchen",
+              "Polarexpressen"
+            ],
+            "fact": "Michael Caine spelar Scrooge och Kermit är hans stackars bokhållare Bob Cratchit."
+          },
+          {
+            "kind": "song",
+            "emoji": "🕛 🤫 🏠 🎅 🎅",
+            "answer": "Tomtarnas julnatt",
+            "wrong": [
+              "Hej tomtegubbar",
+              "Nu tändas tusen juleljus",
+              "Jul, jul, strålande jul"
+            ],
+            "fact": "Börjar med ”Midnatt råder, tyst det är i husen” – medan alla sover tassar tomtarna fram."
+          },
+          {
+            "kind": "movie",
+            "emoji": "🎭 👦 👧 🎄 🕯️",
+            "answer": "Fanny och Alexander",
+            "wrong": [
+              "Sunes jul",
+              "Karl-Bertil Jonssons julafton",
+              "Livet är underbart"
+            ],
+            "fact": "Ingmar Bergmans film börjar med ett magnifikt julfirande – och vann fyra Oscar."
+          }
+        ]
       }
     },
-    "miniQuiz": {
-      "title": "Minifrågesport",
-      "instruction": "Välj rätt svar!",
-      "submit": "Skicka svar",
-      "showReward": "Visa belöning",
-      "correct": "Rätt! Bra jobbat!",
-      "incorrect": "Inte riktigt rätt. Försök igen!",
-      "tryAgain": "Försök igen",
-      "day4": {
-        "question": "I vilket land uppstod traditionen att dekorera julgranar?",
-        "option1": "USA",
-        "option2": "Tyskland",
-        "option3": "England",
-        "option4": "Frankrike"
-      },
-      "day9": {
-        "question": "Vad heter renen med den röda näsan?",
-        "option1": "Rudolph",
-        "option2": "Donner",
-        "option3": "Blitzen"
-      },
-      "day15": {
-        "question": "Vilket datum firas jul i de flesta länder?",
-        "option1": "24 december",
-        "option2": "26 december",
-        "option3": "25 december"
-      },
-      "day18": {
-        "question": "Vilka är de traditionella julfärgerna?",
-        "option1": "Blått och silver",
-        "option2": "Rött och grönt",
-        "option3": "Guld och vitt"
-      },
-      "day22": {
-        "question": "Vad brukar barn ställa fram åt jultomten på julafton?",
-        "option1": "Mjölk och kakor",
-        "option2": "Morötter och äpplen",
-        "option3": "Juice och godis",
-        "option4": "Vatten och bröd"
+    "iceSlide": {
+      "title": "Frusna sjön",
+      "instruction": "Pingvinen glider tills den stöter i en sten eller kanten – och stannar i snödrivor. Led den till paketet!",
+      "moves": "Drag",
+      "par": "Par",
+      "best": "Bästa",
+      "undo": "Ångra",
+      "hint": "Tips",
+      "stuck": "Hoppsan! Härifrån når pingvinen aldrig paketet.",
+      "win": "Paketet är räddat!",
+      "perfect": "Perfekt – {{moves}} drag, precis på par!",
+      "done": "Klarat på {{moves}} drag (par {{par}})",
+      "legendRock": "Sten",
+      "legendSnow": "Snödriva – du stannar på den",
+      "keys": "Piltangenter / WASD · Z ångrar",
+      "dir": {
+        "up": "upp",
+        "down": "ner",
+        "left": "vänster",
+        "right": "höger"
       }
     },
-    "busses": {
-      "title": "Bussarna",
-      "instruction": "Klicka på en buss för att skicka den mot hörnen. Den fortsätter tills den lämnar banan eller kör in i en annan buss.",
-      "timesPlayed": "Spelade rundor",
-      "carsLeft": "Bussar kvar",
-      "crashes": "Krockar",
-      "win": "Alla bussar har lämnat parkeringen!",
-      "reset": "Starta om",
-      "previouslyCompleted": "Förra gången klarade du det med {{crashes}} krockar"
+    "nonogram": {
+      "title": "Julpixlar",
+      "instruction": "Siffrorna visar hur många rutor i rad som ska fyllas i varje rad och kolumn. Måla fram den hemliga bilden!",
+      "time": "Tid",
+      "best": "Bästa",
+      "size": "Storlek",
+      "mode": "Verktyg",
+      "fill": "Fyll",
+      "mark": "Kryss",
+      "hint": "Tips",
+      "tip": "Dra för att måla flera rutor · håll inne eller högerklicka för kryss",
+      "mistakes": "{{count}} ruta/rutor är fel – de blinkar rött",
+      "revealed": "En ruta har fyllts i åt dig ✨",
+      "solved": "Bilden är klar!",
+      "reveal": "Det är {{name}}!"
+    },
+    "lightPath": {
+      "title": "Tänd byn",
+      "instruction": "Tryck på en ruta för att vrida ljusslingan. Led strömmen från den mysiga stugan till alla hus och granar!",
+      "lit": "Tända",
+      "moves": "Drag",
+      "best": "Bäst",
+      "hint": "Tips",
+      "newVillage": "Ny by",
+      "win": "Hela byn lyser!",
+      "tileLabel": "Ruta {{col}}, {{row}}"
+    },
+    "giftMatch": {
+      "title": "Klappmatchen",
+      "instruction": "Byt plats på två grannar så att tre eller fler likadana hamnar i rad. Nå {{target}} poäng innan dragen tar slut!",
+      "score": "Poäng",
+      "moves": "Drag",
+      "best": "Bästa poäng",
+      "combo": "Kombo ×{{n}}!",
+      "shuffle": "Blandar om!",
+      "win": "Inslaget och klart!",
+      "outOfMoves": "Dragen är slut!",
+      "lostText": "Du fick {{score}} av {{target}} poäng. Så nära – försök igen!",
+      "newBoard": "Ny spelplan",
+      "boardLabel": "Spelplan. Flytta med piltangenterna och välj och byt pjäser med Enter.",
+      "legend": "Fyra i rad ger en randig pjäs som rensar en hel rad · fem i rad ger en stjärna som rensar alla av en sort",
+      "instructionEndless": "Julig tidsjakt! Samla så många poäng du kan på {{seconds}} sekunder – stora kombos och specialpjäser ger extra tid. Klockan startar vid ditt första drag.",
+      "seconds": "Sek",
+      "ready": "Redo",
+      "timeUp": "Tiden är ute!",
+      "newBest": "Nytt personbästa!"
     },
     "treeLights": {
       "title": "Tänd granen",
@@ -397,6 +677,146 @@
       },
       "endlessInstruction": "Oändligt läge: hur lång melodi kan du komma ihåg? En fel klocka avslutar rundan.",
       "gameOver": "Kören tar paus! Du kom ihåg {{score}} toner."
+    },
+    "snowballToss": {
+      "title": "Snöbollskriget",
+      "instruction": "Dra bakåt från snöbollen och släpp för att kasta. Fäll alla snögubbar!",
+      "canvasLabel": "Trädgård med snögubbar. Dra bakåt för att sikta och släpp för att kasta.",
+      "introTitle": "Snöbollskrig i skymningen!",
+      "how1": "Dra bakåt från snöbollen som med en slangbella – prickarna visar vart den flyger.",
+      "how2": "Håll koll på vindstruten: vinden knuffar varje kast.",
+      "how3": "Fäll alla {{snowmen}} snögubbar med {{balls}} snöbollar.",
+      "keyboard": "Tangentbord: piltangenterna siktar, mellanslag kastar.",
+      "snowballs": "Snöbollar",
+      "wind": "Vind",
+      "calm": "Stilla",
+      "score": "Poäng",
+      "best": "Bäst",
+      "win": "Fullträff! Trädgården är din!",
+      "loseTitle": "Slut på snöbollar!",
+      "loseText": "{{left}} snögubbar står fortfarande kvar. Krama ihop mer snö och försök igen!",
+      "wave": "Våg",
+      "howEndless": "Oändligt snöbollskrig! Fäll våg efter våg – varje avklarad våg fyller på snöbollarna. Hur långt kommer du?",
+      "endlessOver": "Spelet är slut!",
+      "endlessText": "Du kom till våg {{wave}}. Dina poäng:",
+      "newBest": "Nytt personligt rekord!"
+    },
+    "chimneyDrop": {
+      "title": "Klappleveransen",
+      "instruction": "Tryck för att släppa julklappar från släden – pricka skorstenarna!",
+      "canvasLabel": "Tomtens släde flyger över en snöig stad. Tryck eller använd mellanslag för att släppa en julklapp.",
+      "introTitle": "Julaftonsleverans!",
+      "how1": "Tryck, klicka eller använd mellanslag för att släppa en klapp.",
+      "how2": "Klapparna behåller slädens fart – släpp lite innan skorstenen.",
+      "how3": "Leverera {{target}} julklappar. Du har {{presents}} i säcken.",
+      "howWind": "Se upp – vinden svänger fram och tillbaka och knuffar klapparna.",
+      "delivered": "Levererat",
+      "sack": "I säcken",
+      "wind": "Vind",
+      "best": "Bäst",
+      "win": "Ho ho ho! Alla klappar levererade!",
+      "loseTitle": "Säcken är tom!",
+      "loseText": "Du levererade {{delivered}} av {{target}} klappar. Tomten fyller på säcken – försök igen!",
+      "howEndless": "Oändlig natt! Släden ökar sakta farten. Tre klappar i snön och natten är slut.",
+      "endlessOver": "Natten är slut!",
+      "endlessText": "Levererade klappar: {{delivered}}. Dina poäng:",
+      "newBest": "Nytt personligt rekord!"
+    },
+    "snowmanStack": {
+      "title": "Bygg en snögubbe",
+      "instruction": "Tryck (eller mellanslag) för att släppa den svängande snöbollen. Stapla {{count}} bollar rakt och fint!",
+      "endlessInstruction": "Oändligt snötorn! Stapla så högt du kan – tre ras och det är slut.",
+      "balls": "Snöbollar",
+      "height": "Höjd",
+      "lives": "Liv",
+      "score": "Poäng",
+      "best": "Bäst",
+      "tapToDrop": "Tryck för att släppa snöbollen",
+      "keyHint": "Mellanslag eller Enter släpper bollen",
+      "perfect": "Perfekt!",
+      "nice": "Snyggt!",
+      "wobbly": "Vingligt!",
+      "oops": "Hoppsan!",
+      "lostTitle": "Snögubben rasade!",
+      "lostText": "Du staplade {{count}} snöbollar. Rulla ny snö och försök igen!",
+      "endlessTitle": "Tornet är klart!",
+      "endlessText": "Ditt snötorn blev {{count}} bollar högt.",
+      "newBest": "Nytt personbästa!",
+      "bestText": "Personbästa: {{best}}",
+      "win": "Vilken stilig snögubbe!"
+    },
+    "tomteWhack": {
+      "title": "Bonka tomten",
+      "instruction": "Bonka de busiga tomtarna när de tittar fram – nå {{target}} poäng innan ljuset brunnit ner!",
+      "endlessInstruction": "Överlevnadsläge! Låt ingen tomte smita och rör inte kol eller julbock – tre missar och det är slut.",
+      "score": "Poäng",
+      "combo": "Kombo {{count}}",
+      "best": "Bäst",
+      "time": "Tid kvar",
+      "lives": "Liv",
+      "hole": "Snöhög {{n}}",
+      "kinds": {
+        "tomte": "tomte",
+        "golden": "guldtomte",
+        "coal": "kolbit",
+        "goat": "julbock"
+      },
+      "legend": "Tryck på tomtarna (guldtomtar ger extra). Låt kolbitarna och julbocken vara!",
+      "endlessLegend": "En tomte som smiter, eller ett tryck på kol eller julbock, kostar ett hjärta. Det går fortare och fortare!",
+      "keyHint": "Tangenterna 1–9 bonkar snöhögarna",
+      "timeUp": "Ljuset brann ut!",
+      "overText": "Du fick {{score}} av {{target}} poäng. Tomtarna gömmer sig igen – en runda till?",
+      "endlessTitle": "Slut på hjärtan!",
+      "endlessText": "Du fick {{score}} poäng.",
+      "newBest": "Nytt personbästa!",
+      "bestText": "Personbästa: {{best}}",
+      "missed": "Miss!",
+      "win": "Tomtarna ger upp – du vann!"
+    },
+    "spotDifference": {
+      "title": "Hitta felen",
+      "instruction": "Bilden till höger gömmer {{count}} skillnader. Tryck på dem i valfri bild!",
+      "time": "Tid",
+      "misses": "Missar",
+      "best": "Bästa",
+      "original": "Original",
+      "changed": "{{count}} kvar",
+      "newSet": "Nya skillnader",
+      "win": "Vilken örnblick! Du hittade alla!"
+    },
+    "toySorter": {
+      "title": "Tomteverkstaden",
+      "instruction": "Skicka varje sak till rätt säck innan den trillar av bandet. Svep, tryck på en sida eller använd ← →.",
+      "sorted": "Sorterat",
+      "score": "Poäng",
+      "best": "Bästa",
+      "streak": "Svit",
+      "newRule": "Ny regel!",
+      "ready": "Bandet är redo – är du, lilla nisse?",
+      "oops": "Hoppsan!",
+      "missed": "För långsamt!",
+      "lost": "Tre tabbar – nissarna fnissar! Redo för ett nytt skift?",
+      "win": "Verkstaden är sorterad! Tomten är imponerad!",
+      "gameOver": "Skiftet är slut! Slutpoäng: {{score}}",
+      "newBest": "Nytt personligt rekord!",
+      "rules": {
+        "wrapped": {
+          "left": "Inslagna paket",
+          "right": "Oinslagna leksaker"
+        },
+        "color": {
+          "left": "Röda saker",
+          "right": "Gröna saker"
+        },
+        "tomte": {
+          "left": "Till tomten",
+          "right": "Till renarna"
+        },
+        "naughty": {
+          "left": "Snälla listan",
+          "right": "Stygga listan (kol)"
+        }
+      }
     }
   },
   "funFacts": {
@@ -569,366 +989,325 @@
     "levelsCompleted": "klara",
     "lockedHint": "Slutför alla 24 dagar för att låsa upp",
     "games": {
-      "riddle": {
-        "title": "Gåtor",
+      "juldle": {
+        "title": "Juldle",
         "levels": {
-          "extra-riddle-1": {
-            "name": "Lätt gåta",
-            "description": "En festlig presentgåta"
+          "extra-juldle-1": {
+            "name": "Juldle: Uppvärmning",
+            "description": "Ett kort ord på fyra bokstäver att värma upp med."
           },
-          "extra-riddle-2": {
-            "name": "Medel gåta",
-            "description": "En mysig skorstengåta"
+          "extra-juldle-2": {
+            "name": "Juldle: Ljusbärare",
+            "description": "Fem bokstäver med ett festligt sken."
           },
-          "extra-riddle-3": {
-            "name": "Svår gåta",
-            "description": "En klingende gåta"
-          }
-        },
-        "extra-riddle-1": {
-          "question": "Jag är inslagen i färgglatt papper och bunden med ett band. Du hittar mig under granen. Vad är jag?",
-          "hint": "Tomten tar med sig massor av dessa på julafton"
-        },
-        "extra-riddle-2": {
-          "question": "Jag är ett högt tegelrör på taket där tomten kommer in. Vad är jag?",
-          "hint": "Glöm inte att låsa upp den på julafton!"
-        },
-        "extra-riddle-3": {
-          "question": "Jag klingar när tomtens släde rör sig. Vad är jag?",
-          "hint": "Du kan höra mig ringa i julsånger"
-        }
-      },
-      "hangman": {
-        "title": "Hänga gubbe",
-        "levels": {
-          "extra-hangman-1": {
-            "name": "Lätt hänga gubbe",
-            "description": "Ett dekorativt julord"
+          "extra-juldle-3": {
+            "name": "Juldle: Söttand",
+            "description": "Något sött från julbordet."
           },
-          "extra-hangman-2": {
-            "name": "Medel hänga gubbe",
-            "description": "En glänsande dekoration"
+          "extra-juldle-4": {
+            "name": "Juldle: Sex bokstäver",
+            "description": "Ett längre ord – och bara fem försök."
           },
-          "extra-hangman-3": {
-            "name": "Svår hänga gubbe",
-            "description": "En festlig dörrdekoration"
-          }
-        },
-        "extra-hangman-1": {
-          "clue": "Glänsande dekoration för julgranen",
-          "hint": "Ofta gjord av glas eller plast och finns i många färger"
-        },
-        "extra-hangman-2": {
-          "clue": "Långa, glänsande trådar som hänger på granen",
-          "hint": "Den glimmar och reflekterar ljus"
-        },
-        "extra-hangman-3": {
-          "clue": "En cirkulär dekoration som hängs på dörrar",
-          "hint": "Gjord av grangrenar och dekorerad med rosett"
-        }
-      },
-      "wordScramble": {
-        "title": "Ordpussel",
-        "levels": {
-          "extra-scramble-1": {
-            "name": "Lätt pussel",
-            "description": "Ett varmt julkaraktär"
-          },
-          "extra-scramble-2": {
-            "name": "Medel pussel",
-            "description": "En grön trädtyp"
-          },
-          "extra-scramble-3": {
-            "name": "Svårt pussel",
-            "description": "En dekorativ sträng"
-          }
-        },
-        "extra-scramble-1": {
-          "clue": "En mysig plats där du hänger strumpor",
-          "hint": "Tomten kommer in genom denna på julafton"
-        },
-        "extra-scramble-2": {
-          "clue": "En typ av träd som förblir grönt hela året",
-          "hint": "Tall- och granträd är typer av dessa"
-        },
-        "extra-scramble-3": {
-          "clue": "En dekorativ kedja eller sträng som hängs på julen",
-          "hint": "Du draperar denna på granen eller runt huset"
-        }
-      },
-      "memoryCard": {
-        "title": "Minneslek",
-        "levels": {
-          "extra-memory-1": {
-            "name": "Lätt matchning",
-            "description": "4x4 rutnät med julikoner"
-          },
-          "extra-memory-2": {
-            "name": "Medel matchning",
-            "description": "6x6 rutnät med fler par"
-          },
-          "extra-memory-3": {
-            "name": "Svår matchning",
-            "description": "8x8 rutnätsutmaning"
+          "extra-juldle-5": {
+            "name": "Juldle: Expert",
+            "description": "Sju bokstäver. Bara för riktiga ordtomtar."
           }
         }
       },
-      "geometryDash": {
-        "title": "Tomtens sprint",
+      "emojiCarols": {
+        "title": "Emoji-julklassiker",
         "levels": {
-          "extra-dash-1": {
-            "name": "Lätt sprint",
-            "description": "Milda hinder, långsammare tempo"
+          "extra-emojiCarols-1": {
+            "name": "Svenska julklassiker",
+            "description": "Julsångerna vi dansar kring granen till – i emojiform."
           },
-          "extra-dash-2": {
-            "name": "Medel sprint",
-            "description": "Fler hinder, snabbare tempo"
+          "extra-emojiCarols-2": {
+            "name": "Filmkväll",
+            "description": "Sex julfilmer gömda i emoji."
           },
-          "extra-dash-3": {
-            "name": "Expert sprint",
-            "description": "Maximal utmaning!"
+          "extra-emojiCarols-3": {
+            "name": "Pophits",
+            "description": "Julpoplåtarna som spelas varje december."
           },
-          "extra-dash-infinite-easy": {
-            "name": "Oändlig lätt",
-            "description": "Överlev så länge som möjligt - Lätt läge"
+          "extra-emojiCarols-4": {
+            "name": "Julbordet",
+            "description": "Gissa julmaten – 5 av 6 för att klara det."
           },
-          "extra-dash-infinite-medium": {
-            "name": "Oändlig medel",
-            "description": "Hur länge håller du? - Medel läge"
-          },
-          "extra-dash-infinite-hard": {
-            "name": "Oändlig svår",
-            "description": "Den ultimata överlevnadsutmaningen!"
+          "extra-emojiCarols-5": {
+            "name": "Expertmix",
+            "description": "Kluriga val för riktiga julnördar – 5 av 6 för att klara det."
           }
         }
       },
-      "climber": {
-        "title": "Julklättraren",
+      "iceSlide": {
+        "title": "Frusna sjön",
         "levels": {
-          "extra-climber-1": {
-            "name": "Lugn klättring",
-            "description": "Kortare klättring med stabila plattformar"
+          "extra-iceSlide-1": {
+            "name": "Första stegen på isen",
+            "description": "En liten 7×7-sjö att värma upp på, med två snödrivor."
           },
-          "extra-climber-2": {
-            "name": "Frostig klättring",
-            "description": "Högre toppar med hala överraskningar"
+          "extra-iceSlide-2": {
+            "name": "Snödrivsslalom",
+            "description": "En 8×8-sjö där snödrivorna är dina vänner."
           },
-          "extra-climber-3": {
-            "name": "Snöstormstopp",
-            "description": "Högt torn med hala avsatser"
+          "extra-iceSlide-3": {
+            "name": "Tunn is",
+            "description": "En 9×9-sjö med snödrivor som stoppar dig mitt i glidningen."
           },
-          "extra-climber-infinite-easy": {
-            "name": "Oändlig mysig klättring",
-            "description": "Mjukt tempo med generösa fotfästen"
+          "extra-iceSlide-4": {
+            "name": "Pingvinparaden",
+            "description": "En stor 10×10-sjö – planera vägen runt stenarna."
           },
-          "extra-climber-infinite-medium": {
-            "name": "Oändlig frostklättring",
-            "description": "Isiga skiften och kvicka plattformsrörelser"
-          },
-          "extra-climber-infinite-hard": {
-            "name": "Oändlig snöstormsklättring",
-            "description": "Snabba gap och hala utmaningar"
+          "extra-iceSlide-5": {
+            "name": "Islabyrinten",
+            "description": "Expert: säsongens längsta glidtur. Bara för riktiga skridskoproffs!"
           }
         }
       },
-      "rebus": {
-        "title": "Rebuspussel",
+      "nonogram": {
+        "title": "Julpixlar",
         "levels": {
-          "extra-rebus-1": {
-            "name": "Lätt rebus",
-            "description": "Den glada mannen själv"
+          "extra-nonogram-1": {
+            "name": "Söta ränder",
+            "description": "Rött, vitt och sött. Kan du måla fram den?"
           },
-          "extra-rebus-2": {
-            "name": "Medel rebus",
-            "description": "Tomtens hembas"
+          "extra-nonogram-2": {
+            "name": "Ding dong",
+            "description": "Något gyllene klingar i julnatten."
           },
-          "extra-rebus-3": {
-            "name": "Svår rebus",
-            "description": "En söt randig godis"
-          }
-        },
-        "extra-rebus-1": {
-          "puzzle": "🎅 + 🏠",
-          "hint": "Personen som tar med presenter på julafton"
-        },
-        "extra-rebus-2": {
-          "puzzle": "⬆️ + 🌍",
-          "hint": "Där tomten bor och tillverkar leksaker"
-        },
-        "extra-rebus-3": {
-          "puzzle": "🍬 + 🦯",
-          "hint": "En röd och vit randig julgodis"
-        }
-      },
-      "wordSearch": {
-        "title": "Ordsökning",
-        "levels": {
-          "extra-wordsearch-1": {
-            "name": "Lätt sökning",
-            "description": "7x10 rutnät med julord"
+          "extra-nonogram-3": {
+            "name": "Inslaget",
+            "description": "Ett 10×10-bildpussel – vad ligger under granen?"
           },
-          "extra-wordsearch-2": {
-            "name": "Medel sökning",
-            "description": "10x11 rutnät med fler ord"
+          "extra-nonogram-4": {
+            "name": "Rudolfs porträtt",
+            "description": "Horn, öron och en lysande röd nos – måla fram allt."
           },
-          "extra-wordsearch-3": {
-            "name": "Svår sökning",
-            "description": "11x12 rutnät - ultimat utmaning"
+          "extra-nonogram-5": {
+            "name": "Det stora besöket",
+            "description": "Expert: ett stort 12×12-bildkryss. Vem kommer ner genom skorstenen?"
           }
         }
       },
-      "flappySleigh": {
-        "title": "Flappy Släde",
+      "lightPath": {
+        "title": "Tänd byn",
         "levels": {
-          "extra-flappy-1": {
-            "name": "Lätt flygning",
-            "description": "Lugnt tempo, större mellanrum"
+          "extra-lightPath-1": {
+            "name": "Byljus: Gården",
+            "description": "En liten gård på en snöig kulle – tre stugor väntar på ljus."
           },
-          "extra-flappy-2": {
-            "name": "Medel flygning",
-            "description": "Snabbare fart, trängre mellanrum"
+          "extra-lightPath-2": {
+            "name": "Byljus: Storgatan",
+            "description": "Fyra hus längs storgatan vill ha lysande fönster."
           },
-          "extra-flappy-3": {
-            "name": "Expert flygning",
-            "description": "Maximal utmaning!"
+          "extra-lightPath-3": {
+            "name": "Byljus: Torget",
+            "description": "Större rutnät och fem mål runt julmarknaden."
           },
-          "extra-flappy-infinite-easy": {
-            "name": "Oändlig nordanvind",
-            "description": "Mjuk glidflygning med generösa tunnlar"
+          "extra-lightPath-4": {
+            "name": "Byljus: Gamla stan",
+            "description": "Slingriga gränder och långa slingor – planera vägen från stugan."
           },
-          "extra-flappy-infinite-medium": {
-            "name": "Oändlig midnattsfärd",
-            "description": "Snabbare släde med smidig manövrering"
-          },
-          "extra-flappy-infinite-hard": {
-            "name": "Oändlig norrskensrusning",
-            "description": "Rasande tempo för orädda piloter"
+          "extra-lightPath-5": {
+            "name": "Byljus: Hela stan (expert)",
+            "description": "Expertrutnätet: 72 rutor och sex hem att tända före julafton."
           }
         }
       },
-      "sokoban": {
-        "title": "Presentpussel",
+      "giftMatch": {
+        "title": "Klappmatchen",
         "levels": {
-          "extra-sokoban-1": {
-            "name": "Komplex utmaning",
-            "description": "13 presenter att arrangera - planera noggrant!"
+          "extra-giftMatch-1": {
+            "name": "Klappmatchen: Expressinslagning",
+            "description": "Bredare spelplan men bara 16 drag – varje byte räknas."
           },
-          "extra-sokoban-2": {
-            "name": "Medel pussel",
-            "description": "Fler presenter att organisera"
+          "extra-giftMatch-2": {
+            "name": "Klappmatchen: Snöstorm",
+            "description": "Sex sorters pjäser – svårare att hitta matchningar."
           },
-          "extra-sokoban-3": {
-            "name": "Knepigt pussel",
-            "description": "Strategiskt tänkande krävs"
+          "extra-giftMatch-3": {
+            "name": "Klappmatchen: Tomteverkstaden",
+            "description": "Den stora spelplanen med sex sorter och högt mål. För matcha-3-mästare."
           },
-          "extra-sokoban-4": {
-            "name": "Svårt pussel",
-            "description": "Trånga utrymmen och många lådor"
-          },
-          "extra-sokoban-5": {
-            "name": "Expert pussel",
-            "description": "Presentarrangemang på mästarnivå"
-          },
-          "extra-sokoban-6": {
-            "name": "Ultimat pussel",
-            "description": "Den ultimata Sokoban-utmaningen"
+          "extra-giftMatch-4": {
+            "name": "Klappmatchen: Julig tidsjakt",
+            "description": "Oändligt läge: 90 sekunder på klockan, stora kombos ger extra tid. Hur högt kommer du?"
           }
         }
       },
-      "mazeRunner": {
-        "title": "Labyrintlöparen",
+      "treeLights": {
+        "title": "Tänd granen",
         "levels": {
-          "extra-maze-1": {
-            "name": "Lätt labyrint",
-            "description": "En enkel väg till granen"
+          "extra-treeLights-1": {
+            "name": "Liten gran",
+            "description": "En liten gran att värma upp med"
           },
-          "extra-maze-2": {
-            "name": "Medel labyrint",
-            "description": "Fler svängar och vändningar"
+          "extra-treeLights-2": {
+            "name": "Kontorsgranen",
+            "description": "Fem rader, lite fler knutar"
           },
-          "extra-maze-3": {
-            "name": "Svår labyrint",
-            "description": "En komplex labyrint"
+          "extra-treeLights-3": {
+            "name": "Vardagsrumsgranen",
+            "description": "Sex rader trassliga ljus"
+          },
+          "extra-treeLights-4": {
+            "name": "Skogsjätten",
+            "description": "Sex rader, ordentligt trassligt"
+          },
+          "extra-treeLights-5": {
+            "name": "Torgets jättegran",
+            "description": "Sju rader. Lycka till!"
           }
         }
       },
-      "presentStacking": {
-        "title": "Presentstapeln",
+      "jingleBells": {
+        "title": "Klockkören",
         "levels": {
-          "extra-present-stacking-1": {
-            "name": "Lätt stapel",
-            "description": "Bygg ett torn med 12 paket"
+          "extra-jingleBells-1": {
+            "name": "Sångövning",
+            "description": "En melodi på 8 toner"
           },
-          "extra-present-stacking-2": {
-            "name": "Högt torn",
-            "description": "Bygg ett högre torn med 16 paket"
+          "extra-jingleBells-2": {
+            "name": "Julkonserten",
+            "description": "10 toner, lite snabbare"
           },
-          "extra-present-stacking-3": {
-            "name": "Skyhögt",
-            "description": "Bygg det högsta tornet med 24 paket"
+          "extra-jingleBells-3": {
+            "name": "Stora finalen",
+            "description": "12 toner i full fart"
+          },
+          "extra-jingleBells-4": {
+            "name": "Oändlig kör",
+            "description": "Hur lång melodi kan du minnas? ♾️"
           }
         }
       },
-      "giftCatcher": {
-        "title": "Klappjakten",
+      "snowballToss": {
+        "title": "Snöbollskriget",
         "levels": {
-          "extra-gift-catcher-1": {
-            "name": "Klappregn",
-            "description": "Fånga 15 klappar i lugnt tempo"
+          "extra-snowballToss-1": {
+            "name": "Motvindsbacken",
+            "description": "Fem snögubbar, byig motvind och en kortare siktlinje."
           },
-          "extra-gift-catcher-2": {
+          "extra-snowballToss-2": {
+            "name": "Glidande vakter",
+            "description": "Två snögubbar glider på isiga hyllor – och det blåser hårt. Bara sex snöbollar!"
+          },
+          "extra-snowballToss-3": {
+            "name": "Snöfästningen",
+            "description": "Sex snögubbar, tre glidande hyllor och nästan ingen siktlinje."
+          },
+          "extra-snowballToss-4": {
+            "name": "Oändligt snöbollskrig",
+            "description": "Våg efter våg av snögubbar. Varje avklarad våg fyller på snöbollarna – hur långt kommer du?"
+          }
+        }
+      },
+      "chimneyDrop": {
+        "title": "Klappleveransen",
+        "levels": {
+          "extra-chimneyDrop-1": {
+            "name": "Rusningstrafik",
+            "description": "Tomten är sen – släden flyger mycket fortare i kväll."
+          },
+          "extra-chimneyDrop-2": {
+            "name": "Stormnatten",
+            "description": "En kraftig vind svänger fram och tillbaka och knuffar varje klapp."
+          },
+          "extra-chimneyDrop-3": {
+            "name": "Smala skorstenar",
+            "description": "Smala skorstenar, lätt vind och en snabb släde. Precisionsleverans!"
+          },
+          "extra-chimneyDrop-4": {
+            "name": "Oändliga natten",
+            "description": "Leverera så många klappar du kan medan släden ökar farten. Tre missar och natten är slut."
+          }
+        }
+      },
+      "snowmanStack": {
+        "title": "Bygg en snögubbe",
+        "levels": {
+          "extra-snowmanStack-1": {
+            "name": "Storsnögubben",
+            "description": "Fem snöbollar hög och lite snabbare gung."
+          },
+          "extra-snowmanStack-2": {
             "name": "Snöstorm",
-            "description": "Snabbare klappar, fånga 25 för att vinna"
+            "description": "Det blåser upp: snabbt gung och mindre marginal."
           },
-          "extra-gift-catcher-3": {
-            "name": "Tomtens stress",
-            "description": "Hög hastighet, fånga 40 klappar!"
+          "extra-snowmanStack-3": {
+            "name": "Snötornet",
+            "description": "Tio snöbollar staplade mot himlen – kameran följer med upp!"
+          },
+          "extra-snowmanStack-4": {
+            "name": "Oändligt snötorn",
+            "description": "Stapla så högt du kan tills tre bollar ramlar. Slå ditt höjdrekord!"
           }
         }
       },
-      "slidingPuzzle": {
-        "title": "Skjutpussel",
+      "tomteWhack": {
+        "title": "Bonka tomten",
         "levels": {
-          "extra-sliding-puzzle-1": {
-            "name": "Medel pussel",
-            "description": "4x4 skjutpussel med 15 brickor"
+          "extra-tomteWhack-1": {
+            "name": "Stora gården",
+            "description": "Sexton snöhögar och dubbelt så många tomtar."
           },
-          "extra-sliding-puzzle-2": {
-            "name": "Svårt pussel",
-            "description": "5x5 skjutpussel med 24 brickor"
+          "extra-tomteWhack-2": {
+            "name": "Tomterusning",
+            "description": "Snabbt som blixten – tomtarna stannar knappt uppe."
           },
-          "extra-sliding-puzzle-3": {
-            "name": "Expert pussel",
-            "description": "6x6 skjutpussel med 35 brickor"
+          "extra-tomteWhack-3": {
+            "name": "Kort ljus",
+            "description": "Bara sex snöhögar, men ljuset är kort och tempot vilt."
+          },
+          "extra-tomteWhack-4": {
+            "name": "Tomteöverlevnad",
+            "description": "Oändligt läge: missa en tomte eller träffa kol eller julbock så försvinner ett hjärta. Hur långt kommer du?"
           }
         }
       },
-      "skiSlope": {
-        "title": "Tomtens Skidbacke",
+      "spotDifference": {
+        "title": "Hitta felen",
         "levels": {
-          "extra-ski-slope-1": {
-            "name": "Barnbacken",
-            "description": "Mjuk backe med färre hinder"
+          "extra-spotDifference-1": {
+            "name": "Tomtens verkstad",
+            "description": "Nissar, leksaker och en tickande klocka – hitta 7 skillnader i verkstaden."
           },
-          "extra-ski-slope-2": {
-            "name": "Fjällbacken",
-            "description": "Längre backe med fler utmaningar"
+          "extra-spotDifference-2": {
+            "name": "Snöig by i skymningen",
+            "description": "Lyktor, skorstenar och pulkaåkande barn – 8 skillnader gömmer sig i byn."
           },
-          "extra-ski-slope-3": {
-            "name": "Svarta pisten",
-            "description": "Expertbacke - maximal fara!"
+          "extra-spotDifference-3": {
+            "name": "Vardagsrummet vid brasan",
+            "description": "Det mysiga vardagsrummet igen, nu med 8 skillnader."
           },
-          "extra-ski-slope-infinite-easy": {
-            "name": "Oändlig lätt",
-            "description": "Åk för evigt på en lätt backe"
+          "extra-spotDifference-4": {
+            "name": "Byn: Skarp blick",
+            "description": "Mer subtila ändringar – ett mörkt fönster, en saknad stjärna, en liten fågel."
           },
-          "extra-ski-slope-infinite-medium": {
-            "name": "Oändlig medel",
-            "description": "Hur långt kan du åka?"
+          "extra-spotDifference-5": {
+            "name": "Verkstaden: Mästerdetektiv",
+            "description": "Den kluringaste omgången – små detaljer över hela tomtens verkstad."
+          }
+        }
+      },
+      "toySorter": {
+        "title": "Tomteverkstaden",
+        "levels": {
+          "extra-toySorter-1": {
+            "name": "Rusningstid",
+            "description": "Ett snabbare band och fyra regler, inklusive stygga listan."
           },
-          "extra-ski-slope-infinite-hard": {
-            "name": "Oändlig expert",
-            "description": "Ultimat överlevnadsutmaning!"
+          "extra-toySorter-2": {
+            "name": "Matdags för renarna",
+            "description": "Tomten eller renarna? Snäll eller stygg? Häng med när reglerna byts!"
+          },
+          "extra-toySorter-3": {
+            "name": "Julaftonspanik",
+            "description": "Natten före jul: 30 saker i högsta fart."
+          },
+          "extra-toySorter-4": {
+            "name": "Oändligt skift",
+            "description": "Ingen mållinje – reglerna roterar och bandet går allt fortare. Hur många poäng klarar du?"
           }
         }
       }
@@ -948,8 +1327,8 @@
         "content": "Precis som en riktig adventskalender öppnas varje lucka på sitt datum i december. Så dag 1 öppnas den 1 december, dag 5 den 5 december, och så vidare. Du ser ett lås på luckor som inte är tillgängliga än – men oroa dig inte, de blir redo när tiden kommer!"
       },
       "challenges": {
-        "title": "🎮 Utmaningarna",
-        "content": "Varje dag har ett annorlunda minispel eller pussel som väntar på dig. Vi har gåtor, ordspel, minnesutmaningar och till och med lite arkadaction! Stressa inte över att vara perfekt – målet är att ha kul."
+        "title": "🎮 Spelen",
+        "content": "Bakom varje lucka väntar ett av 14 helt nya julspel: Juldle, emoji-julklassiker, en frusen sjö att glida över, julpixlar, bonka tomten, snöbollskrig, klappleveransen och mer. Varje spel tar bara några minuter och du kan alltid försöka igen – målet är mys, inte perfektion."
       },
       "rewards": {
         "title": "🏆 Klara utmaningar",
@@ -964,8 +1343,8 @@
         "content": "Här kommer det bästa: på juldagen (25 december) låses ALLT upp för alla! Så om du missade några dagar eller livet kom emellan, stressa inte. Du kommer kunna spela alla utmaningar och se alla belöningar ändå."
       },
       "extras": {
-        "title": "🎁 Extras & Belöningsgalleri",
-        "content": "Klara alla 24 utmaningar (eller vänta bara till jul!) så låser du upp Extras-sektionen med ännu fler spel och ett galleri med alla belöningar. Se det som en liten bonus för de dedikerade äventyrarna!"
+        "title": "🎁 Extra & belöningsgalleri",
+        "content": "Klara alla 24 luckor (eller vänta till juldagen) för att låsa upp Extra: bonusbanor för varje spel, från lätta till expert, plus oändliga lägen där du jagar ditt eget rekord. Galleriet samlar alla belöningar på ett ställe."
       },
       "tip": {
         "title": "💡 Tips",

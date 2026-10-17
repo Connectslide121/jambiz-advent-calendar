@@ -1,0 +1,134 @@
+<div class="gift-match">
+  <!-- Header -->
+  <div class="flex flex-col items-center text-center mb-2">
+    <div class="flex items-center justify-center gap-3 mb-1 flex-wrap">
+      <h3 class="text-xl sm:text-2xl font-bold text-gold">
+        🎁 {{ 'challenges.giftMatch.title' | translate }}
+      </h3>
+      @if (isCompleted) {
+      <span class="pill">
+        <lucide-icon [img]="Check" class="w-3 h-3" [strokeWidth]="4"></lucide-icon>
+        {{ 'calendar.completed' | translate }}
+      </span>
+      }
+    </div>
+    <p class="text-sm sm:text-base text-text-muted max-w-lg leading-snug">
+      @if (endless) {
+      {{ 'challenges.giftMatch.instructionEndless' | translate : { seconds: duration } }}
+      } @else {
+      {{ 'challenges.giftMatch.instruction' | translate : { target: targetScore } }}
+      }
+    </p>
+  </div>
+
+  <!-- HUD -->
+  <div class="hud" [style.--ratio]="ratio">
+    <div class="hud-score">
+      <div class="flex items-baseline justify-between gap-2">
+        <span class="label"
+          >{{ 'challenges.giftMatch.score' | translate }}
+          @if (bestScore !== null) {
+          <span class="best">· {{ 'challenges.giftMatch.best' | translate }} {{ bestScore }}</span>
+          }
+        </span>
+        <span class="value">
+          @for (b of [scoreBump]; track b) {
+          <span class="bump">{{ score }}</span>
+          }
+          @if (!endless) {
+          <span class="target">/ {{ targetScore }}</span>
+          }
+        </span>
+      </div>
+      @if (endless) {
+      <div class="bar time" role="timer" [attr.aria-label]="timeShown + ' s'">
+        <div class="fill" [style.width.%]="(timeShown / duration) * 100 > 100 ? 100 : (timeShown / duration) * 100"></div>
+        <span class="goal">⏱</span>
+      </div>
+      } @else {
+      <div class="bar" role="progressbar" [attr.aria-valuenow]="score" aria-valuemin="0" [attr.aria-valuemax]="targetScore">
+        <div class="fill" [style.width.%]="progress * 100"></div>
+        <span class="goal">⭐</span>
+      </div>
+      }
+    </div>
+    @if (endless) {
+    <div class="hud-moves clock" [class.low]="timeShown <= 10 && clockStarted && phase === 'playing'">
+      <span class="value">{{ timeShown }}</span>
+      <span class="label">{{ (clockStarted ? 'challenges.giftMatch.seconds' : 'challenges.giftMatch.ready') | translate }}</span>
+    </div>
+    } @else {
+    <div class="hud-moves" [class.low]="movesLeft <= 3 && phase === 'playing'">
+      <span class="value">{{ movesLeft }}</span>
+      <span class="label">{{ 'challenges.giftMatch.moves' | translate }}</span>
+    </div>
+    }
+  </div>
+
+  <!-- Board -->
+  <div class="board" [style.--ratio]="ratio" #wrap>
+    <canvas
+      #canvas
+      class="board-canvas"
+      tabindex="0"
+      [attr.aria-label]="'challenges.giftMatch.boardLabel' | translate"
+    ></canvas>
+
+    @if (phase === 'won') {
+    <div class="win-banner">🎉 {{ 'challenges.giftMatch.win' | translate }} 🎉</div>
+    }
+
+    @if (phase === 'over') {
+    <div class="overlay">
+      <div class="overlay-card">
+        <div class="text-4xl mb-1">{{ newBest ? '🏆' : '⏰' }}</div>
+        <h4 class="font-display text-xl sm:text-2xl font-bold text-gold mb-1">
+          {{ 'challenges.giftMatch.timeUp' | translate }}
+        </h4>
+        <p class="final-score">{{ score }}</p>
+        <p class="text-sm text-text-muted mb-3">
+          @if (newBest) {
+          ✨ {{ 'challenges.giftMatch.newBest' | translate }} ✨
+          } @else {
+          {{ 'challenges.giftMatch.best' | translate }}: <span class="text-gold font-bold">{{ bestScore }}</span>
+          }
+        </p>
+        <button class="btn btn-primary w-full" type="button" (click)="retry()">
+          {{ 'ui.playAgain' | translate }}
+        </button>
+      </div>
+    </div>
+    }
+
+    @if (phase === 'lost') {
+    <div class="overlay">
+      <div class="overlay-card">
+        <div class="text-4xl mb-1">🎄</div>
+        <h4 class="font-display text-xl sm:text-2xl font-bold text-gold mb-1">
+          {{ 'challenges.giftMatch.outOfMoves' | translate }}
+        </h4>
+        <p class="text-sm text-text-muted mb-3">
+          {{ 'challenges.giftMatch.lostText' | translate : { score: score, target: targetScore } }}
+        </p>
+        <button class="btn btn-primary w-full" type="button" (click)="retry()">
+          {{ 'ui.tryAgain' | translate }}
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+
+  <!-- Actions -->
+  <div class="actions">
+    @if (isCompleted && !endless && phase !== 'won') {
+    <button class="btn btn-primary" (click)="showReward()" type="button">
+      {{ 'ui.showReward' | translate }}
+    </button>
+    }
+    <button class="btn btn-outline flex items-center justify-center gap-2" (click)="retry()" [disabled]="phase === 'won'" type="button">
+      <lucide-icon [img]="RotateCcw" class="w-4 h-4" [strokeWidth]="2.25"></lucide-icon>
+      {{ 'challenges.giftMatch.newBoard' | translate }}
+    </button>
+  </div>
+  <p class="legend">{{ 'challenges.giftMatch.legend' | translate }}</p>
+</div>

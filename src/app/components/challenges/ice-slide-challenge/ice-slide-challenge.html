@@ -1,0 +1,333 @@
+<div class="ice-slide">
+  <!-- Header -->
+  <div class="flex flex-col items-center text-center mb-2 sm:mb-3">
+    <div class="flex items-center justify-center gap-3 mb-1 flex-wrap">
+      <h3 class="text-xl sm:text-2xl font-bold text-gold">🐧 {{ 'challenges.iceSlide.title' | translate }}</h3>
+      @if (isCompleted) {
+      <span class="pill">
+        <lucide-icon [img]="Check" class="w-3 h-3" [strokeWidth]="4"></lucide-icon>
+        {{ 'calendar.completed' | translate }}
+      </span>
+      }
+    </div>
+    <p class="text-sm sm:text-base text-text-muted max-w-lg leading-snug">
+      {{ 'challenges.iceSlide.instruction' | translate }}
+    </p>
+  </div>
+
+  <div class="layout">
+    <!-- Board -->
+    <div class="board-col" [style.--ar]="aspectRatio">
+      <div class="stats">
+        <span class="stat">
+          <span class="text-text-muted">{{ 'challenges.iceSlide.moves' | translate }}</span>
+          <span class="val" [class.over]="moves > par">{{ moves }}</span>
+        </span>
+        <span class="stat">
+          <span class="text-text-muted">{{ 'challenges.iceSlide.par' | translate }}</span>
+          <span class="val">{{ par }}</span>
+        </span>
+        @if (bestMoves !== null) {
+        <span class="stat">
+          <span class="text-text-muted">{{ 'challenges.iceSlide.best' | translate }}</span>
+          <span class="val">{{ bestMoves }}</span>
+        </span>
+        }
+      </div>
+
+      <div class="board-wrap" [class.won]="won">
+        <svg
+          #board
+          class="board"
+          [attr.viewBox]="viewBox"
+          [style.aspect-ratio]="aspect"
+          (pointerdown)="onPointerDown($event)"
+          (pointerup)="onPointerUp($event, board)"
+          (pointercancel)="onPointerDown($event)"
+          role="application"
+          [attr.aria-label]="'challenges.iceSlide.title' | translate"
+        >
+          <defs>
+            <linearGradient id="is-ice" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#bfe9ff" />
+              <stop offset="0.45" stop-color="#8fd0f4" />
+              <stop offset="1" stop-color="#5aa7da" />
+            </linearGradient>
+            <radialGradient id="is-sheen" cx="0.3" cy="0.2" r="0.9">
+              <stop offset="0" stop-color="#ffffff" stop-opacity="0.55" />
+              <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.08" />
+              <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+            </radialGradient>
+            <linearGradient id="is-shore" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ffffff" />
+              <stop offset="1" stop-color="#cfe3f7" />
+            </linearGradient>
+            <linearGradient id="is-rock" x1="0" y1="0" x2="0.4" y2="1">
+              <stop offset="0" stop-color="#8b95b8" />
+              <stop offset="1" stop-color="#434b70" />
+            </linearGradient>
+            <radialGradient id="is-snow" cx="0.4" cy="0.3" r="0.8">
+              <stop offset="0" stop-color="#ffffff" />
+              <stop offset="1" stop-color="#d4e9fb" />
+            </radialGradient>
+            <radialGradient id="is-giftglow">
+              <stop offset="0" stop-color="#ffe7a8" stop-opacity="0.9" />
+              <stop offset="1" stop-color="#ffe7a8" stop-opacity="0" />
+            </radialGradient>
+            <clipPath id="is-lakeclip">
+              <rect x="0" y="0" [attr.width]="lakeW" [attr.height]="lakeH" rx="18" />
+            </clipPath>
+          </defs>
+
+          <!-- Snowy shore -->
+          <rect
+            [attr.x]="-PAD"
+            [attr.y]="-PAD"
+            [attr.width]="lakeW + PAD * 2"
+            [attr.height]="lakeH + PAD * 2"
+            rx="38"
+            fill="url(#is-shore)"
+          />
+          <rect
+            [attr.x]="-PAD + 6"
+            [attr.y]="-PAD + 6"
+            [attr.width]="lakeW + PAD * 2 - 12"
+            [attr.height]="lakeH + PAD * 2 - 12"
+            rx="32"
+            fill="none"
+            stroke="#ffffff"
+            stroke-opacity="0.8"
+            stroke-width="3"
+            stroke-dasharray="2 14"
+            stroke-linecap="round"
+          />
+
+          <!-- The frozen lake -->
+          <g clip-path="url(#is-lakeclip)">
+            <rect x="0" y="0" [attr.width]="lakeW" [attr.height]="lakeH" fill="url(#is-ice)" />
+            @for (t of tiles; track $index) {
+            <g [attr.transform]="'translate(' + t.x + ' ' + t.y + ')'">
+              @if (t.shade) {
+              <rect width="100" height="100" fill="#ffffff" [attr.opacity]="t.shade" />
+              }
+              <rect width="100" height="100" fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="1.5" />
+              @if (t.crack) {
+              <path [attr.d]="t.crack" class="crack" />
+              }
+            </g>
+            }
+            <rect x="0" y="0" [attr.width]="lakeW" [attr.height]="lakeH" fill="url(#is-sheen)" />
+            <!-- Long diagonal reflections -->
+            <path
+              [attr.d]="'M' + lakeW * 0.1 + ' ' + lakeH + ' L' + lakeW * 0.55 + ' 0 L' + lakeW * 0.62 + ' 0 L' + lakeW * 0.17 + ' ' + lakeH + ' Z'"
+              fill="#ffffff"
+              opacity="0.09"
+            />
+            <path
+              [attr.d]="'M' + lakeW * 0.3 + ' ' + lakeH + ' L' + lakeW * 0.75 + ' 0 L' + lakeW * 0.78 + ' 0 L' + lakeW * 0.33 + ' ' + lakeH + ' Z'"
+              fill="#ffffff"
+              opacity="0.07"
+            />
+          </g>
+          <rect
+            x="0"
+            y="0"
+            [attr.width]="lakeW"
+            [attr.height]="lakeH"
+            rx="18"
+            fill="none"
+            stroke="#a8d4f0"
+            stroke-width="5"
+          />
+
+          <!-- Snow patches -->
+          @for (s of snows; track $index) {
+          <g [attr.transform]="'translate(' + s.x + ' ' + s.y + ')'" class="snowpatch">
+            <ellipse cx="50" cy="74" rx="45" ry="14" fill="#5d9fcc" opacity="0.35" />
+            <path
+              d="M6 74 C2 58 16 46 28 52 C30 34 54 26 64 40 C78 30 98 44 94 64 C93 82 10 86 6 74 Z"
+              fill="url(#is-snow)"
+            />
+            <path d="M18 68 C28 62 40 64 48 58" stroke="#b9d6f0" stroke-width="2.5" fill="none" stroke-linecap="round" />
+            <circle cx="38" cy="46" r="3.5" fill="#ffffff" /><path d="M60 66 C68 64 76 66 82 62" stroke="#b9d6f0" stroke-width="2.5" fill="none" stroke-linecap="round" />
+            <g class="twinkle">
+              <path d="M74 22 L76.5 31 L86 33 L76.5 35.5 L74 44 L71.5 35.5 L62 33 L71.5 31 Z" fill="#ffffff" />
+            </g>
+          </g>
+          }
+
+          <!-- Rocks -->
+          @for (k of rocks; track $index) {
+          <g [attr.transform]="'translate(' + k.x + ' ' + k.y + ')'">
+            <ellipse cx="50" cy="86" rx="40" ry="9" fill="#1f4a78" opacity="0.35" />
+            <path [attr.d]="rockPath(k.variant)" fill="url(#is-rock)" stroke="#2b3152" stroke-width="3" />
+            <path d="M30 70 C34 56 44 50 54 52" stroke="#a7b1d3" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.6" />
+            <path d="M64 80 C74 76 80 68 82 58" stroke="#2b3152" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.5" />
+            <path [attr.d]="capPath(k.variant)" fill="#ffffff" stroke="#d6e6f5" stroke-width="1.5" />
+          </g>
+          }
+
+          <!-- Hint ghost -->
+          @if (hintTarget) {
+          <g class="hint-ghost">
+            <line
+              [attr.x1]="pos.c * CELL + 50"
+              [attr.y1]="pos.r * CELL + 50"
+              [attr.x2]="hintTarget.c * CELL + 50"
+              [attr.y2]="hintTarget.r * CELL + 50"
+              stroke="#f7c873"
+              stroke-width="8"
+              stroke-linecap="round"
+              stroke-dasharray="4 18"
+            />
+            <circle [attr.cx]="hintTarget.c * CELL + 50" [attr.cy]="hintTarget.r * CELL + 50" r="30" fill="none" stroke="#f7c873" stroke-width="5" class="hint-ring" />
+          </g>
+          }
+
+          <!-- The present -->
+          <g [attr.transform]="'translate(' + goal.c * CELL + ' ' + goal.r * CELL + ')'">
+            <circle cx="50" cy="56" r="56" fill="url(#is-giftglow)" class="gift-glow" />
+            <ellipse cx="50" cy="88" rx="30" ry="7" fill="#1f4a78" opacity="0.35" />
+            <g class="gift gift-ground">
+              <rect x="22" y="44" width="56" height="42" rx="5" fill="#e0475b" />
+              <rect x="22" y="44" width="56" height="42" rx="5" fill="none" stroke="#a8243a" stroke-width="2.5" />
+              <rect x="18" y="34" width="64" height="15" rx="4" fill="#ef5b6f" stroke="#a8243a" stroke-width="2.5" />
+              <rect x="45" y="34" width="10" height="52" fill="#f7c873" />
+              <path d="M50 34 C40 18 26 22 32 30 C36 36 46 34 50 34 Z" fill="#f7c873" stroke="#c99a3e" stroke-width="2" />
+              <path d="M50 34 C60 18 74 22 68 30 C64 36 54 34 50 34 Z" fill="#f7c873" stroke="#c99a3e" stroke-width="2" />
+              <circle cx="50" cy="34" r="5" fill="#ffd772" stroke="#c99a3e" stroke-width="2" />
+              <rect x="26" y="50" width="8" height="30" rx="3" fill="#ffffff" opacity="0.18" />
+            </g>
+          </g>
+
+          <!-- Sparkle trail & bursts -->
+          <g #fx class="fx"></g>
+
+          <!-- Penguin: outer group is positioned by code, inner groups flip and wobble -->
+          <g #penguin>
+            <g #flip>
+              <g #body class="penguin-body">
+                <ellipse cx="50" cy="90" rx="26" ry="6" fill="#1f4a78" opacity="0.35" />
+                <ellipse cx="38" cy="88" rx="9" ry="5" fill="#ff9f43" />
+                <ellipse cx="60" cy="88" rx="9" ry="5" fill="#ff9f43" />
+                <path d="M26 60 C16 66 14 78 22 80 C28 76 30 68 30 62 Z" fill="#1a2140" />
+                <ellipse cx="50" cy="62" rx="26" ry="27" fill="#232b4f" />
+                <ellipse cx="55" cy="66" rx="17" ry="21" fill="#f6f9ff" />
+                <circle cx="50" cy="34" r="20" fill="#232b4f" />
+                <ellipse cx="57" cy="37" rx="12" ry="11" fill="#f6f9ff" />
+                <circle cx="61" cy="34" r="3.6" fill="#141833" />
+                <circle cx="62.3" cy="32.6" r="1.3" fill="#ffffff" />
+                <circle cx="57" cy="43" r="3.2" fill="#ff8aa0" opacity="0.55" />
+                <path d="M67 38 L81 41.5 L67 45 Z" fill="#ff9f43" stroke="#d9741f" stroke-width="1.2" stroke-linejoin="round" />
+                <!-- Scarf -->
+                <path d="M31 48 C42 54 58 54 69 48 L70 55 C58 61 42 61 30 55 Z" fill="#3aae8a" />
+                <path d="M36 54 L30 72 L38 72 L42 56 Z" fill="#2f9a74" />
+                <path d="M33 66 L37 66 M34 62 L38 62" stroke="#f6f9ff" stroke-width="1.5" />
+                <!-- Santa hat -->
+                <path d="M30 26 C30 10 48 2 62 8 C70 12 72 20 72 26 Z" fill="#e0475b" />
+                <path d="M34 14 C24 12 18 18 16 26" stroke="#e0475b" stroke-width="9" fill="none" stroke-linecap="round" />
+                <circle cx="15" cy="28" r="6" fill="#ffffff" />
+                <rect x="27" y="22" width="47" height="9" rx="4.5" fill="#ffffff" />
+                <!-- Present held aloft on win -->
+                <g transform="translate(14 -50) scale(0.72)">
+                  <g class="held-gift">
+              <rect x="22" y="44" width="56" height="42" rx="5" fill="#e0475b" />
+              <rect x="22" y="44" width="56" height="42" rx="5" fill="none" stroke="#a8243a" stroke-width="2.5" />
+              <rect x="18" y="34" width="64" height="15" rx="4" fill="#ef5b6f" stroke="#a8243a" stroke-width="2.5" />
+              <rect x="45" y="34" width="10" height="52" fill="#f7c873" />
+              <path d="M50 34 C40 18 26 22 32 30 C36 36 46 34 50 34 Z" fill="#f7c873" stroke="#c99a3e" stroke-width="2" />
+              <path d="M50 34 C60 18 74 22 68 30 C64 36 54 34 50 34 Z" fill="#f7c873" stroke="#c99a3e" stroke-width="2" />
+              <circle cx="50" cy="34" r="5" fill="#ffd772" stroke="#c99a3e" stroke-width="2" />
+              <rect x="26" y="50" width="8" height="30" rx="3" fill="#ffffff" opacity="0.18" />
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </svg>
+
+        @if (stuck && !won) {
+        <div class="overlay">
+          <div class="overlay-card">
+            <p class="font-bold text-text">🥶 {{ 'challenges.iceSlide.stuck' | translate }}</p>
+            <div class="flex gap-2 justify-center mt-3">
+              <button class="btn btn-outline btn-sm" type="button" (click)="undo()">
+                {{ 'challenges.iceSlide.undo' | translate }}
+              </button>
+              <button class="btn btn-primary btn-sm" type="button" (click)="reset()">
+                {{ 'ui.tryAgain' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+        }
+
+        @if (won) {
+        <div class="win-pos" [class.top]="goal.r >= rows / 2">
+        <div class="win-banner">
+          <div class="stars">
+            @for (s of starList; track $index) {
+            <span class="star" [class.on]="s" [style.animation-delay]="0.25 + $index * 0.18 + 's'">★</span>
+            }
+          </div>
+          <div>{{ 'challenges.iceSlide.win' | translate }}</div>
+          <div class="win-sub">
+            {{ (stars === 3 ? 'challenges.iceSlide.perfect' : 'challenges.iceSlide.done') | translate : { moves: moves, par: par } }}
+          </div>
+        </div>
+        </div>
+        }
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <div class="side">
+        <button class="btn btn-outline ctl" type="button" (click)="undo()" [disabled]="!history.length || won">
+          <lucide-icon [img]="Undo2" class="w-4 h-4" [strokeWidth]="2.25"></lucide-icon>
+          <span>{{ 'challenges.iceSlide.undo' | translate }}</span>
+        </button>
+        <button class="btn btn-outline ctl" type="button" (click)="reset()">
+          <lucide-icon [img]="RotateCcw" class="w-4 h-4" [strokeWidth]="2.25"></lucide-icon>
+          <span>{{ 'ui.reset' | translate }}</span>
+        </button>
+      </div>
+
+      <div class="dpad" role="group" aria-label="Arrows">
+        @for (d of dirs; track d) {
+        <button
+          type="button"
+          class="pad pad-{{ d }}"
+          [class.hint]="isHint(d)"
+          [class.pressed]="pressedDir === d"
+          (click)="move(d)"
+          [attr.aria-label]="'challenges.iceSlide.dir.' + d | translate"
+        >
+          {{ arrow(d) }}
+        </button>
+        }
+        <span class="pad-center">❄</span>
+      </div>
+
+      <div class="side">
+        <button class="btn btn-outline ctl" type="button" (click)="showHint()" [disabled]="won">
+          <lucide-icon [img]="Lightbulb" class="w-4 h-4" [strokeWidth]="2.25"></lucide-icon>
+          <span>{{ 'challenges.iceSlide.hint' | translate }}</span>
+        </button>
+      </div>
+
+
+      @if (isCompleted && !won) {
+      <button class="btn btn-primary reward-btn" (click)="showReward()" type="button">
+        {{ 'ui.showReward' | translate }}
+      </button>
+      }
+
+      <div class="legend">
+        <span><i class="lg lg-rock"></i>{{ 'challenges.iceSlide.legendRock' | translate }}</span>
+        <span><i class="lg lg-snow"></i>{{ 'challenges.iceSlide.legendSnow' | translate }}</span>
+        <span class="kb">⌨️ {{ 'challenges.iceSlide.keys' | translate }}</span>
+      </div>
+    </div>
+  </div>
+</div>

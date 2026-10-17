@@ -1,4 +1,4 @@
-﻿import { CalendarDayConfig } from '../models/calendar.models';
+import { CalendarDayConfig } from '../models/calendar.models';
 
 // Grid position mapping for shuffled calendar layout
 // The days are arranged in a visually interesting pattern for the puzzle image reveal
@@ -8,12 +8,14 @@
 //  6  7  8  9 10 11
 // 12 13 14 15 16 17
 // 18 19 20 21 22 23
+//
+// 2026 lineup: every game is new. Rewards are still the 2025 placeholders.
 
 export const CALENDAR_DAYS: CalendarDayConfig[] = [
   {
     day: 1,
-    gridPosition: 7, // Center area
-    challengeType: 'riddle',
+    gridPosition: 7,
+    challengeType: 'juldle',
     reward: {
       type: 'video',
       videoUrl: 'rewards/day1.mp4',
@@ -21,14 +23,16 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
       title: 'challenges.success.videoLabel',
     },
     challengeData: {
-      riddleKey: 'challenges.riddle.day1.question',
-      answerKey: ['candle', 'ljus', 'stearinljus'],
-      hintKey: 'challenges.riddle.day1.hint',
+      wordSv: 'TOMTE',
+      wordEn: 'SLEIGH',
+      clueSv: 'Han smyger runt på gården i röd luva och vill ha gröt på julafton.',
+      clueEn: 'Santa\'s ride, pulled through the night sky by reindeer.',
+      maxGuesses: 6,
     },
   },
   {
     day: 2,
-    gridPosition: 18, // Bottom left
+    gridPosition: 18,
     challengeType: 'jingleBells',
     funFactKey: 'funFacts.day2',
     challengeData: {
@@ -38,8 +42,8 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 3,
-    gridPosition: 17, // Bottom right-center
-    challengeType: 'wordScramble',
+    gridPosition: 17,
+    challengeType: 'tomteWhack',
     reward: {
       type: 'audio',
       audioUrl: 'rewards/day3.mp3',
@@ -48,16 +52,17 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
       lyrics: 'rewards.day3.lyrics',
     },
     challengeData: {
-      word: 'snowflake',
-      wordSv: 'snöflinga',
-      clueKey: 'challenges.wordScramble.day3.clue',
-      hintKey: 'challenges.wordScramble.day3.hint',
+      targetScore: 150,
+      duration: 40,
+      rows: 3,
+      cols: 3,
+      speed: 1,
     },
   },
   {
     day: 4,
-    gridPosition: 14, // Bottom center
-    challengeType: 'memoryCard',
+    gridPosition: 14,
+    challengeType: 'iceSlide',
     reward: {
       type: 'iceBreaker',
       title: 'rewards.iceBreaker.title',
@@ -82,14 +87,13 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
       ],
     },
     challengeData: {
-      gridSize: 4,
-      icons: ['🎅', '⛄', '🎄', '🎁', '⭐', '🔔', '🕯️', '🦌'],
+      level: ['..#...', '*.....', '##....', '.G.#S.', '.#....', '....#.'],
     },
   },
   {
     day: 5,
-    gridPosition: 22, // Bottom right area
-    challengeType: 'flappySleigh',
+    gridPosition: 22,
+    challengeType: 'emojiCarols',
     reward: {
       type: 'fortuneCookie',
       title: 'rewards.fortuneCookie.title',
@@ -113,93 +117,102 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
       ],
     },
     challengeData: {
-      levelLength: 3200,
-      scrollSpeed: 200,
-      flapForce: 350,
-      gravity: 800,
-      gapSize: 150,
-      obstacleFrequency: 320,
+      set: 'a',
+      rounds: 6,
+      passScore: 4,
     },
   },
   {
     day: 6,
-    gridPosition: 1, // Top left area
-    challengeType: 'rebus',
+    gridPosition: 1,
+    challengeType: 'snowballToss',
     reward: {
       type: 'popupCard',
       title: 'rewards.popupCard.title',
     },
     challengeData: {
-      rebusKey: 'challenges.rebus.day6.puzzle',
-      answerKey: ['snowman', 'snögubbe'],
-      hintKey: 'challenges.rebus.day6.hint',
+      snowmen: 3,
+      snowballs: 6,
+      wind: 0,
+      moving: 0,
+      preview: 1,
     },
   },
   {
     day: 7,
-    gridPosition: 11, // Middle right
-    challengeType: 'skiSlope',
+    gridPosition: 11,
+    challengeType: 'nonogram',
     funFactKey: 'funFacts.day7',
     challengeData: {
-      difficulty: 'easy',
+      puzzle: [
+        '...##...',
+        '..####..',
+        '...##...',
+        '..####..',
+        '.######.',
+        '########',
+        '...##...',
+        '..####..',
+      ],
+      palette: [
+        '...YY...',
+        '..GGGG..',
+        '...GG...',
+        '..GRGG..',
+        '.GGGGYG.',
+        'GYGGGGRG',
+        '...BB...',
+        '..RRRR..',
+      ],
+      titleEn: 'a Christmas tree',
+      titleSv: 'en julgran',
     },
   },
   {
     day: 8,
-    gridPosition: 20, // Bottom center
-    challengeType: 'sokoban',
+    gridPosition: 20,
+    challengeType: 'giftMatch',
     funFactKey: 'funFacts.day8',
     challengeData: {
-      // prettier-ignore
-      level: [
-        [[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "]],
-        [[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "]],
-        [[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "]],
-        [[" "],[" "],[" "],[" "],["W"],["W"],["W"],["W"],["W"],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "]],
-        [[" "],[" "],[" "],[" "],["W"],[" "],[" "],[" "],["W"],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "]],
-        [[" "],[" "],[" "],[" "],["W"],["B"],[" "],[" "],["W"],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "]],
-        [[" "],[" "],["W"],["W"],["W"],[" "],[" "],["B"],["W"],["W"],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "]],
-        [[" "],[" "],["W"],[" "],[" "],["B"],[" "],["B"],[" "],["W"],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "]],
-        [["W"],["W"],["W"],[" "],["W"],[" "],["W"],["W"],[" "],["W"],[" "],[" "],[" "],["W"],["W"],["W"],["W"],["W"],["W"]],
-        [["W"],[" "],[" "],[" "],["W"],[" "],["W"],["W"],[" "],["W"],["W"],["W"],["W"],["W"],[" "],[" "],["G"],["G"],["W"]],
-        [["W"],[" "],["B"],[" "],[" "],["B"],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],["G"],["G"],["W"]],
-        [["W"],["W"],["W"],["W"],["W"],[" "],["W"],["W"],["W"],[" "],["W"],["P"],["W"],["W"],[" "],[" "],["G"],["G"],["W"]],
-        [[" "],[" "],[" "],[" "],["W"],[" "],[" "],[" "],[" "],[" "],["W"],["W"],["W"],["W"],["W"],["W"],["W"],["W"],["W"]],
-        [[" "],[" "],[" "],[" "],["W"],["W"],["W"],["W"],["W"],["W"],["W"],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "]],
-        [[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "]],
-        [[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "],[" "]],
-      ],
+      cols: 7,
+      rows: 8,
+      kinds: 5,
+      targetScore: 2000,
+      moves: 18,
     },
   },
   {
     day: 9,
-    gridPosition: 5, // Top right
-    challengeType: 'geometryDash',
-    challengeData: {
-      difficulty: 'easy',
-    },
+    gridPosition: 5,
+    challengeType: 'chimneyDrop',
     reward: {
       type: 'video',
       videoUrl: 'rewards/day19.mp4',
       videoType: 'mp4',
       title: 'challenges.success.videoLabel',
     },
+    challengeData: {
+      target: 4,
+      presents: 9,
+      speed: 1,
+      wind: 0,
+    },
   },
   {
     day: 10,
-    gridPosition: 12, // Middle left
-    challengeType: 'giftCatcher',
+    gridPosition: 12,
+    challengeType: 'lightPath',
     funFactKey: 'funFacts.day10',
     challengeData: {
-      targetScore: 15,
-      spawnRate: 1000,
-      speed: 3,
+      cols: 5,
+      rows: 5,
+      targets: 3,
     },
   },
   {
     day: 11,
-    gridPosition: 16, // Bottom center-right
-    challengeType: 'hangman',
+    gridPosition: 16,
+    challengeType: 'spotDifference',
     reward: {
       type: 'coupon',
       title: 'rewards.coupon.title',
@@ -208,16 +221,14 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
       couponDescriptionKey: 'rewards.coupon.day11.description',
     },
     challengeData: {
-      word: 'stocking',
-      wordSv: 'julstrumpa',
-      clueKey: 'challenges.hangman.day8.clue',
-      hintKey: 'challenges.hangman.day8.hint',
+      scene: 'village',
+      differences: 7,
     },
   },
   {
     day: 12,
-    gridPosition: 0, // Top left corner
-    challengeType: 'wordScramble',
+    gridPosition: 0,
+    challengeType: 'snowmanStack',
     reward: {
       type: 'image',
       title: 'rewards.day12.title',
@@ -228,47 +239,60 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
       downloadFileName: 'Jambiz_Christmas_Wallpaper_2025',
     },
     challengeData: {
-      word: 'reindeer',
-      wordSv: 'ren',
-      clueKey: 'challenges.wordScramble.day12.clue',
-      hintKey: 'challenges.wordScramble.day12.hint',
+      height: 3,
+      speed: 1,
+      tolerance: 0.65,
     },
   },
   {
     day: 13,
-    gridPosition: 9, // Center
-    challengeType: 'rebus',
+    gridPosition: 9,
+    challengeType: 'juldle',
     funFactKey: 'funFacts.day13',
     challengeData: {
-      rebusKey: 'challenges.rebus.day13.puzzle',
-      answerKey: ['christmas', 'jul'],
-      hintKey: 'challenges.rebus.day13.hint',
+      wordSv: 'GLÖGG',
+      wordEn: 'TINSEL',
+      clueSv: 'Varm, kryddad dryck som serveras med russin och mandel.',
+      clueEn: 'Shiny, glittering strands draped over the tree.',
+      maxGuesses: 6,
     },
   },
   {
     day: 14,
-    gridPosition: 23, // Bottom right corner
-    challengeType: 'riddle',
+    gridPosition: 23,
+    challengeType: 'toySorter',
     reward: {
       type: 'snowGlobe',
       title: 'rewards.snowGlobe.title',
     },
     challengeData: {
-      riddleKey: 'challenges.riddle.day17.question',
-      answerKey: ['icicle', 'istapp'],
-      hintKey: 'challenges.riddle.day17.hint',
+      target: 15,
+      speed: 1,
+      rules: ['wrapped', 'color', 'tomte'],
     },
   },
   {
     day: 15,
-    gridPosition: 4, // Top center-right
-    challengeType: 'climber',
+    gridPosition: 4,
+    challengeType: 'iceSlide',
     funFactKey: 'funFacts.day15',
+    challengeData: {
+      level: [
+        '#*....#.',
+        '........',
+        '...*.##.',
+        '#.......',
+        '.#...#S.',
+        '...#G#..',
+        '#.......',
+        '......#.',
+      ],
+    },
   },
   {
     day: 16,
-    gridPosition: 19, // Bottom left-center
-    challengeType: 'slidingPuzzle',
+    gridPosition: 19,
+    challengeType: 'tomteWhack',
     reward: {
       type: 'coupon',
       title: 'rewards.coupon.title',
@@ -277,45 +301,28 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
       couponDescriptionKey: 'rewards.coupon.day16.description',
     },
     challengeData: {
-      gridSize: 3,
+      targetScore: 250,
+      duration: 45,
+      rows: 3,
+      cols: 3,
+      speed: 1.15,
     },
   },
   {
     day: 17,
-    gridPosition: 10, // Middle center
-    challengeType: 'wordSearch',
+    gridPosition: 10,
+    challengeType: 'emojiCarols',
     funFactKey: 'funFacts.day17',
     challengeData: {
-      grid: [
-        ['C', 'A', 'N', 'D', 'Y', 'C', 'A', 'N', 'E', 'W'],
-        ['Q', 'M', 'X', 'Z', 'K', 'P', 'V', 'B', 'L', 'L'],
-        ['O', 'R', 'N', 'A', 'M', 'E', 'N', 'T', 'F', 'F'],
-        ['W', 'T', 'Y', 'L', 'Q', 'Z', 'M', 'K', 'V', 'M'],
-        ['R', 'E', 'I', 'N', 'D', 'E', 'E', 'R', 'B', 'P'],
-        ['E', 'X', 'W', 'P', 'M', 'K', 'T', 'Q', 'N', 'R'],
-        ['A', 'C', 'A', 'R', 'O', 'L', 'S', 'V', 'Y', 'T'],
-        ['T', 'Z', 'L', 'M', 'N', 'P', 'R', 'W', 'X', 'K'],
-        ['H', 'Q', 'V', 'B', 'F', 'D', 'K', 'Y', 'L', 'S'],
-      ],
-      gridSv: [
-        ['P', 'O', 'L', 'K', 'A', 'G', 'R', 'I', 'S', 'M'],
-        ['Q', 'M', 'X', 'Z', 'K', 'P', 'V', 'B', 'T', 'X'],
-        ['K', 'R', 'A', 'N', 'S', 'W', 'Y', 'L', 'A', 'W'],
-        ['L', 'T', 'Y', 'L', 'Q', 'Z', 'M', 'K', 'V', 'Q'],
-        ['R', 'E', 'N', 'A', 'R', 'F', 'D', 'W', 'B', 'Z'],
-        ['M', 'P', 'V', 'B', 'N', 'X', 'Q', 'Y', 'L', 'K'],
-        ['J', 'U', 'L', 'S', 'Å', 'N', 'G', 'E', 'R', 'T'],
-        ['P', 'Z', 'K', 'M', 'W', 'Q', 'V', 'X', 'L', 'N'],
-        ['N', 'Ö', 'T', 'T', 'E', 'R', 'K', 'Y', 'B', 'M'],
-      ],
-      words: ['CANDYCANE', 'REINDEER', 'ORNAMENT', 'WREATH', 'CAROLS'],
-      wordsSv: ['POLKAGRIS', 'RENAR', 'KRANS', 'JUL', 'JULSÅNGER', 'NÖTTER'],
+      set: 'b',
+      rounds: 6,
+      passScore: 4,
     },
   },
   {
     day: 18,
-    gridPosition: 6, // Middle left
-    challengeType: 'mazeRunner',
+    gridPosition: 6,
+    challengeType: 'giftMatch',
     reward: {
       type: 'audio',
       audioUrl: 'rewards/day18.mp3',
@@ -324,26 +331,29 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
       lyrics: 'rewards.day18.lyrics',
     },
     challengeData: {
-      rows: 21,
-      cols: 21,
-      collectibleCount: 5,
+      cols: 7,
+      rows: 8,
+      kinds: 5,
+      targetScore: 2800,
+      moves: 20,
     },
   },
   {
     day: 19,
-    gridPosition: 21, // Bottom center-right
-    challengeType: 'wordScramble',
+    gridPosition: 21,
+    challengeType: 'snowballToss',
     funFactKey: 'funFacts.day9',
     challengeData: {
-      word: 'gingerbread',
-      wordSv: 'pepparkaka',
-      clueKey: 'challenges.wordScramble.day19.clue',
-      hintKey: 'challenges.wordScramble.day19.hint',
+      snowmen: 4,
+      snowballs: 7,
+      wind: 0.4,
+      moving: 1,
+      preview: 0.6,
     },
   },
   {
     day: 20,
-    gridPosition: 2, // Top center
+    gridPosition: 2,
     challengeType: 'treeLights',
     funFactKey: 'funFacts.day20',
     challengeData: {
@@ -353,8 +363,8 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
   },
   {
     day: 21,
-    gridPosition: 3, // Top center-right
-    challengeType: 'busses',
+    gridPosition: 3,
+    challengeType: 'nonogram',
     reward: {
       type: 'magic8Ball',
       title: 'rewards.magic8Ball.title',
@@ -370,54 +380,61 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
       ],
     },
     challengeData: {
-      // busses has no special config for now
+      puzzle: [
+        '...####...',
+        '...####...',
+        '.########.',
+        '..#.##.#..',
+        '..######..',
+        '.########.',
+        '..######..',
+        '.##.##.##.',
+        '.########.',
+        '..######..',
+      ],
+      palette: [
+        '...KKKK...',
+        '...RRRR...',
+        '.KKKKKKKK.',
+        '..W.WW.W..',
+        '..WWOOWW..',
+        '.RRRRRRRR.',
+        '..WWWRWW..',
+        '.WW.WW.WW.',
+        '.WWWWWWWW.',
+        '..WWWWWW..',
+      ],
+      titleEn: 'a snowman',
+      titleSv: 'en snögubbe',
     },
   },
   {
     day: 22,
-    gridPosition: 13, // Middle center-left
-    challengeType: 'geometryDash',
-    challengeData: {
-      difficulty: 'medium',
-    },
+    gridPosition: 13,
+    challengeType: 'chimneyDrop',
     funFactKey: 'funFacts.day22',
+    challengeData: {
+      target: 6,
+      presents: 11,
+      speed: 1.15,
+      wind: 0.3,
+    },
   },
   {
     day: 23,
-    gridPosition: 8, // Middle center
-    challengeType: 'wordSearch',
+    gridPosition: 8,
+    challengeType: 'lightPath',
     funFactKey: 'funFacts.day23',
     challengeData: {
-      grid: [
-        ['B', 'E', 'L', 'L', 'S', 'X', 'Q', 'Z', 'M', 'L'],
-        ['M', 'K', 'P', 'V', 'N', 'W', 'Y', 'L', 'T', 'P'],
-        ['C', 'O', 'O', 'K', 'I', 'E', 'S', 'F', 'B', 'E'],
-        ['H', 'Q', 'Z', 'M', 'R', 'K', 'V', 'W', 'X', 'A'],
-        ['O', 'W', 'P', 'L', 'A', 'T', 'Y', 'N', 'Q', 'C'],
-        ['L', 'X', 'M', 'I', 'R', 'A', 'C', 'L', 'E', 'E'],
-        ['L', 'A', 'N', 'G', 'E', 'L', 'Z', 'P', 'W', 'L'],
-        ['Y', 'Q', 'V', 'B', 'L', 'M', 'K', 'T', 'Y', 'K'],
-        ['S', 'N', 'O', 'W', 'F', 'X', 'P', 'W', 'Z', 'T'],
-      ],
-      gridSv: [
-        ['K', 'L', 'O', 'C', 'K', 'O', 'R', 'X', 'Q', 'G'],
-        ['M', 'P', 'V', 'B', 'N', 'W', 'Y', 'L', 'T', 'E'],
-        ['K', 'A', 'K', 'O', 'R', 'Z', 'M', 'F', 'K', 'L'],
-        ['F', 'Q', 'W', 'P', 'I', 'X', 'V', 'B', 'Y', 'S'],
-        ['R', 'M', 'K', 'U', 'N', 'D', 'E', 'R', 'Q', 'N'],
-        ['I', 'X', 'V', 'B', 'P', 'M', 'Z', 'F', 'D', 'Ö'],
-        ['D', 'Ä', 'N', 'G', 'E', 'L', 'K', 'Y', 'W', 'G'],
-        ['W', 'Q', 'Z', 'M', 'V', 'B', 'N', 'P', 'X', 'E'],
-        ['M', 'U', 'R', 'G', 'R', 'Ö', 'N', 'A', 'L', 'L'],
-      ],
-      words: ['BELLS', 'ANGEL', 'COOKIES', 'HOLLY', 'MIRACLE', 'PEACE', 'SNOW'],
-      wordsSv: ['KLOCKOR', 'ÄNGEL', 'KAKOR', 'MURGRÖNA', 'UNDER', 'FRID', 'SNÖ'],
+      cols: 6,
+      rows: 6,
+      targets: 4,
     },
   },
   {
     day: 24,
-    gridPosition: 15, // Bottom center
-    challengeType: 'presentStacking',
+    gridPosition: 15,
+    challengeType: 'spotDifference',
     reward: {
       type: 'video',
       videoUrl: 'rewards/day24.mp4',
@@ -425,8 +442,8 @@ export const CALENDAR_DAYS: CalendarDayConfig[] = [
       title: 'challenges.success.videoLabel',
     },
     challengeData: {
-      targetHeight: 300,
-      maxPresents: 12,
+      scene: 'livingRoom',
+      differences: 6,
     },
   },
 ];

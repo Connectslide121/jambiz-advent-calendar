@@ -1,45 +1,66 @@
 import { Type } from '@angular/core';
 import { ChallengeType } from '../models/calendar.models';
-import { RiddleChallenge } from '../components/challenges/riddle-challenge/riddle-challenge';
-import { WordScrambleChallenge } from '../components/challenges/word-scramble-challenge/word-scramble-challenge';
-import { HangmanChallenge } from '../components/challenges/hangman-challenge/hangman-challenge';
-import { WordSearchChallenge } from '../components/challenges/word-search-challenge/word-search-challenge';
-import { RebusChallenge } from '../components/challenges/rebus-challenge/rebus-challenge';
-import { MemoryCardChallenge } from '../components/challenges/memory-card-challenge/memory-card-challenge';
-import { GeometryDashChallenge } from '../components/challenges/geometry-dash-challenge/geometry-dash-challenge';
-import { SokobanChallengeComponent } from '../components/challenges/sokoban-challenge/sokoban-challenge';
-import { FlappySleighChallenge } from '../components/challenges/flappy-sleigh-challenge/flappy-sleigh-challenge';
-import ClimberChallengeComponent from '../components/challenges/climber-challenge/climber-challenge';
-import { MazeRunnerChallengeComponent } from '../components/challenges/maze-runner-challenge/maze-runner-challenge';
-import { PresentStackingChallenge } from '../components/challenges/present-stacking-challenge/present-stacking-challenge';
-import { GiftCatcherChallenge } from '../components/challenges/gift-catcher-challenge/gift-catcher-challenge';
-import { SlidingPuzzleChallenge } from '../components/challenges/sliding-puzzle-challenge/sliding-puzzle-challenge';
-import { SkiSlopeChallenge } from '../components/challenges/ski-slope-challenge/ski-slope-challenge';
-import { BussesChallenge } from '../components/challenges/busses-challenge/busses-challenge';
-import { TreeLightsChallenge } from '../components/challenges/tree-lights-challenge/tree-lights-challenge';
-import { JingleBellsChallenge } from '../components/challenges/jingle-bells-challenge/jingle-bells-challenge';
 
 /**
- * Maps each challenge type to its component.
- * Interim version: the 2025 games are being replaced by the new 2026 lineup.
+ * Lazy loaders for every game, so each one is only downloaded when its door is opened.
+ * Every game shares the same contract: inputs config / isCompleted / day / levelId,
+ * output completed.
  */
-export const CHALLENGE_COMPONENTS: Record<ChallengeType, Type<unknown>> = {
-  riddle: RiddleChallenge,
-  wordScramble: WordScrambleChallenge,
-  hangman: HangmanChallenge,
-  wordSearch: WordSearchChallenge,
-  rebus: RebusChallenge,
-  memoryCard: MemoryCardChallenge,
-  geometryDash: GeometryDashChallenge,
-  sokoban: SokobanChallengeComponent,
-  flappySleigh: FlappySleighChallenge,
-  climber: ClimberChallengeComponent,
-  mazeRunner: MazeRunnerChallengeComponent,
-  presentStacking: PresentStackingChallenge,
-  giftCatcher: GiftCatcherChallenge,
-  slidingPuzzle: SlidingPuzzleChallenge,
-  skiSlope: SkiSlopeChallenge,
-  busses: BussesChallenge,
-  treeLights: TreeLightsChallenge,
-  jingleBells: JingleBellsChallenge,
+export const CHALLENGE_LOADERS: Record<ChallengeType, () => Promise<Type<unknown>>> = {
+  juldle: () =>
+    import('../components/challenges/juldle-challenge/juldle-challenge').then(
+      (m) => m.JuldleChallenge
+    ),
+  emojiCarols: () =>
+    import('../components/challenges/emoji-carols-challenge/emoji-carols-challenge').then(
+      (m) => m.EmojiCarolsChallenge
+    ),
+  iceSlide: () =>
+    import('../components/challenges/ice-slide-challenge/ice-slide-challenge').then(
+      (m) => m.IceSlideChallenge
+    ),
+  nonogram: () =>
+    import('../components/challenges/nonogram-challenge/nonogram-challenge').then(
+      (m) => m.NonogramChallenge
+    ),
+  lightPath: () =>
+    import('../components/challenges/light-path-challenge/light-path-challenge').then(
+      (m) => m.LightPathChallenge
+    ),
+  giftMatch: () =>
+    import('../components/challenges/gift-match-challenge/gift-match-challenge').then(
+      (m) => m.GiftMatchChallenge
+    ),
+  treeLights: () =>
+    import('../components/challenges/tree-lights-challenge/tree-lights-challenge').then(
+      (m) => m.TreeLightsChallenge
+    ),
+  jingleBells: () =>
+    import('../components/challenges/jingle-bells-challenge/jingle-bells-challenge').then(
+      (m) => m.JingleBellsChallenge
+    ),
+  snowballToss: () =>
+    import('../components/challenges/snowball-toss-challenge/snowball-toss-challenge').then(
+      (m) => m.SnowballTossChallenge
+    ),
+  chimneyDrop: () =>
+    import('../components/challenges/chimney-drop-challenge/chimney-drop-challenge').then(
+      (m) => m.ChimneyDropChallenge
+    ),
+  snowmanStack: () =>
+    import('../components/challenges/snowman-stack-challenge/snowman-stack-challenge').then(
+      (m) => m.SnowmanStackChallenge
+    ),
+  tomteWhack: () =>
+    import('../components/challenges/tomte-whack-challenge/tomte-whack-challenge').then(
+      (m) => m.TomteWhackChallenge
+    ),
+  spotDifference: () =>
+    import('../components/challenges/spot-difference-challenge/spot-difference-challenge').then(
+      (m) => m.SpotDifferenceChallenge
+    ),
+  toySorter: () =>
+    import('../components/challenges/toy-sorter-challenge/toy-sorter-challenge').then(
+      (m) => m.ToySorterChallenge
+    ),
 };

@@ -1,0 +1,423 @@
+<div class="tomte-whack">
+  <!-- Shared art (referenced with <use>) -->
+  <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="tw-hole" cx="0.5" cy="0.35" r="0.7">
+        <stop offset="0" stop-color="#05071a" />
+        <stop offset="0.7" stop-color="#121a3f" />
+        <stop offset="1" stop-color="#2c3d73" />
+      </radialGradient>
+      <linearGradient id="tw-snow" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffffff" />
+        <stop offset="0.6" stop-color="#e3ecfb" />
+        <stop offset="1" stop-color="#b9cae9" />
+      </linearGradient>
+      <linearGradient id="tw-hat-r" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#f06277" />
+        <stop offset="0.55" stop-color="#d93a51" />
+        <stop offset="1" stop-color="#9e2236" />
+      </linearGradient>
+      <linearGradient id="tw-hat-g" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#fff0b8" />
+        <stop offset="0.5" stop-color="#f7c873" />
+        <stop offset="1" stop-color="#c98a2a" />
+      </linearGradient>
+      <radialGradient id="tw-glow" cx="0.5" cy="0.5" r="0.5">
+        <stop offset="0" stop-color="#ffe7a3" stop-opacity="0.9" />
+        <stop offset="1" stop-color="#ffe7a3" stop-opacity="0" />
+      </radialGradient>
+      <linearGradient id="tw-coat" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#8d98b8" />
+        <stop offset="1" stop-color="#5d6789" />
+      </linearGradient>
+      <linearGradient id="tw-straw" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f6d58c" />
+        <stop offset="1" stop-color="#d5a24a" />
+      </linearGradient>
+
+      <!-- Everything above the front lip of the hole stays visible -->
+      <clipPath id="tw-clip">
+        <path d="M-20 -40 H140 V80 H98 A38 10 0 0 1 22 80 H-20 Z" />
+      </clipPath>
+
+      <g id="tw-mound-back">
+        <path d="M2 96 C 8 74 30 62 60 62 C 90 62 112 74 118 96 Z" fill="url(#tw-snow)" />
+        <path d="M14 82 C 24 70 40 66 52 66" stroke="#fff" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.9" />
+      </g>
+
+      <g id="tw-mound-front">
+        <path
+          d="M2 96 C 6 88 14 82 22 80 A 38 10 0 0 0 98 80 C 106 82 114 88 118 96 C 118 102 98 104 60 104 C 22 104 2 102 2 96 Z"
+          fill="url(#tw-snow)"
+        />
+        <path d="M24 82 A 38 10 0 0 0 96 82" stroke="#9fb3dc" stroke-width="1.5" fill="none" opacity="0.8" />
+        <circle cx="30" cy="96" r="1.3" fill="#fff" />
+        <circle cx="86" cy="98" r="1.1" fill="#fff" />
+        <circle cx="100" cy="92" r="0.9" fill="#fff" />
+      </g>
+
+      <!-- Tomte: body, beard, nose (the hat is separate so the golden one can swap it) -->
+      <g id="tw-tomte">
+        <path d="M30 108 C 30 84 42 70 60 70 C 78 70 90 84 90 108 Z" fill="url(#tw-coat)" />
+        <path d="M60 72 V 108" stroke="#4d5677" stroke-width="1.2" opacity="0.6" />
+        <path
+          d="M37 54 Q 34 70 41 82 Q 47 92 53 89 Q 56 98 60 95 Q 64 98 67 89 Q 73 92 79 82 Q 86 70 83 54 Z"
+          fill="#fbfbff"
+        />
+        <path d="M46 66 Q 47 78 52 84 M60 70 Q 60 82 60 90 M74 66 Q 73 78 68 84" stroke="#d3dbee" stroke-width="1.6" fill="none" stroke-linecap="round" />
+        <ellipse cx="51" cy="62" rx="10" ry="5" transform="rotate(-14 51 62)" fill="#ffffff" stroke="#dde3f2" stroke-width="1" />
+        <ellipse cx="69" cy="62" rx="10" ry="5" transform="rotate(14 69 62)" fill="#ffffff" stroke="#dde3f2" stroke-width="1" />
+        <circle cx="60" cy="57" r="7.5" fill="#f4a690" />
+        <circle cx="57.6" cy="54.6" r="2.2" fill="#fff" opacity="0.7" />
+        <ellipse cx="43" cy="57" rx="4" ry="2.4" fill="#ff8fa0" opacity="0.45" />
+        <ellipse cx="77" cy="57" rx="4" ry="2.4" fill="#ff8fa0" opacity="0.45" />
+        <!-- Mittens holding the rim -->
+        <g>
+          <ellipse cx="27" cy="79" rx="7.5" ry="6" fill="#e0475b" />
+          <ellipse cx="22.5" cy="76.5" rx="2.6" ry="3.2" fill="#e0475b" />
+          <rect x="30" y="74" width="4" height="10" rx="2" fill="#fdf6ec" />
+          <ellipse cx="93" cy="79" rx="7.5" ry="6" fill="#e0475b" />
+          <ellipse cx="97.5" cy="76.5" rx="2.6" ry="3.2" fill="#e0475b" />
+          <rect x="86" y="74" width="4" height="10" rx="2" fill="#fdf6ec" />
+        </g>
+      </g>
+
+      <g id="tw-hat-red">
+        <path
+          d="M31 57 C 36 38 48 20 64 6 C 70 1 78 2 81 9 C 77 7 72 9 71 13 C 76 28 84 42 89 57 Q 60 47 31 57 Z"
+          fill="url(#tw-hat-r)"
+        />
+        <path d="M31 57 Q 60 47 89 57 Q 60 52 31 57 Z" fill="#8e1f33" />
+        <path d="M44 40 C 50 28 56 20 62 14" stroke="#fff" stroke-width="2.4" stroke-linecap="round" fill="none" opacity="0.35" />
+      </g>
+
+      <g id="tw-hat-gold">
+        <path
+          d="M31 57 C 36 38 48 20 64 6 C 70 1 78 2 81 9 C 77 7 72 9 71 13 C 76 28 84 42 89 57 Q 60 47 31 57 Z"
+          fill="url(#tw-hat-g)"
+          stroke="#b97b1e"
+          stroke-width="1"
+        />
+        <path d="M31 57 Q 60 47 89 57 Q 60 52 31 57 Z" fill="#a8721e" />
+        <path d="M55 33 l1.6 3.4 3.6 .4 -2.7 2.4 .8 3.6 -3.3 -1.9 -3.3 1.9 .8 -3.6 -2.7 -2.4 3.6 -.4 Z" fill="#fff" />
+        <path d="M68 42 l1 2.2 2.4 .3 -1.8 1.5 .5 2.4 -2.1 -1.2 -2.1 1.2 .5 -2.4 -1.8 -1.5 2.4 -.3 Z" fill="#fff" opacity="0.85" />
+        <circle cx="80" cy="10" r="2.5" fill="#fff" />
+      </g>
+
+      <!-- Grumpy lump of coal -->
+      <g id="tw-coal">
+        <path d="M30 80 L 28 60 L 38 44 L 56 37 L 76 41 L 90 53 L 92 72 L 80 84 L 44 86 Z" fill="#262633" />
+        <path d="M38 44 L 56 37 L 60 50 L 44 56 Z" fill="#3c3c52" />
+        <path d="M76 41 L 90 53 L 78 58 L 66 48 Z" fill="#33334a" />
+        <path d="M28 60 L 38 44 L 44 56 L 34 66 Z" fill="#1b1b26" />
+        <path d="M40 46 L 52 41" stroke="#8e93b8" stroke-width="1.6" stroke-linecap="round" />
+        <path d="M70 44 L 80 48" stroke="#8e93b8" stroke-width="1.2" stroke-linecap="round" />
+        <circle cx="42" cy="76" r="1.6" fill="#ff9f43" />
+        <circle cx="78" cy="74" r="1.3" fill="#ff7a3c" />
+        <circle cx="62" cy="80" r="1" fill="#ffb15c" />
+        <ellipse cx="50" cy="62" rx="5.5" ry="5" fill="#fff" />
+        <ellipse cx="70" cy="62" rx="5.5" ry="5" fill="#fff" />
+        <circle cx="51.5" cy="63.5" r="2.6" fill="#11111a" />
+        <circle cx="68.5" cy="63.5" r="2.6" fill="#11111a" />
+        <path d="M42 54 L 55 58 M78 54 L 65 58" stroke="#0d0d14" stroke-width="3.2" stroke-linecap="round" />
+        <path d="M53 74 Q 60 70 67 74" stroke="#0d0d14" stroke-width="2.4" stroke-linecap="round" fill="none" />
+      </g>
+
+      <!-- Straw Christmas goat (julbock) -->
+      <g id="tw-goat">
+        <path d="M47 108 L 49 72 L 71 72 L 73 108 Z" fill="url(#tw-straw)" />
+        <path d="M53 74 V106 M60 74 V106 M67 74 V106" stroke="#b88a35" stroke-width="1.2" opacity="0.7" />
+        <rect x="46" y="80" width="28" height="6" fill="#e0475b" />
+        <path d="M60 83 l -9 -6 v 12 Z M60 83 l 9 -6 v 12 Z" fill="#c4334a" />
+        <circle cx="60" cy="83" r="2.6" fill="#e0475b" />
+        <!-- Horns -->
+        <path d="M50 38 C 42 20 20 16 17 31 C 15 41 27 45 30 37" stroke="url(#tw-straw)" stroke-width="7" stroke-linecap="round" fill="none" />
+        <path d="M70 38 C 78 20 100 16 103 31 C 105 41 93 45 90 37" stroke="url(#tw-straw)" stroke-width="7" stroke-linecap="round" fill="none" />
+        <path d="M36 21 l 3 6 M24 22 l 4 5 M84 21 l -3 6 M96 22 l -4 5" stroke="#e0475b" stroke-width="3.2" stroke-linecap="round" />
+        <!-- Ears -->
+        <ellipse cx="38" cy="47" rx="10" ry="4" transform="rotate(-18 38 47)" fill="url(#tw-straw)" stroke="#b88a35" stroke-width="1" />
+        <ellipse cx="82" cy="47" rx="10" ry="4" transform="rotate(18 82 47)" fill="url(#tw-straw)" stroke="#b88a35" stroke-width="1" />
+        <!-- Head -->
+        <path d="M44 42 Q 60 30 76 42 L 70 70 Q 60 78 50 70 Z" fill="url(#tw-straw)" stroke="#b88a35" stroke-width="1.2" />
+        <path d="M52 40 L 55 66 M60 37 V 72 M68 40 L 65 66" stroke="#c4933d" stroke-width="1" opacity="0.6" />
+        <path d="M46 48 Q 60 44 74 48" stroke="#e0475b" stroke-width="4.5" fill="none" />
+        <path d="M51 64 Q 60 61 69 64" stroke="#e0475b" stroke-width="4" fill="none" />
+        <circle cx="53" cy="54" r="2.4" fill="#2b1a10" />
+        <circle cx="67" cy="54" r="2.4" fill="#2b1a10" />
+        <path d="M56 70 Q 60 76 64 70" stroke="#b88a35" stroke-width="1.6" fill="none" />
+        <path d="M57 74 Q 60 84 63 74 Z" fill="#e5bb62" stroke="#b88a35" stroke-width="1" />
+      </g>
+
+      <g id="tw-pine">
+        <rect x="-2.5" y="-6" width="5" height="8" fill="#3e2a20" />
+        <path d="M0 -46 L 16 -4 L -16 -4 Z" fill="#14384a" />
+        <path d="M0 -46 L 7 -28 Q 0 -31 -7 -28 Z" fill="#e8f0ff" />
+        <path d="M-12 -14 Q 0 -19 12 -14" stroke="#e8f0ff" stroke-width="2.5" fill="none" stroke-linecap="round" />
+      </g>
+    </defs>
+  </svg>
+
+  <!-- Header -->
+  <div class="flex flex-col items-center text-center mb-2">
+    <div class="flex items-center justify-center gap-3 mb-1 flex-wrap">
+      <h3 class="text-xl sm:text-2xl font-bold text-gold">🎅 {{ 'challenges.tomteWhack.title' | translate }}</h3>
+      @if (isCompleted) {
+      <span class="pill">
+        <lucide-icon [img]="Check" class="w-3 h-3" [strokeWidth]="4"></lucide-icon>
+        {{ 'calendar.completed' | translate }}
+      </span>
+      }
+    </div>
+    <p class="text-sm sm:text-base text-text-muted max-w-md">
+      @if (endless) {
+      {{ 'challenges.tomteWhack.endlessInstruction' | translate }}
+      } @else {
+      {{ 'challenges.tomteWhack.instruction' | translate : { target: target } }}
+      }
+    </p>
+  </div>
+
+  <!-- HUD: score, combo, candle timer -->
+  <div class="hud">
+    <div class="hud-row">
+      <div class="score-box">
+        <span class="text-text-muted">{{ 'challenges.tomteWhack.score' | translate }}</span>
+        <span class="score" [attr.data-score]="score">{{ score }}</span>
+        @if (!endless) {
+        <span class="text-text-muted">/ {{ target }}</span>
+        }
+      </div>
+      <div class="combo" [class.on]="combo >= 3" aria-live="polite">
+        🔥 {{ 'challenges.tomteWhack.combo' | translate : { count: combo } }}
+        @if (multiplier > 1) {
+        <b>×{{ multiplier }}</b>
+        }
+      </div>
+      @if (bestScore !== null) {
+      <span class="best text-text-muted">{{ 'challenges.tomteWhack.best' | translate }} <b class="text-gold">{{ bestScore }}</b></span>
+      }
+    </div>
+    @if (endless) {
+    <div class="hearts" [attr.aria-label]="('challenges.tomteWhack.lives' | translate) + ': ' + lives">
+      @for (l of lifeSlots; track l) {
+      <span class="heart" [class.lost]="l >= lives" aria-hidden="true">❤</span>
+      }
+    </div>
+    }
+    <div class="progress" aria-hidden="true" [style.display]="endless ? 'none' : null">
+      <div class="fill" [style.width.%]="progress"></div>
+    </div>
+    <div class="candle-row" [class.low]="lowTime" [style.display]="endless ? 'none' : null">
+      <div class="candle" role="timer" [attr.aria-label]="('challenges.tomteWhack.time' | translate) + ': ' + secondsLeft">
+        <span class="holder"></span>
+        <div class="wax" #wax>
+          <span class="drip d1"></span>
+          <span class="drip d2"></span>
+          <span class="wick"></span>
+          <span class="flame" [class.out]="phase === 'over'"><span class="flame-inner"></span></span>
+        </div>
+      </div>
+      <span class="secs">{{ secondsLeft }}s</span>
+    </div>
+  </div>
+
+  <!-- Yard with the cottage and the snow mounds -->
+  <div class="scene" [class.shake]="shake" [style.--ratio]="gridRatio" [attr.data-phase]="phase">
+    <svg class="backdrop" viewBox="0 0 400 150" aria-hidden="true">
+      <g fill="#fdf6ec">
+        <circle cx="-180" cy="20" r="1.1" /><circle cx="-120" cy="48" r="0.8" /><circle cx="-60" cy="14" r="1.2" />
+        <circle cx="-10" cy="40" r="0.9" /><circle cx="30" cy="12" r="1.3" class="tw-twinkle" /><circle cx="70" cy="34" r="0.8" />
+        <circle cx="110" cy="8" r="1" /><circle cx="150" cy="26" r="0.7" class="tw-twinkle" /><circle cx="250" cy="16" r="1.1" />
+        <circle cx="290" cy="44" r="0.8" /><circle cx="380" cy="58" r="1" class="tw-twinkle" /><circle cx="420" cy="18" r="1.2" />
+        <circle cx="470" cy="42" r="0.8" /><circle cx="530" cy="12" r="1.1" class="tw-twinkle" /><circle cx="580" cy="36" r="0.9" />
+      </g>
+      <circle cx="338" cy="28" r="26" fill="#fff4d6" opacity="0.12" />
+      <circle cx="338" cy="28" r="12" fill="#fff4d6" />
+      <circle cx="334" cy="25" r="2.5" fill="#e6d6ad" opacity="0.6" />
+      <path d="M-400 112 C -300 90 -200 104 -100 96 C 0 88 60 104 140 98 C 220 92 300 86 380 100 C 480 112 600 92 800 104 V 150 H -400 Z" fill="#26386d" />
+      <g>
+        <use href="#tw-pine" transform="translate(-230 112) scale(0.9)" />
+        <use href="#tw-pine" transform="translate(-150 106) scale(1.1)" />
+        <use href="#tw-pine" transform="translate(-60 104) scale(0.8)" />
+        <use href="#tw-pine" transform="translate(28 122) scale(1.1)" />
+        <use href="#tw-pine" transform="translate(58 126) scale(1.4)" />
+        <use href="#tw-pine" transform="translate(96 120) scale(0.9)" />
+        <use href="#tw-pine" transform="translate(304 120) scale(0.95)" />
+        <use href="#tw-pine" transform="translate(340 126) scale(1.45)" />
+        <use href="#tw-pine" transform="translate(374 122) scale(1.05)" />
+        <use href="#tw-pine" transform="translate(450 110) scale(0.9)" />
+        <use href="#tw-pine" transform="translate(530 104) scale(1.1)" />
+        <use href="#tw-pine" transform="translate(610 110) scale(0.85)" />
+      </g>
+      <!-- Cottage -->
+      <g>
+        <ellipse cx="200" cy="120" rx="110" ry="26" fill="#ffc46b" opacity="0.12" />
+        <rect x="236" y="34" width="12" height="26" fill="#6e2a26" />
+        <g class="smoke" fill="#dfe6ff">
+          <circle cx="242" cy="28" r="4" class="s1" />
+          <circle cx="244" cy="20" r="5" class="s2" />
+          <circle cx="247" cy="10" r="6" class="s3" />
+        </g>
+        <rect x="140" y="74" width="120" height="56" fill="#9b2a2f" />
+        <g stroke="#7a1f24" stroke-width="1.2">
+          <path d="M150 74 V130 M160 74 V130 M170 74 V130 M180 74 V130 M220 74 V130 M230 74 V130 M240 74 V130 M250 74 V130" />
+        </g>
+        <rect x="136" y="74" width="6" height="56" fill="#f3efe6" />
+        <rect x="258" y="74" width="6" height="56" fill="#f3efe6" />
+        <path d="M126 78 L 200 36 L 274 78 Z" fill="#3a2b33" />
+        <path
+          d="M122 80 L 200 32 L 278 80 Q 270 88 258 82 Q 246 90 232 82 Q 216 90 200 82 Q 184 90 168 82 Q 154 90 142 82 Q 130 88 122 80 Z"
+          fill="#eef4ff"
+        />
+        <!-- String lights under the eaves -->
+        <path d="M140 86 Q 155 92 170 86 Q 185 92 200 86 Q 215 92 230 86 Q 245 92 260 86" stroke="#2b2b3a" stroke-width="0.8" fill="none" />
+        <g class="lights">
+          <circle cx="147" cy="89" r="2.2" fill="#ff5a6e" />
+          <circle cx="163" cy="89" r="2.2" fill="#f7c873" />
+          <circle cx="177" cy="89" r="2.2" fill="#5cf2b3" />
+          <circle cx="193" cy="89" r="2.2" fill="#7fb8ff" />
+          <circle cx="207" cy="89" r="2.2" fill="#ff5a6e" />
+          <circle cx="223" cy="89" r="2.2" fill="#f7c873" />
+          <circle cx="237" cy="89" r="2.2" fill="#5cf2b3" />
+          <circle cx="253" cy="89" r="2.2" fill="#7fb8ff" />
+        </g>
+        <g>
+          <rect x="150" y="96" width="26" height="22" fill="#f3efe6" />
+          <rect x="153" y="99" width="20" height="16" fill="#ffcf7a" class="window" />
+          <path d="M163 99 V115 M153 107 H173" stroke="#f3efe6" stroke-width="2" />
+          <rect x="224" y="96" width="26" height="22" fill="#f3efe6" />
+          <rect x="227" y="99" width="20" height="16" fill="#ffcf7a" class="window" />
+          <path d="M237 99 V115 M227 107 H247" stroke="#f3efe6" stroke-width="2" />
+        </g>
+        <rect x="189" y="98" width="22" height="32" rx="2" fill="#2f5e4c" />
+        <circle cx="200" cy="106" r="6" fill="none" stroke="#3aae8a" stroke-width="3" />
+        <circle cx="200" cy="101" r="1.6" fill="#e0475b" />
+        <circle cx="206" cy="116" r="1.2" fill="#f7c873" />
+      </g>
+      <path d="M-400 130 C -200 122 -60 136 60 128 C 160 122 240 126 330 130 C 460 136 600 122 800 128 V 156 H -400 Z" fill="#e9f1ff" />
+    </svg>
+
+    <div class="grid" [style.grid-template-columns]="'repeat(' + cols + ', 1fr)'">
+      @for (h of holes; track h.id) {
+      <button
+        type="button"
+        class="hole"
+        [class.up]="h.up"
+        [class.hit]="h.hit"
+        [class.bad]="h.hit && (h.kind === 'coal' || h.kind === 'goat')"
+        [class.party]="phase === 'won'"
+        [style.--delay.ms]="h.id * 70"
+        [attr.data-kind]="h.kind"
+        [attr.data-up]="h.up && !h.hit ? '1' : '0'"
+        [attr.aria-label]="('challenges.tomteWhack.hole' | translate : { n: h.id + 1 }) + (h.up ? ': ' + ('challenges.tomteWhack.kinds.' + h.kind | translate) : '')"
+        (pointerdown)="whack(h.id, $event)"
+      >
+        <svg viewBox="0 0 120 104" class="hole-svg" aria-hidden="true">
+          <use href="#tw-mound-back" />
+          <ellipse cx="60" cy="80" rx="38" ry="10" fill="url(#tw-hole)" />
+          <g clip-path="url(#tw-clip)">
+            <g class="pop">
+              <g class="wobble">
+                <g class="squash">
+                  @switch (h.kind) { @case ('tomte') {
+                  <use href="#tw-tomte" />
+                  <use href="#tw-hat-red" />
+                  } @case ('golden') {
+                  <circle cx="60" cy="48" r="46" fill="url(#tw-glow)" class="gold-glow" />
+                  <use href="#tw-tomte" />
+                  <use href="#tw-hat-gold" />
+                  } @case ('coal') {
+                  <use href="#tw-coal" />
+                  } @case ('goat') {
+                  <use href="#tw-goat" />
+                  } }
+                </g>
+              </g>
+            </g>
+          </g>
+          <use href="#tw-mound-front" />
+        </svg>
+        @if (h.id < 9) {
+        <span class="key" aria-hidden="true">{{ h.id + 1 }}</span>
+        } @if (h.hit && h.up && !(h.kind === 'coal' || h.kind === 'goat')) {
+        <span class="bonk" aria-hidden="true">💫</span>
+        } @for (p of h.popups; track p.id) {
+        <span class="pts" [class.bad]="p.bad" [class.big]="p.big" aria-hidden="true">{{ p.text }}</span>
+        }
+      </button>
+      }
+    </div>
+
+    @if (phase === 'ready') {
+    <div class="overlay">
+      <div class="overlay-card">
+        <div class="legend">
+          <div class="legend-item">
+            <svg viewBox="20 0 80 92"><use href="#tw-tomte" /><use href="#tw-hat-red" /></svg>
+            <span class="good">+10</span>
+          </div>
+          <div class="legend-item">
+            <svg viewBox="20 0 80 92"><circle cx="60" cy="48" r="40" fill="url(#tw-glow)" /><use href="#tw-tomte" /><use href="#tw-hat-gold" /></svg>
+            <span class="good">+30</span>
+          </div>
+          <div class="legend-item">
+            <svg viewBox="20 20 80 72"><use href="#tw-coal" /></svg>
+            <span class="badc">−10</span>
+          </div>
+          <div class="legend-item">
+            <svg viewBox="10 10 100 82"><use href="#tw-goat" /></svg>
+            <span class="badc">−15</span>
+          </div>
+        </div>
+        <p class="text-sm text-text-muted mb-3">{{ (endless ? 'challenges.tomteWhack.endlessLegend' : 'challenges.tomteWhack.legend') | translate }}</p>
+        <button type="button" class="btn btn-secondary inline-flex items-center gap-2" (click)="start()">
+          <lucide-icon [img]="Play" class="w-4 h-4" [strokeWidth]="2.5"></lucide-icon>
+          {{ 'ui.startGame' | translate }}
+        </button>
+        <p class="key-tip">⌨️ {{ 'challenges.tomteWhack.keyHint' | translate }}</p>
+      </div>
+    </div>
+    } @if (phase === 'countdown') {
+    <div class="countdown" aria-live="assertive">
+      @for (c of [countdown]; track c) {
+      <span>{{ c }}</span>
+      }
+    </div>
+    } @if (phase === 'over') {
+    <div class="overlay">
+      <div class="overlay-card">
+        @if (endless) {
+        <div class="overlay-emoji">{{ newBest ? '🏆' : '🎅' }}</div>
+        <h3 class="text-lg sm:text-xl font-bold text-gold">{{ 'challenges.tomteWhack.endlessTitle' | translate }}</h3>
+        <p class="text-sm text-text-muted">{{ 'challenges.tomteWhack.endlessText' | translate : { score: score } }}</p>
+        <p class="final-score" [attr.data-final]="score">{{ score }}</p>
+        @if (newBest) {
+        <p class="new-best mb-3">🎉 {{ 'challenges.tomteWhack.newBest' | translate }}</p>
+        } @else {
+        <p class="text-sm text-text-muted mb-3">{{ 'challenges.tomteWhack.bestText' | translate : { best: bestScore ?? 0 } }}</p>
+        }
+        <button type="button" class="btn btn-primary" (click)="start()">{{ 'ui.playAgain' | translate }}</button>
+        } @else {
+        <div class="overlay-emoji">🕯️</div>
+        <h3 class="text-lg sm:text-xl font-bold text-gold">{{ 'challenges.tomteWhack.timeUp' | translate }}</h3>
+        <p class="text-sm text-text-muted mb-3">
+          {{ 'challenges.tomteWhack.overText' | translate : { score: score, target: target } }}
+        </p>
+        <button type="button" class="btn btn-primary" (click)="start()">{{ 'ui.tryAgain' | translate }}</button>
+        }
+      </div>
+    </div>
+    } @if (phase === 'won') {
+    <div class="win-banner" aria-live="polite">✨ {{ 'challenges.tomteWhack.win' | translate }} ✨</div>
+    }
+  </div>
+
+  <!-- Actions -->
+  @if (isCompleted && phase !== 'won' && !endless) {
+  <div class="flex justify-center mt-3">
+    <button class="btn btn-primary" (click)="showReward()" type="button">
+      {{ 'ui.showReward' | translate }}
+    </button>
+  </div>
+  }
+</div>
