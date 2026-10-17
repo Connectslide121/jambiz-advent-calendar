@@ -12,15 +12,15 @@
 
   <h1 class="title" [attr.aria-label]="'landing.title' | translate">
     @for (ch of ('landing.title' | translate).split(''); track $index) {
-    <span class="letter" [style.animation-delay.ms]="200 + $index * 70" aria-hidden="true">{{
+    <span class="letter" [style.animation-delay.ms]="200 + $index * 55" aria-hidden="true">{{
       ch === ' ' ? ' ' : ch
     }}</span>
     }
   </h1>
   <div class="year" aria-hidden="true">
-    @for (d of ('' + year).split(''); track $index) {
-    <span [style.animation-delay.ms]="900 + $index * 120">{{ d }}</span>
-    }
+    <span class="rule"></span>
+    <span class="year-text">{{ year }}</span>
+    <span class="rule"></span>
   </div>
 
   <p class="intro">{{ 'app.intro' | translate }}</p>
@@ -62,9 +62,8 @@
 
   <!-- Call to action -->
   <button (click)="onStart()" class="cta">
-    <span class="cta-shine"></span>
-    <span class="cta-bell">🔔</span>
     <span>{{ 'app.start' | translate }}</span>
+    <span class="cta-arrow" aria-hidden="true">→</span>
   </button>
 
   <button (click)="onShowInfo()" class="info-link">
@@ -72,9 +71,4 @@
     {{ 'info.button' | translate }}
   </button>
 
-  <ul class="chips">
-    <li>🚪 {{ 'landing.chips.doors' | translate }}</li>
-    <li>🎮 {{ 'landing.chips.games' | translate }}</li>
-    <li>🎁 {{ 'landing.chips.rewards' | translate }}</li>
-  </ul>
 </div>

@@ -230,7 +230,9 @@
             <h4 class="text-lg font-bold text-text">
               {{ level.nameKey | translate }}
             </h4>
-            @if (isExtraCompleted(level.id)) {
+            @if (level.isInfinite) {
+            <span class="pill shrink-0">♾️ {{ 'extras.endless' | translate }}</span>
+            } @else if (isExtraCompleted(level.id)) {
             <lucide-icon
               [img]="Check"
               class="w-6 h-6 text-accent-green"

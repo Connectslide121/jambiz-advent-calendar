@@ -8,6 +8,7 @@ import { SoundService } from '../../../services/sound.service';
 export interface JingleBellsConfig {
   targetLength?: number; // Melody length needed to win. Default 7
   startSpeed?: number; // Milliseconds per note at the start. Default 650
+  endless?: boolean; // Extras: no target, the first mistake ends the run
 }
 
 interface Bell {
@@ -18,7 +19,7 @@ interface Bell {
   labelKey: string;
 }
 
-type Phase = 'idle' | 'listening' | 'playing' | 'oops' | 'won';
+type Phase = 'idle' | 'listening' | 'playing' | 'oops' | 'won' | 'over';
 
 /**
  * Bell choir - Simon says with four singing bells.
@@ -63,6 +64,9 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
   mistakes = 0;
   bestRound = 0;
   targetLength = 7;
+  endless = false;
+  /** Melody length reached in the last endless run */
+  finalScore = 0;
 
   private timers: ReturnType<typeof setTimeout>[] = [];
 
@@ -76,11 +80,14 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
   }
 
   get noteSlots(): number[] {
-    return Array.from({ length: this.targetLength }, (_, i) => i);
+    // Endless mode shows a window of notes that grows with the melody
+    const length = this.endless ? Math.max(6, this.round + 1) : this.targetLength;
+    return Array.from({ length }, (_, i) => i);
   }
 
   ngOnInit(): void {
     this.targetLength = Math.max(3, Math.min(15, this.config?.targetLength ?? 7));
+    this.endless = !!this.config?.endless;
     const stats = this.statsKey ? this.stateService.getGameStats(this.statsKey) : null;
     this.bestRound = stats?.bestRound ?? 0;
   }
@@ -102,6 +109,13 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
 
     if (bell.id !== this.sequence[this.inputIndex]) {
       this.mistakes++;
+      if (this.endless) {
+        // Classic Simon: one slip ends the run
+        this.finalScore = this.sequence.length - 1;
+        this.phase = 'over';
+        this.sound.thud();
+        return;
+      }
       this.phase = 'oops';
       this.later(() => this.playSequence(), 1100);
       return;
@@ -110,7 +124,7 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
     this.inputIndex++;
     if (this.inputIndex >= this.sequence.length) {
       this.recordBest(this.sequence.length);
-      if (this.sequence.length >= this.targetLength) {
+      if (!this.endless && this.sequence.length >= this.targetLength) {
         this.onWin();
       } else {
         this.phase = 'listening';

@@ -394,7 +394,9 @@
         "gold": "Gold bell",
         "green": "Green bell",
         "blue": "Blue bell"
-      }
+      },
+      "endlessInstruction": "Endless mode: how long a melody can you remember? One wrong bell ends the run.",
+      "gameOver": "The choir rests! You remembered {{score}} notes."
     }
   },
   "funFacts": {
@@ -930,7 +932,8 @@
           }
         }
       }
-    }
+    },
+    "endless": "Endless"
   },
   "info": {
     "button": "How It Works",

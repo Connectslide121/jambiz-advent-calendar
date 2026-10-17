@@ -13,7 +13,11 @@
       }
     </div>
     <p class="text-sm sm:text-base text-text-muted max-w-md">
+      @if (endless) {
+      {{ 'challenges.jingleBells.endlessInstruction' | translate }}
+      } @else {
       {{ 'challenges.jingleBells.instruction' | translate : { target: targetLength } }}
+      }
     </p>
   </div>
 
@@ -34,6 +38,8 @@
     🎶 {{ 'challenges.jingleBells.yourTurn' | translate : { current: inputIndex, total: round } }}
     } @case ('oops') {
     😅 {{ 'challenges.jingleBells.oops' | translate }}
+    } @case ('over') {
+    🎼 {{ 'challenges.jingleBells.gameOver' | translate : { score: finalScore } }}
     } @case ('won') {
     ✨ {{ 'challenges.jingleBells.win' | translate }} ✨
     } }
@@ -72,7 +78,7 @@
   <div class="flex justify-center gap-5 text-sm sm:text-base mt-4">
     <span>
       <span class="text-text-muted">{{ 'challenges.jingleBells.round' | translate }}:</span>
-      <span class="text-gold font-bold ml-1">{{ round }} / {{ targetLength }}</span>
+      <span class="text-gold font-bold ml-1">{{ round }}@if (!endless) { / {{ targetLength }}}</span>
     </span>
     @if (bestRound > 0) {
     <span>
@@ -88,10 +94,10 @@
     <button class="btn btn-primary w-full sm:w-auto" (click)="showReward()" type="button">
       {{ 'ui.showReward' | translate }}
     </button>
-    } @if (phase === 'idle') {
+    } @if (phase === 'idle' || phase === 'over') {
     <button class="btn btn-secondary w-full sm:w-auto flex items-center justify-center gap-2" (click)="start()" type="button">
       <lucide-icon [img]="Play" class="w-4 h-4" [strokeWidth]="2.5"></lucide-icon>
-      {{ 'ui.startGame' | translate }}
+      {{ (phase === 'over' ? 'ui.playAgain' : 'ui.startGame') | translate }}
     </button>
     } @else if (phase !== 'won') {
     <button class="btn btn-outline w-full sm:w-auto" (click)="start()" type="button">

@@ -394,7 +394,9 @@
         "gold": "Guldklocka",
         "green": "Grön klocka",
         "blue": "Blå klocka"
-      }
+      },
+      "endlessInstruction": "Oändligt läge: hur lång melodi kan du komma ihåg? En fel klocka avslutar rundan.",
+      "gameOver": "Kören tar paus! Du kom ihåg {{score}} toner."
     }
   },
   "funFacts": {
@@ -930,7 +932,8 @@
           }
         }
       }
-    }
+    },
+    "endless": "Oändlig"
   },
   "info": {
     "button": "Så funkar det",
