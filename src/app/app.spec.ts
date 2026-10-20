@@ -9,6 +9,7 @@ describe('Calendar authentication gate', () => {
     await TestBed.configureTestingModule({ imports: [App], providers: [provideTranslateService()] }).compileComponents();
     TestBed.inject(TranslateService).setTranslation('en', {
       app: { title: 'Jambiz Advent Calendar' },
+      landing: { title: 'Jambiz Advent Calendar' },
       online: { welcome: 'Sign in to play', signIn: 'Sign in with Microsoft', connectionError: 'Connection failed' },
     });
   });
@@ -16,7 +17,9 @@ describe('Calendar authentication gate', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const page = fixture.nativeElement as HTMLElement;
-    expect(page.querySelector('h1')?.textContent).toContain('Jambiz Advent Calendar');
+    expect(page.querySelector('h1')?.getAttribute('aria-label')).toBe('Jambiz Advent Calendar');
+    expect(page.querySelector('app-landing-page .tag-logo')).not.toBeNull();
+    expect(page.querySelector('app-string-lights')).not.toBeNull();
     expect(page.querySelector('app-calendar')).toBeNull();
     expect(page.querySelector('app-scoreboard')).toBeNull();
     expect(page.textContent).toContain('Sign in with Microsoft');

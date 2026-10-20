@@ -1,14 +1,22 @@
 @if (!backend.signedIn() || !backend.player()) {
   <app-winter-scene [compact]="false"></app-winter-scene>
-  <main class="relative z-10 min-h-screen flex items-center justify-center p-6">
-    <section class="card p-8 max-w-lg text-center">
-      <h1 class="text-3xl mb-4">{{ 'app.title' | translate }}</h1>
-      <p class="mb-6">{{ 'online.welcome' | translate }}</p>
-      @if (backend.error()) { <p role="alert" class="mb-4">{{ backend.error() | translate }}</p> }
-      <button class="btn btn-primary" (click)="backend.login()">{{ 'online.signIn' | translate }}</button>
-      <button class="btn btn-outline ml-2" (click)="toggleLanguage()">{{ currentLanguage === 'sv' ? 'EN' : 'SV' }}</button>
-    </section>
-  </main>
+  <div class="app-shell">
+    <app-string-lights></app-string-lights>
+    <div class="landing-controls">
+      <button (click)="sound.toggle()" class="icon-btn" [class.on]="sound.enabled()"
+        [attr.aria-label]="(sound.enabled() ? 'ui.soundOff' : 'ui.soundOn') | translate">
+        <lucide-icon [img]="sound.enabled() ? Volume2 : VolumeX" class="w-5 h-5" [strokeWidth]="2"></lucide-icon>
+      </button>
+      <button (click)="toggleLanguage()" class="icon-btn lang"
+        [attr.aria-label]="'Switch to ' + (currentLanguage === 'sv' ? 'English' : 'Swedish')">
+        {{ currentLanguage === 'sv' ? 'EN' : 'SV' }}
+      </button>
+    </div>
+    <main>
+      <app-landing-page [signIn]="true" [error]="backend.error()"
+        (start)="backend.login()" class="landing-host"></app-landing-page>
+    </main>
+  </div>
 } @else {
   <div class="relative z-10 flex flex-wrap justify-end items-center gap-3 px-4 py-2 text-sm">
     <span>{{ backend.player()?.displayName }}</span>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output, inject, signal } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Input, Output, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { LucideAngularModule, Info } from 'lucide-angular';
@@ -21,6 +21,8 @@ interface Countdown {
   styleUrl: './landing-page.scss',
 })
 export class LandingPage implements OnInit, OnDestroy {
+  @Input() signIn = false;
+  @Input() error = '';
   @Output() start = new EventEmitter<void>();
   @Output() showInfo = new EventEmitter<void>();
 

@@ -1,4 +1,4 @@
-<div class="landing">
+<div class="landing" [class.sign-in]="signIn">
   <!-- Hanging gift tag with the logo -->
   <div class="tag-wrap">
     <div class="tag-string"></div>
@@ -60,15 +60,30 @@
     } }
   </div>
 
+  @if (signIn) {
+    <p class="sign-in-copy">{{ 'online.welcome' | translate }}</p>
+    @if (error) {
+      <p class="sign-in-error" role="alert">{{ error | translate }}</p>
+    }
+  }
+
   <!-- Call to action -->
-  <button (click)="onStart()" class="cta">
-    <span>{{ 'app.start' | translate }}</span>
+  <button (click)="onStart()" class="cta" [class.sign-in-cta]="signIn">
+    @if (signIn) {
+      <svg class="microsoft-mark" viewBox="0 0 21 21" aria-hidden="true">
+        <path fill="#f25022" d="M0 0h10v10H0z"/><path fill="#7fba00" d="M11 0h10v10H11z"/>
+        <path fill="#00a4ef" d="M0 11h10v10H0z"/><path fill="#ffb900" d="M11 11h10v10H11z"/>
+      </svg>
+    }
+    <span>{{ (signIn ? 'online.signIn' : 'app.start') | translate }}</span>
     <span class="cta-arrow" aria-hidden="true">→</span>
   </button>
 
+  @if (!signIn) {
   <button (click)="onShowInfo()" class="info-link">
     <lucide-icon [img]="Info" class="w-4 h-4" [strokeWidth]="2.25"></lucide-icon>
     {{ 'info.button' | translate }}
   </button>
+  }
 
 </div>

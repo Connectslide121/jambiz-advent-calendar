@@ -352,3 +352,49 @@
   }
 }
 
+
+/* Sign-in shares the welcome scene and title, with a focused account action. */
+.landing.sign-in {
+  padding-bottom: clamp(64px, 12vh, 130px);
+}
+
+.sign-in-copy {
+  max-width: 29rem;
+  margin: 24px 0 0;
+  color: var(--color-frost);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.sign-in-error {
+  max-width: 29rem;
+  margin: 14px 0 0;
+  padding: 12px 18px;
+  border: 1px solid var(--color-accent-red);
+  border-radius: 12px;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+.sign-in-cta {
+  max-width: 100%;
+  margin-top: 20px;
+  padding: 16px 24px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  font-size: 1rem;
+}
+
+.microsoft-mark {
+  width: 21px;
+  height: 21px;
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing *, .landing *::after {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1;
+  }
+}
