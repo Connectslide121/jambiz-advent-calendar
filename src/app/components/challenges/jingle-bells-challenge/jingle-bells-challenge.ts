@@ -30,7 +30,7 @@ const CAROL_FRAGMENT = [
 ] as const;
 
 // Continue where the fragment ends, through the verse's final cadence.
-// E and F are audio-only notes; the memory game needs just five bells.
+// The two extra bells for E and F join the choir only after the player wins.
 const CAROL_CONTINUATION = [
   { note: 440, beats: 1 }, { note: 587.33, beats: 1 },
   { note: 587.33, beats: 0.5 }, { note: 659.25, beats: 0.5 },
@@ -81,6 +81,16 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
     { id: 3, color: '#7fb8ff', dark: '#2a4387', note: 523.25, labelKey: 'challenges.jingleBells.bells.blue' },
     { id: 4, color: 'var(--color-frost)', dark: 'var(--color-text-muted)', note: 587.33, labelKey: 'challenges.jingleBells.bells.frost' },
   ];
+
+  private readonly fullChoir: Bell[] = [
+    ...this.bells,
+    { id: 5, color: 'var(--color-gold)', dark: '#a8721e', note: 659.25, labelKey: 'challenges.jingleBells.bells.highGold' },
+    { id: 6, color: 'var(--color-accent-green)', dark: '#17573f', note: 698.46, labelKey: 'challenges.jingleBells.bells.highGreen' },
+  ];
+
+  get visibleBells(): Bell[] {
+    return this.phase === 'won' ? this.fullChoir : this.bells;
+  }
 
   phase: Phase = 'idle';
   sequence: number[] = [];
@@ -208,12 +218,8 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
     for (const { note, beats } of CAROL_CONTINUATION) {
       const duration = beats * speed;
       this.later(() => {
-        const bell = this.bells.find(b => b.note === note);
+        const bell = this.fullChoir.find(b => b.note === note);
         if (bell) this.flash(bell, duration * 0.65);
-        else {
-          this.ringing = null;
-          this.sound.note(note, 0.22);
-        }
       }, offset);
       offset += duration;
     }

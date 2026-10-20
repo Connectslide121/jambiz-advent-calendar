@@ -90,6 +90,10 @@
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 
+  &.joining {
+    animation: join-choir 0.45s ease-out both;
+  }
+
   &:focus-visible {
     outline: 3px solid var(--c);
     outline-offset: 3px;
@@ -161,6 +165,11 @@
   }
 }
 
+@keyframes join-choir {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .note.current, .bell.ringing .bell-svg, .status { animation: none; }
+  .note.current, .bell.ringing .bell-svg, .bell.joining, .status { animation: none; }
 }

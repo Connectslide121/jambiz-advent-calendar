@@ -47,10 +47,12 @@
 
   <!-- The bells -->
   <div class="bells" [class.disabled]="phase !== 'playing'">
-    @for (b of bells; track b.id) {
+    @for (b of visibleBells; track b.id) {
     <button
       type="button"
       class="bell"
+      [class.joining]="b.id >= bells.length"
+      [disabled]="phase === 'won'"
       [class.ringing]="ringing === b.id"
       [style.--c]="b.color"
       [style.--d]="b.dark"
