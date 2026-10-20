@@ -7,7 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  // GitHub Pages caches stable asset URLs; keep returning visitors on this release's text.
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json?v=2026-10-20-games24');
 }
 
 export const appConfig: ApplicationConfig = {
