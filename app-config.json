@@ -1,6 +1,6 @@
 {
   "apiClientId": "5a625966-7547-489d-86f1-322386384708",
-  "spaClientId": "14c4ffbf-5eea-4580-abc1-e9d3325e1cb6",
   "apiBaseUrl": "https://func-jambiz-advent-wipgysmx.azurewebsites.net",
+  "spaClientId": "14c4ffbf-5eea-4580-abc1-e9d3325e1cb6",
   "tenantId": "bd4bd237-f885-4525-b60d-581adb48c358"
 }
