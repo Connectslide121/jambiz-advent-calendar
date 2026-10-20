@@ -633,7 +633,7 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
     this.zone.run(() => {
       this.ballsLeft--;
     });
-    this.sound.bell(1400, 0.05);
+    this.sound.whoosh();
   }
 
   // =====================================================================

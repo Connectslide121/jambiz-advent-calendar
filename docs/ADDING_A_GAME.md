@@ -53,7 +53,9 @@ The host handles already-earned rewards and fresh scored run IDs. Rules:
   It must fit 390×844 and 1280×860 with no horizontal scroll.
 - Sound: `inject(SoundService)` gives `bell()`, `doorOpen()`, `jingle()`, `thud()` and `fanfare()`,
   which respect the mute toggle, plus `note()`, which always plays and is only for games built
-  around audio.
+  around audio. Sound is on by default; preserve the header mute choice. Give main actions and
+  correct/incorrect results audible feedback. Use `bonk()`, `crunch()`, `bleat()`, `whoosh()` or `tap()`
+  for short effects, and bells/jingles for positive feedback.
 
 ## 3. Technical rules
 

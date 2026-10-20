@@ -148,11 +148,11 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
 
     if (bell.id !== this.sequence[this.inputIndex]) {
       this.mistakes++;
+      this.sound.thud();
       if (this.endless) {
         // Classic Simon: one slip ends the run
         this.finalScore = this.sequence.length - 1;
         this.phase = 'over';
-        this.sound.thud();
         return;
       }
       this.phase = 'oops';

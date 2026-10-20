@@ -24,7 +24,7 @@ a cosy Christmas minigame behind it, and beating the game unwraps a reward. Live
   - Progress: a Christmas tree that lights one ornament per finished day.
   - Lights: a swaying string of fairy lights; tap a bulb to ring it.
 - **Sound.** Bells and chimes are synthesized with Web Audio, so there are no sound files. Sound is
-  off by default and toggled in the header.
+  on by default, with a mute toggle in the header that remembers your choice.
 - **Puzzle picture.** Each finished door reveals a piece of a hidden picture.
 - **Swedish and English**, with Swedish as the default.
 - **Works on phones and desktops**, with touch, mouse and keyboard.

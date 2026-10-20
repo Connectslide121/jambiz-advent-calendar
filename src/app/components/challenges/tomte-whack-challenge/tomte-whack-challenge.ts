@@ -46,7 +46,6 @@ interface Hole {
 }
 
 const POINTS: Record<Kind, number> = { tomte: 10, golden: 30, coal: -10, goat: -15 };
-const NOTES = [523.25, 587.33, 659.25, 698.46, 783.99, 880, 987.77, 1046.5, 1174.66, 1318.51];
 
 /**
  * "Whack-a-Tomte" - Swedish tomtar pop out of snow mounds in front of a red cottage.
@@ -240,17 +239,18 @@ export class TomteWhackChallenge implements OnInit, AfterViewInit, OnDestroy {
       this.score += pts;
       this.addPopup(h, `+${pts}`, false, h.kind === 'golden' || this.multiplier > 1);
       if (h.kind === 'golden') this.sound.jingle();
-      else this.sound.bell(NOTES[Math.min(this.combo - 1, NOTES.length - 1)], 0.14);
+      else this.sound.bonk(240 + Math.min(this.combo, 10) * 18);
     } else {
       this.combo = 0;
       if (this.endless) {
         this.addPopup(h, '💔', true, false);
-        this.loseLife();
+        this.loseLife(false);
       } else {
         this.score = Math.max(0, this.score + base);
         this.addPopup(h, `${base}`, true, false);
       }
-      this.sound.thud();
+      if (h.kind === 'coal') this.sound.crunch();
+      else this.sound.bleat();
       this.shake = true;
       this.later(() => (this.shake = false), 380);
     }
@@ -361,10 +361,10 @@ export class TomteWhackChallenge implements OnInit, AfterViewInit, OnDestroy {
     this.later(() => this.completed.emit(), 2000);
   }
 
-  private loseLife(): void {
+  private loseLife(playSound = true): void {
     if (this.phase !== 'playing') return;
     this.lives = Math.max(0, this.lives - 1);
-    this.sound.thud();
+    if (playSound) this.sound.thud();
     this.shake = true;
     this.later(() => (this.shake = false), 380);
     if (this.lives <= 0) {

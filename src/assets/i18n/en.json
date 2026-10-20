@@ -112,6 +112,7 @@
               "Silver Bells",
               "Let It Snow!"
             ],
+            "explanation": "The bells and sleigh in the snow point to the ringing sleigh bells in Jingle Bells.",
             "fact": "The lyrics never actually mention Christmas – it's all about a sleigh ride in the snow!"
           },
           {
@@ -123,6 +124,7 @@
               "The Polar Express",
               "The Grinch"
             ],
+            "explanation": "A boy is left at home while his family flies away. His shocked face points to Home Alone.",
             "fact": "The family flies to Paris without Kevin – who defends the house against two burglars."
           },
           {
@@ -134,6 +136,7 @@
               "Jingle Bell Rock",
               "Santa Claus Is Coming to Town"
             ],
+            "explanation": "The reindeer, red circle and nose spell out a reindeer with a red nose: Rudolph.",
             "fact": "Rudolph was created in 1939 for a department store's promotional booklet."
           },
           {
@@ -145,6 +148,7 @@
               "Elf",
               "A Christmas Carol"
             ],
+            "explanation": "The green, grumpy character and mountain are the Grinch; the gifts refer to his attempt to steal Christmas.",
             "fact": "The green grump lives on a mountain – until his heart grows three sizes."
           },
           {
@@ -156,6 +160,7 @@
               "Feliz Navidad",
               "Driving Home for Christmas"
             ],
+            "explanation": "The heart and gift represent giving someone your love; the arrow and broken heart show the heartbreak that follows. The tree adds Christmas.",
             "fact": "Wham! released it in 1984 – but it didn't hit number one in the UK until 2021."
           },
           {
@@ -167,6 +172,7 @@
               "The Grinch",
               "The Holiday"
             ],
+            "explanation": "The elf is Buddy, the ruler hints that he is unusually tall, the city is New York, and spaghetti is his memorable meal.",
             "fact": "Buddy's four main food groups: candy, candy canes, candy corn and syrup – ideally on spaghetti."
           }
         ],
@@ -180,6 +186,7 @@
               "Away in a Manger",
               "O Little Town of Bethlehem"
             ],
+            "explanation": "The shushing face means silence, the moon means night, and the star and baby point to the Christmas birth scene.",
             "fact": "It was written in Austria in 1818 and is now sung in hundreds of languages."
           },
           {
@@ -191,6 +198,7 @@
               "Christmas Vacation",
               "Miracle on 34th Street"
             ],
+            "explanation": "The heart, message cards and airport are clues to different love stories in the Christmas film Love Actually.",
             "fact": "A handful of love stories in Christmassy London – plus a dancing prime minister."
           },
           {
@@ -202,6 +210,7 @@
               "Santa Baby",
               "Underneath the Tree"
             ],
+            "explanation": "The crossed-out gifts mean presents are not the wish. The pointing hand and heart mean the person is what matters.",
             "fact": "Mariah Carey released it in 1994 – and every December it climbs the charts again."
           },
           {
@@ -213,6 +222,7 @@
               "Gremlins",
               "Bad Santa"
             ],
+            "explanation": "The office tower, explosions and police officer point to the Christmas Eve action film Die Hard.",
             "fact": "John McClane saves the office Christmas party at Nakatomi Plaza. Christmas movie? The debate rages on!"
           },
           {
@@ -224,6 +234,7 @@
               "White Christmas",
               "Frosty the Snowman"
             ],
+            "explanation": "The pointing hand asks for something to happen; the repeated snowflakes make that wish snow, snow and more snow.",
             "fact": "It was written on a scorching July day in Hollywood in 1945 – a daydream about cold weather."
           },
           {
@@ -235,6 +246,7 @@
               "Elf",
               "Miracle on 34th Street"
             ],
+            "explanation": "The train, snow and ticket suggest a winter journey; the bell is the special Christmas bell in The Polar Express.",
             "fact": "Tom Hanks plays no fewer than six roles – including the conductor and Santa."
           }
         ],
@@ -248,6 +260,7 @@
               "We Wish You a Merry Christmas",
               "O Christmas Tree"
             ],
+            "explanation": "Ribbons and greenery decorate a large hall: the emoji turn the title Deck the Halls into a picture.",
             "fact": "Fa-la-la-la-la! The melody comes from an old Welsh carol."
           },
           {
@@ -259,6 +272,7 @@
               "We Wish You a Merry Christmas",
               "Here Comes Santa Claus"
             ],
+            "explanation": "Twelve, a calendar, a bird and presents suggest twelve Christmas days with a different gift on each day.",
             "fact": "Add up every gift in the song and you get 364 – one for almost every day of the year!"
           },
           {
@@ -270,6 +284,7 @@
               "Winter Wonderland",
               "Blue Christmas"
             ],
+            "explanation": "The thought bubble means dreaming, white and snow give the color, and the tree gives Christmas.",
             "fact": "Bing Crosby's version is the best-selling single of all time."
           },
           {
@@ -281,6 +296,7 @@
               "O Christmas Tree",
               "Here Comes Santa Claus"
             ],
+            "explanation": "The greeting, Christmas tree and happy face suggest a merry Christmas wish; the pudding hints at the song’s festive food verse.",
             "fact": "The carollers refuse to leave until they get some figgy pudding!"
           },
           {
@@ -292,6 +308,7 @@
               "Winter Wonderland",
               "Let It Snow!"
             ],
+            "explanation": "The snowman, hat and magic show a snowman coming to life; running shows Frosty moving about.",
             "fact": "Gene Autry made it a hit in 1950 – a year after his \"Rudolph\" hit."
           },
           {
@@ -303,6 +320,7 @@
               "Silent Night",
               "Joy to the World"
             ],
+            "explanation": "The tree, loving face, music and green heart show a song admiring a green Christmas tree.",
             "fact": "It started life in Germany as \"O Tannenbaum\"."
           }
         ],
@@ -316,6 +334,7 @@
               "It's a Wonderful Life",
               "Miracle on 34th Street"
             ],
+            "explanation": "Three ghosts visit a wealthy older man: the central story of Scrooge in A Christmas Carol.",
             "fact": "Charles Dickens wrote the story of the miser Scrooge in just six weeks in 1843."
           },
           {
@@ -327,6 +346,7 @@
               "Jingle All the Way",
               "Love Actually"
             ],
+            "explanation": "The house covered in lights, electricity and squirrel refer to the Griswold family’s chaotic Christmas holiday.",
             "fact": "Clark Griswold covers the house in 25,000 lights – so many the power plant has to switch to backup."
           },
           {
@@ -338,6 +358,7 @@
               "Bad Santa",
               "Home Alone"
             ],
+            "explanation": "The creature, water and forbidden nighttime food hint at the rules for caring for a mogwai in Gremlins.",
             "fact": "Three rules: no bright light, no water – and never feed them after midnight!"
           },
           {
@@ -349,6 +370,7 @@
               "A Christmas Carol",
               "The Polar Express"
             ],
+            "explanation": "The angels, bell and bridge point to the angel Clarence and George Bailey’s Christmas crisis in It’s a Wonderful Life.",
             "fact": "\"Every time a bell rings, an angel gets his wings.\""
           },
           {
@@ -360,6 +382,7 @@
               "The Grinch",
               "The Polar Express"
             ],
+            "explanation": "The pumpkin and skeleton represent Halloween; the arrow toward Christmas and Santa shows the two holidays colliding.",
             "fact": "Jack Skellington from Halloween Town tries to take over Christmas – it goes… so-so."
           },
           {
@@ -371,6 +394,7 @@
               "Elf",
               "It's a Wonderful Life"
             ],
+            "explanation": "The houses and swap arrows represent a home exchange; the hearts hint at the romances in The Holiday.",
             "fact": "Two women swap homes for Christmas – a Los Angeles mansion for an English cottage."
           }
         ],
@@ -384,6 +408,7 @@
               "Jingle Bell Rock",
               "Wonderful Christmastime"
             ],
+            "explanation": "The dancing, guitar and Christmas tree suggest a festive song; the chili is a playful clue to its Spanish-language title.",
             "fact": "José Feliciano recorded it in 1970 – in both Spanish and English."
           },
           {
@@ -395,6 +420,7 @@
               "Step Into Christmas",
               "Jingle Bell Rock"
             ],
+            "explanation": "The car travels through traffic toward a house at Christmas: Driving Home for Christmas.",
             "fact": "Chris Rea came up with it while stuck in traffic on his way home for Christmas."
           },
           {
@@ -406,6 +432,7 @@
               "Merry Christmas Everyone",
               "Wonderful Christmastime"
             ],
+            "explanation": "The guitar means rock music, while the dancers and tree show people rocking around a Christmas tree.",
             "fact": "Brenda Lee was 13 when she recorded it in 1958 – and 65 years later it hit number one in the US."
           },
           {
@@ -417,6 +444,7 @@
               "Last Christmas",
               "Merry Christmas Everyone"
             ],
+            "explanation": "The thinking face asks a question, the globe means people elsewhere, and the tree and prayer set the Christmas charity theme.",
             "fact": "Band Aid recorded it in 1984 to raise money for famine relief in Ethiopia."
           },
           {
@@ -428,6 +456,7 @@
               "Wonderful Christmastime",
               "Step Into Christmas"
             ],
+            "explanation": "The fairy and book suggest a fairytale; the Statue of Liberty stands for New York, and the beer hints at the song’s bar setting.",
             "fact": "The Pogues and Kirsty MacColl, 1987 – it never actually reached number one in the UK."
           },
           {
@@ -439,6 +468,7 @@
               "Jingle Bell Rock",
               "Santa Baby"
             ],
+            "explanation": "The snow, party, tree and waving hand show a cheerful Christmas greeting to everyone.",
             "fact": "Shakin' Stevens' song was the UK number one at Christmas 1985."
           }
         ],
@@ -452,6 +482,7 @@
               "Fruitcake",
               "Stollen"
             ],
+            "explanation": "The ginger, bread and person form a gingerbread man; running hints at the familiar runaway biscuit character.",
             "fact": "\"Run, run, as fast as you can!\" Queen Elizabeth I is said to have served gingerbread figures of her guests."
           },
           {
@@ -463,6 +494,7 @@
               "Mince Pie",
               "Yule Log"
             ],
+            "explanation": "The pudding, flames, holly and fruit show a traditional Christmas pudding served alight.",
             "fact": "Every family member stirs it on \"Stir-up Sunday\" – then it is served flaming with brandy."
           },
           {
@@ -474,6 +506,7 @@
               "Mulled Wine",
               "Apple Cider"
             ],
+            "explanation": "The eggs, milk and festive drink point to the ingredients and occasion for eggnog.",
             "fact": "George Washington had his own (very boozy) eggnog recipe."
           },
           {
@@ -485,6 +518,7 @@
               "Lollipop",
               "Rock Candy"
             ],
+            "explanation": "The candy and walking cane combine into a candy cane; the hearts give its red and white stripes.",
             "fact": "It's shaped like a shepherd's crook – the red stripes arrived around 1900."
           },
           {
@@ -496,6 +530,7 @@
               "Chocolate Fudge",
               "Brownies"
             ],
+            "explanation": "The log, chocolate, cake and greenery describe a chocolate Christmas cake shaped like a Yule log.",
             "fact": "The French bûche de Noël is a cake shaped like the log once burned in the hearth."
           },
           {
@@ -507,6 +542,7 @@
               "Pumpkin Pie",
               "Pecan Pie"
             ],
+            "explanation": "The pie, dried fruit, citrus and star suggest a small festive mince pie.",
             "fact": "Mince pies once contained real minced meat – today they are filled with dried fruit and spice."
           }
         ],
@@ -520,6 +556,7 @@
               "Here Comes Santa Claus",
               "Santa Claus Is Coming to Town"
             ],
+            "explanation": "The eyes mean seeing, the woman means Mommy, and the kiss and Santa complete the song title.",
             "fact": "The original was recorded in 1952 by Jimmy Boyd – who was just 13."
           },
           {
@@ -531,6 +568,7 @@
               "The Polar Express",
               "The Santa Clause"
             ],
+            "explanation": "Santa and the scales suggest a Christmas court case; 34 and the road spell out 34th Street.",
             "fact": "Santa ends up in court and has to prove he's real. The 1947 original won three Oscars."
           },
           {
@@ -542,6 +580,7 @@
               "The Polar Express",
               "The Santa Clause"
             ],
+            "explanation": "The letter and Santa suggest the postman’s Christmas story; the wood points to Klaus’s handmade toys and the snow to his northern home.",
             "fact": "A lazy postman and a reclusive toymaker invent Santa – Netflix's 2019 hit was Oscar-nominated."
           },
           {
@@ -553,6 +592,7 @@
               "The Grinch",
               "The Polar Express"
             ],
+            "explanation": "The frog and pig stand for Kermit and Miss Piggy; ghosts and money point to the Muppets’ version of A Christmas Carol.",
             "fact": "Michael Caine plays Scrooge, and Kermit is his long-suffering clerk Bob Cratchit."
           },
           {
@@ -564,6 +604,7 @@
               "Silent Night",
               "O Holy Night"
             ],
+            "explanation": "The drum and boy spell out a little drummer boy; the star and sheep place him at the Christmas birth scene.",
             "fact": "Pa-rum-pum-pum-pum! It was first called \"Carol of the Drum\" when it was written in 1941."
           },
           {
@@ -575,6 +616,7 @@
               "Last Christmas",
               "Underneath the Tree"
             ],
+            "explanation": "The kiss and Santa suggest a flirtatious appeal to Santa; the diamond and yacht represent the luxurious gifts being requested.",
             "fact": "Eartha Kitt’s 1953 wish list includes a sable, a convertible – and a yacht."
           }
         ]
@@ -766,7 +808,7 @@
       },
       "legend": "Tap tomtar (golden ones are worth extra). Leave the coal and the Christmas goat alone!",
       "endlessLegend": "Missing a tomte or tapping coal or the goat costs a heart. It gets faster and faster!",
-      "keyHint": "Use the numpad to bonk the mounds",
+      "keyHint": "Click with the mouse or use the numpad to bonk the mounds",
       "timeUp": "The candle burned out!",
       "overText": "You got {{score}} of {{target}} points. The tomtar are hiding again – one more go?",
       "endlessTitle": "Out of hearts!",

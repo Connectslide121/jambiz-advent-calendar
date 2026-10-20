@@ -3,7 +3,7 @@ import { Injectable, signal } from '@angular/core';
 /**
  * Tiny Web Audio synth for cozy UI sounds (bells, chimes, sparkles).
  * Everything is generated on the fly, so there are no audio files to load.
- * Sound is off by default and the choice is remembered per browser.
+ * Sound is on by default; an explicit mute choice is remembered per browser.
  */
 @Injectable({
   providedIn: 'root',
@@ -13,13 +13,13 @@ export class SoundService {
   private ctx: AudioContext | null = null;
   private master: GainNode | null = null;
 
-  readonly enabled = signal(false);
+  readonly enabled = signal(true);
 
   constructor() {
     try {
-      this.enabled.set(localStorage.getItem(this.STORAGE_KEY) === 'on');
+      this.enabled.set(localStorage.getItem(this.STORAGE_KEY) !== 'off');
     } catch {
-      this.enabled.set(false);
+      this.enabled.set(true);
     }
   }
 
@@ -88,6 +88,73 @@ export class SoundService {
     osc.connect(gain).connect(this.master);
     osc.start();
     osc.stop(ctx.currentTime + 0.25);
+  }
+
+  /** Short wooden hit; combo streaks can raise its pitch. */
+  bonk(pitch = 260): void {
+    this.sweep([pitch, pitch * 0.42], 0.12, 'triangle', 0.3);
+  }
+
+  /** Dry, gritty impact for coal. */
+  crunch(): void {
+    this.noise(0.14, 850, 200, 0.2);
+  }
+
+  /** A short nasal bleat for the Christmas goat. */
+  bleat(): void {
+    this.sweep([210, 155, 195, 125], 0.28, 'sawtooth', 0.055);
+  }
+
+  /** Air rushing past a thrown, falling or sliding object. */
+  whoosh(): void {
+    this.noise(0.2, 1800, 350, 0.09);
+  }
+
+  /** Quiet feedback for pencil marks and erasing. */
+  tap(): void {
+    this.sweep([700, 400], 0.045, 'sine', 0.08);
+  }
+
+  private sweep(pitches: number[], duration: number, type: OscillatorType, volume: number): void {
+    const ctx = this.context();
+    if (!ctx || !this.master) return;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    const now = ctx.currentTime;
+    osc.type = type;
+    osc.frequency.setValueAtTime(pitches[0], now);
+    pitches.slice(1).forEach((pitch, i) => {
+      osc.frequency.exponentialRampToValueAtTime(pitch, now + duration * (i + 1) / (pitches.length - 1));
+    });
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(volume, now + 0.005);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+    osc.connect(gain).connect(this.master);
+    osc.start(now);
+    osc.stop(now + duration + 0.02);
+  }
+
+  private noise(duration: number, startFrequency: number, endFrequency: number, volume: number): void {
+    const ctx = this.context();
+    if (!ctx || !this.master) return;
+    const buffer = ctx.createBuffer(1, Math.ceil(ctx.sampleRate * duration), ctx.sampleRate);
+    const samples = buffer.getChannelData(0);
+    for (let i = 0; i < samples.length; i++) samples[i] = Math.random() * 2 - 1;
+    const source = ctx.createBufferSource();
+    source.buffer = buffer;
+    const filter = ctx.createBiquadFilter();
+    const gain = ctx.createGain();
+    const now = ctx.currentTime;
+    filter.type = 'bandpass';
+    filter.Q.value = 0.7;
+    filter.frequency.setValueAtTime(startFrequency, now);
+    filter.frequency.exponentialRampToValueAtTime(endFrequency, now + duration);
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(volume, now + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+    source.connect(filter).connect(gain).connect(this.master);
+    source.start(now);
+    source.stop(now + duration);
   }
 
   /** Victory fanfare: "ding-ding-diiing" */

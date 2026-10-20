@@ -463,7 +463,7 @@ export class ChimneyDropChallenge implements OnInit, AfterViewInit, OnDestroy {
     if (!this.endless) {
       this.zone.run(() => this.presentsLeft--);
     }
-    this.sound.bell(1568, 0.04);
+    this.sound.whoosh();
   }
 
   private stepPresent(p: Present): void {
@@ -547,6 +547,7 @@ export class ChimneyDropChallenge implements OnInit, AfterViewInit, OnDestroy {
   private miss(p: Present): void {
     if (p.counted) return;
     p.counted = true;
+    this.sound.thud();
     this.zone.run(() => {
       this.streak = 0;
       if (this.endless && this.phase === 'playing') {

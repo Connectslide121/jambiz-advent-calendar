@@ -1,17 +1,19 @@
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { TomteWhackChallenge } from './tomte-whack-challenge';
 import { CalendarStateService } from '../../../services/calendar-state.service';
 import { SoundService } from '../../../services/sound.service';
 
-describe('Tomte keyboard numpad controls', () => {
+describe('Tomte controls and hit feedback', () => {
+  let sound: jasmine.SpyObj<SoundService>;
   beforeEach(() => {
+    sound = jasmine.createSpyObj('SoundService', ['bonk', 'jingle', 'crunch', 'bleat', 'thud', 'fanfare', 'bell']);
     spyOn(window, 'requestAnimationFrame').and.returnValue(0);
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       providers: [
         { provide: CalendarStateService, useValue: { getGameStats: () => null } },
-        { provide: SoundService, useValue: {} },
+        { provide: SoundService, useValue: sound },
       ],
     });
   });
@@ -57,4 +59,39 @@ describe('Tomte keyboard numpad controls', () => {
     expect(whack).not.toHaveBeenCalled();
     fixture.destroy();
   });
+  it('plays distinct sounds for all four target types and ignores repeated hits', fakeAsync(() => {
+    const fixture = TestBed.createComponent(TomteWhackChallenge);
+    fixture.detectChanges();
+    const game = fixture.componentInstance;
+    game.phase = 'playing';
+    const kinds = ['tomte', 'golden', 'coal', 'goat'] as const;
+    kinds.forEach((kind, i) => {
+      game.holes[i].kind = kind;
+      game.holes[i].up = true;
+      game.whack(i);
+      game.whack(i); // Holding/tapping an already-hit target must not repeat effects.
+    });
+    expect(sound.bonk).toHaveBeenCalledTimes(1);
+    expect(sound.jingle).toHaveBeenCalledTimes(1);
+    expect(sound.crunch).toHaveBeenCalledTimes(1);
+    expect(sound.bleat).toHaveBeenCalledTimes(1);
+    expect(sound.thud).not.toHaveBeenCalled();
+    fixture.destroy();
+  }));
+
+  it('does not layer the generic penalty sound over a hazard hit in endless mode', fakeAsync(() => {
+    const fixture = TestBed.createComponent(TomteWhackChallenge);
+    fixture.componentInstance.config = { endless: true };
+    fixture.detectChanges();
+    const game = fixture.componentInstance;
+    game.phase = 'playing';
+    game.holes[0].kind = 'coal';
+    game.holes[0].up = true;
+    game.whack(0);
+    expect(game.lives).toBe(2);
+    expect(sound.crunch).toHaveBeenCalledTimes(1);
+    expect(sound.thud).not.toHaveBeenCalled();
+    fixture.destroy();
+  }));
+
 });

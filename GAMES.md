@@ -6,6 +6,8 @@ shared contract in [`docs/ADDING_A_GAME.md`](docs/ADDING_A_GAME.md).
 
 All games are bilingual (sv/en), work with mouse, touch and keyboard, and fit a phone screen.
 Each one saves a personal best through `CalendarStateService.saveGameStats`.
+All 14 games provide sound feedback for their main actions and results. Sound is on by default;
+the header toggle remembers an explicit mute choice. Bell Choir notes always play because audio is the puzzle.
 
 ## Calendar plan
 
@@ -53,6 +55,7 @@ running out of rows offers a retry with the same word.
 ### 🎶 Emoji-julklassiker (`emojiCarols`)
 Guess Christmas songs, films and food from emoji riddles. 4 options per round, 6 rounds, pass with
 4 right. Options are reshuffled every run. Swedish sets use the titles Swedes know.
+Every answer reveals an explanation connecting the emoji to the solution, followed by trivia.
 - Config: `{ set: 'a'…'g', rounds = 6, passScore = 4 }`. Questions live in the i18n files under
   `challenges.emojiCarols.sets.<set>`.
 - Extras: classics, films, pop hits, Christmas food, expert mix.
@@ -125,7 +128,8 @@ and a finished snowman gets dressed with hat, scarf and carrot.
 
 ### 🎅 Bonka tomten / Whack-a-Tomte (`tomteWhack`)
 Tomtar pop out of snow mounds; bonk them, but avoid coal and the julbock. The timer is a burning
-candle. Keys follow the keyboard numpad: 7–8–9 on top, 4–5–6 in the middle, 1–2–3 at the bottom.
+candle. Click/tap a mound or use the numpad. Regular tomtar make a wooden bonk, golden tomtar
+jingle, coal crunches and the goat bleats. Keys follow the keyboard numpad: 7–8–9 on top, 4–5–6 in the middle, 1–2–3 at the bottom.
 Numpad keys also work with Num Lock off; top-row digits use the same mapping. Larger grids map
 the bottom-left 3×3 area; the remaining mounds can be tapped or clicked.
 - Config: `{ targetScore, duration, rows, cols, speed, endless }`.

@@ -112,6 +112,7 @@
               "Tänd ett ljus",
               "Nu tändas tusen juleljus"
             ],
+            "explanation": "Klockorna och släden i snön syftar på bjällrorna som klingar under slädturen i Bjällerklang.",
             "fact": "Texten nämner faktiskt aldrig julen – den handlar om en kälkfärd i snön!"
           },
           {
@@ -123,6 +124,7 @@
               "Polarexpressen",
               "Grinchen"
             ],
+            "explanation": "En pojke blir kvar hemma när familjen flyger iväg. Det förskräckta ansiktet pekar på Ensam hemma.",
             "fact": "Familjen flyger till Paris och glömmer Kevin – som försvarar huset mot två inbrottstjuvar."
           },
           {
@@ -134,6 +136,7 @@
               "Hej tomtegubbar",
               "Räven raskar över isen"
             ],
+            "explanation": "Renen, den röda cirkeln och näsan blir tillsammans en ren med röd mule: Rudolf.",
             "fact": "Rudolf skapades 1939 för ett reklamhäfte från ett amerikanskt varuhus."
           },
           {
@@ -145,6 +148,7 @@
               "Elf",
               "En julsaga"
             ],
+            "explanation": "Den gröna, griniga figuren och berget är Grinchen. Paketen syftar på hans försök att stjäla julen.",
             "fact": "Den gröna surpuppan bor på ett berg – och till slut växer hans hjärta tre storlekar."
           },
           {
@@ -156,6 +160,7 @@
               "Feliz Navidad",
               "Tänd ett ljus"
             ],
+            "explanation": "Hjärtat och paketet står för att ge någon sin kärlek. Pilen och det brustna hjärtat visar sorgen som följer. Granen lägger till julen.",
             "fact": "Wham! släppte den 1984 – men den toppade inte brittiska listan förrän 2021."
           },
           {
@@ -167,6 +172,7 @@
               "Grinchen",
               "The Holiday"
             ],
+            "explanation": "Alven är Buddy, linjalen antyder att han är ovanligt lång, staden är New York och spaghettin är hans minnesvärda måltid.",
             "fact": "Buddys fyra livsmedelsgrupper: godis, polkagrisar, godismajs och sirap – gärna på spagettin."
           }
         ],
@@ -180,6 +186,7 @@
               "Gläns över sjö och strand",
               "Nu tändas tusen juleljus"
             ],
+            "explanation": "Hyschandet betyder stilla, månen betyder natt och stjärnan och barnet syftar på julens födelsescen.",
             "fact": "Den skrevs i Österrike 1818 och sjungs i dag på hundratals språk."
           },
           {
@@ -191,6 +198,7 @@
               "Ett päron till farsa firar jul",
               "Miraklet på 34:e gatan"
             ],
+            "explanation": "Hjärtat, skyltarna och flygplatsen är ledtrådar till olika kärlekshistorier i julfilmen Love Actually.",
             "fact": "En handfull kärlekshistorier i juletidens London – och en dansande premiärminister."
           },
           {
@@ -202,6 +210,7 @@
               "Santa Baby",
               "Tänd ett ljus"
             ],
+            "explanation": "Överstrukna paket betyder att julklappar inte är önskningen. Pekfingret och hjärtat visar att det är en person som betyder mest.",
             "fact": "Mariah Carey släppte den 1994 – och varje december klättrar den på listorna igen."
           },
           {
@@ -213,6 +222,7 @@
               "Gremlins",
               "Bad Santa"
             ],
+            "explanation": "Kontorshuset, explosionerna och polisen syftar på actionfilmen Die Hard, som utspelar sig under julafton.",
             "fact": "John McClane räddar firmans julfest i Nakatomi Plaza. Är det en julfilm? Debatten fortsätter!"
           },
           {
@@ -224,6 +234,7 @@
               "Jag drömmer om en jul hemma",
               "Bjällerklang"
             ],
+            "explanation": "Pekfingret önskar att något ska hända. Alla snöflingorna visar att önskningen är mer snö.",
             "fact": "Den skrevs under en stekhet julidag i Hollywood 1945 – en dröm om kyla."
           },
           {
@@ -235,6 +246,7 @@
               "Elf",
               "Miraklet på 34:e gatan"
             ],
+            "explanation": "Tåget, snön och biljetten visar en vinterresa. Bjällran är den speciella julbjällran i Polarexpressen.",
             "fact": "Tom Hanks gör inte mindre än sex roller i filmen – bland annat konduktören och tomten."
           }
         ],
@@ -248,6 +260,7 @@
               "Staffan var en stalledräng",
               "Nu är det jul igen"
             ],
+            "explanation": "Vinkningen blir hej, de två tomtarna blir tomtegubbar och glasen antyder att det är en dryckesvisa.",
             "fact": "Vi dansar runt granen till den – fast texten (”slå i glasen”) är egentligen en dryckesvisa!"
           },
           {
@@ -259,6 +272,7 @@
               "Gläns över sjö och strand",
               "Stilla natt"
             ],
+            "explanation": "Talet tusen och alla ljus och gnistor pekar på juleljusen som tänds i Nu tändas tusen juleljus.",
             "fact": "Emmy Köhler skrev både text och melodi år 1898."
           },
           {
@@ -270,6 +284,7 @@
               "Gläns över sjö och strand",
               "Räven raskar över isen"
             ],
+            "explanation": "De fem hästarna och stjärnan syftar på Staffans hästar och stjärnan i den traditionella luciasången.",
             "fact": "Den sjungs i luciatåget: Staffan vattnar sina fålar fem – allt för den ljusa stjärnan."
           },
           {
@@ -281,6 +296,7 @@
               "Stilla natt",
               "Gläns över sjö och strand"
             ],
+            "explanation": "Ljuset och lågan visar att tända ett ljus. Jordgloben och bönen antyder sångens hopp om en bättre värld.",
             "fact": "Triad släppte den 1987 och den har blivit en av Sveriges mest älskade jullåtar."
           },
           {
@@ -292,6 +308,7 @@
               "Stilla natt",
               "Bjällerklang"
             ],
+            "explanation": "Tankebubblan betyder att drömma, vitt och snö ger en vit jul och granen visar att det handlar om jul.",
             "fact": "På engelska heter den ”White Christmas” – Bing Crosbys version är världens mest sålda singel."
           },
           {
@@ -303,6 +320,7 @@
               "Staffan var en stalledräng",
               "Tomtarnas julnatt"
             ],
+            "explanation": "Räven, isen och farten bildar titeln: en räv som raskar över isen.",
             "fact": "En klassisk danslek kring granen – på julafton eller när granen dansas ut på tjugondag Knut."
           }
         ],
@@ -316,6 +334,7 @@
               "Livet är underbart",
               "Miraklet på 34:e gatan"
             ],
+            "explanation": "Tre andar besöker en rik äldre man: grundberättelsen om Scrooge i En julsaga.",
             "fact": "Charles Dickens skrev berättelsen om snålen Scrooge på bara sex veckor år 1843."
           },
           {
@@ -327,6 +346,7 @@
               "Tomten är far till alla barnen",
               "Love Actually"
             ],
+            "explanation": "Päronet är en ordlek med filmens svenska titel. Pappan, granen och de elektriska ljusen visar familjens kaotiska julfirande.",
             "fact": "Clark Griswold pyntar huset med 25 000 lampor – så många att elverket måste koppla in reservkraft."
           },
           {
@@ -338,6 +358,7 @@
               "Bad Santa",
               "Ensam hemma"
             ],
+            "explanation": "Varelsen, vattnet och den förbjudna nattmaten antyder reglerna för hur en mogwai ska skötas i Gremlins.",
             "fact": "Tre regler: inget starkt ljus, inget vatten – och mata aldrig efter midnatt!"
           },
           {
@@ -349,6 +370,7 @@
               "En julsaga",
               "Polarexpressen"
             ],
+            "explanation": "Änglarna, klockan och bron syftar på Clarence och George Baileys julkris i Livet är underbart.",
             "fact": "”Varje gång en klocka ringer får en ängel sina vingar.”"
           },
           {
@@ -360,6 +382,7 @@
               "Grinchen",
               "Polarexpressen"
             ],
+            "explanation": "Pumpan och skelettet står för Halloween. Pilen mot julen och tomten visar hur de två högtiderna kolliderar.",
             "fact": "Jack Skellington från Halloweenstaden försöker ta över julen – det går sådär."
           },
           {
@@ -371,6 +394,7 @@
               "Elf",
               "Livet är underbart"
             ],
+            "explanation": "Husen och bytespilarna visar ett husbyte. Hjärtana antyder kärlekshistorierna i The Holiday.",
             "fact": "Två kvinnor byter hem över julen – en villa i Los Angeles mot en stuga i England."
           }
         ],
@@ -384,6 +408,7 @@
               "Jingle Bell Rock",
               "Wonderful Christmastime"
             ],
+            "explanation": "Dansen, gitarren och granen visar en festlig julsång. Chilin är en lekfull ledtråd till den spanskspråkiga titeln.",
             "fact": "José Feliciano spelade in den 1970 – på både spanska och engelska."
           },
           {
@@ -395,6 +420,7 @@
               "Tänd ett ljus",
               "Jingle Bell Rock"
             ],
+            "explanation": "Bilen kör genom trafiken mot ett hem vid jul: Driving Home for Christmas.",
             "fact": "Chris Rea kom på låten när han satt fast i bilkö på väg hem till jul."
           },
           {
@@ -406,6 +432,7 @@
               "Merry Christmas Everyone",
               "Wonderful Christmastime"
             ],
+            "explanation": "Gitarren står för rockmusik. Dansarna och granen visar människor som rockar runt julgranen.",
             "fact": "Brenda Lee var 13 när hon spelade in den 1958 – och 65 år senare toppade den USA-listan."
           },
           {
@@ -417,6 +444,7 @@
               "Last Christmas",
               "Merry Christmas Everyone"
             ],
+            "explanation": "Det fundersamma ansiktet ställer en fråga, jordgloben står för människor i andra länder och granen och bönen ger jultemat.",
             "fact": "Band Aid spelade in den 1984 för att samla in pengar till de svältande i Etiopien."
           },
           {
@@ -428,6 +456,7 @@
               "Wonderful Christmastime",
               "Step Into Christmas"
             ],
+            "explanation": "Fen och boken blir en saga. Frihetsgudinnan står för New York och ölen antyder sångens barmiljö.",
             "fact": "The Pogues och Kirsty MacColl, 1987 – den nådde aldrig förstaplatsen i Storbritannien."
           },
           {
@@ -439,6 +468,7 @@
               "Jingle Bell Rock",
               "Santa Baby"
             ],
+            "explanation": "Snön, festen, granen och vinkningen visar en glad julhälsning till alla.",
             "fact": "Shakin’ Stevens låt var etta i Storbritannien julen 1985."
           }
         ],
@@ -452,6 +482,7 @@
               "Knäck",
               "Ischoklad"
             ],
+            "explanation": "Kryddan och kakan pekar på pepparkakor. Stjärnan och huset är vanliga former att baka dem i.",
             "fact": "Man sägs bli snäll av att äta pepparkakor – värt ett försök!"
           },
           {
@@ -463,6 +494,7 @@
               "Kanelbullar",
               "Semlor"
             ],
+            "explanation": "Kronan och ljuset syftar på lucia, det gula på saffran och katten på namnet lussekatter.",
             "fact": "Saffransbullar formade som ett S med russin – de bakas till lucia den 13 december."
           },
           {
@@ -474,6 +506,7 @@
               "Ostkaka",
               "Havregrynsgröt"
             ],
+            "explanation": "Riset, mjölken och skeden visar gröten. Nöten antyder mandeln som brukar gömmas i julgröten.",
             "fact": "Den som hittar mandeln i gröten sägs bli gift inom ett år!"
           },
           {
@@ -485,6 +518,7 @@
               "Lutfisk",
               "Potatisgratäng"
             ],
+            "explanation": "Potatisen och fisken visar två ingredienser. Djävulen och personen antyder ordet frestelse och namnet Jansson.",
             "fact": "Fisken i Janssons kallas ansjovis men är egentligen skarpsill."
           },
           {
@@ -496,6 +530,7 @@
               "Varm choklad",
               "Saft"
             ],
+            "explanation": "Vinet och värmen visar en varm vindryck. Druvorna och nötterna antyder russinen och mandeln som serveras till glögg.",
             "fact": "Namnet kommer av ”glödgat vin” – alltså vin som värmts upp."
           },
           {
@@ -507,6 +542,7 @@
               "Revbensspjäll",
               "Köttbullar"
             ],
+            "explanation": "Grisen och köttet visar skinka. Det gula och brödet antyder senapen och ströbrödet i griljeringen.",
             "fact": "Den griljeras med senap, ägg och ströbröd innan den hamnar på julbordet."
           }
         ],
@@ -520,6 +556,7 @@
               "Hej tomtegubbar",
               "Rudolf med röda mulen"
             ],
+            "explanation": "Ögonen betyder såg, kvinnan blir mamma och kyssen och tomten gör sångtiteln komplett.",
             "fact": "Originalet spelades in 1952 av Jimmy Boyd – som bara var 13 år."
           },
           {
@@ -531,6 +568,7 @@
               "Polarexpressen",
               "Tomten är far till alla barnen"
             ],
+            "explanation": "Tomten och vågen antyder ett juligt rättsfall. Talet 34 och vägen bildar 34:e gatan.",
             "fact": "Tomten hamnar i rätten och måste bevisa att han är äkta. Originalet från 1947 vann tre Oscar."
           },
           {
@@ -542,6 +580,7 @@
               "Tomten är far till alla barnen",
               "Fanny och Alexander"
             ],
+            "explanation": "Postlådan och paketen syftar på Karl-Bertils arbete och julklapparna. Hjälten och hatten antyder hans Robin Hood-inspirerade gärning.",
             "fact": "Karl-Bertil ”omfördelar” de rikas julklappar på posten – en julaftonsklassiker i SVT sedan 1975."
           },
           {
@@ -553,6 +592,7 @@
               "Grinchen",
               "Polarexpressen"
             ],
+            "explanation": "Grodan och grisen står för Kermit och Miss Piggy. Andarna och pengarna visar att det är Mupparnas version av En julsaga.",
             "fact": "Michael Caine spelar Scrooge och Kermit är hans stackars bokhållare Bob Cratchit."
           },
           {
@@ -564,6 +604,7 @@
               "Nu tändas tusen juleljus",
               "Jul, jul, strålande jul"
             ],
+            "explanation": "Klockan visar midnatt, hyschandet tystnad och huset ett sovande hem. Tomtarna syftar på de små figurerna som är vakna.",
             "fact": "Börjar med ”Midnatt råder, tyst det är i husen” – medan alla sover tassar tomtarna fram."
           },
           {
@@ -575,6 +616,7 @@
               "Karl-Bertil Jonssons julafton",
               "Livet är underbart"
             ],
+            "explanation": "Teatern och barnen pekar på Fanny och Alexander. Granen och ljuset antyder filmens stora familjejulfirande.",
             "fact": "Ingmar Bergmans film börjar med ett magnifikt julfirande – och vann fyra Oscar."
           }
         ]
@@ -766,7 +808,7 @@
       },
       "legend": "Tryck på tomtarna (guldtomtar ger extra). Låt kolbitarna och julbocken vara!",
       "endlessLegend": "En tomte som smiter, eller ett tryck på kol eller julbock, kostar ett hjärta. Det går fortare och fortare!",
-      "keyHint": "Använd det numeriska tangentbordet för att bonka snöhögarna",
+      "keyHint": "Klicka med musen eller använd det numeriska tangentbordet för att bonka snöhögarna",
       "timeUp": "Ljuset brann ut!",
       "overText": "Du fick {{score}} av {{target}} poäng. Tomtarna gömmer sig igen – en runda till?",
       "endlessTitle": "Slut på hjärtan!",

@@ -358,6 +358,7 @@ export class IceSlideChallenge implements OnInit, AfterViewInit, OnDestroy {
     }
     this.history.push({ ...this.pos });
     this.moves++;
+    this.sound.whoosh();
     this.animateSlide(this.pos, dest, dir);
     this.pos = dest;
   }

@@ -241,6 +241,8 @@
 }
 
 .emoji-row {
+  max-width: 100%;
+  min-width: 0;
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -287,7 +289,9 @@
 
 .reveal {
   position: relative;
-  padding: 0 34px;
+  width: 100%;
+  min-width: 0;
+  padding: 0 clamp(0px, 2vw, 24px);
   animation: revealIn 0.45s ease-out both;
 }
 
@@ -316,6 +320,14 @@
   text-shadow: 0 2px 12px rgba(247, 200, 115, 0.45);
   line-height: 1.2;
   margin: 2px 0 4px;
+}
+
+.explanation {
+  max-width: 480px;
+  margin: 8px auto;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--color-text);
 }
 
 .fact {

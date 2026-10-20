@@ -346,7 +346,7 @@ export class SnowmanStackChallenge implements OnInit, AfterViewInit, OnDestroy {
     b.state = 'falling';
     b.vx = L * Math.cos(theta) * thetaDot * 0.08;
     b.vy = 0;
-    this.sound.bell(1320, 0.05);
+    this.sound.whoosh();
     if (this.showTip) this.zone.run(() => (this.showTip = false));
   }
 

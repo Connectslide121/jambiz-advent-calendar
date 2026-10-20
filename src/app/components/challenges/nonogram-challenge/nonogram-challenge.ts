@@ -391,6 +391,7 @@ export class NonogramChallenge implements OnInit, AfterViewInit, OnDestroy {
     if (this.hinted === idx) this.hinted = null;
     const c = idx % this.cols;
     if (value === 1) this.sound.bell(NOTES[c % NOTES.length], 0.05);
+    else this.sound.tap();
     this.updateDone(true);
     this.checkWin();
   }

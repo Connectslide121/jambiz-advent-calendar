@@ -379,6 +379,7 @@ export class ToySorterChallenge implements OnInit, AfterViewInit, OnDestroy {
     if (this.phase !== 'playing') return;
     const it = this.activeItem;
     if (!it) return;
+    this.sound.whoosh();
     it.state = 'flying';
     it.t = 0;
     it.target = side;

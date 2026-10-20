@@ -32,6 +32,7 @@ interface RawQuestion {
   emoji: string; // space separated so multi-codepoint emoji stay intact
   answer: string;
   wrong: string[];
+  explanation: string;
   fact: string;
 }
 
@@ -40,6 +41,7 @@ interface Round {
   emoji: string[];
   answer: string;
   options: string[];
+  explanation: string;
   fact: string;
 }
 
@@ -163,6 +165,7 @@ export class EmojiCarolsChallenge implements OnInit, OnDestroy {
       emoji: q.emoji.split(/\s+/).filter(Boolean),
       answer: q.answer,
       options: shuffle([q.answer, ...q.wrong.slice(0, 3)]),
+      explanation: q.explanation,
       fact: q.fact,
     }));
     this.passScore = Math.max(1, Math.min(this.rounds.length, Math.round(this.config?.passScore ?? 4)));
