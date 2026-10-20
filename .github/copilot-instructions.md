@@ -8,7 +8,7 @@ and [docs/ADDING_A_GAME.md](../docs/ADDING_A_GAME.md) before touching a game.
 
 **Jambiz Julkalender** is an Angular 20 app with a C# Azure Functions backend: an advent calendar with 24 doors, each
 hiding a Christmas minigame and a reward. It is bilingual (Swedish by default, English), stores
-progress and rewards in Cosmos DB, with single-tenant Entra authentication. Read [docs/BACKEND.md](../docs/BACKEND.md) for the Azure development deployment. The existing GitHub Pages site at jambizadvent.se remains separate. Each season gets
+progress and rewards in Cosmos DB, with single-tenant Entra authentication. Read [docs/BACKEND.md](../docs/BACKEND.md) for the single production deployment. GitHub Pages at jambizadvent.se and the SWA share the same production backend and database. Azure names containing dev/develop are historical; preserve them to avoid creating a second environment. Each season gets
 a new branch: 2025 lives on `advent-2025`, and 2026 is developed on the main development branch.
 
 ## Tech stack

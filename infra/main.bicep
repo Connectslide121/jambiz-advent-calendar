@@ -4,7 +4,7 @@ param tenantId string = 'bd4bd237-f885-4525-b60d-581adb48c358'
 param apiClientId string
 param spaClientId string
 var suffix = take(uniqueString(resourceGroup().id), 8)
-var tags = { product: 'jambiz-advent', environment: 'develop', managedBy: 'bicep' }
+var tags = { product: 'jambiz-advent', environment: 'prod', managedBy: 'bicep' }
 
 resource storage 'Microsoft.Storage/storageAccounts@2023-05-01' = {
   name: 'stadvent${suffix}'
@@ -49,6 +49,7 @@ resource cosmos 'Microsoft.DocumentDB/databaseAccounts@2024-05-15' = {
     }
   }
 }
+// Keep the original Azure name: this is the single production environment.
 resource swa 'Microsoft.Web/staticSites@2025-03-01' = {
   name: 'swa-jambiz-advent-develop'
   location: 'westeurope'

@@ -3,7 +3,7 @@
 The 2026 redesign was merged into `develop` with merge commit `31fb71d`. The source branch
 `claude/advent-2026-redesign-4uuw47` remains at `c6ff133`.
 
-## Development environment
+## Production environment
 
 Subscription **Sprinta Intern** (`ffb12bea-8324-4344-8361-bdcf71f032d0`), resource group
 **rg-jambiz-advent-dev-swc**. Compute, storage and Cosmos are in Sweden Central; SWA is in West Europe.
@@ -18,8 +18,14 @@ Subscription **Sprinta Intern** (`ffb12bea-8324-4344-8361-bdcf71f032d0`), resour
 | Database / container / partition key | `advent` / `calendar` / `/season` |
 | Function host/package storage | `stadventwipgysmx` |
 
-This is a separate development deployment. `jambizadvent.se` also serves the current frontend through GitHub Pages; both frontend origins
-use this backend. Podium-ops resources are unchanged. There are no always-ready Function instances or provisioned
+This is the **only production environment**, tagged `environment=prod` on the resource group
+and all five top-level resources. The `dev` / `develop` strings in the original group and SWA names
+are historical names, retained because Azure cannot rename them in place. They do not designate
+a separate development environment. Keep these names in deployment scripts and infrastructure
+so future deployments update the same resources.
+
+`https://jambizadvent.se` serves the frontend through GitHub Pages. The SWA is another frontend
+for this same production backend and Cosmos database, not a second environment. Podium-ops resources are unchanged. There are no always-ready Function instances or provisioned
 Cosmos throughput. Azure resources still have usage charges.
 
 ## Authentication and data access

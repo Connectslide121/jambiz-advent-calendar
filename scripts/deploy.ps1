@@ -1,5 +1,6 @@
 param(
   [string]$Subscription = 'ffb12bea-8324-4344-8361-bdcf71f032d0',
+  # Existing production group; Azure does not support renaming resource groups.
   [string]$ResourceGroup = 'rg-jambiz-advent-dev-swc',
   [switch]$Provision
 )
@@ -10,7 +11,7 @@ $null = New-Item -ItemType Directory -Force .azure-local
 if (!(Test-Path .azure-local/entra.json)) { & ./scripts/configure-entra.ps1 }
 $entra = Get-Content .azure-local/entra.json -Raw | ConvertFrom-Json
 if ($Provision) {
-  az group create --subscription $Subscription -n $ResourceGroup -l swedencentral --tags product=jambiz-advent environment=develop --only-show-errors -o none
+  az group create --subscription $Subscription -n $ResourceGroup -l swedencentral --tags product=jambiz-advent environment=prod --only-show-errors -o none
   Check 'Create resource group'
   az deployment group create --subscription $Subscription -g $ResourceGroup -n calendar-backend --template-file infra/main.bicep --parameters apiClientId=$($entra.apiClientId) spaClientId=$($entra.spaClientId) --only-show-errors -o none
   Check 'Provision resources'

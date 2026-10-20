@@ -117,6 +117,10 @@ Developer controls cannot reset cloud progress. See [backend guide](docs/BACKEND
 
 ## 🌐 Deployment
 
+There is one production environment. GitHub Pages at [jambizadvent.se](https://jambizadvent.se) and
+the Azure frontend share the same API and Cosmos database. Historical Azure resource names
+containing `dev` / `develop` are retained; their environment tags are `prod`.
+
 Azure: [Open the 2026 calendar](https://calm-water-0b43e6903.5.azurestaticapps.net).
 Use ./scripts/deploy.ps1 from PowerShell. See [Azure setup and API guide](docs/BACKEND.md).
 
