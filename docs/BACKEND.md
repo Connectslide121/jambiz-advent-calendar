@@ -69,7 +69,9 @@ Old browser progress is intentionally not imported into official results. Langua
 remain local. Dev tools are localhost-only previews and cannot bypass server dates or reset cloud data.
 
 For full local access, type **`devtools`** outside an input. This opens the calendar and its developer
-controls. Turn **Dev mode ON** to play every day and extra level and browse all rewards. Preview games
+controls. Dev-tools visibility and dev mode are remembered in localStorage, independently. On a
+reload, saved dev mode is restored after sign-in and before the calendar renders. Turning either
+setting off is remembered too. Turn **Dev mode ON** to play every day and extra level and browse all rewards. Preview games
 skip run creation and result/extra submissions; completions and stats stay in memory for that session.
 The game modal also offers **Show reward** without requiring a win. Turning dev mode off restores
 the authenticated calendar and cloud progress. A banner identifies preview runs.

@@ -17,6 +17,7 @@ export const appConfig: ApplicationConfig = {
       const state = inject(CalendarStateService);
       await backend.initialize();
       state.loadCloudProgress();
+      await state.restoreDevPreferences();
     }),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient(),

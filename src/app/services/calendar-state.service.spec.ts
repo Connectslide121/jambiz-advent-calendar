@@ -11,6 +11,8 @@ describe('Local calendar previews', () => {
   let state: CalendarStateService;
   let backend: { player: ReturnType<typeof signal<any>>; complete: jasmine.Spy; saveExtra: jasmine.Spy };
   beforeEach(() => {
+    localStorage.removeItem('jambiz-advent-dev-mode');
+    localStorage.removeItem('jambiz-advent-devtools-visible');
     backend = { player: signal({ days: [{ day: 2, stats: { bestMoves: 3 } }], extras: {} }),
       complete: jasmine.createSpy('complete'), saveExtra: jasmine.createSpy('saveExtra') };
     TestBed.configureTestingModule({ providers: [{ provide: BackendService, useValue: backend }] });
@@ -18,7 +20,42 @@ describe('Local calendar previews', () => {
     CALENDAR_DAYS.splice(0, CALENDAR_DAYS.length, official);
     state.loadCloudProgress();
   });
-  afterEach(() => CALENDAR_DAYS.splice(0));
+  afterEach(() => {
+    CALENDAR_DAYS.splice(0);
+    localStorage.removeItem('jambiz-advent-dev-mode');
+    localStorage.removeItem('jambiz-advent-devtools-visible');
+  });
+
+  it('restores dev tools and dev mode on reload, and remembers turning them off', async () => {
+    spyOn(window, 'fetch').and.callFake(async () => new Response(JSON.stringify({ days: preview })));
+    state.devToolsVisible = true;
+    await state.setDevMode(true);
+    CALENDAR_DAYS.splice(0, CALENDAR_DAYS.length, official);
+    const restored = TestBed.runInInjectionContext(() => new CalendarStateService());
+    restored.loadCloudProgress();
+    await restored.restoreDevPreferences();
+    expect(restored.devToolsVisible).toBeTrue();
+    expect(restored.devMode).toBeTrue();
+    expect(CALENDAR_DAYS.length).toBe(24);
+    restored.devToolsVisible = false;
+    await restored.setDevMode(false);
+    const disabled = TestBed.runInInjectionContext(() => new CalendarStateService());
+    await disabled.restoreDevPreferences();
+    expect(disabled.devToolsVisible).toBeFalse();
+    expect(disabled.devMode).toBeFalse();
+    expect(CALENDAR_DAYS).toEqual([official]);
+  });
+
+  it('keeps preview usable when localStorage is blocked', async () => {
+    spyOn(window, 'fetch').and.resolveTo(new Response(JSON.stringify({ days: preview })));
+    spyOn(Storage.prototype, 'getItem').and.throwError('Storage blocked');
+    spyOn(Storage.prototype, 'setItem').and.throwError('Storage blocked');
+    const isolated = TestBed.runInInjectionContext(() => new CalendarStateService());
+    isolated.devToolsVisible = true;
+    await isolated.setDevMode(true);
+    expect(isolated.devToolsVisible).toBeTrue();
+    expect(isolated.devMode).toBeTrue();
+  });
 
   it('unlocks all content locally and restores cloud progress on exit', async () => {
     spyOn(window, 'fetch').and.resolveTo(new Response(JSON.stringify({ days: preview })));

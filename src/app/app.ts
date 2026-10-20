@@ -62,7 +62,8 @@ export class App implements OnDestroy {
   currentLanguage: string;
   showInfoModal = false;
   showLandingPage = true;
-  showDevTools = false;
+  get showDevTools(): boolean { return this.calendarState.devToolsVisible; }
+  set showDevTools(visible: boolean) { this.calendarState.devToolsVisible = visible; }
   private secretSequence: string[] = [];
   private readonly SECRET_CODE = ['d', 'e', 'v', 't', 'o', 'o', 'l', 's']; // Type "devtools" to toggle
   private sequenceTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -86,6 +87,7 @@ export class App implements OnDestroy {
     this.currentLanguage = savedLang;
     this.translate.use(savedLang);
     this.completedExtras = new Set(Object.keys(this.backend.player()?.extras ?? {}));
+    if (this.showDevTools || this.calendarState.devMode) this.showLandingPage = false;
   }
 
   switchLanguage(lang: string): void {

@@ -74,7 +74,8 @@ Type `devtools` on the page (not in an input) to show:
 - mark all complete
 - clear progress
 
-They are session-only, localhost-only previews. The API still enforces real dates and saved completions.
+Dev-tools visibility and dev mode persist in localStorage on localhost development builds. Preview
+progress and the date override remain session-only. The API still enforces real dates and saved completions.
 Dev mode loads the seed through a development-only asset, unlocks extras/rewards, and skips API run
 and result writes. Keep preview data out of production assets and restore cloud state when leaving it.
 

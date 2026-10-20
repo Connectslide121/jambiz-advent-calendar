@@ -5,6 +5,9 @@ import { CalendarDayConfig } from '../models/calendar.models';
 
 @Injectable({ providedIn: 'root' })
 export class CalendarStateService {
+  private readonly DEV_MODE_KEY = 'jambiz-advent-dev-mode';
+  private readonly DEV_TOOLS_KEY = 'jambiz-advent-devtools-visible';
+  private _devToolsVisible = this.readPreference(this.DEV_TOOLS_KEY);
   private backend = inject(BackendService);
   private completedDays = new Set<number>();
   private gameStats = new Map<string, any>();
@@ -13,6 +16,27 @@ export class CalendarStateService {
   private officialDays: CalendarDayConfig[] | null = null;
   previewLoading = false;
   previewError = false;
+
+  private get localPreviewAllowed(): boolean { return isDevMode() && location.hostname === 'localhost'; }
+  private readPreference(key: string): boolean {
+    if (!this.localPreviewAllowed) return false;
+    try { return localStorage.getItem(key) === 'true'; }
+    catch { return false; }
+  }
+  private writePreference(key: string, value: boolean): void {
+    try { localStorage.setItem(key, String(value)); }
+    catch { /* Keep the current session usable when browser storage is unavailable. */ }
+  }
+  get devToolsVisible(): boolean { return this._devToolsVisible; }
+  set devToolsVisible(visible: boolean) {
+    if (!this.localPreviewAllowed) return;
+    this._devToolsVisible = visible;
+    this.writePreference(this.DEV_TOOLS_KEY, visible);
+  }
+  async restoreDevPreferences(): Promise<void> {
+    // Restore after authentication/cloud hydration, before rendering the calendar.
+    if (this.backend.player() && this.readPreference(this.DEV_MODE_KEY)) await this.setDevMode(true);
+  }
 
   loadCloudProgress(): void {
     const player = this.backend.player();
@@ -23,10 +47,11 @@ export class CalendarStateService {
   get devMode(): boolean { return this._devMode; }
   async toggleDevMode(): Promise<void> { await this.setDevMode(!this.devMode); }
   async setDevMode(enabled: boolean): Promise<void> {
-    if (!isDevMode() || location.hostname !== 'localhost' || this.previewLoading || enabled === this.devMode) return;
+    if (!this.localPreviewAllowed || this.previewLoading || enabled === this.devMode) return;
     this.previewError = false;
     if (!enabled) {
       this._devMode = false;
+      this.writePreference(this.DEV_MODE_KEY, false);
       this._dateOverride = null;
       CALENDAR_DAYS.splice(0, CALENDAR_DAYS.length, ...(this.officialDays ?? []));
       this.officialDays = null;
@@ -43,6 +68,7 @@ export class CalendarStateService {
       this.officialDays = [...CALENDAR_DAYS];
       CALENDAR_DAYS.splice(0, CALENDAR_DAYS.length, ...preview.days);
       this._devMode = true;
+      this.writePreference(this.DEV_MODE_KEY, true);
     } catch { this.previewError = true; }
     finally { this.previewLoading = false; }
   }
