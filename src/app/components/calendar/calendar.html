@@ -101,8 +101,8 @@
         </span>
         }
 
-        <!-- Desktop tooltip -->
-        @if (dayConfig.challengeType) {
+        <!-- Game names stay a surprise outside dev mode; locked doors may show their date. -->
+        @if (dayConfig.challengeType && (stateService.devMode || isDayLocked(dayConfig))) {
         <span class="tooltip" role="tooltip">
           @if (isDayLocked(dayConfig)) {
           {{ 'calendar.opensOn' | translate : { day: dayConfig.day } }}
