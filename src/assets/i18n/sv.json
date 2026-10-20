@@ -865,6 +865,169 @@
           "right": "Stygga listan (kol)"
         }
       }
+    },
+    "shared": {
+      "win": "Snyggt jobbat!",
+      "check": "Kontrollera",
+      "hint": "Ledtråd",
+      "rotate": "Rotera",
+      "undo": "Ångra",
+      "moves": "Drag",
+      "cell": "Ruta {{n}}"
+    },
+    "cryptogram": {
+      "title": "Julens kryptogram",
+      "instruction": "Knäck det juliga meddelandet. Samma nummer betyder samma bokstav. Välj ett nummer och skriv eller tryck på en bokstav. Gröna bokstäver är redan givna.",
+      "code": "Kod {{n}}",
+      "selected": "Du ändrar nummer {{n}} — alla likadana nummer ändras tillsammans.",
+      "notYet": "Några bokstäver saknas eller är fel. Använd de upprepade numren och ordens form."
+    },
+    "giftPacking": {
+      "title": "Packa julklapparna",
+      "instruction": "Få plats med alla paket i säcken utan överlappning. Välj en form, rotera den och välj dess övre vänstra hörn. Tryck på ett packat paket för att lyfta upp det igen.",
+      "piece": "Paket {{n}}",
+      "noFit": "Paketet får inte plats där. Rotera det eller gör mer utrymme.",
+      "keys": "Tangentbord: pilar väljer ruta, Enter placerar, R roterar och Backsteg ångrar. Allt går också att klicka eller trycka på."
+    },
+    "rooftopRunner": {
+      "title": "Taklöparen",
+      "instruction": "Bär tomtens paket över taken. Hoppa över glipor och skorstenar, samla minst 12 paket och nå målet med ett hjärta kvar.",
+      "jump": "Hoppa",
+      "lost": "Tre vurpor! Försök igen och hoppa strax före gliporna.",
+      "needGifts": "Du nådde målet men behöver 12 paket. Hoppa efter de höga paketen också!"
+    },
+    "christmasDetective": {
+      "title": "Juldetektiven",
+      "instruction": "Ta reda på vem som bor i varje hus, vilket paket de har och deras favoritgodis. Husen går från vänster till höger, 1–4. Använd varje val en gång per kategori.",
+      "house": "Hus {{n}}",
+      "unique": "Fyll i alla hus och använd varje tomte, paket och godsak exakt en gång.",
+      "recheck": "Några ledtrådar stämmer inte än. De markerade ledtrådarna är uppfyllda just nu.",
+      "elves": {
+        "label": "Tomte",
+        "0": "Astrid",
+        "1": "Bosse",
+        "2": "Cleo",
+        "3": "Dante"
+      },
+      "gifts": {
+        "label": "Paket",
+        "0": "Tåg",
+        "1": "Nalle",
+        "2": "Bok",
+        "3": "Boll"
+      },
+      "treats": {
+        "label": "Godsaker",
+        "0": "Lussebulle",
+        "1": "Pepparkaka",
+        "2": "Choklad",
+        "3": "Knäck"
+      },
+      "clues": [
+        "Astrid bor i det tredje huset.",
+        "Bosse bor någonstans till vänster om Dante.",
+        "Cleo bor granne med Astrid.",
+        "Dante bor inte i något av ändhusen.",
+        "Boken finns i det första huset.",
+        "Tåget finns direkt till vänster om bollen.",
+        "Cleo äger nallen.",
+        "Bosse gillar pepparkakor.",
+        "Tomten med tåget gillar knäck.",
+        "I det tredje huset finns lussebullar."
+      ]
+    },
+    "cookieDecorator": {
+      "title": "Dekorera pepparkakor",
+      "instruction": "Följ de prickade kristyrmönstren på tre kakor. Täck minst 86 % av varje mönster och håll 78 % av kristyren nära guiden. Lyft fingret mellan separata linjer.",
+      "coverage": "Täckt",
+      "precision": "Träffsäkerhet",
+      "notYet": "Fortsätt över de otäckta prickarna. Om för mycket kristyr hamnat utanför guiden kan du rensa kakan och försöka igen.",
+      "next": "Vilken fin kristyr! Här kommer nästa kaka.",
+      "clear": "Rensa kristyr",
+      "keys": "Tangentbord: pilar flyttar spritsen, mellanslag sänker eller lyfter den och Enter kontrollerar. Mus och pekskärm kan rita direkt."
+    },
+    "carolConductor": {
+      "title": "Juldirigenten",
+      "instruction": "Spela med till We Wish You a Merry Christmas. Tryck på varje spår när tonen når den ljusa linjen. Använd D, F, J, K eller de fyra knapparna.",
+      "miss": "Miss — hitta takten igen!",
+      "perfect": "Perfekt!",
+      "good": "Bra tajming!",
+      "lost": "Orkestern behöver en repetition till. Träffa minst 75 % av tonerna och undvik feltryck.",
+      "ready": "Gör dig redo…",
+      "lane": "Spår {{n}}",
+      "goal": "Träffa minst 45 av 60 toner. Musiktonerna spelas även när vanliga ljudeffekter är avstängda."
+    },
+    "snowGlobeJigsaw": {
+      "title": "Snöglobspusslet",
+      "instruction": "Bygg ihop vinterbilden. Välj en lös bit, rotera den vid behov och välj en plats. Lyft upp en placerad bit för att flytta eller rotera den.",
+      "piece": "Lös bildbit {{n}}",
+      "reference": "Titta på bilden",
+      "picture": "En snöig by med en klädd gran, en snögubbe och en upplyst stuga."
+    },
+    "chimneySweeper": {
+      "title": "Skorstenssotaren",
+      "instruction": "Studsa snöbollen genom alla sotblock. Flytta plattan med musen, pekskärmen eller piltangenterna. Fånga guldstjärnor för en bredare platta. Tre hjärtan!",
+      "wide": "Bred platta",
+      "serve": "Tryck eller använd mellanslag för att serva",
+      "keys": "Mus eller pekskärm flyttar plattan. Piltangenter eller A/D styr; mellanslag eller Enter servar.",
+      "lost": "Slut på hjärtan! Använd plattans kanter för att styra studsen."
+    },
+    "gingerbreadBridge": {
+      "title": "Pepparkaksbron",
+      "instruction": "Bygg en bro som håller för renen. Välj två närliggande leder för att lägga en planka; välj ett befintligt par för att ta bort den. Använd trianglar och högst 18 plankor.",
+      "tooFar": "Avståndet är för stort eller plankorna är slut. Koppla närliggande leder eller ta bort en planka.",
+      "hint": "Den streckade plankan kan bilda en triangel. Stag hjälper vägbanan att bära lasten.",
+      "test": "Testa bron",
+      "flex": "Svikt",
+      "joint": "Led {{n}}",
+      "failed": "Bron orkade inte bära lasten. Lägg till trianglar och koppla vägbanan till de övre lederna. Försök igen behåller din konstruktion.",
+      "keys": "Klicka eller tryck på leder, eller tabba mellan dem och tryck Enter. Ångra tar bort sista plankan. Återställ rensar konstruktionen."
+    },
+    "christmasEveEscape": {
+      "title": "Julaftonens gåta",
+      "instruction": "Den sista julklappen är låst i tomtens arbetsrum. Utforska rummet, läs ledtrådarna och använd det du hittar. Välj ett föremål och sedan platsen där det ska användas; välj två föremål för att kombinera dem.",
+      "welcome": "Brasan värmer, men den sista julklappen går inte att öppna. På skrivbordet väntar en lapp…",
+      "desk": "”Vid midnatt delar den lilla klockan sin hemlighet. Ställ stjärnan, klockan och sedan granen på hyllan. Ett varmt ljus visar datumet som öppnar julaftonen.”",
+      "clock": "Klockan har stannat. Vrid visarna med knapparna nedan.",
+      "clockOpen": "Midnatt! Ett litet fack öppnas i klockan. Du hittar en mässingsnyckel.",
+      "books": "Tre symbolvred skyddar en hemlig låda. Lappen på skrivbordet berättar ordningen.",
+      "booksOpen": "Hyllans låda öppnas. En torr tändsticksask hamnar bland dina föremål.",
+      "cabinet": "Skåpet är låst. En liten nyckel kanske passar. Välj nyckeln och undersök sedan skåpet.",
+      "cabinetOpen": "Nyckeln passar! Inuti finns ett släckt ljus. Skåpet är nu tomt.",
+      "window": "Frost döljer något på fönstret. Den kanske smälter i varmt levande ljus.",
+      "windowOpen": "Ljuset smälter lite frost. Två nummer syns: 24 | 12. Dag först, sedan månad — julafton.",
+      "present": "Ett fyrsiffrigt lås håller den sista julklappen stängd. Ledtråden är gömd någonstans i rummet.",
+      "wrongOrder": "Lådan förblir stängd. Kontrollera ordningen på lappen.",
+      "lit": "Tändstickorna tänder ljuset. Ta det varma skenet till något kallt.",
+      "wrongCode": "Låset förblir stängt. Hitta det gömda datumet och skriv dag följt av månad med fyra siffror.",
+      "inventory": "Föremål",
+      "empty": "Inga föremål ännu.",
+      "codeLabel": "Fyrsiffrigt datum",
+      "unlock": "Öppna sista julklappen",
+      "backClock": "Vrid klockan en timme bakåt",
+      "forwardClock": "Vrid klockan en timme framåt",
+      "symbol": "Symbolvred {{n}}",
+      "hintDesk": "Läs lappen på skrivbordet först.",
+      "hintClock": "Ställ klockan på midnatt: 12:00.",
+      "hintCabinet": "Välj mässingsnyckeln och undersök sedan skåpet.",
+      "hintBooks": "Ställ hyllans symboler på stjärna, klocka, gran och kontrollera.",
+      "hintCombine": "Välj ljuset och sedan tändstickorna för att tända det.",
+      "hintWindow": "Välj det tända ljuset och undersök det frostiga fönstret.",
+      "hintPresent": "Fönstret visar 24 och 12. Skriv dem tillsammans med dagen före månaden.",
+      "spots": {
+        "desk": "Skrivbord",
+        "clock": "Klocka",
+        "books": "Bokhylla",
+        "cabinet": "Skåp",
+        "window": "Fönster",
+        "present": "Julklapp"
+      },
+      "items": {
+        "key": "Mässingsnyckel",
+        "candle": "Ljus",
+        "matches": "Tändstickor",
+        "litCandle": "Tänt ljus"
+      }
     }
   },
   "funFacts": {
@@ -1358,9 +1521,52 @@
             "description": "Ingen mållinje – reglerna roterar och bandet går allt fortare. Hur många poäng klarar du?"
           }
         }
+      },
+      "cryptogram": {
+        "title": "Julens kryptogram"
+      },
+      "giftPacking": {
+        "title": "Packa julklapparna"
+      },
+      "rooftopRunner": {
+        "title": "Taklöparen"
+      },
+      "christmasDetective": {
+        "title": "Juldetektiven"
+      },
+      "cookieDecorator": {
+        "title": "Dekorera pepparkakor"
+      },
+      "carolConductor": {
+        "title": "Juldirigenten"
+      },
+      "snowGlobeJigsaw": {
+        "title": "Snöglobspusslet"
+      },
+      "chimneySweeper": {
+        "title": "Skorstenssotaren"
+      },
+      "gingerbreadBridge": {
+        "title": "Pepparkaksbron"
+      },
+      "christmasEveEscape": {
+        "title": "Julaftonens gåta"
       }
     },
-    "endless": "Oändlig"
+    "endless": "Oändlig",
+    "archived": {
+      "description": "Den ursprungliga kalenderutmaningen från 2026, sparad här för en runda till.",
+      "day13": "Kalenderfavorit — dag 13",
+      "day15": "Kalenderfavorit — dag 15",
+      "day16": "Kalenderfavorit — dag 16",
+      "day17": "Kalenderfavorit — dag 17",
+      "day18": "Kalenderfavorit — dag 18",
+      "day19": "Kalenderfavorit — dag 19",
+      "day21": "Kalenderfavorit — dag 21",
+      "day22": "Kalenderfavorit — dag 22",
+      "day23": "Kalenderfavorit — dag 23",
+      "day24": "Kalenderfavorit — dag 24"
+    }
   },
   "info": {
     "button": "Så funkar det",

@@ -35,13 +35,14 @@ Check 'Build frontend'
 $zipPath = Join-Path (Get-Location) '.azure-local/api.zip'
 if (Test-Path $zipPath) { Remove-Item -LiteralPath $zipPath }
 [IO.Compression.ZipFile]::CreateFromDirectory((Join-Path (Get-Location) '.azure-local/api'), $zipPath)
-az functionapp deployment source config-zip --subscription $Subscription -g $ResourceGroup -n $outputs.functionName.value --src $zipPath --build-remote false --only-show-errors -o none
-Check 'Deploy backend'
 try {
   $env:SWA_CLI_DEPLOYMENT_TOKEN = az staticwebapp secrets list --subscription $Subscription -g $ResourceGroup -n $outputs.staticSiteName.value --query properties.apiKey -o tsv
   Check 'Get frontend deployment token'
   npx --yes @azure/static-web-apps-cli@2.1.0 deploy dist/jambiz-advent-calendar/browser --env production
   Check 'Deploy frontend'
 } finally { Remove-Item Env:SWA_CLI_DEPLOYMENT_TOKEN -ErrorAction SilentlyContinue }
+# Publish compatible game loaders before the backend migrates the calendar definitions.
+az functionapp deployment source config-zip --subscription $Subscription -g $ResourceGroup -n $outputs.functionName.value --src $zipPath --build-remote false --only-show-errors -o none
+Check 'Deploy backend'
 Write-Output "Frontend: $($outputs.siteUrl.value)"
 Write-Output "Backend: $($outputs.apiBaseUrl.value)"

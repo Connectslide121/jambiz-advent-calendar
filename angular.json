@@ -104,6 +104,11 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "/assets"
+              },
+              {
+                "glob": "calendar-2026.json",
+                "input": "api/Data",
+                "output": "/test-fixtures"
               }
             ],
             "styles": ["src/styles.scss"]

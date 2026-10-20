@@ -1,0 +1,80 @@
+<app-game-frame
+  title="challenges.rooftopRunner.title"
+  instruction="challenges.rooftopRunner.instruction"
+  [phase]="phase"
+  [status]="status"
+  [score]="score"
+  [best]="bestScore"
+  [isCompleted]="isCompleted"
+  (restart)="restart()"
+  (start)="start()"
+  (reward)="completed.emit()"
+>
+  <div class="hud">
+    <span>❤️ {{ lives }}</span
+    ><span>🎁 {{ collected }}/{{ goal }}</span
+    ><span>🏁 {{ distance }}%</span>
+  </div>
+  <svg
+    class="art board"
+    [attr.viewBox]="viewBox"
+    data-game-board
+    tabindex="0"
+    role="application"
+    [attr.aria-label]="'challenges.rooftopRunner.title' | translate"
+    (pointerdown)="$event.preventDefault(); jump()"
+  >
+    <rect width="800" height="360" fill="var(--color-bg-deep)" />
+    @for (star of stars; track $index) {
+      <circle [attr.cx]="star.x" [attr.cy]="star.y" r="1.5" fill="var(--color-frost)" />
+    }
+    <circle [attr.cx]="viewWidth - 60" cy="55" r="25" fill="var(--color-gold)" />
+    @for (roof of visibleRoofs; track roof.x) {
+      <g [attr.transform]="'translate(' + (roof.x - camera) + ',' + roof.y + ')'">
+        <rect width="340" height="160" rx="4" fill="var(--color-surface-2)" />
+        <path d="M0 0 H340" stroke="var(--color-text)" stroke-width="9" />
+        <rect
+          x="170"
+          [attr.y]="-roof.height"
+          width="28"
+          [attr.height]="roof.height"
+          fill="var(--color-accent-red-dark)"
+        />
+        <rect
+          x="166"
+          [attr.y]="-roof.height - 5"
+          width="36"
+          height="8"
+          rx="3"
+          fill="var(--color-text)"
+        />
+        <rect x="35" y="30" width="30" height="35" rx="3" fill="var(--color-gold)" />
+        <rect x="250" y="30" width="30" height="35" rx="3" fill="var(--color-gold)" />
+      </g>
+    }
+    @for (gift of visibleGifts; track gift) {
+      <g [attr.transform]="'translate(' + (gift.x - camera) + ',' + gift.y + ')'">
+        <rect x="-10" y="-10" width="20" height="20" rx="3" fill="var(--color-accent-green)" />
+        <path d="M0 -10 V10 M-10 0 H10" stroke="var(--color-gold)" stroke-width="4" />
+      </g>
+    }
+    <g
+      [attr.transform]="'translate(' + (x - camera) + ',' + y + ')'"
+      [attr.opacity]="invulnerable > 0 ? 0.55 : 1"
+    >
+      <rect x="2" y="17" width="22" height="20" rx="6" fill="var(--color-accent-red)" />
+      <circle cx="13" cy="12" r="10" fill="var(--color-gold)" />
+      <path d="M2 9 L14 -11 L25 9 Z" fill="var(--color-accent-red)" />
+      <path d="M6 37 L4 43 M20 37 L25 43" stroke="var(--color-text)" stroke-width="6" />
+    </g>
+  </svg>
+  <button
+    class="btn btn-secondary jump"
+    [disabled]="phase === 'won' || phase === 'lost'"
+    (pointerdown)="$event.preventDefault(); jump()"
+    (keydown.enter)="jump()"
+    (keydown.space)="$event.preventDefault(); jump()"
+  >
+    ↑ {{ 'challenges.rooftopRunner.jump' | translate }}
+  </button>
+</app-game-frame>

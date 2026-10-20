@@ -1,5 +1,6 @@
 using System.Net;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using Microsoft.Azure.Cosmos;
 
 namespace Jambiz.Advent.Api;
@@ -8,24 +9,38 @@ public sealed class CalendarStore
 {
     private readonly Container container;
     private readonly SeasonDocument seed;
+    private readonly JsonObject seedDocument;
+    private static readonly JsonSerializerOptions Json = new(JsonSerializerDefaults.Web);
     public string Season => seed.Season;
     public int Year => int.Parse(Season);
     public CalendarStore(CosmosClient cosmos, IConfiguration config)
     {
         container = cosmos.GetContainer(config["Cosmos:Database"] ?? "advent", "calendar");
-        seed = JsonSerializer.Deserialize<SeasonDocument>(File.ReadAllText(Path.Combine(AppContext.BaseDirectory,
-            "Data", "calendar-2026.json")), new JsonSerializerOptions(JsonSerializerDefaults.Web))!;
+        seedDocument = JsonNode.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory,
+            "Data", "calendar-2026.json")))!.AsObject();
+        seed = seedDocument.Deserialize<SeasonDocument>(Json)!;
     }
     public async Task<SeasonDocument> Calendar()
     {
-        try { return (await container.ReadItemAsync<SeasonDocument>("calendar", new(Season))).Resource; }
-        catch (CosmosException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
+        for (var retry = 0; retry < 8; retry++)
         {
-            // Create-only seed: deploying code never overwrites rewards edited in Cosmos.
-            try { await container.CreateItemAsync(seed, new(Season)); }
-            catch (CosmosException conflict) when (conflict.StatusCode == HttpStatusCode.Conflict) { }
-            return (await container.ReadItemAsync<SeasonDocument>("calendar", new(Season))).Resource;
+            try
+            {
+                var response = await container.ReadItemAsync<JsonObject>("calendar", new(Season));
+                var upgraded = CalendarMigrations.UpgradeGames(response.Resource, seedDocument);
+                if (upgraded is null) return response.Resource.Deserialize<SeasonDocument>(Json)!;
+                // ETag protects a reward editor or another host migrating the same revision.
+                await container.ReplaceItemAsync(upgraded, "calendar", new(Season), new() { IfMatchEtag = response.ETag });
+                return upgraded.Deserialize<SeasonDocument>(Json)!;
+            }
+            catch (CosmosException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
+            {
+                try { await container.CreateItemAsync(seedDocument, new(Season)); }
+                catch (CosmosException conflict) when (conflict.StatusCode == HttpStatusCode.Conflict) { }
+            }
+            catch (CosmosException ex) when (ex.StatusCode == HttpStatusCode.PreconditionFailed) { }
         }
+        throw new ApiException(409, "The calendar is being updated. Retry shortly.");
     }
     public async Task<PlayerDocument> Player(string playerId, string name)
     {

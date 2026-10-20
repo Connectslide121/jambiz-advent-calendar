@@ -1,0 +1,126 @@
+<app-game-frame
+  title="challenges.christmasEveEscape.title"
+  instruction="challenges.christmasEveEscape.instruction"
+  [phase]="phase"
+  [status]="status"
+  [score]="score"
+  [best]="bestScore"
+  [isCompleted]="isCompleted"
+  (restart)="restart()"
+  (reward)="completed.emit()"
+>
+  <div class="room board" [class.warmed]="codeVisible">
+    <svg viewBox="0 0 640 400" aria-hidden="true">
+      <rect width="640" height="400" fill="var(--color-surface-2)" />
+      <path d="M0 300H640V400H0Z" fill="var(--color-surface)" />
+      <path
+        d="M0 340H640M0 380H640M80 300L10 400M220 300L200 400M420 300L440 400M560 300L630 400"
+        stroke="var(--color-border)"
+        stroke-width="3"
+      />
+      <rect x="60" y="40" width="100" height="110" rx="35" fill="var(--color-frost)" />
+      <path d="M110 40V150M60 95H160" stroke="var(--color-text)" stroke-width="7" />
+      <rect x="240" y="180" width="155" height="120" rx="10" fill="var(--color-accent-red-dark)" />
+      <path d="M265 300V230Q317 160 370 230V300Z" fill="var(--color-bg-deep)" />
+      <path
+        d="M292 300Q270 270 309 245Q307 270 328 238Q375 283 343 300Z"
+        fill="var(--color-ember)"
+      />
+      <rect x="228" y="172" width="180" height="16" rx="5" fill="var(--color-gold)" />
+      <path d="M220 40Q320 85 420 40" stroke="var(--color-accent-green)" stroke-width="10" />
+      <circle cx="320" cy="68" r="17" fill="var(--color-accent-red)" />
+    </svg>
+    @for (s of spots; track s.id) {
+      <button
+        type="button"
+        class="hotspot"
+        [class.active]="spot === s.id"
+        [style.left.%]="s.x"
+        [style.top.%]="s.y"
+        [disabled]="won"
+        (click)="inspect(s.id)"
+      >
+        <span aria-hidden="true">{{ s.icon }}</span
+        ><small>{{ 'challenges.christmasEveEscape.spots.' + s.id | translate }}</small>
+      </button>
+    }
+  </div>
+  <section class="detail card">
+    <p>{{ storyKey | translate }}</p>
+    @if (spot === 'clock' && !clockOpen) {
+      <div class="clock controls">
+        <button
+          class="btn btn-outline"
+          (click)="turnClock(-1)"
+          [attr.aria-label]="'challenges.christmasEveEscape.backClock' | translate"
+        >
+          −</button
+        ><strong>{{ hour }}:00</strong
+        ><button
+          class="btn btn-outline"
+          (click)="turnClock(1)"
+          [attr.aria-label]="'challenges.christmasEveEscape.forwardClock' | translate"
+        >
+          +
+        </button>
+      </div>
+    }
+    @if (spot === 'books' && !booksOpen) {
+      <div class="controls">
+        @for (slot of slots; track slot) {
+          <button
+            class="symbol btn btn-secondary"
+            (click)="cycle(slot)"
+            [attr.aria-label]="'challenges.christmasEveEscape.symbol' | translate: { n: slot + 1 }"
+          >
+            {{ symbols[bookOrder[slot]] }}
+          </button>
+        }
+        <button class="btn btn-primary" (click)="openBooks()">
+          {{ 'challenges.shared.check' | translate }}
+        </button>
+      </div>
+    }
+    @if (spot === 'present' && codeVisible) {
+      <div class="controls lock">
+        <label
+          >{{ 'challenges.christmasEveEscape.codeLabel' | translate
+          }}<input
+            class="input"
+            inputmode="numeric"
+            maxlength="4"
+            autocomplete="off"
+            [value]="code"
+            [disabled]="won"
+            (input)="enterCode($event)"
+            (keydown.enter)="unlock()" /></label
+        ><button class="btn btn-primary" [disabled]="won" (click)="unlock()">
+          {{ 'challenges.christmasEveEscape.unlock' | translate }}
+        </button>
+      </div>
+    }
+  </section>
+  <div class="inventory">
+    <h4>{{ 'challenges.christmasEveEscape.inventory' | translate }}</h4>
+    <div class="controls">
+      @for (item of items; track item) {
+        <button
+          class="item"
+          [class.selected]="selected === item"
+          [disabled]="won"
+          (click)="useItem(item)"
+        >
+          <span>{{ itemIcons[item] }}</span
+          >{{ 'challenges.christmasEveEscape.items.' + item | translate }}
+        </button>
+      } @empty {
+        <span class="help">{{ 'challenges.christmasEveEscape.empty' | translate }}</span>
+      }
+    </div>
+  </div>
+  <div class="controls">
+    <button class="btn btn-outline" [disabled]="won" (click)="hint()">
+      {{ 'challenges.shared.hint' | translate }}
+    </button>
+  </div>
+</app-game-frame>

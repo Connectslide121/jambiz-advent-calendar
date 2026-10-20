@@ -1,0 +1,77 @@
+.rhythm {
+  height: 330px;
+  max-width: 520px;
+  width: 100%;
+  margin: auto;
+}
+.lanes {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.lane {
+  border-right: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+.lane.active {
+  background: var(--color-surface-2);
+}
+.falling {
+  position: absolute;
+  width: 17%;
+  height: 22px;
+  background: var(--color-gold);
+  border-radius: 6px;
+  text-align: center;
+  color: var(--color-bg);
+  font-weight: 900;
+  pointer-events: none;
+}
+.falling[data-lane='1'] {
+  background: var(--color-aurora);
+}
+.falling[data-lane='2'] {
+  background: var(--color-frost);
+}
+.falling[data-lane='3'] {
+  background: var(--color-accent-red);
+}
+.hit-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 300px;
+  border-top: 3px solid var(--color-text);
+  box-shadow: 0 0 14px var(--color-gold);
+}
+.pads {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  max-width: 520px;
+  width: 100%;
+  margin: auto;
+}
+.pads button {
+  height: 58px;
+  border-radius: 10px;
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  font-weight: 900;
+  font-size: 1.3rem;
+  touch-action: none;
+  border-bottom: 3px solid var(--color-gold);
+}
+.pads button.active {
+  background: var(--color-gold);
+  color: var(--color-bg);
+}
+.count-in {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  color: var(--color-gold);
+  font-size: 1.5rem;
+}

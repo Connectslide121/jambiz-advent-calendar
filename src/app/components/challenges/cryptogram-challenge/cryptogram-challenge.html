@@ -1,0 +1,50 @@
+<app-game-frame
+  title="challenges.cryptogram.title"
+  instruction="challenges.cryptogram.instruction"
+  [phase]="phase"
+  [status]="status"
+  [score]="score"
+  [best]="bestScore"
+  [isCompleted]="isCompleted"
+  (restart)="restart()"
+  (reward)="completed.emit()"
+>
+  <div class="paper board" data-game-board tabindex="0">
+    <div class="letter-seal" aria-hidden="true">✉️</div>
+    @for (word of words; track $index) {
+      <div class="word">
+        @for (letter of word; track $index) {
+          <button
+            type="button"
+            class="cipher"
+            [class.selected]="selected === code(letter)"
+            [class.given]="given.has(code(letter))"
+            [disabled]="won || given.has(code(letter))"
+            (click)="select(letter)"
+            [attr.aria-label]="
+              ('challenges.cryptogram.code' | translate: { n: code(letter) }) +
+              ': ' +
+              (guesses[code(letter)] || '—')
+            "
+          >
+            <b>{{ guesses[code(letter)] || '·' }}</b
+            ><small>{{ code(letter) }}</small>
+          </button>
+        }
+      </div>
+    }
+  </div>
+  <p class="help">{{ 'challenges.cryptogram.selected' | translate: { n: selected } }}</p>
+  <div class="keyboard">
+    @for (letter of alphabet; track letter) {
+      <button type="button" [disabled]="won" (click)="enter(letter)">{{ letter }}</button>
+    }
+  </div>
+  <div class="controls">
+    <button class="btn btn-primary" [disabled]="won" (click)="check()">
+      {{ 'challenges.shared.check' | translate }}</button
+    ><button class="btn btn-outline" [disabled]="won" (click)="hint()">
+      {{ 'challenges.shared.hint' | translate }}
+    </button>
+  </div>
+</app-game-frame>

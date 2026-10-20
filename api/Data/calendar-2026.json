@@ -246,15 +246,9 @@
     {
       "day": 13,
       "gridPosition": 9,
-      "challengeType": "juldle",
+      "challengeType": "cryptogram",
       "funFactKey": "funFacts.day13",
-      "challengeData": {
-        "wordSv": "GLÖGG",
-        "wordEn": "TINSEL",
-        "clueSv": "Varm, kryddad dryck som serveras med russin och mandel.",
-        "clueEn": "Shiny, glittering strands draped over the tree.",
-        "maxGuesses": 6
-      }
+      "challengeData": {}
     },
     {
       "day": 14,
@@ -277,25 +271,14 @@
     {
       "day": 15,
       "gridPosition": 4,
-      "challengeType": "iceSlide",
+      "challengeType": "giftPacking",
       "funFactKey": "funFacts.day15",
-      "challengeData": {
-        "level": [
-          "#*....#.",
-          "........",
-          "...*.##.",
-          "#.......",
-          ".#...#S.",
-          "...#G#..",
-          "#.......",
-          "......#."
-        ]
-      }
+      "challengeData": {}
     },
     {
       "day": 16,
       "gridPosition": 19,
-      "challengeType": "tomteWhack",
+      "challengeType": "rooftopRunner",
       "reward": {
         "type": "coupon",
         "title": "rewards.coupon.title",
@@ -303,29 +286,19 @@
         "couponTitleKey": "rewards.coupon.day16.title",
         "couponDescriptionKey": "rewards.coupon.day16.description"
       },
-      "challengeData": {
-        "targetScore": 250,
-        "duration": 45,
-        "rows": 3,
-        "cols": 3,
-        "speed": 1.15
-      }
+      "challengeData": {}
     },
     {
       "day": 17,
       "gridPosition": 10,
-      "challengeType": "emojiCarols",
+      "challengeType": "christmasDetective",
       "funFactKey": "funFacts.day17",
-      "challengeData": {
-        "set": "b",
-        "rounds": 6,
-        "passScore": 4
-      }
+      "challengeData": {}
     },
     {
       "day": 18,
       "gridPosition": 6,
-      "challengeType": "giftMatch",
+      "challengeType": "cookieDecorator",
       "reward": {
         "type": "audio",
         "audioUrl": "rewards/day18.mp3",
@@ -333,28 +306,14 @@
         "title": "rewards.day18.title",
         "lyrics": "rewards.day18.lyrics"
       },
-      "challengeData": {
-        "cols": 7,
-        "rows": 8,
-        "kinds": 5,
-        "targetScore": 2800,
-        "moves": 20
-      }
+      "challengeData": {}
     },
     {
       "day": 19,
       "gridPosition": 21,
-      "challengeType": "snowballToss",
+      "challengeType": "carolConductor",
       "funFactKey": "funFacts.day9",
-      "challengeData": {
-        "snowmen": 5,
-        "snowballs": 7,
-        "wind": -0.35,
-        "moving": 3,
-        "preview": 0.18,
-        "gusts": 0.55,
-        "speed": 2.2
-      }
+      "challengeData": {}
     },
     {
       "day": 20,
@@ -369,7 +328,7 @@
     {
       "day": 21,
       "gridPosition": 3,
-      "challengeType": "nonogram",
+      "challengeType": "snowGlobeJigsaw",
       "reward": {
         "type": "magic8Ball",
         "title": "rewards.magic8Ball.title",
@@ -384,72 +343,34 @@
           "rewards.magic8Ball.answers.elfSaysNo"
         ]
       },
-      "challengeData": {
-        "puzzle": [
-          "...####...",
-          "...####...",
-          ".########.",
-          "..#.##.#..",
-          "..######..",
-          ".########.",
-          "..######..",
-          ".##.##.##.",
-          ".########.",
-          "..######.."
-        ],
-        "palette": [
-          "...KKKK...",
-          "...RRRR...",
-          ".KKKKKKKK.",
-          "..W.WW.W..",
-          "..WWOOWW..",
-          ".RRRRRRRR.",
-          "..WWWRWW..",
-          ".WW.WW.WW.",
-          ".WWWWWWWW.",
-          "..WWWWWW.."
-        ],
-        "titleEn": "a snowman",
-        "titleSv": "en snögubbe"
-      }
+      "challengeData": {}
     },
     {
       "day": 22,
       "gridPosition": 13,
-      "challengeType": "chimneyDrop",
+      "challengeType": "chimneySweeper",
       "funFactKey": "funFacts.day22",
-      "challengeData": {
-        "target": 6,
-        "presents": 11,
-        "speed": 1.15,
-        "wind": 0.3
-      }
+      "challengeData": {}
     },
     {
       "day": 23,
       "gridPosition": 8,
-      "challengeType": "lightPath",
+      "challengeType": "gingerbreadBridge",
       "funFactKey": "funFacts.day23",
-      "challengeData": {
-        "cols": 6,
-        "rows": 6,
-        "targets": 4
-      }
+      "challengeData": {}
     },
     {
       "day": 24,
       "gridPosition": 15,
-      "challengeType": "spotDifference",
+      "challengeType": "christmasEveEscape",
       "reward": {
         "type": "video",
         "videoUrl": "rewards/day24.mp4",
         "videoType": "mp4",
         "title": "challenges.success.videoLabel"
       },
-      "challengeData": {
-        "scene": "livingRoom",
-        "differences": 6
-      }
+      "challengeData": {}
     }
-  ]
+  ],
+  "gameRevision": 1
 }

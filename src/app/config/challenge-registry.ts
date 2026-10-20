@@ -63,4 +63,14 @@ export const CHALLENGE_LOADERS: Record<ChallengeType, () => Promise<Type<unknown
     import('../components/challenges/toy-sorter-challenge/toy-sorter-challenge').then(
       (m) => m.ToySorterChallenge
     ),
+  cryptogram: () => import('../components/challenges/cryptogram-challenge/cryptogram-challenge').then(m => m.CryptogramChallenge),
+  giftPacking: () => import('../components/challenges/gift-packing-challenge/gift-packing-challenge').then(m => m.GiftPackingChallenge),
+  rooftopRunner: () => import('../components/challenges/rooftop-runner-challenge/rooftop-runner-challenge').then(m => m.RooftopRunnerChallenge),
+  christmasDetective: () => import('../components/challenges/christmas-detective-challenge/christmas-detective-challenge').then(m => m.ChristmasDetectiveChallenge),
+  cookieDecorator: () => import('../components/challenges/cookie-decorator-challenge/cookie-decorator-challenge').then(m => m.CookieDecoratorChallenge),
+  carolConductor: () => import('../components/challenges/carol-conductor-challenge/carol-conductor-challenge').then(m => m.CarolConductorChallenge),
+  snowGlobeJigsaw: () => import('../components/challenges/snow-globe-jigsaw-challenge/snow-globe-jigsaw-challenge').then(m => m.SnowGlobeJigsawChallenge),
+  chimneySweeper: () => import('../components/challenges/chimney-sweeper-challenge/chimney-sweeper-challenge').then(m => m.ChimneySweeperChallenge),
+  gingerbreadBridge: () => import('../components/challenges/gingerbread-bridge-challenge/gingerbread-bridge-challenge').then(m => m.GingerbreadBridgeChallenge),
+  christmasEveEscape: () => import('../components/challenges/christmas-eve-escape-challenge/christmas-eve-escape-challenge').then(m => m.ChristmasEveEscapeChallenge),
 };

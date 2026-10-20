@@ -1,0 +1,56 @@
+.paper {
+  background: var(--color-surface);
+  padding: 22px 10px;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+.letter-seal {
+  width: 100%;
+  font-size: 2.5rem;
+}
+.word {
+  display: flex;
+  gap: 3px;
+}
+.cipher {
+  width: clamp(27px, 6.4vw, 43px);
+  padding: 5px 0;
+  border-bottom: 2px solid var(--color-text-muted);
+  background: var(--color-bg);
+  border-radius: 6px 6px 0 0;
+}
+.cipher b {
+  display: block;
+  font-size: 1.1rem;
+  color: var(--color-text);
+}
+.cipher small {
+  color: var(--color-gold);
+}
+.cipher.selected {
+  background: var(--color-surface-2);
+  border-color: var(--color-frost);
+  box-shadow: 0 0 0 2px var(--color-frost);
+}
+.cipher.given b {
+  color: var(--color-aurora);
+}
+.keyboard {
+  max-width: 600px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.keyboard button {
+  min-width: 36px;
+  min-height: 42px;
+  border-radius: 7px;
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  font-weight: 800;
+}

@@ -1,30 +1,30 @@
 # 🎮 Games – Julkalender 2026
 
-Fourteen Christmas minigames power the 24 doors and the bonus **Extras** menu. Every game is a
+Twenty-four different Christmas minigames power the 24 doors and the bonus **Extras** menu. Every game is a
 standalone Angular component under `src/app/components/challenges/<name>-challenge/` and follows the
 shared contract in [`docs/ADDING_A_GAME.md`](docs/ADDING_A_GAME.md).
 
 All games are bilingual (sv/en), work with mouse, touch and keyboard, and fit a phone screen.
 Each one saves a personal best through `CalendarStateService.saveGameStats`.
-All 14 games provide sound feedback for their main actions and results. Sound is on by default;
+All 24 games provide sound feedback for their main actions and results. Sound is on by default;
 the header toggle remembers an explicit mute choice. Bell Choir notes always play because audio is the puzzle.
 
 ## Calendar plan
 
 | Day | Game | Day | Game |
 |---|---|---|---|
-| 1 | 🔤 Juldle | 13 | 🔤 Juldle (GLÖGG / TINSEL) |
+| 1 | 🔤 Juldle | 13 | 🔐 Christmas Cryptogram |
 | 2 | 🔔 Klockkören | 14 | 🧝 Tomteverkstaden |
-| 3 | 🎅 Bonka tomten | 15 | 🐧 Frusna sjön (8×8) |
-| 4 | 🐧 Frusna sjön (6×6) | 16 | 🎅 Bonka tomten (harder) |
-| 5 | 🎶 Emoji-julklassiker (set a) | 17 | 🎶 Emoji-julklassiker (set b) |
-| 6 | ❄️ Snöbollskriget | 18 | 🎁 Klappmatchen (harder) |
-| 7 | 🧩 Julpixlar (8×8 tree) | 19 | ❄️ Snöbollskriget (harder) |
+| 3 | 🎅 Bonka tomten | 15 | 🎁 Gift Packing |
+| 4 | 🐧 Frusna sjön (6×6) | 16 | 🏃 Rooftop Runner |
+| 5 | 🎶 Emoji-julklassiker (set a) | 17 | 🕵️ Christmas Detective |
+| 6 | ❄️ Snöbollskriget | 18 | 🍪 Cookie Decorator |
+| 7 | 🧩 Julpixlar (8×8 tree) | 19 | 🎼 Carol Conductor |
 | 8 | 🎁 Klappmatchen | 20 | 💡 Tänd granen |
-| 9 | 🛷 Klappleveransen | 21 | 🧩 Julpixlar (10×10 snowman) |
-| 10 | 🏡 Tänd byn (5×5) | 22 | 🛷 Klappleveransen (harder) |
-| 11 | 🔎 Hitta felen (village) | 23 | 🏡 Tänd byn (6×6) |
-| 12 | ⛄ Bygg en snögubbe | 24 | 🔎 Hitta felen (cosy living room) |
+| 9 | 🛷 Klappleveransen | 21 | 🌨️ Snow Globe Jigsaw |
+| 10 | 🏡 Tänd byn (5×5) | 22 | 🧹 Chimney Sweeper |
+| 11 | 🔎 Hitta felen (village) | 23 | 🦌 Gingerbread Bridge |
+| 12 | ⛄ Bygg en snögubbe | 24 | 🗝️ Christmas Eve Escape |
 
 Days are configured in the Cosmos `calendar` document, seeded by `api/Data/calendar-2026.json`; bonus levels in
 `src/app/config/extras-config.ts`. Icons live in `challenge-icons.ts`, and the lazy-loaded component
@@ -32,7 +32,9 @@ registry in `challenge-registry.ts`.
 
 ## Extras
 
-The Extras menu unlocks after all 24 doors (or on Christmas Day). Every game has a bonus pack:
+The Extras menu unlocks after all 24 doors (or on Christmas Day). It contains **83 levels across
+24 game types**, including **7 endless modes**. The ten replaced calendar configurations remain
+available as archived levels, and each new game has a practice round. The original packs contain:
 
 - **Puzzle and word games:** 5 levels, easy → expert.
 - **Action games:** 3 harder levels plus an **endless ♾️** mode.
@@ -116,8 +118,8 @@ Only snow bodies count as hits; grazing a hat or stick arm misses. Headshots add
 sliding targets add 50, and consecutive hits add up to 100. A miss resets the streak.
 - Config: `{ snowmen = 4, snowballs = snowmen + 2, wind, moving = 2, preview = 0.22,
   gusts = 0.35, speed = 1.8, endless }`. At most two spare throws. Old full-flight guides are capped.
-- Calendar: day 6 has four targets/two sliders and six throws; day 19 has five targets/three
-  faster sliders, stronger gusts, a shorter guide and seven throws.
+- Calendar: day 6 has four targets/two sliders and six throws. The former day 19, now in Extras,
+  has five targets/three faster sliders, stronger gusts, a shorter guide and seven throws.
 - Extras: harder yards with one or two spare throws; endless waves start with moving targets
   and ramp up gusts and target speed. Refills allow at most two spare throws.
 
@@ -158,6 +160,27 @@ The rule changes mid-round.
 - Extras: 3 faster shifts plus ♾️ endless shift.
 
 ---
+
+## Ten new calendar games
+
+These games use the shared lifecycle and frame in `challenges/shared/`: personal bests, replay,
+completion, sounds and cleanup. They use their own mechanics and controls. Their current default
+rounds need no `challengeData` settings; each has a practice level in Extras.
+
+| Day | Type | Rules and controls |
+|---|---|---|
+| 13 | `cryptogram` | Decode a festive substitution cipher. Select a numbered letter and type or tap its replacement; matching codes update together. Hints cost points. Swedish uses Å, Ä and Ö. |
+| 15 | `giftPacking` | Fill a 5×5 sack with seven shaped presents. Select a piece, rotate with R or the button, and place it on the board. Pick up placed pieces or undo. |
+| 16 | `rooftopRunner` | Jump across 12 roofs, avoid chimneys and collect at least 12 gifts. Space/Up/W or the jump button; three hearts and checkpoints. |
+| 17 | `christmasDetective` | Assign elves, gifts and treats to four houses using ten clues. Keyboard-accessible selectors; clues identify exactly one solution. |
+| 18 | `cookieDecorator` | Trace three icing patterns with at least 86% coverage and 78% precision. Draw with mouse/touch, or move the pen with arrows and toggle icing with Space. |
+| 19 | `carolConductor` | Play a 60-note Christmas melody in four lanes using D/F/J/K or touch pads. Hit at least 45 notes with no more than 20 errors. Accurate timing builds combos; audio is part of the game. |
+| 21 | `snowGlobeJigsaw` | Rotate and place nine picture tiles. Select, rotate with R or the button, and swap pieces on the board. A reference peek is available. |
+| 22 | `chimneySweeper` | Clear 28 soot bricks with a bouncing snowball. Move the paddle with mouse, touch, arrows or A/D; Space/Enter serves. Three hearts; falling stars temporarily widen the paddle. |
+| 23 | `gingerbreadBridge` | Connect joints with at most 18 beams, then test a moving reindeer load. A truss stiffness solver checks stability, deflection and strain. Failed tests preserve the design for edits; undo and single-beam hints help. |
+| 24 | `christmasEveEscape` | Explore six study hotspots, solve a clock and ornament clues, collect and combine items, uncover a window clue and unlock the final gift. Hints are available. |
+
+The jigsaw scene is an authored SVG in `src/assets/games/`. Other game art uses inline SVG/CSS.
 
 The 2025 games (riddles, hangman, sokoban, flappy sleigh, …) are archived on the
 [`advent-2025`](../../tree/advent-2025) branch.

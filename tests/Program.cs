@@ -3,6 +3,7 @@ using Jambiz.Advent.Api;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 
 var assertions = 0;
 void Check(bool condition, string message)
@@ -32,6 +33,31 @@ Check(CalendarRules.KeepBest([result], result with { Score = 1200 }).Single().Sc
 Check(CalendarRules.KeepBest([result], result with { Score = 1600 }).Single().Score == 1600, "Best result not saved");
 Check(CalendarRules.KeepBest([result], result with { Day = 2 }).Count == 2, "New day lost");
 Check(CalendarRules.KeepBest([result], result with { ElapsedSeconds = 59.99 }).Single().ElapsedSeconds == 59.99, "Tied score must use precise elapsed time");
+
+var catalog = JsonNode.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Data", "calendar-2026.json")))!.AsObject();
+var legacy = (JsonObject)catalog.DeepClone();
+legacy.Remove("gameRevision");
+legacy["customField"] = "preserve me";
+var legacyDay = legacy["days"]!.AsArray().OfType<JsonObject>().Single(d => d["day"]!.GetValue<int>() == 13);
+legacyDay["challengeType"] = "juldle";
+legacyDay["challengeData"] = new JsonObject { ["wordEn"] = "TINSEL" };
+legacyDay["reward"] = new JsonObject { ["type"] = "text", ["textKey"] = "custom.reward" };
+legacyDay["editorNote"] = "keep this too";
+legacyDay["gridPosition"] = 22;
+var upgradedCatalog = CalendarMigrations.UpgradeGames(legacy, catalog)!;
+var upgradedDay = upgradedCatalog["days"]!.AsArray().OfType<JsonObject>().Single(d => d["day"]!.GetValue<int>() == 13);
+Check(upgradedDay["challengeType"]!.GetValue<string>() == "cryptogram", "Game migration did not update the old duplicate");
+Check(upgradedDay["challengeData"]!.ToJsonString() == "{}", "Old game config remained");
+Check(upgradedDay["reward"]!["textKey"]!.GetValue<string>() == "custom.reward", "Game migration overwrote edited reward");
+Check(upgradedDay["gridPosition"]!.GetValue<int>() == 22, "Game migration moved the door");
+Check(upgradedDay["editorNote"]!.GetValue<string>() == "keep this too", "Game migration lost day metadata");
+Check(upgradedCatalog["customField"]!.GetValue<string>() == "preserve me", "Game migration lost season metadata");
+Check(legacyDay["challengeType"]!.GetValue<string>() == "juldle", "Migration mutated its input document");
+Check(CalendarMigrations.UpgradeGames(upgradedCatalog, catalog) is null, "Migration is not idempotent");
+var newerCatalog = (JsonObject)upgradedCatalog.DeepClone();
+newerCatalog["gameRevision"] = 999;
+Check(CalendarMigrations.UpgradeGames(newerCatalog, catalog) is null, "Older release overwrote a newer calendar");
+Check(upgradedCatalog["days"]!.AsArray().OfType<JsonObject>().Select(d => d["challengeType"]!.GetValue<string>()).Distinct().Count() == 24, "Calendar still contains duplicate game types");
 
 if (args.Length == 2 && args[0] == "--cosmos")
 {

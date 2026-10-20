@@ -84,6 +84,19 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
           maxGuesses: 6,
         },
       },
+      {
+        id: 'extra-juldle-calendar-13',
+        nameKey: 'extras.archived.day13',
+        descriptionKey: 'extras.archived.description',
+        challengeType: 'juldle',
+        challengeData: {
+          "wordSv": "GLÖGG",
+          "wordEn": "TINSEL",
+          "clueSv": "Varm, kryddad dryck som serveras med russin och mandel.",
+          "clueEn": "Shiny, glittering strands draped over the tree.",
+          "maxGuesses": 6
+        },
+      },
     ],
   },
   {
@@ -142,6 +155,17 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
           set: 'g',
           rounds: 6,
           passScore: 5,
+        },
+      },
+      {
+        id: 'extra-emojiCarols-calendar-17',
+        nameKey: 'extras.archived.day17',
+        descriptionKey: 'extras.archived.description',
+        challengeType: 'emojiCarols',
+        challengeData: {
+          "set": "b",
+          "rounds": 6,
+          "passScore": 4
         },
       },
     ],
@@ -233,6 +257,24 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
             '....*.....',
             '..##.#....',
           ],
+        },
+      },
+      {
+        id: 'extra-iceSlide-calendar-15',
+        nameKey: 'extras.archived.day15',
+        descriptionKey: 'extras.archived.description',
+        challengeType: 'iceSlide',
+        challengeData: {
+          "level": [
+            "#*....#.",
+            "........",
+            "...*.##.",
+            "#.......",
+            ".#...#S.",
+            "...#G#..",
+            "#.......",
+            "......#."
+          ]
         },
       },
     ],
@@ -414,6 +456,40 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
           titleSv: 'tomten',
         },
       },
+      {
+        id: 'extra-nonogram-calendar-21',
+        nameKey: 'extras.archived.day21',
+        descriptionKey: 'extras.archived.description',
+        challengeType: 'nonogram',
+        challengeData: {
+          "puzzle": [
+            "...####...",
+            "...####...",
+            ".########.",
+            "..#.##.#..",
+            "..######..",
+            ".########.",
+            "..######..",
+            ".##.##.##.",
+            ".########.",
+            "..######.."
+          ],
+          "palette": [
+            "...KKKK...",
+            "...RRRR...",
+            ".KKKKKKKK.",
+            "..W.WW.W..",
+            "..WWOOWW..",
+            ".RRRRRRRR.",
+            "..WWWRWW..",
+            ".WW.WW.WW.",
+            ".WWWWWWWW.",
+            "..WWWWWW.."
+          ],
+          "titleEn": "a snowman",
+          "titleSv": "en snögubbe"
+        },
+      },
     ],
   },
   {
@@ -474,6 +550,17 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
           targets: 6,
         },
       },
+      {
+        id: 'extra-lightPath-calendar-23',
+        nameKey: 'extras.archived.day23',
+        descriptionKey: 'extras.archived.description',
+        challengeType: 'lightPath',
+        challengeData: {
+          "cols": 6,
+          "rows": 6,
+          "targets": 4
+        },
+      },
     ],
   },
   {
@@ -531,6 +618,19 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
           duration: 90,
         },
         isInfinite: true,
+      },
+      {
+        id: 'extra-giftMatch-calendar-18',
+        nameKey: 'extras.archived.day18',
+        descriptionKey: 'extras.archived.description',
+        challengeType: 'giftMatch',
+        challengeData: {
+          "cols": 7,
+          "rows": 8,
+          "kinds": 5,
+          "targetScore": 2800,
+          "moves": 20
+        },
       },
     ],
   },
@@ -693,6 +793,21 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
         },
         isInfinite: true,
       },
+      {
+        id: 'extra-snowballToss-calendar-19',
+        nameKey: 'extras.archived.day19',
+        descriptionKey: 'extras.archived.description',
+        challengeType: 'snowballToss',
+        challengeData: {
+          "snowmen": 5,
+          "snowballs": 7,
+          "wind": -0.35,
+          "moving": 3,
+          "preview": 0.18,
+          "gusts": 0.55,
+          "speed": 2.2
+        },
+      },
     ],
   },
   {
@@ -744,6 +859,18 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
           endless: true,
         },
         isInfinite: true,
+      },
+      {
+        id: 'extra-chimneyDrop-calendar-22',
+        nameKey: 'extras.archived.day22',
+        descriptionKey: 'extras.archived.description',
+        challengeType: 'chimneyDrop',
+        challengeData: {
+          "target": 6,
+          "presents": 11,
+          "speed": 1.15,
+          "wind": 0.3
+        },
       },
     ],
   },
@@ -852,6 +979,19 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
         },
         isInfinite: true,
       },
+      {
+        id: 'extra-tomteWhack-calendar-16',
+        nameKey: 'extras.archived.day16',
+        descriptionKey: 'extras.archived.description',
+        challengeType: 'tomteWhack',
+        challengeData: {
+          "targetScore": 250,
+          "duration": 45,
+          "rows": 3,
+          "cols": 3,
+          "speed": 1.15
+        },
+      },
     ],
   },
   {
@@ -916,6 +1056,16 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
           ],
         },
       },
+      {
+        id: 'extra-spotDifference-calendar-24',
+        nameKey: 'extras.archived.day24',
+        descriptionKey: 'extras.archived.description',
+        challengeType: 'spotDifference',
+        challengeData: {
+          "scene": "livingRoom",
+          "differences": 6
+        },
+      },
     ],
   },
   {
@@ -968,4 +1118,14 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
       },
     ],
   },
+  { type: 'cryptogram', levels: [{ id: 'extra-cryptogram-1', nameKey: 'challenges.cryptogram.title', descriptionKey: 'challenges.cryptogram.instruction', challengeType: 'cryptogram', challengeData: {} }] },
+  { type: 'giftPacking', levels: [{ id: 'extra-giftPacking-1', nameKey: 'challenges.giftPacking.title', descriptionKey: 'challenges.giftPacking.instruction', challengeType: 'giftPacking', challengeData: {} }] },
+  { type: 'rooftopRunner', levels: [{ id: 'extra-rooftopRunner-1', nameKey: 'challenges.rooftopRunner.title', descriptionKey: 'challenges.rooftopRunner.instruction', challengeType: 'rooftopRunner', challengeData: {} }] },
+  { type: 'christmasDetective', levels: [{ id: 'extra-christmasDetective-1', nameKey: 'challenges.christmasDetective.title', descriptionKey: 'challenges.christmasDetective.instruction', challengeType: 'christmasDetective', challengeData: {} }] },
+  { type: 'cookieDecorator', levels: [{ id: 'extra-cookieDecorator-1', nameKey: 'challenges.cookieDecorator.title', descriptionKey: 'challenges.cookieDecorator.instruction', challengeType: 'cookieDecorator', challengeData: {} }] },
+  { type: 'carolConductor', levels: [{ id: 'extra-carolConductor-1', nameKey: 'challenges.carolConductor.title', descriptionKey: 'challenges.carolConductor.instruction', challengeType: 'carolConductor', challengeData: {} }] },
+  { type: 'snowGlobeJigsaw', levels: [{ id: 'extra-snowGlobeJigsaw-1', nameKey: 'challenges.snowGlobeJigsaw.title', descriptionKey: 'challenges.snowGlobeJigsaw.instruction', challengeType: 'snowGlobeJigsaw', challengeData: {} }] },
+  { type: 'chimneySweeper', levels: [{ id: 'extra-chimneySweeper-1', nameKey: 'challenges.chimneySweeper.title', descriptionKey: 'challenges.chimneySweeper.instruction', challengeType: 'chimneySweeper', challengeData: {} }] },
+  { type: 'gingerbreadBridge', levels: [{ id: 'extra-gingerbreadBridge-1', nameKey: 'challenges.gingerbreadBridge.title', descriptionKey: 'challenges.gingerbreadBridge.instruction', challengeType: 'gingerbreadBridge', challengeData: {} }] },
+  { type: 'christmasEveEscape', levels: [{ id: 'extra-christmasEveEscape-1', nameKey: 'challenges.christmasEveEscape.title', descriptionKey: 'challenges.christmasEveEscape.instruction', challengeType: 'christmasEveEscape', challengeData: {} }] },
 ];

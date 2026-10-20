@@ -1,18 +1,16 @@
-# 2026 calendar game inventory and replacement proposal
+# 2026 calendar game inventory
 
-This is an inventory and design proposal, not an implementation of the new games.
-The inventory is taken from `api/Data/calendar-2026.json`; bonus levels are in
-`src/app/config/extras-config.ts`.
+The ten replacements are implemented. **All 24 doors now use different game types.**
+The first appearance of each original game remains on its original day; later appearances have
+been replaced according to the table below. See [GAMES.md](../GAMES.md) for the current day plan.
 
-## Current calendar
+Extras contain **83 levels across 24 game types**, including 7 endless modes, the ten archived
+calendar variants and one practice round for each new game. Original bonus level IDs are preserved.
 
-- 24 calendar doors use 14 distinct game types.
-- 10 game types appear twice, accounting for 20 doors.
-- 4 game types appear once.
-- That leaves 10 repeat slots to replace to reach 24 distinct calendar games.
-- Repeats have different words, boards, scenes or difficulty, but reuse the same core game.
-- Extras contain 63 bonus levels across these same 14 game types, including 7 endless modes.
-  Those are intentional bonus variations and are outside this proposal to remove calendar repeats.
+## Original inventory before replacement
+
+The previous calendar had 14 distinct game types: ten appeared twice and four appeared once.
+The original Extras menu had 63 levels. This table records that earlier layout:
 
 | Game | Calendar days | Core mechanic |
 |---|---|---|
@@ -31,12 +29,10 @@ The inventory is taken from `api/Data/calendar-2026.json`; bonus levels are in
 | Elf Workshop | 14 | Sort moving objects under changing rules |
 | Light Up the Tree | 20 | Lights-out toggle puzzle |
 
-## Suggested replacements
+## Implemented replacements
 
-Keep each game’s first appearance, including Elf Workshop on day 14 and Light Up the Tree on
-day 20. Replace the ten later repetitions. Each idea below introduces a different core mechanic.
-Target short, replayable rounds of roughly 1–3 minutes, with mouse/touch and keyboard controls,
-Swedish/English instructions, sound effects, and results through the existing game contract.
+Each replacement introduces a different core mechanic, with mouse/touch and keyboard controls,
+Swedish/English text, sound effects, replay and personal bests through the existing game contract.
 
 | Day | Replaces | New game | How it plays | What makes it different |
 |---|---|---|---|---|
@@ -51,9 +47,7 @@ Swedish/English instructions, sound effects, and results through the existing ga
 | 23 | Light the Village | Gingerbread Bridge | Build a bridge with a small supply of planks, then test whether the reindeer can cross. | Physics construction and resource budgeting. |
 | 24 | Spot the Difference | Christmas Eve Escape | Explore Santa’s study, combine a few objects and solve linked clues to unlock the final present. | A short point-and-click escape-room finale. |
 
-Adopting all ten replacements gives 24 distinct games across 24 doors, with no repeated game type.
-Existing harder variants can remain in Extras.
-
-I would prototype Gift Packing, Rooftop Runner and Carol Conductor first: they add particularly
-clear differences in interaction (spatial arrangement, platforming and rhythm). Keep Christmas
-Eve Escape small and polished as the final-day surprise rather than making it a long adventure.
+The seed has `gameRevision: 1`. On the first calendar request after deploying the updated API,
+the versioned migration updates game definitions while preserving edited rewards, grid positions,
+other calendar metadata and player documents. Deploy the compatible frontend before the backend;
+local dev mode reads the new seed directly.

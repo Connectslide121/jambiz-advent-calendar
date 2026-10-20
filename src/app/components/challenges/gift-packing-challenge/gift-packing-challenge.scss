@@ -1,0 +1,80 @@
+.sack {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  max-width: 390px;
+  width: 100%;
+  margin: auto;
+  padding: 12px;
+  gap: 5px;
+  background: var(--color-surface);
+}
+.square {
+  aspect-ratio: 1;
+  border-radius: 6px;
+  background: var(--color-bg);
+  border: 1px dashed var(--color-text-muted);
+  color: var(--color-bg);
+}
+.square.cursor {
+  outline: 2px solid var(--color-frost);
+  outline-offset: -2px;
+}
+.pieces {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.pieces button {
+  width: 70px;
+  height: 70px;
+  background: var(--color-surface-2);
+  border-radius: 10px;
+  padding: 8px;
+  border: 2px solid transparent;
+}
+.pieces button.selected {
+  border-color: var(--color-frost);
+}
+.pieces button:disabled {
+  opacity: 0.25;
+}
+.pieces svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+[data-piece='0'] {
+  color: var(--color-accent-red);
+  --gift: var(--color-accent-red);
+}
+[data-piece='1'] {
+  color: var(--color-gold);
+  --gift: var(--color-gold);
+}
+[data-piece='2'] {
+  color: var(--color-aurora);
+  --gift: var(--color-aurora);
+}
+[data-piece='3'] {
+  color: var(--color-frost);
+  --gift: var(--color-frost);
+}
+[data-piece='4'] {
+  color: var(--color-ember);
+  --gift: var(--color-ember);
+}
+[data-piece='5'] {
+  color: var(--color-text-muted);
+  --gift: var(--color-text-muted);
+}
+[data-piece='6'] {
+  color: var(--color-text);
+  --gift: var(--color-text);
+}
+.square:not([data-piece='-1']) {
+  background: var(--gift);
+  border-color: var(--gift);
+  color: var(--color-bg);
+  font-size: 1.5rem;
+}

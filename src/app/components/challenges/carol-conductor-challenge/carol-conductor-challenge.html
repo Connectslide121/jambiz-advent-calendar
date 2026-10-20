@@ -1,0 +1,60 @@
+<app-game-frame
+  title="challenges.carolConductor.title"
+  instruction="challenges.carolConductor.instruction"
+  [phase]="phase"
+  [status]="status"
+  [score]="score"
+  [best]="bestScore"
+  [isCompleted]="isCompleted"
+  (restart)="restart()"
+  (start)="start()"
+  (reward)="completed.emit()"
+>
+  <div class="hud">
+    <span>🎯 {{ hits }}/{{ notes.length }}</span
+    ><span>🔥 {{ combo }}</span
+    ><span>⭐ {{ score }}</span>
+  </div>
+  <div
+    class="rhythm board"
+    data-game-board
+    tabindex="0"
+    [attr.aria-label]="'challenges.carolConductor.title' | translate"
+  >
+    <div class="lanes">
+      @for (lane of lanes; track lane) {
+        <div class="lane" [class.active]="activeLane === lane"></div>
+      }
+    </div>
+    @for (note of visibleNotes; track $index) {
+      <div
+        class="falling"
+        [style.left.%]="note.lane * 25 + 4"
+        [style.top.px]="noteY(note) - 9"
+        [attr.data-lane]="note.lane"
+      >
+        ♪
+      </div>
+    }
+    <div class="hit-line" aria-hidden="true"></div>
+    @if (phase === 'playing' && time < 2) {
+      <div class="count-in">{{ 'challenges.carolConductor.ready' | translate }}</div>
+    }
+  </div>
+  <div class="pads">
+    @for (lane of lanes; track lane) {
+      <button
+        type="button"
+        [class.active]="activeLane === lane"
+        [disabled]="phase !== 'playing'"
+        (pointerdown)="$event.preventDefault(); hit(lane)"
+        (keydown.enter)="hit(lane)"
+        (keydown.space)="$event.preventDefault(); hit(lane)"
+        [attr.aria-label]="'challenges.carolConductor.lane' | translate: { n: lane + 1 }"
+      >
+        {{ keys[lane] }}
+      </button>
+    }
+  </div>
+  <p class="help">{{ 'challenges.carolConductor.goal' | translate }}</p>
+</app-game-frame>

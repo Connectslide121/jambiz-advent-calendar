@@ -1,0 +1,13 @@
+.art {
+  max-height: 500px;
+}
+.art g[role='button'] {
+  cursor: pointer;
+}
+.art g[role='button']:focus {
+  outline: none;
+}
+.art g[role='button']:focus circle:last-child {
+  stroke: var(--color-gold);
+  stroke-width: 4;
+}

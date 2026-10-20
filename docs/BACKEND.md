@@ -52,7 +52,10 @@ One logical partition per season (`2026`) contains:
 
 - `calendar`: 24 challenge definitions, grid positions, reward metadata and translation keys.
   `api/Data/calendar-2026.json` seeds it once on the first authenticated calendar request.
-  Later code deployments preserve edits in Cosmos.
+  `gameRevision` controls one-time upgrades of `challengeType` and `challengeData`. Revision 1
+  replaces ten repeated games, while preserving edited rewards, grid positions, other metadata
+  and all player documents. An ETag-conditional write retries concurrent edits. After the revision
+  is applied, subsequent requests preserve later edits to game definitions too.
 - `player:<Entra oid>`: display name, best scored result and game statistics per day, plus
   extra-level completions/statistics. Cloud progress follows the user across devices.
 - `attempt:<random id>`: owner, day, server start time and consumed flag; one-hour TTL.
@@ -181,8 +184,9 @@ metadata into ignored `.azure-local/entra.json`. It preserves existing redirect 
 ./scripts/deploy.ps1            # code update to existing resources
 ```
 
-Deploy builds/tests first, publishes a Function ZIP including hidden host files, then uploads the
-Angular output with SWA CLI. The SWA deployment token is held only in a process environment variable
+Deploy builds/tests first, uploads the Angular output with SWA CLI, then publishes a Function ZIP
+including hidden host files. The frontend must understand the new game types before the API
+applies a calendar revision. Already-open browser tabs may need a reload after the update. The SWA deployment token is held only in a process environment variable
 and removed afterward. No Git push or automatic GitHub Actions deployment is configured here.
 The old `npm run deploy` targets GitHub Pages; use the PowerShell script for Azure.
 
@@ -198,7 +202,7 @@ These require an explicitly authorized data role. The ordinary test command is o
 
 - Development/production Angular builds and .NET publish passed. The initial JS/CSS bundle is
   under the 500 kB warning budget; existing reward SCSS deprecation/size warnings remain.
-- Offline scoring/date/best-result tests: 15 assertions passed.
+- Offline scoring/date/best-result and calendar migration tests: 25 assertions passed.
 - Live Cosmos tests: 26 assertions passed, covering seed, date enforcement, persistence,
   duplicate/foreign attempts, worse replays, concurrent saves, extras and both leaderboards.
   Test player/run documents were removed afterward; the calendar seed remains.

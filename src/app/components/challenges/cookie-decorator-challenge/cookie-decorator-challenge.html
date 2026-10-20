@@ -1,0 +1,76 @@
+<app-game-frame
+  title="challenges.cookieDecorator.title"
+  instruction="challenges.cookieDecorator.instruction"
+  [phase]="phase"
+  [status]="status"
+  [score]="score"
+  [best]="bestScore"
+  [isCompleted]="isCompleted"
+  (restart)="restart()"
+  (reward)="completed.emit()"
+>
+  <div class="hud">
+    <span>🍪 {{ completedCookies }}/3</span
+    ><span>{{ 'challenges.cookieDecorator.coverage' | translate }} {{ coverage }}%</span
+    ><span>{{ 'challenges.cookieDecorator.precision' | translate }} {{ precision }}%</span>
+  </div>
+  <svg
+    viewBox="0 0 300 300"
+    class="art board cookie"
+    data-game-board
+    tabindex="0"
+    role="application"
+    [attr.aria-label]="'challenges.cookieDecorator.title' | translate"
+    (pointerdown)="down($event)"
+    (pointermove)="move($event)"
+    (pointerup)="up()"
+    (pointercancel)="up()"
+  >
+    <rect x="10" y="10" width="280" height="280" rx="55" fill="var(--color-ember)" />
+    <rect
+      x="19"
+      y="19"
+      width="262"
+      height="262"
+      rx="50"
+      fill="var(--color-accent-red-dark)"
+      opacity=".45"
+    />
+    @for (line of reference; track $index) {
+      <path
+        [attr.d]="path(line)"
+        stroke="var(--color-gold)"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-dasharray="2 9"
+        fill="none"
+      />
+    }
+    @for (line of strokes; track $index) {
+      <path
+        [attr.d]="path(line)"
+        stroke="var(--color-text)"
+        stroke-width="7"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        fill="none"
+      />
+    }
+    <circle
+      [attr.cx]="pen.x"
+      [attr.cy]="pen.y"
+      r="5"
+      stroke="var(--color-frost)"
+      stroke-width="1.5"
+      fill="none"
+    />
+  </svg>
+  <div class="controls">
+    <button class="btn btn-primary" [disabled]="won" (click)="check()">
+      {{ 'challenges.shared.check' | translate }}</button
+    ><button class="btn btn-outline" [disabled]="won" (click)="clearInk()">
+      {{ 'challenges.cookieDecorator.clear' | translate }}
+    </button>
+  </div>
+  <p class="help">{{ 'challenges.cookieDecorator.keys' | translate }}</p>
+</app-game-frame>

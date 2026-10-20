@@ -1,0 +1,60 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+.hud {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  color: var(--color-frost);
+  font-weight: 800;
+}
+.controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.board {
+  position: relative;
+  min-width: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  background: var(--color-bg-deep);
+  overflow: hidden;
+}
+.board:focus-visible {
+  outline: 3px solid var(--color-frost);
+  outline-offset: 3px;
+}
+button:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--color-frost);
+  outline-offset: 2px;
+}
+.art {
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: none;
+  user-select: none;
+}
+button:disabled {
+  cursor: default;
+}
+.help {
+  color: var(--color-text-muted);
+  text-align: center;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

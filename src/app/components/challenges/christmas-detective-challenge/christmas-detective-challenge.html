@@ -1,0 +1,51 @@
+<app-game-frame
+  title="challenges.christmasDetective.title"
+  instruction="challenges.christmasDetective.instruction"
+  [phase]="phase"
+  [status]="status"
+  [score]="score"
+  [best]="bestScore"
+  [isCompleted]="isCompleted"
+  (restart)="restart()"
+  (reward)="completed.emit()"
+>
+  <div class="houses">
+    @for (h of houses; track h) {
+      <section class="house">
+        <div class="roof" aria-hidden="true">❄️</div>
+        <h4>{{ 'challenges.christmasDetective.house' | translate: { n: h + 1 } }}</h4>
+        @for (category of categories; track category; let c = $index) {
+          <label
+            >{{ 'challenges.christmasDetective.' + category + '.label' | translate
+            }}<select
+              class="input"
+              [disabled]="won"
+              [value]="assignments[c][h]"
+              (change)="assign(h, c, $event)"
+            >
+              <option value="-1">—</option>
+              @for (value of choices; track value) {
+                <option [value]="value">
+                  {{ 'challenges.christmasDetective.' + category + '.' + value | translate }}
+                </option>
+              }
+            </select></label
+          >
+        }
+      </section>
+    }
+  </div>
+  <ol class="clues">
+    @for (id of clueIds; track id) {
+      <li [class.satisfied]="checked && clues[id]">
+        <span aria-hidden="true">{{ checked && clues[id] ? '✓' : '✦' }}</span
+        >{{ 'challenges.christmasDetective.clues.' + id | translate }}
+      </li>
+    }
+  </ol>
+  <div class="controls">
+    <button class="btn btn-primary" [disabled]="won" (click)="check()">
+      {{ 'challenges.shared.check' | translate }}
+    </button>
+  </div>
+</app-game-frame>

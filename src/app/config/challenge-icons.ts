@@ -15,6 +15,16 @@ export const CHALLENGE_ICONS: Record<ChallengeType, string> = {
   tomteWhack: '🎅',
   spotDifference: '🔎',
   toySorter: '🧝',
+  cryptogram: '🔐',
+  giftPacking: '🧳',
+  rooftopRunner: '🏃',
+  christmasDetective: '🕵️',
+  cookieDecorator: '🍪',
+  carolConductor: '🎼',
+  snowGlobeJigsaw: '🧩',
+  chimneySweeper: '🧱',
+  gingerbreadBridge: '🌉',
+  christmasEveEscape: '🗝️',
 };
 
 export const DEFAULT_CHALLENGE_ICON = '🎁';

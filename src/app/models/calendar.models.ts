@@ -12,7 +12,17 @@
   | 'snowmanStack'
   | 'tomteWhack'
   | 'spotDifference'
-  | 'toySorter';
+  | 'toySorter'
+  | 'cryptogram'
+  | 'giftPacking'
+  | 'rooftopRunner'
+  | 'christmasDetective'
+  | 'cookieDecorator'
+  | 'carolConductor'
+  | 'snowGlobeJigsaw'
+  | 'chimneySweeper'
+  | 'gingerbreadBridge'
+  | 'christmasEveEscape';
 
 export type RewardType =
   | 'text'

@@ -1,0 +1,58 @@
+<app-game-frame
+  title="challenges.giftPacking.title"
+  instruction="challenges.giftPacking.instruction"
+  [phase]="phase"
+  [status]="status"
+  [score]="score"
+  [best]="bestScore"
+  [isCompleted]="isCompleted"
+  (restart)="restart()"
+  (reward)="completed.emit()"
+>
+  <div class="hud">
+    🎁 {{ placed.size }}/7 <span>{{ 'challenges.shared.moves' | translate }}: {{ moves }}</span>
+  </div>
+  <div class="sack board" data-game-board tabindex="0">
+    @for (i of cells; track i) {
+      <button
+        type="button"
+        class="square"
+        [attr.data-piece]="board[i]"
+        [class.cursor]="cursor === i"
+        [disabled]="won"
+        (click)="cell(i)"
+        [attr.aria-label]="'challenges.shared.cell' | translate: { n: i + 1 }"
+      >
+        @if (board[i] >= 0) {
+          <span aria-hidden="true">✦</span>
+        }
+      </button>
+    }
+  </div>
+  <div class="pieces">
+    @for (piece of pieces; track $index; let id = $index) {
+      <button
+        type="button"
+        [attr.data-piece]="id"
+        [class.selected]="selected === id"
+        [disabled]="placed.has(id) || won"
+        (click)="select(id)"
+        [attr.aria-label]="'challenges.giftPacking.piece' | translate: { n: id + 1 }"
+      >
+        <svg viewBox="-2 -2 84 84" aria-hidden="true">
+          @for (c of shape(id); track $index) {
+            <rect [attr.x]="c[0] * 21" [attr.y]="c[1] * 21" width="19" height="19" rx="3" />
+          }
+        </svg>
+      </button>
+    }
+  </div>
+  <div class="controls">
+    <button class="btn btn-secondary" [disabled]="selected < 0 || won" (click)="rotate()">
+      ↻ {{ 'challenges.shared.rotate' | translate }}</button
+    ><button class="btn btn-outline" [disabled]="!history.length || won" (click)="undo()">
+      ↶ {{ 'challenges.shared.undo' | translate }}
+    </button>
+  </div>
+  <p class="help">{{ 'challenges.giftPacking.keys' | translate }}</p>
+</app-game-frame>

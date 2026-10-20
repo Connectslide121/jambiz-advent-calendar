@@ -865,6 +865,169 @@
           "right": "Naughty list (coal)"
         }
       }
+    },
+    "shared": {
+      "win": "Beautifully done!",
+      "check": "Check answer",
+      "hint": "Hint",
+      "rotate": "Rotate",
+      "undo": "Undo",
+      "moves": "Moves",
+      "cell": "Space {{n}}"
+    },
+    "cryptogram": {
+      "title": "Christmas Cryptogram",
+      "instruction": "Decode the festive message. Matching numbers share a letter. Select a number, then type or tap a letter. Green letters are already given.",
+      "code": "Code {{n}}",
+      "selected": "Editing number {{n}} — every matching number changes together.",
+      "notYet": "Some letters are still missing or incorrect. Use the repeated numbers and the shape of each word."
+    },
+    "giftPacking": {
+      "title": "Gift Packing",
+      "instruction": "Fit every present into the sack without overlaps. Select a shape, rotate it, then choose its top-left position. Tap a packed present to pick it up again.",
+      "piece": "Present {{n}}",
+      "noFit": "That present does not fit there. Rotate it or make room first.",
+      "keys": "Keyboard: arrows choose a space, Enter places, R rotates, Backspace undoes. You can also click or tap everything."
+    },
+    "rooftopRunner": {
+      "title": "Rooftop Runner",
+      "instruction": "Carry Santa’s parcels across the roofs. Jump over gaps and chimneys, collect at least 12 presents, and reach the finish with a heart left.",
+      "jump": "Jump",
+      "lost": "Three tumbles! Take another run and jump just before the gaps.",
+      "needGifts": "You reached the end, but need 12 presents. Jump for the high ones too!"
+    },
+    "christmasDetective": {
+      "title": "Christmas Detective",
+      "instruction": "Work out who lives in each house, which gift they have and their favourite treat. Houses run left to right, 1–4. Use each choice once in each category.",
+      "house": "House {{n}}",
+      "unique": "Complete every house, using each elf, gift and treat exactly once.",
+      "recheck": "Some clues do not match yet. The checked clues are currently satisfied.",
+      "elves": {
+        "label": "Elf",
+        "0": "Astrid",
+        "1": "Bosse",
+        "2": "Cleo",
+        "3": "Dante"
+      },
+      "gifts": {
+        "label": "Gift",
+        "0": "Train",
+        "1": "Teddy",
+        "2": "Book",
+        "3": "Ball"
+      },
+      "treats": {
+        "label": "Treat",
+        "0": "Lucia bun",
+        "1": "Gingerbread",
+        "2": "Chocolate",
+        "3": "Fudge"
+      },
+      "clues": [
+        "Astrid lives in the third house.",
+        "Bosse lives somewhere to the left of Dante.",
+        "Cleo lives next door to Astrid.",
+        "Dante lives in neither end house.",
+        "The book is in the first house.",
+        "The train is immediately to the left of the ball.",
+        "Cleo owns the teddy.",
+        "Bosse likes gingerbread.",
+        "The elf with the train likes fudge.",
+        "The third house has Lucia buns."
+      ]
+    },
+    "cookieDecorator": {
+      "title": "Cookie Decorator",
+      "instruction": "Trace the dotted icing patterns on three cookies. Cover at least 86% of each pattern and keep 78% of your icing close to the guide. Lift your finger between separate lines.",
+      "coverage": "Covered",
+      "precision": "Accuracy",
+      "notYet": "Keep tracing the uncovered dots. If too much icing went outside the guide, clear this cookie and try again.",
+      "next": "Lovely icing! Here is the next cookie.",
+      "clear": "Clear icing",
+      "keys": "Keyboard: arrows move the icing tip; Space lowers or lifts it; Enter checks the cookie. Mouse and touch can trace directly."
+    },
+    "carolConductor": {
+      "title": "Carol Conductor",
+      "instruction": "Play along with We Wish You a Merry Christmas. Tap each lane as its note reaches the bright line. Use D, F, J, K or the four pads.",
+      "miss": "Miss — find the beat again!",
+      "perfect": "Perfect!",
+      "good": "Good timing!",
+      "lost": "The orchestra needs another rehearsal. Hit at least 75% of the notes and avoid stray taps.",
+      "ready": "Get ready…",
+      "lane": "Lane {{n}}",
+      "goal": "Land at least 45 of 60 notes. Musical notes play even when ordinary effects are muted."
+    },
+    "snowGlobeJigsaw": {
+      "title": "Snow Globe Jigsaw",
+      "instruction": "Rebuild the winter picture. Select a loose piece, rotate it if needed, and choose a space. Pick up a placed piece to move or rotate it.",
+      "piece": "Loose picture piece {{n}}",
+      "reference": "Peek at the picture",
+      "picture": "A snowy village with a decorated tree, a snowman and a glowing cottage."
+    },
+    "chimneySweeper": {
+      "title": "Chimney Sweeper",
+      "instruction": "Bounce the snowball through every soot brick. Move the paddle with the mouse, touch, or arrow keys. Catch golden stars to widen your paddle. Three hearts!",
+      "wide": "Wide paddle",
+      "serve": "Tap or press Space to serve",
+      "keys": "Mouse/touch moves the paddle. Arrow keys or A/D steer; Space or Enter serves.",
+      "lost": "Out of hearts! Try using the paddle edges to aim your rebounds."
+    },
+    "gingerbreadBridge": {
+      "title": "Gingerbread Bridge",
+      "instruction": "Build a bridge strong enough for the reindeer. Select two nearby joints to add a plank; select an existing pair to remove it. Use triangles and stay within 18 planks.",
+      "tooFar": "That span is too long, or your plank budget is used up. Connect nearby joints or remove a plank.",
+      "hint": "The dashed span is one way to make a triangle. Braces help the road carry the load.",
+      "test": "Test the bridge",
+      "flex": "Flex",
+      "joint": "Joint {{n}}",
+      "failed": "The bridge could not carry the load. Add triangles and connect the road to the upper joints. Try again keeps your design.",
+      "keys": "Click/tap joints, or Tab between them and press Enter. Undo removes the last plank. Reset clears the design."
+    },
+    "christmasEveEscape": {
+      "title": "Christmas Eve Escape",
+      "instruction": "The final present is locked in Santa’s study. Explore the room, read the clues and use what you find. Select an inventory item, then a place to use it; select two items to combine them.",
+      "welcome": "The fire is warm, but the last present will not open. A note waits on the desk…",
+      "desk": "“At midnight the little clock shares its secret. Shelve the star, the bell, then the tree. A warm light will reveal the date that opens Christmas Eve.”",
+      "clock": "The clock is stopped. Its hands can be turned with the buttons below.",
+      "clockOpen": "Midnight! A tiny compartment opens in the clock. You found a brass key.",
+      "books": "Three ornament dials guard a secret drawer. The note on the desk mentions their order.",
+      "booksOpen": "The shelf drawer opens. A dry box of matches joins your inventory.",
+      "cabinet": "The cabinet is locked. Perhaps a small key would fit. Select the key, then inspect the cabinet.",
+      "cabinetOpen": "The key fits! Inside is an unlit candle. The cabinet is now empty.",
+      "window": "Frost hides something on the window. It might soften in warm candlelight.",
+      "windowOpen": "The candle melts a little frost. Two numbers appear: 24 | 12. Day first, then month — Christmas Eve.",
+      "present": "A four-digit lock seals the final present. Its clue is hidden somewhere in this room.",
+      "wrongOrder": "The drawer stays shut. Check the order in the desk note.",
+      "lit": "The matches light the candle. Take its warm light somewhere cold.",
+      "wrongCode": "The lock stays closed. Find the hidden date, and enter day then month as four digits.",
+      "inventory": "Inventory",
+      "empty": "Nothing collected yet.",
+      "codeLabel": "Four-digit date",
+      "unlock": "Open the final present",
+      "backClock": "Turn the clock back one hour",
+      "forwardClock": "Turn the clock forward one hour",
+      "symbol": "Ornament dial {{n}}",
+      "hintDesk": "Read the note on the desk first.",
+      "hintClock": "Set the clock to midnight: 12:00.",
+      "hintCabinet": "Select the brass key in your inventory, then inspect the cabinet.",
+      "hintBooks": "Set the shelf ornaments to star, bell, tree, then check them.",
+      "hintCombine": "Select the candle, then select the matches to light it.",
+      "hintWindow": "Select the lit candle, then inspect the frosty window.",
+      "hintPresent": "The window shows 24 and 12. Enter them together, day before month.",
+      "spots": {
+        "desk": "Desk",
+        "clock": "Clock",
+        "books": "Bookshelf",
+        "cabinet": "Cabinet",
+        "window": "Window",
+        "present": "Present"
+      },
+      "items": {
+        "key": "Brass key",
+        "candle": "Candle",
+        "matches": "Matches",
+        "litCandle": "Lit candle"
+      }
     }
   },
   "funFacts": {
@@ -1358,9 +1521,52 @@
             "description": "No finish line – rules rotate, the belt speeds up. How high can you score?"
           }
         }
+      },
+      "cryptogram": {
+        "title": "Christmas Cryptogram"
+      },
+      "giftPacking": {
+        "title": "Gift Packing"
+      },
+      "rooftopRunner": {
+        "title": "Rooftop Runner"
+      },
+      "christmasDetective": {
+        "title": "Christmas Detective"
+      },
+      "cookieDecorator": {
+        "title": "Cookie Decorator"
+      },
+      "carolConductor": {
+        "title": "Carol Conductor"
+      },
+      "snowGlobeJigsaw": {
+        "title": "Snow Globe Jigsaw"
+      },
+      "chimneySweeper": {
+        "title": "Chimney Sweeper"
+      },
+      "gingerbreadBridge": {
+        "title": "Gingerbread Bridge"
+      },
+      "christmasEveEscape": {
+        "title": "Christmas Eve Escape"
       }
     },
-    "endless": "Endless"
+    "endless": "Endless",
+    "archived": {
+      "description": "The original 2026 calendar challenge, kept here for another round.",
+      "day13": "Calendar encore — day 13",
+      "day15": "Calendar encore — day 15",
+      "day16": "Calendar encore — day 16",
+      "day17": "Calendar encore — day 17",
+      "day18": "Calendar encore — day 18",
+      "day19": "Calendar encore — day 19",
+      "day21": "Calendar encore — day 21",
+      "day22": "Calendar encore — day 22",
+      "day23": "Calendar encore — day 23",
+      "day24": "Calendar encore — day 24"
+    }
   },
   "info": {
     "button": "How It Works",

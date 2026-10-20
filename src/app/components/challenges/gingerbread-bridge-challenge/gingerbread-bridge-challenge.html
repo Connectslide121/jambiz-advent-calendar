@@ -1,0 +1,99 @@
+<app-game-frame
+  title="challenges.gingerbreadBridge.title"
+  instruction="challenges.gingerbreadBridge.instruction"
+  [phase]="phase"
+  [status]="status"
+  [score]="score"
+  [best]="bestScore"
+  [isCompleted]="isCompleted"
+  (restart)="phase === 'lost' ? edit() : restart()"
+  (reward)="completed.emit()"
+>
+  <div class="hud">
+    <span>🪵 {{ beams.length }}/{{ budget }}</span>
+    @if (testing) {
+      <span>{{ 'challenges.gingerbreadBridge.flex' | translate }} {{ deflection }}</span>
+    }
+  </div>
+  <svg
+    class="art board"
+    viewBox="0 0 640 440"
+    data-game-board
+    tabindex="0"
+    [attr.aria-label]="'challenges.gingerbreadBridge.title' | translate"
+  >
+    <rect width="640" height="440" fill="var(--color-bg-deep)" />
+    <path d="M0 300H72V440H0ZM568 300H640V440H568Z" fill="var(--color-surface-2)" />
+    <path d="M0 300H72M568 300H640" stroke="var(--color-text)" stroke-width="10" />
+    <path
+      d="M75 415Q200 365 320 410T565 400"
+      stroke="var(--color-frost)"
+      stroke-width="6"
+      fill="none"
+      opacity=".4"
+    />
+    @for (beam of beams; track $index) {
+      <line
+        [attr.x1]="points[beam[0]].x"
+        [attr.y1]="points[beam[0]].y"
+        [attr.x2]="points[beam[1]].x"
+        [attr.y2]="points[beam[1]].y"
+        stroke="var(--color-ember)"
+        stroke-width="9"
+        stroke-linecap="round"
+      />
+      <line
+        [attr.x1]="points[beam[0]].x"
+        [attr.y1]="points[beam[0]].y - 3"
+        [attr.x2]="points[beam[1]].x"
+        [attr.y2]="points[beam[1]].y - 3"
+        stroke="var(--color-gold)"
+        stroke-width="2"
+      />
+    }
+    @if (hintEdge) {
+      <line
+        [attr.x1]="points[hintEdge[0]].x"
+        [attr.y1]="points[hintEdge[0]].y"
+        [attr.x2]="points[hintEdge[1]].x"
+        [attr.y2]="points[hintEdge[1]].y"
+        stroke="var(--color-aurora)"
+        stroke-width="5"
+        stroke-dasharray="8 6"
+      />
+    }
+    @for (point of points; track $index; let id = $index) {
+      <g
+        role="button"
+        [attr.tabindex]="testing || won ? -1 : 0"
+        [attr.aria-label]="'challenges.gingerbreadBridge.joint' | translate: { n: id + 1 }"
+        (click)="connect(id)"
+        (keydown.enter)="connect(id)"
+        (keydown.space)="$event.preventDefault(); connect(id)"
+      >
+        <circle [attr.cx]="point.x" [attr.cy]="point.y" r="44" fill="transparent" />
+        <circle
+          [attr.cx]="point.x"
+          [attr.cy]="point.y"
+          [attr.r]="selected === id ? 12 : 8"
+          [attr.fill]="point.fixed ? 'var(--color-gold)' : 'var(--color-frost)'"
+          stroke="var(--color-bg)"
+          stroke-width="2"
+        />
+      </g>
+    }
+    <g [attr.transform]="'translate(' + loadX + ',' + reindeerY + ')'">
+      <text transform="scale(-1 1)" text-anchor="middle" font-size="35">🦌</text>
+    </g>
+  </svg>
+  <div class="controls">
+    <button class="btn btn-primary" [disabled]="testing || won" (click)="test()">
+      {{ 'challenges.gingerbreadBridge.test' | translate }}</button
+    ><button class="btn btn-outline" [disabled]="testing || won" (click)="undo()">
+      {{ 'challenges.shared.undo' | translate }}</button
+    ><button class="btn btn-outline" [disabled]="testing || won" (click)="hint()">
+      {{ 'challenges.shared.hint' | translate }}
+    </button>
+  </div>
+  <p class="help">{{ 'challenges.gingerbreadBridge.keys' | translate }}</p>
+</app-game-frame>

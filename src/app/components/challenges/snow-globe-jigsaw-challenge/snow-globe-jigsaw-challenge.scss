@@ -1,0 +1,70 @@
+.puzzle-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 22px;
+  align-items: start;
+}
+.picture {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2px;
+  padding: 6px;
+}
+.tile {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--color-text-muted);
+  border-radius: 4px;
+  background: var(--color-surface-2);
+  color: var(--color-gold);
+  font-size: 1.5rem;
+}
+.fragment {
+  position: absolute;
+  inset: 0;
+  background-size: 300% 300%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+.tray {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.tray .selected {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 2px;
+}
+.reference {
+  text-align: center;
+  color: var(--color-text-muted);
+}
+summary {
+  cursor: pointer;
+  padding: 8px;
+}
+.reference img {
+  width: 260px;
+  max-width: 100%;
+  margin: 10px auto;
+  border-radius: 12px;
+}
+@media (max-width: 600px) {
+  .puzzle-layout {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .picture {
+    max-width: 360px;
+    width: 100%;
+    margin: auto;
+  }
+  .tray {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    max-width: 360px;
+    width: 100%;
+    margin: auto;
+  }
+}

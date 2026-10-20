@@ -12,11 +12,11 @@ a cosy Christmas minigame behind it, and beating the game unwraps a reward. Live
 
 ## ✨ What's inside
 
-- **24 doors, 14 games.** Word, logic, action and observation games, all new for 2026, from
+- **24 doors, 24 different games.** Word, logic, action and observation games, all new for 2026, from
   *Juldle* and *Frusna sjön* to *Bonka tomten* and *Klappleveransen*. See **[GAMES.md](GAMES.md)**
   for the full list and the day-by-day plan.
-- **Extras.** After all 24 doors (or on Christmas Day) a bonus menu opens with 5 extra levels per
-  puzzle game, and harder levels plus an **endless ♾️ mode** for the action games.
+- **Extras.** After all 24 doors (or on Christmas Day) a bonus menu opens with 83 levels, including the
+  ten former calendar variants, practice rounds for the new games and 7 **endless ♾️ modes**.
 - **"Nordic Christmas night" design.**
   - Background: an animated scene with northern lights, twinkling stars and shooting stars, parallax
     hills with a log cabin, and snow that drifts with the mouse. Click the moon to call Santa's sleigh.
@@ -69,7 +69,7 @@ src/
 │   │   ├── progress-tree/     # One ornament per finished day
 │   │   ├── challenge-host/    # Modal that lazy-loads a game, then shows the reward
 │   │   ├── fun-fact-reveal/   # Reward screens (text, video, audio, coupons, snow globe…)
-│   │   └── challenges/        # The 14 games, one folder each
+│   │   └── challenges/        # The 24 games, one folder each
 │   ├── config/
 │   │   ├── calendar-config.ts # Day → game, game settings and reward
 │   │   ├── extras-config.ts   # Bonus levels for the Extras menu

@@ -1,0 +1,82 @@
+<app-game-frame
+  title="challenges.chimneySweeper.title"
+  instruction="challenges.chimneySweeper.instruction"
+  [phase]="phase"
+  [status]="status"
+  [score]="score"
+  [best]="bestScore"
+  [isCompleted]="isCompleted"
+  (restart)="restart()"
+  (start)="start()"
+  (reward)="completed.emit()"
+>
+  <div class="hud">
+    <span>❤️ {{ lives }}</span
+    ><span>🧱 {{ left }}</span
+    ><span>⭐ {{ score }}</span>
+    @if (elapsed < wideUntil) {
+      <span>↔ {{ 'challenges.chimneySweeper.wide' | translate }}</span>
+    }
+  </div>
+  <svg
+    class="art board"
+    viewBox="0 0 800 440"
+    data-game-board
+    tabindex="0"
+    role="application"
+    [attr.aria-label]="'challenges.chimneySweeper.title' | translate"
+    (pointermove)="pointer($event)"
+    (pointerdown)="press($event)"
+  >
+    <rect width="800" height="440" fill="var(--color-bg-deep)" />
+    <path d="M8 0V440 M792 0V440" stroke="var(--color-surface-2)" stroke-width="16" />
+    @for (brick of bricks; track $index) {
+      @if (brick.alive) {
+        <rect
+          [attr.x]="brick.x"
+          [attr.y]="brick.y"
+          width="96"
+          height="25"
+          rx="4"
+          [attr.fill]="brick.gold ? 'var(--color-gold)' : 'var(--color-surface-2)'"
+          stroke="var(--color-text-muted)"
+          stroke-width="1"
+        />
+      }
+    }
+    @for (power of powers; track power) {
+      <text
+        [attr.x]="power.x"
+        [attr.y]="power.y"
+        font-size="24"
+        text-anchor="middle"
+        fill="var(--color-gold)"
+      >
+        ✦
+      </text>
+    }
+    <rect
+      [attr.x]="paddle - paddleWidth / 2"
+      y="394"
+      [attr.width]="paddleWidth"
+      height="14"
+      rx="7"
+      fill="var(--color-accent-red)"
+    />
+    <rect
+      [attr.x]="paddle - paddleWidth / 2"
+      y="391"
+      [attr.width]="paddleWidth"
+      height="5"
+      rx="3"
+      fill="var(--color-text)"
+    />
+    <circle [attr.cx]="ball.x" [attr.cy]="ball.y" r="7" fill="var(--color-frost)" />
+    @if (serving && phase === 'playing') {
+      <text x="400" y="260" text-anchor="middle" fill="var(--color-text)" font-size="19">
+        {{ 'challenges.chimneySweeper.serve' | translate }}
+      </text>
+    }
+  </svg>
+  <p class="help">{{ 'challenges.chimneySweeper.keys' | translate }}</p>
+</app-game-frame>

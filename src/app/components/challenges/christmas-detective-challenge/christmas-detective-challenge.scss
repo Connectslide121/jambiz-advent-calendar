@@ -1,0 +1,64 @@
+.houses {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.house {
+  padding: 14px 10px;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  min-width: 0;
+}
+.roof {
+  text-align: center;
+  font-size: 1.5rem;
+  border-bottom: 3px solid var(--color-accent-red);
+}
+h4 {
+  color: var(--color-gold);
+  text-align: center;
+  margin: 8px 0;
+}
+label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-top: 8px;
+}
+select {
+  width: 100%;
+  font-size: 0.9rem;
+  padding: 8px 4px;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+.clues {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 12px;
+  background: var(--color-surface);
+  border-radius: 12px;
+}
+.clues li {
+  display: flex;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+.clues span {
+  color: var(--color-gold);
+}
+.clues .satisfied {
+  color: var(--color-aurora);
+}
+@media (max-width: 600px) {
+  .houses {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .clues {
+    grid-template-columns: 1fr;
+  }
+}

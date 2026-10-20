@@ -1,0 +1,69 @@
+<app-game-frame
+  title="challenges.snowGlobeJigsaw.title"
+  instruction="challenges.snowGlobeJigsaw.instruction"
+  [phase]="phase"
+  [status]="status"
+  [score]="score"
+  [best]="bestScore"
+  [isCompleted]="isCompleted"
+  (restart)="restart()"
+  (reward)="completed.emit()"
+>
+  <div class="hud">
+    🧩 {{ assembled }}/9 <span>{{ 'challenges.shared.moves' | translate }}: {{ moves }}</span>
+  </div>
+  <div class="puzzle-layout">
+    <div class="picture board">
+      @for (slot of slots; track slot) {
+        <button
+          type="button"
+          class="tile"
+          [disabled]="won"
+          (click)="place(slot)"
+          [attr.aria-label]="'challenges.shared.cell' | translate: { n: slot + 1 }"
+        >
+          @if (board[slot] >= 0) {
+            <span
+              class="fragment"
+              [style.background-position]="position(board[slot])"
+              [style.transform]="'rotate(' + rotations[board[slot]] * 90 + 'deg)'"
+              [style.background-image]="'url(' + image + ')'"
+            ></span>
+          } @else {
+            <span aria-hidden="true">✧</span>
+          }
+        </button>
+      }
+    </div>
+    <div class="tray">
+      @for (id of available; track id) {
+        <button
+          type="button"
+          class="tile"
+          [class.selected]="selected === id"
+          [disabled]="won"
+          (click)="select(id)"
+          [attr.aria-label]="
+            'challenges.snowGlobeJigsaw.piece' | translate: { n: order.indexOf(id) + 1 }
+          "
+        >
+          <span
+            class="fragment"
+            [style.background-position]="position(id)"
+            [style.transform]="'rotate(' + rotations[id] * 90 + 'deg)'"
+            [style.background-image]="'url(' + image + ')'"
+          ></span>
+        </button>
+      }
+    </div>
+  </div>
+  <div class="controls">
+    <button class="btn btn-secondary" [disabled]="selected < 0 || won" (click)="rotate()">
+      ↻ {{ 'challenges.shared.rotate' | translate }}
+    </button>
+  </div>
+  <details class="reference">
+    <summary>{{ 'challenges.snowGlobeJigsaw.reference' | translate }}</summary>
+    <img [src]="image" [alt]="'challenges.snowGlobeJigsaw.picture' | translate" />
+  </details>
+</app-game-frame>
