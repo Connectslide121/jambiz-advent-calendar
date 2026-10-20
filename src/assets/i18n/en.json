@@ -766,7 +766,7 @@
       },
       "legend": "Tap tomtar (golden ones are worth extra). Leave the coal and the Christmas goat alone!",
       "endlessLegend": "Missing a tomte or tapping coal or the goat costs a heart. It gets faster and faster!",
-      "keyHint": "Keys 1–9 bonk the mounds",
+      "keyHint": "Use the numpad: 7–8–9 at the top, 1–2–3 at the bottom",
       "timeUp": "The candle burned out!",
       "overText": "You got {{score}} of {{target}} points. The tomtar are hiding again – one more go?",
       "endlessTitle": "Out of hearts!",

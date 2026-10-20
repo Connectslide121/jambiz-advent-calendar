@@ -125,7 +125,9 @@ and a finished snowman gets dressed with hat, scarf and carrot.
 
 ### 🎅 Bonka tomten / Whack-a-Tomte (`tomteWhack`)
 Tomtar pop out of snow mounds; bonk them, but avoid coal and the julbock. The timer is a burning
-candle. Keys 1–9 map to the holes.
+candle. Keys follow the keyboard numpad: 7–8–9 on top, 4–5–6 in the middle, 1–2–3 at the bottom.
+Numpad keys also work with Num Lock off; top-row digits use the same mapping. Larger grids map
+the bottom-left 3×3 area; the remaining mounds can be tapped or clicked.
 - Config: `{ targetScore, duration, rows, cols, speed, endless }`.
 - Extras: a 4×4 yard, rush, short candle, plus ♾️ survival with 3 hearts.
 

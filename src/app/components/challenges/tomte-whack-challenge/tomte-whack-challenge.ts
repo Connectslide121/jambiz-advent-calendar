@@ -111,9 +111,11 @@ export class TomteWhackChallenge implements OnInit, AfterViewInit, OnDestroy {
   private readonly onKey = (e: KeyboardEvent) => {
     const target = e.target instanceof Element ? e.target : null;
     if (target && (target.closest('input') || target.closest('textarea'))) return;
-    if (/^[1-9]$/.test(e.key)) {
-      const i = Number(e.key) - 1;
-      if (i < this.holes.length && this.phase === 'playing') {
+    const key = /^Numpad[1-9]$/.test(e.code) ? Number(e.code.slice(-1))
+      : /^[1-9]$/.test(e.key) ? Number(e.key) : null;
+    if (key !== null) {
+      const i = this.holes.findIndex(h => this.getHoleKey(h.id) === key);
+      if (i >= 0 && this.phase === 'playing') {
         e.preventDefault();
         this.zone.run(() => this.whack(i));
       }
@@ -129,6 +131,13 @@ export class TomteWhackChallenge implements OnInit, AfterViewInit, OnDestroy {
   private readonly onVisibility = () => {
     this.last = performance.now();
   };
+
+  /** Keyboard numpad: 7-8-9 above 4-5-6 above 1-2-3. Larger grids use the bottom-left 3x3. */
+  getHoleKey(index: number): number | null {
+    const column = index % this.cols;
+    const rowFromBottom = this.rows - 1 - Math.floor(index / this.cols);
+    return column < 3 && rowFromBottom < 3 ? rowFromBottom * 3 + column + 1 : null;
+  }
 
   /** Width/height ratio of the mound grid, used by CSS to fit it on screen */
   get gridRatio(): number {

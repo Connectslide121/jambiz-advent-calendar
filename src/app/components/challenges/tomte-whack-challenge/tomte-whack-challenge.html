@@ -337,8 +337,8 @@
           </g>
           <use href="#tw-mound-front" />
         </svg>
-        @if (h.id < 9) {
-        <span class="key" aria-hidden="true">{{ h.id + 1 }}</span>
+        @if (getHoleKey(h.id); as key) {
+        <span class="key" aria-hidden="true">{{ key }}</span>
         } @if (h.hit && h.up && !(h.kind === 'coal' || h.kind === 'goat')) {
         <span class="bonk" aria-hidden="true">💫</span>
         } @for (p of h.popups; track p.id) {
