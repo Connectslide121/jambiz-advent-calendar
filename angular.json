@@ -65,6 +65,11 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "prebundle": {
+              "exclude": ["@azure/msal-browser"]
+            }
+          },
           "configurations": {
             "production": {
               "buildTarget": "jambiz-advent-calendar:build:production"

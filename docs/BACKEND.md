@@ -150,6 +150,10 @@ If Core Tools reports `Worker runtime cannot be 'None'`, verify `api/local.setti
 the current project SDK is not detected by Core Tools' older language heuristics without that
 runtime setting. The example is safe to commit; the working local file is ignored and never published.
 
+The Angular dev server excludes `@azure/msal-browser` from dependency prebundling. This keeps its
+lazy import in Angular's own compiled chunks and avoids Vite's `504 (Outdated Optimize Dep)` on
+the sign-in library. Restart `npm start` after changing this setting, then reload the browser.
+
 `scripts/configure-entra.ps1` creates/reuses the exact calendar registrations and writes nonsecret
 metadata into ignored `.azure-local/entra.json`. It preserves existing redirect URIs.
 
