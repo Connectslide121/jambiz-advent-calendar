@@ -109,10 +109,17 @@ round. Bells play even when UI sounds are muted because the melody is the game.
 - Melody reference: [Ivory Piano's arrangement](https://ivorypiano.com/sv/songs/we-wish-you-a-merry-christmas).
 
 ### ❄️ Snöbollskriget / Snowball Fight (`snowballToss`)
-Drag back and release to throw (slingshot style) with a dotted trajectory preview. Wind is shown
-by a windsock. Knock down every snowman before you run out of snowballs.
-- Config: `{ snowmen, snowballs, wind (-1…1), moving (0–3), preview (0.15–1), endless }`.
-- Extras: 3 harder yards plus ♾️ endless waves (clearing a wave refills your snowballs).
+Pull back to choose angle and power. The aiming dots show only the first 0.12–0.24 seconds,
+with no collision or landing prediction. Smooth wind gusts affect flight and are shown by the
+windsock/HUD. Smaller snowmen slide along ledges: lead them and arc shots over the forts.
+Only snow bodies count as hits; grazing a hat or stick arm misses. Headshots add 75 points,
+sliding targets add 50, and consecutive hits add up to 100. A miss resets the streak.
+- Config: `{ snowmen = 4, snowballs = snowmen + 2, wind, moving = 2, preview = 0.22,
+  gusts = 0.35, speed = 1.8, endless }`. At most two spare throws. Old full-flight guides are capped.
+- Calendar: day 6 has four targets/two sliders and six throws; day 19 has five targets/three
+  faster sliders, stronger gusts, a shorter guide and seven throws.
+- Extras: harder yards with one or two spare throws; endless waves start with moving targets
+  and ramp up gusts and target speed. Refills allow at most two spare throws.
 
 ### 🛷 Klappleveransen / Present Drop (`chimneyDrop`)
 Santa's sleigh flies over a night town; tap to drop presents into chimneys. A present keeps the

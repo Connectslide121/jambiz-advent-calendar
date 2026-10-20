@@ -128,11 +128,13 @@
         "title": "rewards.popupCard.title"
       },
       "challengeData": {
-        "snowmen": 3,
+        "snowmen": 4,
         "snowballs": 6,
-        "wind": 0,
-        "moving": 0,
-        "preview": 1
+        "wind": 0.15,
+        "moving": 2,
+        "preview": 0.22,
+        "gusts": 0.35,
+        "speed": 1.8
       }
     },
     {
@@ -345,11 +347,13 @@
       "challengeType": "snowballToss",
       "funFactKey": "funFacts.day9",
       "challengeData": {
-        "snowmen": 4,
+        "snowmen": 5,
         "snowballs": 7,
-        "wind": 0.4,
-        "moving": 1,
-        "preview": 0.6
+        "wind": -0.35,
+        "moving": 3,
+        "preview": 0.18,
+        "gusts": 0.55,
+        "speed": 2.2
       }
     },
     {

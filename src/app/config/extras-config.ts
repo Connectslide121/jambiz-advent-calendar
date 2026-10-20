@@ -645,10 +645,12 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
         challengeType: 'snowballToss',
         challengeData: {
           snowmen: 5,
-          snowballs: 8,
+          snowballs: 7,
           wind: -0.5,
-          moving: 1,
-          preview: 0.5,
+          moving: 2,
+          preview: 0.18,
+          gusts: 0.5,
+          speed: 2.1,
         },
       },
       {
@@ -657,11 +659,13 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
         descriptionKey: 'extras.games.snowballToss.levels.extra-snowballToss-2.description',
         challengeType: 'snowballToss',
         challengeData: {
-          snowmen: 4,
+          snowmen: 5,
           snowballs: 6,
           wind: 0.8,
-          moving: 2,
-          preview: 0.4,
+          moving: 3,
+          preview: 0.16,
+          gusts: 0.6,
+          speed: 2.4,
         },
       },
       {
@@ -671,10 +675,12 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
         challengeType: 'snowballToss',
         challengeData: {
           snowmen: 6,
-          snowballs: 9,
+          snowballs: 7,
           wind: 0.3,
           moving: 3,
-          preview: 0.3,
+          preview: 0.14,
+          gusts: 0.7,
+          speed: 2.7,
         },
       },
       {

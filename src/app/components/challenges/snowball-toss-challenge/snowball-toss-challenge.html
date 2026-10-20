@@ -49,6 +49,11 @@
         <span class="val calm-text">{{ 'challenges.snowballToss.calm' | translate }}</span>
         }
       </div>
+      @if (streak > 1) {
+      <div class="chip" [attr.aria-label]="'challenges.snowballToss.streak' | translate">
+        <span class="lbl">🔥</span><span class="val">{{ streak }}</span>
+      </div>
+      }
       <div class="chip score">
         <span class="val">{{ score }}</span>
         @if (bestScore !== null) {
@@ -73,6 +78,7 @@
         <ul class="howto">
           <li><span>👆</span>{{ 'challenges.snowballToss.how1' | translate }}</li>
           <li><span>🎏</span>{{ 'challenges.snowballToss.how2' | translate }}</li>
+          <li><span>🎯</span>{{ 'challenges.snowballToss.how4' | translate }}</li>
           @if (endless) {
           <li><span>🌊</span>{{ 'challenges.snowballToss.howEndless' | translate }}</li>
           } @else {

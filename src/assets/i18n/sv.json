@@ -728,8 +728,8 @@
       "instruction": "Dra bakåt från snöbollen och släpp för att kasta. Fäll alla snögubbar!",
       "canvasLabel": "Trädgård med snögubbar. Dra bakåt för att sikta och släpp för att kasta.",
       "introTitle": "Snöbollskrig i skymningen!",
-      "how1": "Dra bakåt från snöbollen som med en slangbella – prickarna visar vart den flyger.",
-      "how2": "Håll koll på vindstruten: vinden knuffar varje kast.",
+      "how1": "Dra bakåt för att välja vinkel och kraft. Prickarna visar bara början av kastet — bedöm resten själv.",
+      "how2": "Håll koll på vindstruten när det blåser upp, och sikta framför snögubbarna som glider.",
       "how3": "Fäll alla {{snowmen}} snögubbar med {{balls}} snöbollar.",
       "keyboard": "Tangentbord: piltangenterna siktar, mellanslag kastar.",
       "snowballs": "Snöbollar",
@@ -744,6 +744,9 @@
       "howEndless": "Oändligt snöbollskrig! Fäll våg efter våg – varje avklarad våg fyller på snöbollarna. Hur långt kommer du?",
       "endlessOver": "Spelet är slut!",
       "endlessText": "Du kom till våg {{wave}}. Dina poäng:",
+      "how4": "Huvudträffar och träffar i rad ger bonuspoäng. Missar bryter din träffsvit.",
+      "headshot": "Huvudträff!",
+      "streak": "Träffsvit",
       "newBest": "Nytt personligt rekord!"
     },
     "chimneyDrop": {
@@ -1231,15 +1234,15 @@
         "levels": {
           "extra-snowballToss-1": {
             "name": "Motvindsbacken",
-            "description": "Fem snögubbar, byig motvind och en kortare siktlinje."
+            "description": "Fem snögubbar, två glidande mål och byig motvind. Sju kast."
           },
           "extra-snowballToss-2": {
             "name": "Glidande vakter",
-            "description": "Två snögubbar glider på isiga hyllor – och det blåser hårt. Bara sex snöbollar!"
+            "description": "Fem snögubbar, tre snabba glidare och starka vindbyar. Bara sex kast."
           },
           "extra-snowballToss-3": {
             "name": "Snöfästningen",
-            "description": "Sex snögubbar, tre glidande hyllor och nästan ingen siktlinje."
+            "description": "Sex snögubbar, snabba glidare och en mycket kort siktlinje. Sju kast."
           },
           "extra-snowballToss-4": {
             "name": "Oändligt snöbollskrig",

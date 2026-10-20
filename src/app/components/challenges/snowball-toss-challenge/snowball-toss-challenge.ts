@@ -13,22 +13,26 @@ import {
   inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LucideAngularModule, Check, RotateCcw } from 'lucide-angular';
 import { CalendarStateService } from '../../../services/calendar-state.service';
 import { SoundService } from '../../../services/sound.service';
 
 export interface SnowballTossConfig {
-  /** Number of snowmen to knock down (1–7). Default 3 */
+  /** Number of snowmen to knock down (1–7). Default 4 */
   snowmen?: number;
-  /** Snowballs available (at least the number of snowmen). Default snowmen + 3 */
+  /** Snowballs available (at least the number of snowmen). Default snowmen + 2 */
   snowballs?: number;
   /** Constant wind, -1 (strong, to the left) … 1 (strong, to the right). Default 0 */
   wind?: number;
-  /** How many snowmen slide back and forth on ice ledges (0–3, true = 1). Default 0 */
+  /** How many snowmen slide back and forth on ice ledges (0–3, true = 1). Default 2 */
   moving?: number | boolean;
-  /** Fraction of the flight shown by the dotted aim preview (0.15–1). Default 1 */
+  /** Seconds of initial flight shown by the guide (0.12–0.24). Default 0.22; old longer guides are capped. */
   preview?: number;
+  /** Strength of smooth, visible wind gusts (0–0.8). Default 0.35 */
+  gusts?: number;
+  /** Sliding target angular speed (1–3). Default 1.8 */
+  speed?: number;
   /** Endless bonus mode: waves of snowmen until the snowballs run out. Never emits `completed` */
   endless?: boolean;
 }
@@ -118,6 +122,7 @@ const MIN_DRAG = 12;
 /** The ball only moves part of the pull-back distance, so it stays on screen */
 const PULL_VIS = 0.4;
 const BALL_R = 7;
+const TARGET_SCALE = 0.82;
 const STEP = 1 / 120;
 const ANCHOR = { x: 66, y: -60 };
 const FORT_HALF = 22;
@@ -168,14 +173,16 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
   private cdr = inject(ChangeDetectorRef);
   private stateService = inject(CalendarStateService);
   private sound = inject(SoundService);
+  private translate = inject(TranslateService);
 
   // ---- State shown by the template ----
   phase: Phase = 'intro';
-  totalSnowmen = 3;
+  totalSnowmen = 4;
   totalBalls = 6;
   ballsLeft = 6;
-  snowmenLeft = 3;
+  snowmenLeft = 4;
   score = 0;
+  streak = 0;
   bestScore: number | null = null;
   wind = 0;
   attempts = 0;
@@ -188,7 +195,11 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
   snowmen: Snowman[] = [];
   ledges: Ledge[] = [];
   private movingCount = 0;
-  private previewFrac = 1;
+  private previewDuration = 0.22;
+  private baseWind = 0;
+  private gustStrength = 0.35;
+  private motionSpeed = 1.8;
+  private windHudAt = 0;
   /** Game clock (only runs while playing) - drives the sliding snowmen */
   time = 0;
 
@@ -240,12 +251,15 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     const c = this.config ?? {};
-    this.totalSnowmen = Math.max(1, Math.min(7, Math.round(c.snowmen ?? 3)));
-    this.totalBalls = Math.max(this.totalSnowmen, Math.round(c.snowballs ?? this.totalSnowmen + 3));
-    this.wind = Math.max(-1.2, Math.min(1.2, c.wind ?? 0));
-    const mv = c.moving === true ? 1 : c.moving === false || c.moving == null ? 0 : c.moving;
+    this.totalSnowmen = Math.max(1, Math.min(7, Math.round(c.snowmen ?? 4)));
+    this.totalBalls = Math.max(this.totalSnowmen, Math.min(this.totalSnowmen + 2, Math.round(c.snowballs ?? this.totalSnowmen + 2)));
+    this.baseWind = Math.max(-1, Math.min(1, c.wind ?? 0.15));
+    this.gustStrength = Math.max(0, Math.min(0.8, c.gusts ?? 0.35));
+    this.motionSpeed = Math.max(1, Math.min(3, c.speed ?? 1.8));
+    this.wind = this.windAt(0);
+    const mv = c.moving === true ? 1 : c.moving === false ? 0 : c.moving ?? 2;
     this.movingCount = Math.max(0, Math.min(3, Math.round(mv), this.totalSnowmen));
-    this.previewFrac = Math.max(0.15, Math.min(1, c.preview ?? 1));
+    this.previewDuration = Math.max(0.12, Math.min(0.24, c.preview ?? 0.22));
     this.endless = !!c.endless;
     const key = this.day ?? this.levelId;
     const stats = key ? this.stateService.getGameStats(key) : null;
@@ -338,6 +352,10 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
     this.timers.forEach((t) => clearTimeout(t));
     this.timers = [];
     this.time = 0;
+    this.windHudAt = 0;
+    this.streak = 0;
+    this.wind = this.windAt(0);
+    this.keyAim = { angle: -0.85, power: 0.7, active: false };
     this.ball = null;
     this.ready = true;
     this.reloadT = 0;
@@ -354,7 +372,7 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
     if (this.endless) {
       this.wave = 1;
       this.configureWave(1);
-      this.totalBalls = this.totalSnowmen + 3;
+      this.totalBalls = this.totalSnowmen + 2;
     }
     this.ballsLeft = this.totalBalls;
     this.buildSnowmen();
@@ -363,9 +381,12 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
   /** Endless mode: each wave brings more snowmen, wind, sliders and a shorter preview */
   private configureWave(k: number): void {
     this.totalSnowmen = Math.min(6, 1 + k);
-    this.movingCount = k >= 3 ? Math.min(2, Math.floor((k - 1) / 2)) : 0;
-    this.wind = k >= 2 ? (Math.random() < 0.5 ? -1 : 1) * Math.min(0.9, 0.15 * k + Math.random() * 0.15) : 0;
-    this.previewFrac = Math.max(0.3, 1 - 0.12 * (k - 1));
+    this.movingCount = Math.min(3, Math.ceil(this.totalSnowmen / 2));
+    this.baseWind = (k % 2 ? 1 : -1) * Math.min(0.65, 0.12 * k);
+    this.gustStrength = Math.min(0.65, 0.3 + k * 0.05);
+    this.motionSpeed = Math.min(2.8, 1.6 + k * 0.15);
+    this.previewDuration = Math.max(0.12, 0.22 - 0.015 * (k - 1));
+    this.wind = this.windAt(this.time);
   }
 
   private nextWave(): void {
@@ -384,7 +405,7 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
         this.hats = this.hats.slice(-6);
         this.zone.run(() => {
           // Clearing a wave refills the snowballs (and a few leftovers carry over)
-          this.ballsLeft = this.totalSnowmen + 2 + Math.min(3, leftover);
+          this.ballsLeft = this.totalSnowmen + 1 + Math.min(1, leftover);
           this.totalBalls = Math.max(this.totalBalls, this.ballsLeft);
           this.buildSnowmen();
         });
@@ -426,7 +447,7 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
     const z1 = W - 24;
     const m = this.movingCount;
     const c = this.totalSnowmen - m;
-    const s1 = m > 0 ? z0 + (z1 - z0) * (this.portrait ? 0.62 : 0.56) : z1;
+    const s1 = m > 0 ? z0 + (z1 - z0) * 0.48 : z1;
     const spacing = (s1 - z0) / Math.max(1, c);
     // Narrow yards (phones) stack the snowmen on a staircase fort so they never hide each other
     const stairs = spacing < 62;
@@ -443,7 +464,10 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
       const l0 = s1 + 10;
       const halfW = (z1 - l0) / 2;
       const cx = l0 + halfW;
-      LEDGE_HEIGHTS[m - 1].forEach((y) => this.ledges.push({ cx, y, halfW }));
+      // Keep low sliders visible above the tallest foreground fort, rather than trapped behind it.
+      const fortTop = Math.max(0, ...statics.map(s => s.fortH));
+      const lift = Math.max(0, fortTop - 28 - LEDGE_HEIGHTS[m - 1][0]);
+      LEDGE_HEIGHTS[m - 1].forEach((y) => this.ledges.push({ cx, y: y + lift, halfW }));
       this.snowmen.slice(c).forEach((s, k) => {
         s.ledge = k;
         s.base = this.ledges[k].y;
@@ -458,7 +482,7 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
   movingX(s: Snowman, t: number): number {
     if (s.ledge < 0) return s.x;
     const l = this.ledges[s.ledge];
-    return l.cx + s.amp * Math.sin(t * 1.25 + s.phase);
+    return l.cx + s.amp * Math.sin(t * this.motionSpeed + s.phase);
   }
 
   // =====================================================================
@@ -472,8 +496,14 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
     return { vx: -dx * k * POWER, vy: -dy * k * POWER };
   }
 
-  private integrate(b: { x: number; y: number; vx: number; vy: number }): void {
-    b.vx += this.wind * WIND_ACC * STEP;
+  /** Smooth and deterministic: players can read the windsock, and retries have the same weather. */
+  windAt(t: number): number {
+    const gust = 0.7 * Math.sin(t * 1.15) + 0.3 * Math.sin(t * 2.3);
+    return Math.max(-1.2, Math.min(1.2, this.baseWind + gust * this.gustStrength));
+  }
+
+  private integrate(b: { x: number; y: number; vx: number; vy: number }, t: number): void {
+    b.vx += this.windAt(t) * WIND_ACC * STEP;
     b.vy += G * STEP;
     b.x += b.vx * STEP;
     b.y += b.vy * STEP;
@@ -485,7 +515,7 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
       if (!s.alive) continue;
       const sx = s.ledge >= 0 ? this.movingX(s, t) : s.x;
       const by = -s.base;
-      if (this.hitsSnowman(x - sx, y - by, s.hat)) return s.id;
+      if (this.hitsSnowman(x - sx, y - by)) return s.id;
     }
     for (const s of this.snowmen) {
       if (s.fortH > 0 && Math.abs(x - s.x) < s.fortHalf + BALL_R * 0.6 && y > -s.fortH - BALL_R * 0.6) return 'solid';
@@ -498,8 +528,10 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
     return null;
   }
 
-  private hitsSnowman(dx: number, dy: number, hat: HatType): boolean {
-    const r = BALL_R + 1.5;
+  private hitsSnowman(dx: number, dy: number): boolean {
+    dx /= TARGET_SCALE;
+    dy /= TARGET_SCALE;
+    const r = BALL_R / TARGET_SCALE;
     const parts: [number, number][] = [
       [-17, 19],
       [-42, 14],
@@ -508,7 +540,7 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
     for (const [cy, pr] of parts) {
       if (dx * dx + (dy - cy) * (dy - cy) < (pr + r) * (pr + r)) return true;
     }
-    if (hat && Math.abs(dx) < 11 + r * 0.6 && dy > -88 - r * 0.6 && dy < -66) return true;
+    // Hats and stick arms are decorative: grazing them does not knock down a snowman.
     return false;
   }
 
@@ -524,13 +556,27 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
     const path: { x: number; y: number }[] = [];
     let t = 0;
     for (let i = 0; i < 1200; i++) {
-      this.integrate(b);
       t += STEP;
+      this.integrate(b, t0 + t);
       if (i % 4 === 0) path.push({ x: b.x, y: b.y });
       const c = this.collide(b.x, b.y, t0 + t);
       if (c !== null) return { hit: typeof c === 'number' ? c : -1, path };
     }
     return { hit: -1, path };
+  }
+
+  /** The player sees only the beginning of the arc, with no target/collision prediction. */
+  aimPreview(dx: number, dy: number): { x: number; y: number }[] {
+    const length = Math.hypot(dx, dy);
+    const k = length > MAX_DRAG ? MAX_DRAG / length : 1;
+    const velocity = this.launchVelocity(dx, dy);
+    const b = { x: ANCHOR.x + dx * k * PULL_VIS, y: ANCHOR.y + dy * k * PULL_VIS, ...velocity };
+    const path: { x: number; y: number }[] = [];
+    for (let i = 0; (i + 1) * STEP <= this.previewDuration; i++) {
+      this.integrate(b, this.time + (i + 1) * STEP);
+      if (i % 3 === 0) path.push({ x: b.x, y: b.y });
+    }
+    return path;
   }
 
   // =====================================================================
@@ -663,7 +709,16 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
   private update(dt: number): void {
     this.clock += dt;
     const playing = this.phase === 'playing';
-    if (playing) this.time += dt;
+    if (playing) {
+      this.time += dt;
+      if (this.time >= this.windHudAt) {
+        this.windHudAt = this.time + 0.15;
+        this.zone.run(() => {
+          this.wind = this.windAt(this.time);
+          this.cdr.markForCheck();
+        });
+      }
+    }
 
     // Sliding snowmen
     for (const s of this.snowmen) {
@@ -672,13 +727,13 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
       s.wobble *= Math.pow(0.02, dt);
     }
 
-    // Ball flight in fixed steps so it matches the preview exactly
+    // Fixed-step flight uses the same time-varying wind as the initial guide.
     if (this.ball) {
       const b = this.ball;
       this.ballAcc += dt;
       while (this.ballAcc >= STEP && this.ball) {
         this.ballAcc -= STEP;
-        this.integrate(b);
+        this.integrate(b, this.time - this.ballAcc);
         b.t += STEP;
         const c = this.collide(b.x, b.y, this.time - this.ballAcc);
         if (c !== null) this.resolveBall(c);
@@ -766,9 +821,10 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
     if (typeof c === 'number') {
       const s = this.snowmen[c];
       this.knockDown(s, b);
-    } else if (c !== 'out') {
-      this.puff(b.x, Math.min(b.y, -2), 12, 0.7);
-      this.sound.bell(420, 0.05);
+    } else {
+      this.zone.run(() => (this.streak = 0));
+      if (c !== 'out') this.puff(b.x, Math.min(b.y, -2), 12, 0.7);
+      this.sound.crunch();
     }
     this.afterThrow();
   }
@@ -806,8 +862,11 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
     if (!this.reducedMotion) this.shake = 7;
     this.flash = 0.6;
     const killed = this.totalSnowmen - this.snowmen.filter((x) => x.alive).length;
-    const pts = 100 + (s.ledge >= 0 ? 50 : 0);
-    this.popups.push({ x: s.x, y: by - 96, text: `+${pts}`, life: 1.2, color: '#f7c873' });
+    const headshot = Math.hypot(b.x - this.movingX(s, this.time - this.ballAcc), b.y - by + 62 * TARGET_SCALE) <= 11 * TARGET_SCALE + BALL_R * 0.4;
+    this.streak++;
+    const pts = 100 + (s.ledge >= 0 ? 50 : 0) + (headshot ? 75 : 0) + Math.min(100, (this.streak - 1) * 25);
+    const label = headshot ? `${this.translate.instant('challenges.snowballToss.headshot')} +${pts}` : `+${pts}`;
+    this.popups.push({ x: s.x, y: by - 96, text: label, life: 1.2, color: '#f7c873' });
     this.sound.bell(HIT_NOTES[(killed - 1) % HIT_NOTES.length], 0.16);
     this.sound.bell(HIT_NOTES[(killed + 1) % HIT_NOTES.length] * 2, 0.05, 0.05);
     this.zone.run(() => {
@@ -1444,9 +1503,10 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
 
   private drawSnowman(ctx: CanvasRenderingContext2D, sm: Snowman): void {
     const by = -sm.base;
-    const sway = Math.sin(this.clock * 2 + sm.id) * 0.02 + (sm.ledge >= 0 ? Math.cos(this.time * 1.25 + sm.phase) * 0.05 : 0);
+    const sway = Math.sin(this.clock * 2 + sm.id) * 0.02 + (sm.ledge >= 0 ? Math.cos(this.time * this.motionSpeed + sm.phase) * 0.05 : 0);
     ctx.save();
     ctx.translate(sm.x, by);
+    ctx.scale(TARGET_SCALE, TARGET_SCALE);
     ctx.rotate(sway);
     // Shadow
     ctx.fillStyle = 'rgba(40, 50, 110, 0.25)';
@@ -1703,9 +1763,9 @@ export class SnowballTossChallenge implements OnInit, AfterViewInit, OnDestroy {
     ctx.beginPath();
     ctx.arc(ANCHOR.x, ANCHOR.y, 44, -Math.PI / 2, -Math.PI / 2 + power * Math.PI * 2);
     ctx.stroke();
-    // Dotted trajectory preview (shortened on harder levels)
-    const { path } = this.predictThrow(this.drag.x, this.drag.y);
-    const n = Math.max(7, Math.floor(path.length * this.previewFrac));
+    // A short launch guide, independent of whether the full shot will hit anything.
+    const path = this.aimPreview(this.drag.x, this.drag.y);
+    const n = path.length;
     const dotR = Math.max(3.4, 3.6 / this.scale);
     for (let i = 0; i < Math.min(n, path.length); i++) {
       const p = path[i];

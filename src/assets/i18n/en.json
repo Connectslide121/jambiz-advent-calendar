@@ -728,8 +728,8 @@
       "instruction": "Drag back from the snowball and let go to throw. Knock down every snowman!",
       "canvasLabel": "Backyard with snowmen. Drag back to aim and release to throw.",
       "introTitle": "Snowball fight at dusk!",
-      "how1": "Drag back from the snowball like a slingshot – the dots show where it will fly.",
-      "how2": "Check the windsock: the wind nudges every throw.",
+      "how1": "Pull back to set angle and power. The dots show only the start of the throw — judge the rest yourself.",
+      "how2": "Watch the windsock for changing gusts, and lead the sliding snowmen.",
       "how3": "Knock down all {{snowmen}} snowmen with {{balls}} snowballs.",
       "keyboard": "Keyboard: arrow keys aim, space throws.",
       "snowballs": "Snowballs",
@@ -744,6 +744,9 @@
       "howEndless": "Endless snowball fight! Clear wave after wave – every cleared wave refills your snowballs. How far can you get?",
       "endlessOver": "Game over!",
       "endlessText": "You made it to wave {{wave}}. Your score:",
+      "how4": "Headshots and consecutive hits earn bonus points. Misses break your streak.",
+      "headshot": "Headshot!",
+      "streak": "Hit streak",
       "newBest": "New personal best!"
     },
     "chimneyDrop": {
@@ -1231,15 +1234,15 @@
         "levels": {
           "extra-snowballToss-1": {
             "name": "Headwind Hill",
-            "description": "Five snowmen, a gusty headwind and a shorter aiming guide."
+            "description": "Five snowmen, two sliding targets and gusty headwinds. Seven throws."
           },
           "extra-snowballToss-2": {
             "name": "Gliding Guards",
-            "description": "Two snowmen slide on icy ledges – and the wind is strong. Only six snowballs!"
+            "description": "Five snowmen, three fast sliders and strong gusts. Only six throws."
           },
           "extra-snowballToss-3": {
             "name": "The Snow Fortress",
-            "description": "Six snowmen, three sliding ledges and almost no aiming guide."
+            "description": "Six snowmen, fast sliders and a very short aiming guide. Seven throws."
           },
           "extra-snowballToss-4": {
             "name": "Endless Snowball Fight",
