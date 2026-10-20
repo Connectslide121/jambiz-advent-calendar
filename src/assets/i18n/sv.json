@@ -660,12 +660,12 @@
     },
     "jingleBells": {
       "title": "Klockkören",
-      "instruction": "Lyssna på Bjällerklang och ring sedan klockorna i samma ordning. Upprepa alla {{target}} toner för att vinna — du behöver inte följa rytmen.",
+      "instruction": "Lyssna och spela klockorna i samma ordning. Börja med en ton; varje klarad omgång lägger till en ton från We Wish You a Merry Christmas. Klara {{target}} toner för att vinna — du behöver inte härma rytmen.",
       "ready": "Redo när du är!",
       "listen": "Lyssna…",
       "yourTurn": "Din tur! ({{current}}/{{total}})",
       "oops": "Hoppsan! Lyssna igen…",
-      "win": "Vackert! Kören är komplett!",
+      "win": "Så vackert! Lyssna på fortsättningen…",
       "round": "Toner",
       "best": "Bästa",
       "soundTip": "Bäst med ljud på – men du kan också följa de lysande klockorna.",
@@ -673,7 +673,8 @@
         "red": "Röd klocka",
         "gold": "Guldklocka",
         "green": "Grön klocka",
-        "blue": "Blå klocka"
+        "blue": "Blå klocka",
+        "frost": "Frostklocka"
       },
       "endlessInstruction": "Oändligt läge: hur lång melodi kan du komma ihåg? En fel klocka avslutar rundan.",
       "gameOver": "Kören tar paus! Du kom ihåg {{score}} toner."
@@ -1165,11 +1166,11 @@
         "levels": {
           "extra-jingleBells-1": {
             "name": "Sångövning",
-            "description": "En melodi på 12 toner"
+            "description": "En melodi på 10 toner"
           },
           "extra-jingleBells-2": {
             "name": "Julkonserten",
-            "description": "14 toner, lite snabbare"
+            "description": "12 toner, lite snabbare"
           },
           "extra-jingleBells-3": {
             "name": "Stora finalen",

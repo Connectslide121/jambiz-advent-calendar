@@ -598,7 +598,7 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
         descriptionKey: 'extras.games.jingleBells.levels.extra-jingleBells-1.description',
         challengeType: 'jingleBells',
         challengeData: {
-          targetLength: 12,
+          targetLength: 10,
           startSpeed: 600,
         },
       },
@@ -608,7 +608,7 @@ export const EXTRA_LEVELS: ExtraGameSection[] = [
         descriptionKey: 'extras.games.jingleBells.levels.extra-jingleBells-2.description',
         challengeType: 'jingleBells',
         challengeData: {
-          targetLength: 14,
+          targetLength: 12,
           startSpeed: 520,
         },
       },

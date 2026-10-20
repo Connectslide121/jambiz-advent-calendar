@@ -93,14 +93,15 @@ scrambling a lit tree, so they are always solvable and the hint is exact.
 - Extras: 5 trees, 4 → 7 rows.
 
 ### 🔔 Klockkören / Bell Choir (`jingleBells`)
-Repeat the 11-note opening refrain of **Jingle Bells**, played immediately with its real rhythm.
-The four bells play C, D, E and G. Mistakes replay the same phrase; the response checks note order,
-not timing. Bells play even when UI sounds are muted because the melody is the game.
-- Config: `{ targetLength = 11, startSpeed = 650, endless }`. Shorter legacy targets expand to the
-  complete phrase; finite levels keep a steady beat. Harder levels continue the repeated refrain.
-- Extras: 12, 14 and 15 notes, plus ♾️ random Simon sequences (one slip ends the run).
-
-## Action
+Simon-style memory game with five singing bells. Start with one note and earn one additional
+note each round. Day 2 uses the eight-note opening of **We Wish You a Merry Christmas**:
+G–C–C–D–C–B–A–A. Matching the rhythm is optional. After the final correct answer, the song
+continues through the rest of its verse before the reward appears. Mistakes replay the same
+round. Bells play even when UI sounds are muted because the melody is the game.
+- Config: `{ targetLength = 8, startSpeed = 650, endless }`. Day 2 stays at eight notes, including
+  with older cloud configurations. Longer extras repeat the fragment; finite levels keep a steady beat.
+- Extras: 10, 12 and 15 notes, then random, accelerating endless mode (one mistake ends the run).
+- Melody reference: [Ivory Piano's arrangement](https://ivorypiano.com/sv/songs/we-wish-you-a-merry-christmas).
 
 ### ❄️ Snöbollskriget / Snowball Fight (`snowballToss`)
 Drag back and release to throw (slingshot style) with a dotted trajectory preview. Wind is shown

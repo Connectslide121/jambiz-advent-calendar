@@ -660,12 +660,12 @@
     },
     "jingleBells": {
       "title": "Bell Choir",
-      "instruction": "Listen to Jingle Bells, then ring the bells in the same order. Repeat all {{target}} notes to win — you do not need to copy the rhythm.",
+      "instruction": "Listen and repeat the bells in order. Start with one note; each successful round adds one more from We Wish You a Merry Christmas. Reach {{target}} notes to win — matching the rhythm is optional.",
       "ready": "Ready when you are!",
       "listen": "Listen…",
       "yourTurn": "Your turn! ({{current}}/{{total}})",
       "oops": "Oops! Listen again…",
-      "win": "Beautiful! The choir is complete!",
+      "win": "Beautiful! Enjoy the rest of the carol…",
       "round": "Notes",
       "best": "Best",
       "soundTip": "Best with sound on – but you can also follow the glowing bells.",
@@ -673,7 +673,8 @@
         "red": "Red bell",
         "gold": "Gold bell",
         "green": "Green bell",
-        "blue": "Blue bell"
+        "blue": "Blue bell",
+        "frost": "Frost bell"
       },
       "endlessInstruction": "Endless mode: how long a melody can you remember? One wrong bell ends the run.",
       "gameOver": "The choir rests! You remembered {{score}} notes."
@@ -1165,11 +1166,11 @@
         "levels": {
           "extra-jingleBells-1": {
             "name": "Carol Practice",
-            "description": "A melody of 12 notes"
+            "description": "A melody of 10 notes"
           },
           "extra-jingleBells-2": {
             "name": "Christmas Concert",
-            "description": "14 notes, a little faster"
+            "description": "12 notes, a little faster"
           },
           "extra-jingleBells-3": {
             "name": "Grand Finale",

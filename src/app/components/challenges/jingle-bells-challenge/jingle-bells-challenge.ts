@@ -6,7 +6,7 @@ import { CalendarStateService } from '../../../services/calendar-state.service';
 import { SoundService } from '../../../services/sound.service';
 
 export interface JingleBellsConfig {
-  targetLength?: number; // At least the 11-note Jingle Bells opening phrase
+  targetLength?: number; // Sequence length needed to win. Default 8
   startSpeed?: number; // Milliseconds per note at the start. Default 650
   endless?: boolean; // Extras: no target, the first mistake ends the run
 }
@@ -21,20 +21,34 @@ interface Bell {
 
 type Phase = 'idle' | 'listening' | 'playing' | 'oops' | 'won' | 'over';
 
-// Jingle Bells, opening refrain in C: E E E | E E E | E G C D E.
-// Beats preserve the held notes and dotted rhythm; no recording is needed.
-const JINGLE_BELLS = [
-  { bell: 2, beats: 1 }, { bell: 2, beats: 1 }, { bell: 2, beats: 2 },
-  { bell: 2, beats: 1 }, { bell: 2, beats: 1 }, { bell: 2, beats: 2 },
-  { bell: 2, beats: 1 }, { bell: 3, beats: 1 }, { bell: 0, beats: 1.5 },
-  { bell: 1, beats: 0.5 }, { bell: 2, beats: 4 },
+// We Wish You a Merry Christmas: G C C D C B A A.
+// The pickup and first phrase make an eight-note memory challenge.
+const CAROL_FRAGMENT = [
+  { bell: 0, beats: 1 }, { bell: 3, beats: 1 }, { bell: 3, beats: 0.5 },
+  { bell: 4, beats: 0.5 }, { bell: 3, beats: 0.5 }, { bell: 2, beats: 0.5 },
+  { bell: 1, beats: 1 }, { bell: 1, beats: 1 },
+] as const;
+
+// Continue where the fragment ends, through the verse's final cadence.
+// E and F are audio-only notes; the memory game needs just five bells.
+const CAROL_CONTINUATION = [
+  { note: 440, beats: 1 }, { note: 587.33, beats: 1 },
+  { note: 587.33, beats: 0.5 }, { note: 659.25, beats: 0.5 },
+  { note: 587.33, beats: 0.5 }, { note: 523.25, beats: 0.5 },
+  { note: 493.88, beats: 1 }, { note: 392, beats: 1 }, { note: 392, beats: 1 },
+  { note: 659.25, beats: 1 }, { note: 659.25, beats: 0.5 },
+  { note: 698.46, beats: 0.5 }, { note: 659.25, beats: 0.5 },
+  { note: 587.33, beats: 0.5 }, { note: 523.25, beats: 1 }, { note: 440, beats: 1 },
+  { note: 392, beats: 0.5 }, { note: 392, beats: 0.5 },
+  { note: 440, beats: 1 }, { note: 587.33, beats: 1 },
+  { note: 493.88, beats: 1 }, { note: 523.25, beats: 3 },
 ] as const;
 
 /**
- * Bell choir - Simon says with four singing bells.
+ * Bell choir - Simon says with five singing bells.
  * Listen to the melody, then ring the bells back in the same order.
- * Start with the Jingle Bells opening phrase. Harder levels add notes to it.
- * A mistake replays the same phrase. Endless mode keeps random Simon sequences.
+ * Start with one note and add one only after the player repeats the sequence.
+ * Mistakes replay the current sequence. Endless mode keeps random Simon sequences.
  */
 @Component({
   selector: 'app-jingle-bells-challenge',
@@ -61,10 +75,11 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
   private sound = inject(SoundService);
 
   readonly bells: Bell[] = [
-    { id: 0, color: '#ff5a6e', dark: '#9b2335', note: 523.25, labelKey: 'challenges.jingleBells.bells.red' },
-    { id: 1, color: '#f7c873', dark: '#a8721e', note: 587.33, labelKey: 'challenges.jingleBells.bells.gold' },
-    { id: 2, color: '#5cf2b3', dark: '#17573f', note: 659.25, labelKey: 'challenges.jingleBells.bells.green' },
-    { id: 3, color: '#7fb8ff', dark: '#2a4387', note: 783.99, labelKey: 'challenges.jingleBells.bells.blue' },
+    { id: 0, color: '#ff5a6e', dark: '#9b2335', note: 392, labelKey: 'challenges.jingleBells.bells.red' },
+    { id: 1, color: '#f7c873', dark: '#a8721e', note: 440, labelKey: 'challenges.jingleBells.bells.gold' },
+    { id: 2, color: '#5cf2b3', dark: '#17573f', note: 493.88, labelKey: 'challenges.jingleBells.bells.green' },
+    { id: 3, color: '#7fb8ff', dark: '#2a4387', note: 523.25, labelKey: 'challenges.jingleBells.bells.blue' },
+    { id: 4, color: 'var(--color-frost)', dark: 'var(--color-text-muted)', note: 587.33, labelKey: 'challenges.jingleBells.bells.frost' },
   ];
 
   phase: Phase = 'idle';
@@ -73,7 +88,7 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
   ringing: number | null = null;
   mistakes = 0;
   bestRound = 0;
-  targetLength: number = JINGLE_BELLS.length;
+  targetLength = 8;
   endless = false;
   /** Melody length reached in the last endless run */
   finalScore = 0;
@@ -97,9 +112,9 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Older stored calendar definitions requested only six notes (all E's).
-    // Always include the complete phrase, including its recognisable ending.
-    this.targetLength = Math.max(JINGLE_BELLS.length, Math.min(15, this.config?.targetLength ?? JINGLE_BELLS.length));
+    // Older cloud calendars used six or eleven notes for day 2. Keep this
+    // revised day at eight even before that calendar document is reseeded.
+    this.targetLength = this.day === 2 ? 8 : Math.max(8, Math.min(15, this.config?.targetLength ?? 8));
     this.endless = !!this.config?.endless;
     const stats = this.statsKey ? this.stateService.getGameStats(this.statsKey) : null;
     this.bestRound = stats?.bestRound ?? 0;
@@ -111,7 +126,7 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
 
   start(): void {
     this.clearTimers();
-    this.sequence = this.endless ? [] : JINGLE_BELLS.slice(0, -1).map(note => note.bell);
+    this.sequence = [];
     this.clearedNotes = 0;
     this.mistakes = 0;
     this.nextRound();
@@ -155,7 +170,7 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
   private nextRound(): void {
     this.sequence.push(this.endless
       ? Math.floor(Math.random() * this.bells.length)
-      : JINGLE_BELLS[this.sequence.length % JINGLE_BELLS.length].bell);
+      : CAROL_FRAGMENT[this.sequence.length % CAROL_FRAGMENT.length].bell);
     this.playSequence();
   }
 
@@ -169,7 +184,7 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
     );
     let offset = 500;
     this.sequence.forEach((id, i) => {
-      const duration = speed * (this.endless ? 1 : JINGLE_BELLS[i % JINGLE_BELLS.length].beats);
+      const duration = speed * (this.endless ? 1 : CAROL_FRAGMENT[i % CAROL_FRAGMENT.length].beats);
       this.later(() => this.flash(this.bells[id], duration * 0.65), offset);
       offset += duration;
     });
@@ -187,8 +202,23 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
 
   private onWin(): void {
     this.phase = 'won';
-    this.later(() => this.sound.fanfare(), 300);
-    this.later(() => this.completed.emit(), 2000);
+    this.clearTimers();
+    const speed = Math.max(320, this.config?.startSpeed ?? 650);
+    let offset = 500;
+    for (const { note, beats } of CAROL_CONTINUATION) {
+      const duration = beats * speed;
+      this.later(() => {
+        const bell = this.bells.find(b => b.note === note);
+        if (bell) this.flash(bell, duration * 0.65);
+        else {
+          this.ringing = null;
+          this.sound.note(note, 0.22);
+        }
+      }, offset);
+      offset += duration;
+    }
+    // Let the final chord ring before the host replaces this game with its reward.
+    this.later(() => this.completed.emit(), offset + 1000);
   }
 
   private recordBest(round: number): void {

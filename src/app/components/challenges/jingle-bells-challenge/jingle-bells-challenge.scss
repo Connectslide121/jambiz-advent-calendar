@@ -62,13 +62,13 @@
 
 .bells {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(12px, 3vw, 24px);
   max-width: 400px;
   margin: 0 auto;
 
   @media (min-width: 640px) {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     max-width: 620px;
   }
 
@@ -159,4 +159,8 @@
   100% {
     transform: rotate(0);
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .note.current, .bell.ringing .bell-svg, .status { animation: none; }
 }
