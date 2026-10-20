@@ -122,14 +122,33 @@ npx ng build --configuration production
 npx ng test --watch=false --browsers=ChromeHeadless
 ```
 
-For a local API create ignored `api/local.settings.json` with `IsEncrypted: false` and these `Values`:
-`AzureWebJobsStorage=UseDevelopmentStorage=true`, `FUNCTIONS_WORKER_RUNTIME=dotnet-isolated`,
-`Authentication__TenantId`, `Authentication__Audience` (API client ID), `Authentication__SpaClientId`,
-`Cosmos__Endpoint=https://cosmos-jambiz-advent-wipgysmx.documents.azure.com:443/`,
-`Cosmos__Database=advent`. Also set `Host.CORS` to `http://localhost:4200`.
-Start Azurite and run `func start` in `api/`. Set `apiBaseUrl` in the public runtime configuration
-to `http://localhost:7071`, then `npm start` at the root. Direct Cosmos access requires a data role;
-subscription Contributor alone does not provide it. Local frontend can use the deployed API too.
+Initialize and start the local API from the repository root:
+
+```powershell
+Copy-Item api/local.settings.example.json api/local.settings.json # first time only
+az login --tenant bd4bd237-f885-4525-b60d-581adb48c358
+# Keep this running in a separate terminal:
+npx --yes azurite@3.37.0 --silent --location .azure-local/azurite
+# Then start the API in the original terminal:
+cd api
+dotnet run
+```
+
+Run `dotnet run` with `api/` as the working directory. The SDK builds the project and starts Core
+Tools from the correct output directory. Prefer this over `func start` with `Azure.Functions.Sdk`;
+the current SDK's relative working directory also prevents `dotnet run --project api/...` from the root.
+The ignored local settings specify `FUNCTIONS_WORKER_RUNTIME=dotnet-isolated`, the public Entra IDs,
+Cosmos endpoint and localhost CORS. Azurite provides local host storage; Cosmos data still lives in
+Azure. Without Azurite, HTTP routes may start but the current host's storage health check fails.
+
+To connect the local frontend to this API, set `apiBaseUrl` in `public/app-config.json` to
+`http://localhost:7071`, then run `npm start` at the root. Restore the deployed API origin before
+committing this public configuration. Direct Cosmos access requires a data role; subscription
+Contributor alone does not provide it. Local frontend can use the deployed API too.
+
+If Core Tools reports `Worker runtime cannot be 'None'`, verify `api/local.settings.json` exists:
+the current project SDK is not detected by Core Tools' older language heuristics without that
+runtime setting. The example is safe to commit; the working local file is ignored and never published.
 
 `scripts/configure-entra.ps1` creates/reuses the exact calendar registrations and writes nonsecret
 metadata into ignored `.azure-local/entra.json`. It preserves existing redirect URIs.

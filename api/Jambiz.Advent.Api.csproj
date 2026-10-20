@@ -18,5 +18,6 @@
     <None Update="host.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Data/*.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="local.settings.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Never" />
+    <None Update="local.settings.example.json" CopyToOutputDirectory="Never" CopyToPublishDirectory="Never" />
   </ItemGroup>
 </Project>
