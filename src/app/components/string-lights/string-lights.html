@@ -1,0 +1,31 @@
+<div class="garland" aria-hidden="true">
+  @for (s of swags; track s) {
+  <svg
+    class="swag"
+    [attr.viewBox]="'0 0 ' + swagWidth + ' 110'"
+    [attr.width]="swagWidth"
+    height="110"
+    [style.animation-delay.s]="-s * 0.9"
+  >
+    <path [attr.d]="wirePath" class="wire" />
+    @for (b of bulbs; track $index) {
+    <g
+      class="bulb"
+      [class.pop]="popped.has(s + '-' + $index)"
+      [attr.transform]="'translate(' + b.x + ' ' + b.y + ') rotate(' + (b.angle * 0.4) + ')'"
+      (pointerdown)="ring(s, $index, b)"
+    >
+      <rect x="-3.5" y="0" width="7" height="7" rx="1.5" fill="#2d3550" />
+      <g class="glass" [style.animation-delay.s]="b.delay + s * 0.31">
+        <ellipse cx="0" cy="17" rx="13" ry="15" [attr.fill]="b.color" class="halo" />
+        <path
+          d="M0 6 C 7 6 8 16 7 21 C 6 26 3 29 0 29 C -3 29 -6 26 -7 21 C -8 16 -7 6 0 6 Z"
+          [attr.fill]="b.color"
+        />
+        <ellipse cx="-2.5" cy="14" rx="1.6" ry="4" fill="#fff" opacity="0.55" />
+      </g>
+    </g>
+    }
+  </svg>
+  }
+</div>

@@ -1,0 +1,88 @@
+:host {
+  position: absolute;
+  top: -6px;
+  left: 0;
+  right: 0;
+  height: 110px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 30;
+}
+
+.garland {
+  display: flex;
+  justify-content: center;
+  width: max-content;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.swag {
+  flex: none;
+  margin: 0 -1px;
+  overflow: visible;
+  transform-origin: 50% 0;
+  animation: sway 6s ease-in-out infinite alternate;
+}
+
+.wire {
+  fill: none;
+  stroke: #1b2138;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+
+.bulb {
+  pointer-events: auto;
+  cursor: pointer;
+
+  &.pop .glass {
+    animation: pop 0.5s var(--ease-bounce);
+  }
+}
+
+.glass {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  animation: twinkle 2.4s ease-in-out infinite;
+}
+
+.halo {
+  opacity: 0.35;
+  filter: blur(6px);
+}
+
+@keyframes sway {
+  from {
+    transform: rotate(-0.6deg) translateY(0);
+  }
+  to {
+    transform: rotate(0.6deg) translateY(2px);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 1;
+    filter: brightness(1.15) drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
+  }
+  50% {
+    opacity: 0.55;
+    filter: brightness(0.75);
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.5) rotate(12deg);
+    filter: brightness(1.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

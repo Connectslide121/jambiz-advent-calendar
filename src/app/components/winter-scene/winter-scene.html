@@ -1,0 +1,170 @@
+<!-- Sky gradient -->
+<div class="sky"></div>
+
+<!-- Twinkling stars + shooting stars -->
+<canvas #stars class="layer"></canvas>
+
+<!-- Aurora borealis ribbons -->
+<div class="aurora" aria-hidden="true">
+  <div class="ribbon ribbon-1"></div>
+  <div class="ribbon ribbon-2"></div>
+  <div class="ribbon ribbon-3"></div>
+</div>
+
+<!-- Moon (click it!) -->
+<button class="moon" type="button" (click)="callSanta()" aria-label="Call Santa" title="🎅?">
+  <span class="crater c1"></span>
+  <span class="crater c2"></span>
+  <span class="crater c3"></span>
+</button>
+
+<!-- Santa's sleigh -->
+@if (sleighFlying()) {
+<div class="sleigh" aria-hidden="true">
+  <svg viewBox="0 0 260 60" width="260" height="60">
+    <g fill="#0b0f26">
+      <!-- Reindeer x3 -->
+      @for (i of [0, 1, 2]; track i) {
+      <g [attr.transform]="'translate(' + (150 + i * 36) + ',' + (i % 2 ? 14 : 18) + ')'">
+        <ellipse cx="12" cy="14" rx="12" ry="5" />
+        <path d="M22 11 l6 -6 l3 1 l-3 4 l-4 3 z" />
+        <path d="M27 5 l-2 -5 M27 5 l3 -4 M27 5 l1 -6" stroke="#0b0f26" stroke-width="1.4" />
+        <path d="M3 17 l-5 6 M8 18 l-2 8 M17 18 l4 7 M20 17 l7 4" stroke="#0b0f26" stroke-width="2" stroke-linecap="round" />
+      </g>
+      }
+      <!-- Reins -->
+      <path d="M95 30 Q 130 18 160 30" stroke="#0b0f26" stroke-width="1" fill="none" />
+      <!-- Sleigh -->
+      <path d="M40 22 h48 q10 0 10 12 v4 h-62 q-6 0 -8 -8 z" />
+      <path d="M28 44 h70 q8 0 10 -6" stroke="#0b0f26" stroke-width="3" fill="none" stroke-linecap="round" />
+      <!-- Santa -->
+      <circle cx="62" cy="14" r="7" />
+      <path d="M56 10 l8 -10 l6 9 z" />
+      <!-- Gift sack -->
+      <circle cx="46" cy="16" r="9" />
+    </g>
+    <!-- Glowing nose for Rudolph -->
+    <circle cx="246" cy="22" r="2.6" fill="#ff4d5e" class="rudolph" />
+  </svg>
+  <div class="trail"></div>
+</div>
+}
+
+<!-- Parallax landscape -->
+<div class="landscape" aria-hidden="true">
+  <!-- Far mountains -->
+  <svg class="hill far" viewBox="0 0 1440 320" preserveAspectRatio="xMidYMax slice">
+    <defs>
+      <linearGradient id="ws-far" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#36407e" />
+        <stop offset="1" stop-color="#151a44" />
+      </linearGradient>
+      <linearGradient id="ws-cap" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#dbe6ff" stop-opacity="0.9" />
+        <stop offset="1" stop-color="#dbe6ff" stop-opacity="0" />
+      </linearGradient>
+    </defs>
+    <path
+      fill="url(#ws-far)"
+      d="M0 210 L110 150 L190 185 L320 92 L430 168 L545 112 L665 190 L790 98 L905 170 L1015 76 L1135 160 L1245 118 L1345 172 L1440 128 V320 H0 Z"
+    />
+    <path
+      fill="url(#ws-cap)"
+      d="M280 121 L320 92 L360 120 L340 114 L322 126 L304 114 Z M760 120 L790 98 L822 123 L803 117 L790 128 L776 117 Z M975 105 L1015 76 L1055 105 L1035 99 L1016 112 L996 100 Z M515 133 L545 112 L572 131 L556 127 L544 136 L531 127 Z"
+    />
+  </svg>
+
+  <!-- Middle snowy hills with pines -->
+  <svg class="hill mid" viewBox="0 0 1440 320" preserveAspectRatio="xMidYMax slice">
+    <defs>
+      <linearGradient id="ws-mid" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#8fa3d8" />
+        <stop offset="1" stop-color="#3b4785" />
+      </linearGradient>
+      <symbol id="ws-pine" viewBox="0 0 40 90" overflow="visible">
+        <rect x="17" y="74" width="6" height="12" fill="#1a1530" />
+        <path d="M20 0 L36 30 L28 30 L40 54 L30 54 L42 78 L-2 78 L10 54 L0 54 L12 30 L4 30 Z" fill="#0f2e33" />
+        <path d="M20 0 L28 15 L20 12 L12 15 Z M12 30 L20 26 L28 30 L23 33 L18 31 Z M10 54 L20 49 L30 54 L24 57 L17 55 Z" fill="#e8f0ff" opacity="0.85" />
+      </symbol>
+    </defs>
+    <path
+      fill="url(#ws-mid)"
+      d="M0 246 C 180 196, 360 234, 560 216 S 900 178, 1100 220 S 1340 202, 1440 226 V320 H0 Z"
+    />
+    @for (t of midTrees; track t.x) {
+    <use
+      href="#ws-pine"
+      [attr.x]="t.x - 20 * t.s"
+      [attr.y]="(t.x < 560 ? 236 - t.x * 0.02 : 214) - 86 * t.s"
+      [attr.width]="40 * t.s"
+      [attr.height]="90 * t.s"
+    />
+    }
+  </svg>
+
+  <!-- Near snowbank with the cozy cabin -->
+  <svg class="hill near" viewBox="0 0 1440 320" preserveAspectRatio="xMidYMax slice">
+    <defs>
+      <linearGradient id="ws-near" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#f1f5ff" />
+        <stop offset="1" stop-color="#a9b9e6" />
+      </linearGradient>
+      <radialGradient id="ws-window-glow">
+        <stop offset="0" stop-color="#ffcf6e" stop-opacity="0.75" />
+        <stop offset="1" stop-color="#ff9f43" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+
+    <!-- Warm light spilling on the snow -->
+    <ellipse cx="1130" cy="282" rx="150" ry="26" fill="url(#ws-window-glow)" class="spill" />
+
+    <!-- Cabin -->
+    <g class="cabin" transform="translate(1060 196)">
+      <rect x="62" y="-6" width="16" height="34" fill="#3a2230" />
+      <rect x="60" y="-10" width="20" height="7" rx="2" fill="#f1f5ff" />
+      <g class="smoke">
+        <circle cx="70" cy="-16" r="7" />
+        <circle cx="70" cy="-16" r="9" />
+        <circle cx="70" cy="-16" r="11" />
+      </g>
+      <rect x="6" y="34" width="128" height="58" fill="#4a2a2e" />
+      <path d="M6 44 h128 M6 56 h128 M6 68 h128 M6 80 h128" stroke="#3a1f24" stroke-width="2" />
+      <path d="M-10 38 L70 -4 L150 38 Z" fill="#2b1a2a" />
+      <path d="M-14 40 Q 70 -16 154 40 L 150 33 Q 70 -6 -10 33 Z" fill="#f4f8ff" />
+      <rect class="window" x="20" y="50" width="26" height="22" rx="2" fill="#ffc861" />
+      <rect class="window w2" x="94" y="50" width="26" height="22" rx="2" fill="#ffc861" />
+      <path d="M33 50 v22 M20 61 h26 M107 50 v22 M94 61 h26" stroke="#4a2a2e" stroke-width="2.5" />
+      <rect x="58" y="54" width="24" height="38" rx="3" fill="#2a1820" />
+      <circle cx="77" cy="74" r="1.8" fill="#f7c873" />
+      <!-- Wreath on the door -->
+      <circle cx="70" cy="64" r="6" fill="none" stroke="#2f8f6b" stroke-width="3" />
+      <circle cx="70" cy="69" r="1.6" fill="#e0475b" />
+    </g>
+
+    <!-- Big tree with fairy lights -->
+    <g transform="translate(985 288)">
+      <use href="#ws-pine" x="-44" y="-170" width="88" height="190" />
+      @for (l of treeLights; track $index) {
+      <circle
+        class="fairy"
+        [attr.cx]="l.x * 1.6"
+        [attr.cy]="l.y * 1.6"
+        r="2.6"
+        [attr.fill]="l.c"
+        [style.animation-delay.s]="$index * 0.37"
+      />
+      }
+    </g>
+
+    <path
+      fill="url(#ws-near)"
+      d="M0 292 C 240 258, 520 302, 760 282 S 1200 258, 1440 288 V320 H0 Z"
+    />
+  </svg>
+</div>
+
+<!-- Falling snow (on top of everything in the scene) -->
+<canvas #snow class="layer snow"></canvas>
+
+<!-- Soft vignette -->
+<div class="vignette"></div>

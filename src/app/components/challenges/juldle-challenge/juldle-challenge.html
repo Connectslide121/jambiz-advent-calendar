@@ -1,0 +1,146 @@
+<div class="juldle" [class.won]="phase === 'won'">
+  <!-- Header -->
+  <div class="flex flex-col items-center text-center mb-2">
+    <div class="flex items-center justify-center gap-3 mb-1 flex-wrap">
+      <h3 class="text-xl sm:text-2xl font-bold text-gold">🎄 {{ 'challenges.juldle.title' | translate }}</h3>
+      @if (isCompleted) {
+      <span class="pill">
+        <lucide-icon [img]="Check" class="w-3 h-3" [strokeWidth]="4"></lucide-icon>
+        {{ 'calendar.completed' | translate }}
+      </span>
+      }
+    </div>
+    <p class="text-xs sm:text-base text-text-muted max-w-md">
+      {{ 'challenges.juldle.instruction' | translate : { count: cols, guesses: maxGuesses } }}
+    </p>
+  </div>
+
+  <div class="play">
+  <!-- Stats + hint -->
+  <div class="tools">
+  <div class="toolbar">
+    <span class="stat">
+      <span class="text-text-muted">{{ 'challenges.juldle.guess' | translate }}</span>
+      <span class="text-gold font-bold">{{ phase === 'won' ? (danceRow ?? 0) + 1 : Math.min(row + 1, maxGuesses) }} / {{ maxGuesses }}</span>
+    </span>
+    @if (bestGuesses !== null) {
+    <span class="stat">
+      <span class="text-text-muted">{{ 'challenges.juldle.best' | translate }}</span>
+      <span class="text-gold font-bold">{{ bestGuesses }}</span>
+    </span>
+    }
+    <button type="button" class="hint-btn" [class.on]="hintShown" (mousedown)="$event.preventDefault()" (click)="toggleHint()" [attr.aria-expanded]="hintShown">
+      <lucide-icon [img]="Lightbulb" class="w-4 h-4" [strokeWidth]="2.25"></lucide-icon>
+      {{ (hintShown ? 'ui.hideHint' : 'ui.showHint') | translate }}
+    </button>
+  </div>
+
+  @if (hintShown) {
+  <div class="clue" role="note">
+    <span class="clue-icon" aria-hidden="true">📜</span>
+    <span>{{ clue }}</span>
+  </div>
+  }
+  </div>
+
+  <!-- Board -->
+  <div class="stage" [style.--cols]="cols" [style.--rows]="maxGuesses">
+    <svg class="garland" viewBox="0 0 440 40" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 6 Q 22 30 44 10 T 88 10 T 132 10 T 176 10 T 220 10 T 264 10 T 308 10 T 352 10 T 396 10 T 440 6" fill="none" stroke="#1f6f58" stroke-width="3" />
+    </svg>
+    <div class="garland-bulbs" aria-hidden="true">
+      @for (b of bulbs; track b) {
+      <span class="gbulb" [style.--i]="b"></span>
+      }
+    </div>
+
+    <div class="board" role="grid" [attr.aria-label]="'challenges.juldle.title' | translate">
+      @for (r of rows; track $index; let ri = $index) {
+      <div class="row" role="row" [class.shake]="shakeRow === ri" [class.active]="isRowActive(ri)" [class.dance]="danceRow === ri">
+        @for (t of r; track $index; let ci = $index) {
+        <div
+          class="tile"
+          role="gridcell"
+          [class.filled]="!!t.letter"
+          [class.pop]="t.pop"
+          [class.cursor]="isRowActive(ri) && phase === 'playing' && ci === col"
+          [style.--i]="ci"
+          [attr.aria-label]="t.letter ? t.letter + (t.flipped ? ' ' + ('challenges.juldle.marks.' + t.mark | translate) : '') : ''"
+        >
+          <div class="inner" [class.flip]="t.flipped">
+            <div class="face front">{{ t.letter }}</div>
+            <div class="face back" [attr.data-mark]="t.mark">{{ t.letter }}</div>
+          </div>
+        </div>
+        }
+      </div>
+      }
+    </div>
+
+    @if (toast) {
+    <div class="toast" aria-live="assertive">{{ toast }}</div>
+    }
+
+    @if (flakes.length) {
+    <div class="burst" aria-hidden="true">
+      @for (f of flakes; track f.id) {
+      <span
+        class="flake"
+        [style.--dx.px]="f.dx"
+        [style.--dy.px]="f.dy"
+        [style.--rot.deg]="f.rot"
+        [style.--delay.s]="f.delay"
+        [style.font-size.px]="f.size"
+        >{{ f.char }}</span
+      >
+      }
+    </div>
+    }
+
+    @if (phase === 'won') {
+    <div class="win-banner" aria-live="polite">✨ {{ 'challenges.juldle.win' | translate }} ✨</div>
+    }
+  </div>
+
+  <!-- Keyboard / retry -->
+  @if (phase === 'lost') {
+  <div class="lost card" aria-live="polite">
+    <div class="lost-emoji" aria-hidden="true">⛄</div>
+    <p class="font-bold text-gold text-lg">{{ 'challenges.juldle.lostTitle' | translate }}</p>
+    <p class="text-sm text-text-muted mb-3">{{ 'challenges.juldle.lostText' | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="tryAgain()">🔄 {{ 'ui.tryAgain' | translate }}</button>
+  </div>
+  } @else {
+  <div class="keyboard" [class.locked]="phase !== 'playing'" aria-label="Keyboard">
+    @for (kr of keyRows; track $index; let last = $last) {
+    <div class="krow">
+      @if (last) {
+      <button type="button" class="key wide enter" tabindex="-1" (mousedown)="$event.preventDefault()" (click)="submit()" [attr.aria-label]="'challenges.juldle.enter' | translate">
+        <span class="hidden sm:inline">{{ 'challenges.juldle.enter' | translate }}</span>
+        <lucide-icon [img]="Enter" class="w-4 h-4 sm:hidden" [strokeWidth]="2.5"></lucide-icon>
+      </button>
+      }
+      @for (k of kr; track k) {
+      <button type="button" class="key" tabindex="-1" [attr.data-mark]="keyMarks[k]" (mousedown)="$event.preventDefault()" (click)="type(k)">
+        {{ k }}
+      </button>
+      }
+      @if (last) {
+      <button type="button" class="key wide" tabindex="-1" (mousedown)="$event.preventDefault()" (click)="backspace()" aria-label="Backspace">
+        <lucide-icon [img]="Delete" class="w-5 h-5" [strokeWidth]="2.25"></lucide-icon>
+      </button>
+      }
+    </div>
+    }
+  </div>
+  }
+  </div>
+
+  @if (isCompleted && phase !== 'won') {
+  <div class="flex justify-center mt-3">
+    <button class="btn btn-primary w-full sm:w-auto" (click)="showReward()" type="button">
+      {{ 'ui.showReward' | translate }}
+    </button>
+  </div>
+  }
+</div>

@@ -1,0 +1,252 @@
+<div class="light-path">
+  <!-- Header -->
+  <div class="flex flex-col items-center text-center mb-2 sm:mb-3">
+    <div class="flex items-center justify-center gap-3 mb-1 flex-wrap">
+      <h3 class="text-xl sm:text-2xl font-bold text-gold">
+        🏡 {{ 'challenges.lightPath.title' | translate }}
+      </h3>
+      @if (isCompleted) {
+      <span class="pill">
+        <lucide-icon [img]="Check" class="w-3 h-3" [strokeWidth]="4"></lucide-icon>
+        {{ 'calendar.completed' | translate }}
+      </span>
+      }
+    </div>
+    <p class="text-sm sm:text-base text-text-muted max-w-lg leading-snug">
+      {{ 'challenges.lightPath.instruction' | translate }}
+    </p>
+  </div>
+
+  <!-- Stats (the win banner takes their place) -->
+  @if (won) {
+  <div class="flex justify-center mb-2">
+    <div class="win-banner">✨ {{ 'challenges.lightPath.win' | translate }} ✨</div>
+  </div>
+  } @else {
+  <div class="flex justify-center gap-4 sm:gap-6 text-sm sm:text-base mb-2">
+    <span class="stat">
+      <span class="text-text-muted">{{ 'challenges.lightPath.lit' | translate }}:</span>
+      <span class="font-bold ml-1" [class.text-gold]="poweredTargets < targetCount" [class.text-aurora]="poweredTargets >= targetCount"
+        >{{ poweredTargets }} / {{ targetCount }}</span
+      >
+    </span>
+    <span class="stat">
+      <span class="text-text-muted">{{ 'challenges.lightPath.moves' | translate }}:</span>
+      <span class="text-gold font-bold ml-1">{{ moves }}</span>
+    </span>
+    @if (bestMoves !== null) {
+    <span class="stat">
+      <span class="text-text-muted">{{ 'challenges.lightPath.best' | translate }}:</span>
+      <span class="text-gold font-bold ml-1">{{ bestMoves }}</span>
+    </span>
+    }
+  </div>
+  }
+
+  <!-- The village -->
+  <div class="board" [class.won]="won" [style.--ratio]="ratio">
+    <svg
+      class="board-svg"
+      [attr.viewBox]="'-8 -8 ' + (viewW + 16) + ' ' + (viewH + 16)"
+      role="group"
+      [attr.aria-label]="'challenges.lightPath.title' | translate"
+    >
+      <defs>
+        <linearGradient id="lp-sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#0d1438" />
+          <stop offset="1" stop-color="#1a2352" />
+        </linearGradient>
+        <linearGradient id="lp-ground" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#2b3870" />
+          <stop offset="0.55" stop-color="#222d5e" />
+          <stop offset="1" stop-color="#1b244d" />
+        </linearGradient>
+        <linearGradient id="lp-ground-lit" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#4a3f5e" />
+          <stop offset="1" stop-color="#2a2a52" />
+        </linearGradient>
+        <radialGradient id="lp-warm" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0" stop-color="#ffcf7a" stop-opacity="0.75" />
+          <stop offset="0.5" stop-color="#ff9f43" stop-opacity="0.25" />
+          <stop offset="1" stop-color="#ff9f43" stop-opacity="0" />
+        </radialGradient>
+        <radialGradient id="lp-shine" cx="0.35" cy="0.3" r="0.6">
+          <stop offset="0" stop-color="#fff" stop-opacity="0.95" />
+          <stop offset="1" stop-color="#fff" stop-opacity="0" />
+        </radialGradient>
+        <linearGradient id="lp-logs" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#8a5432" />
+          <stop offset="1" stop-color="#5b3220" />
+        </linearGradient>
+        <linearGradient id="lp-pine" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#3fb487" />
+          <stop offset="1" stop-color="#145240" />
+        </linearGradient>
+        <pattern id="lp-snow" width="34" height="34" patternUnits="userSpaceOnUse">
+          <circle cx="6" cy="8" r="1.1" fill="#fff" opacity="0.22" />
+          <circle cx="24" cy="5" r="0.8" fill="#fff" opacity="0.18" />
+          <circle cx="16" cy="20" r="1.3" fill="#fff" opacity="0.16" />
+          <circle cx="29" cy="27" r="0.9" fill="#fff" opacity="0.2" />
+          <circle cx="4" cy="29" r="0.7" fill="#fff" opacity="0.15" />
+        </pattern>
+      </defs>
+
+      <!-- Night sky behind the tiles -->
+      <rect x="-8" y="-8" [attr.width]="viewW + 16" [attr.height]="viewH + 16" rx="26" fill="url(#lp-sky)" />
+      @for (s of stars; track $index) {
+      <circle class="sky-star" [attr.cx]="s.x" [attr.cy]="s.y" [attr.r]="s.r" [style.animation-delay.s]="s.d" />
+      }
+
+      @for (t of tiles; track t.id) {
+      <g
+        class="tile"
+        [attr.data-tile]="t.id"
+        [class.powered]="t.powered"
+        [class.hint]="hintId === t.id"
+        [class.spinning]="t.spinning"
+        [class.target]="t.role === 'house' || t.role === 'tree'"
+        [attr.transform]="'translate(' + t.c * CELL + ' ' + t.r * CELL + ')'"
+        [style.--d]="cascadeDelay(t)"
+        (click)="rotate(t)"
+        (keydown)="onTileKey($event, t)"
+        tabindex="0"
+        role="button"
+        [attr.aria-label]="
+          ('challenges.lightPath.tileLabel' | translate : { col: t.c + 1, row: t.r + 1 }) +
+          (t.powered ? ' ✓' : '')
+        "
+      >
+        <rect class="ground" x="3" y="3" width="94" height="94" rx="16" />
+        <rect class="ground-lit" x="3" y="3" width="94" height="94" rx="16" />
+        <rect class="flash" x="3" y="3" width="94" height="94" rx="16" />
+        <rect x="3" y="3" width="94" height="94" rx="16" fill="url(#lp-snow)" />
+        <path class="snowdrift" d="M3 82 Q 22 74 40 83 T 72 80 T 97 84 L97 81 Q97 97 81 97 L19 97 Q3 97 3 81 Z" />
+
+        <!-- Rotating string-light wiring -->
+        <g class="spin" [style.transform]="'rotate(' + t.rot * 90 + 'deg)'">
+          @for (a of t.arms; track $index; let i = $index) {
+          <g [attr.transform]="'rotate(' + a + ' 50 50)'">
+            <path class="wire-glow" d="M50 50 Q 43 26 50 -2" />
+            <path class="wire" d="M50 50 Q 43 26 50 -2" />
+            @if (t.role === 'none') {
+            <g class="bulb">
+              <circle class="halo" cx="53" cy="24" r="12" [attr.fill]="bulbColor(t, i)" [style.animation-delay]="twinkleDelay(t, i)" />
+              <rect class="cap" x="44" y="21" width="5" height="5" rx="1" />
+              <ellipse class="glass" cx="54" cy="24" rx="6.5" ry="5" [attr.fill]="t.powered ? bulbColor(t, i) : '#3f4a85'" />
+              <ellipse cx="53" cy="22.5" rx="3" ry="1.8" fill="url(#lp-shine)" [attr.opacity]="t.powered ? 0.9 : 0.3" />
+            </g>
+            }
+          </g>
+          }
+          @if (t.role === 'none') {
+          @if (t.arms.length === 1) {
+          <!-- Dead end: a little lantern -->
+          <g class="lantern">
+            <circle class="halo" cx="50" cy="50" r="16" fill="#ffcf7a" />
+            <circle cx="50" cy="50" r="8.5" class="lantern-glass" />
+            <circle cx="48" cy="48" r="3" fill="url(#lp-shine)" />
+          </g>
+          } @else {
+          <circle class="knot" cx="50" cy="50" r="5.5" />
+          }
+          }
+        </g>
+
+        <!-- Things that stay upright -->
+        @switch (t.role) {
+        @case ('source') {
+        <g transform="translate(50 54) scale(1.08)" class="cabin">
+          <circle r="44" fill="url(#lp-warm)" class="aura-always" />
+          <ellipse cx="0" cy="25" rx="32" ry="6" fill="#e9f2ff" opacity="0.35" />
+          <rect x="11" y="-31" width="8" height="15" fill="#4a2a1c" />
+          <circle class="smoke s1" cx="15" cy="-35" r="4" />
+          <circle class="smoke s2" cx="15" cy="-35" r="3" />
+          <rect x="-24" y="-6" width="48" height="30" rx="3" fill="url(#lp-logs)" />
+          <path d="M-24 2 H24 M-24 10 H24 M-24 18 H24" stroke="#3e2216" stroke-width="1.4" opacity="0.6" />
+          <path d="M-30 -3 L0 -30 L30 -3 Z" fill="#7a2e2a" />
+          <path d="M-32 -2 L0 -33 L32 -2 L26 -2 L0 -25 L-26 -2 Z" fill="#f4f8ff" />
+          <rect x="-17" y="2" width="13" height="11" rx="1.5" fill="#ffd27a" class="cabin-window" />
+          <path d="M-10.5 2 V13 M-17 7.5 H-4" stroke="#7a4a20" stroke-width="1.4" />
+          <rect x="3" y="5" width="11" height="19" rx="1.5" fill="#3a2016" />
+          <circle cx="12" cy="15" r="1.1" fill="#f7c873" />
+          <g transform="translate(22 18)">
+            <circle r="9" fill="#f7c873" stroke="#8a5a14" stroke-width="1.5" />
+            <path d="M1.5 -6 L-4 1 H0 L-1.5 6 L4 -1 H0 Z" fill="#5a3410" />
+          </g>
+        </g>
+        }
+        @case ('house') {
+        <g transform="translate(50 55) scale(1.14)" class="house">
+          <circle r="42" fill="url(#lp-warm)" class="aura" />
+          <ellipse cx="0" cy="21" rx="28" ry="5" fill="#e9f2ff" opacity="0.3" />
+          <rect x="-20" y="-8" width="40" height="28" rx="2" [attr.fill]="houseColor(t).wall" />
+          <path d="M-20 -8 H20 V-3 H-20 Z" fill="#000" opacity="0.15" />
+          <path d="M-26 -6 L0 -30 L26 -6 Z" [attr.fill]="houseColor(t).dark" />
+          <path d="M-28 -5 L0 -32 L28 -5 L22 -5 L0 -25 L-22 -5 Z" fill="#f4f8ff" />
+          <rect class="win" x="-15" y="-1" width="10" height="9" rx="1.2" />
+          <rect class="win" x="5" y="-1" width="10" height="9" rx="1.2" />
+          <rect x="-5" y="9" width="10" height="11" rx="1.2" fill="#2a1a12" />
+          <circle cx="0" cy="-15" r="3.6" fill="none" stroke="#3aae8a" stroke-width="2.2" />
+          <circle cx="0" cy="-12.5" r="1.2" fill="#e0475b" />
+        </g>
+        }
+        @case ('tree') {
+        <g transform="translate(50 52) scale(1.1)" class="pine">
+          <circle r="42" fill="url(#lp-warm)" class="aura" />
+          <ellipse cx="0" cy="27" rx="22" ry="5" fill="#e9f2ff" opacity="0.3" />
+          <rect x="-4" y="16" width="8" height="10" fill="#5a3324" />
+          <path d="M0 -28 L22 18 H-22 Z" fill="url(#lp-pine)" />
+          <path d="M0 -28 L15 2 H-15 Z" fill="#3fb487" opacity="0.5" />
+          <path d="M-22 18 L-16 13 L-10 18 L-4 13 L2 18 L8 13 L14 18 L22 18 Z" fill="#f4f8ff" opacity="0.85" />
+          <circle class="tb" cx="-6" cy="-6" r="2.6" fill="#ff5a6e" />
+          <circle class="tb" cx="7" cy="0" r="2.6" fill="#7fb8ff" style="animation-delay: 0.3s" />
+          <circle class="tb" cx="-9" cy="9" r="2.6" fill="#f7c873" style="animation-delay: 0.6s" />
+          <circle class="tb" cx="11" cy="11" r="2.6" fill="#5cf2b3" style="animation-delay: 0.9s" />
+          <circle class="tb" cx="1" cy="7" r="2.6" fill="#d58bff" style="animation-delay: 1.2s" />
+          <path class="tree-star" d="M0 -38 L2.6 -32.4 L8.6 -32.2 L3.9 -28.4 L5.5 -22.5 L0 -26 L-5.5 -22.5 L-3.9 -28.4 L-8.6 -32.2 L-2.6 -32.4 Z" />
+        </g>
+        }
+        }
+
+        <rect class="hint-ring" x="5" y="5" width="90" height="90" rx="15" />
+      </g>
+      }
+    </svg>
+
+    <!-- Falling snow -->
+    <div class="snow" aria-hidden="true">
+      @for (f of flakes; track $index) {
+      <span
+        class="flake"
+        [style.left.%]="f.x"
+        [style.width.px]="f.size"
+        [style.height.px]="f.size"
+        [style.animation-delay.s]="f.delay"
+        [style.animation-duration.s]="f.dur"
+        [style.--drift]="f.drift + 'px'"
+      ></span>
+      }
+    </div>
+
+  </div>
+
+  <!-- Actions -->
+  <div class="actions">
+    @if (isCompleted && !won) {
+    <button class="btn btn-primary" (click)="showReward()" type="button">
+      {{ 'ui.showReward' | translate }}
+    </button>
+    }
+    <button class="btn btn-outline flex items-center justify-center gap-2" (click)="showHint()" [disabled]="won" type="button">
+      <lucide-icon [img]="Lightbulb" class="w-4 h-4" [strokeWidth]="2.25"></lucide-icon>
+      {{ 'challenges.lightPath.hint' | translate }}
+    </button>
+    <button class="btn btn-outline flex items-center justify-center gap-2" (click)="restart()" [disabled]="won" type="button">
+      <lucide-icon [img]="RotateCcw" class="w-4 h-4" [strokeWidth]="2.25"></lucide-icon>
+      {{ 'ui.reset' | translate }}
+    </button>
+    <button class="btn btn-secondary" (click)="newPuzzle()" type="button">
+      🎲 {{ 'challenges.lightPath.newVillage' | translate }}
+    </button>
+  </div>
+</div>

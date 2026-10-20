@@ -1,0 +1,454 @@
+:host {
+  display: block;
+}
+
+.stat {
+  white-space: nowrap;
+}
+
+.board {
+  --ratio: 1;
+  position: relative;
+  margin: 0 auto;
+  width: min(100%, 680px, calc((100dvh - 290px) * var(--ratio)));
+  border-radius: 26px;
+  box-shadow: 0 0 0 1px rgba(207, 230, 255, 0.12), 0 24px 60px -18px rgba(0, 0, 0, 0.8),
+    0 0 80px -30px rgba(247, 200, 115, 0.35);
+  overflow: hidden;
+  touch-action: manipulation;
+
+  @media (min-width: 1024px) {
+    width: min(100%, 720px, calc((90vh - 320px) * var(--ratio)));
+  }
+}
+
+.board-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sky-star {
+  fill: #fff;
+  opacity: 0.4;
+  animation: skyTwinkle 3.2s ease-in-out infinite alternate;
+}
+
+@keyframes skyTwinkle {
+  to {
+    opacity: 0.05;
+  }
+}
+
+/* ------------------------------------------------------------------ tiles */
+
+.tile {
+  cursor: pointer;
+  outline: none;
+
+  .ground {
+    fill: url(#lp-ground);
+    stroke: rgba(207, 230, 255, 0.1);
+    stroke-width: 1.5;
+    transition: stroke 0.2s;
+  }
+
+  .ground-lit {
+    fill: url(#lp-ground-lit);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .snowdrift {
+    fill: #dfeaff;
+    opacity: 0.13;
+  }
+
+  &:hover .ground,
+  &:focus-visible .ground {
+    stroke: rgba(247, 200, 115, 0.75);
+    stroke-width: 2.5;
+  }
+
+  &.powered .ground-lit {
+    opacity: 1;
+  }
+}
+
+.spin {
+  transform-origin: 50px 50px;
+  transition: transform 0.24s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+
+.wire {
+  fill: none;
+  stroke: #8391cc;
+  stroke-width: 6;
+  stroke-linecap: round;
+  transition: stroke 0.3s;
+}
+
+.wire-glow {
+  fill: none;
+  stroke: #ffd27a;
+  stroke-width: 13;
+  stroke-linecap: round;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.knot {
+  fill: #2a3366;
+  stroke: #8391cc;
+  stroke-width: 1.5;
+  transition: fill 0.3s, stroke 0.3s;
+}
+
+.bulb {
+  .halo {
+    opacity: 0;
+    filter: blur(4px);
+    transition: opacity 0.3s;
+  }
+
+  .cap {
+    fill: #6b6f8f;
+  }
+
+  .glass {
+    stroke: rgba(207, 230, 255, 0.35);
+    stroke-width: 1;
+    transition: fill 0.3s;
+  }
+}
+
+.lantern {
+  .halo {
+    opacity: 0;
+    filter: blur(5px);
+    transition: opacity 0.3s;
+  }
+
+  .lantern-glass {
+    fill: #323b68;
+    stroke: #4a5590;
+    stroke-width: 1.5;
+    transition: fill 0.3s;
+  }
+}
+
+.tile.powered {
+  .wire {
+    stroke: #ffcf6e;
+  }
+
+  .wire-glow {
+    opacity: 0.22;
+  }
+
+  .knot {
+    fill: #ffd98c;
+    stroke: #fff2cf;
+  }
+
+  .cap {
+    fill: #d8b25e;
+  }
+
+  .bulb .halo {
+    opacity: 0.6;
+    animation: twinkle 1.6s ease-in-out infinite alternate;
+  }
+
+  .lantern .halo {
+    opacity: 0.7;
+    animation: twinkle 2.2s ease-in-out infinite alternate;
+  }
+
+  .lantern-glass {
+    fill: #ffe3a3;
+    stroke: #fff4d6;
+  }
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.75;
+  }
+  60% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.85;
+  }
+}
+
+/* ------------------------------------------------------------------ cabin, houses, trees */
+
+.cabin {
+  .aura-always {
+    opacity: 0.8;
+    animation: auraPulse 2.6s ease-in-out infinite alternate;
+  }
+
+  .cabin-window {
+    filter: drop-shadow(0 0 5px #ffb347);
+  }
+
+  .smoke {
+    fill: #cfd8f0;
+    opacity: 0;
+    animation: smoke 3.2s ease-out infinite;
+  }
+
+  .s2 {
+    animation-delay: 1.6s;
+  }
+}
+
+@keyframes smoke {
+  0% {
+    opacity: 0.55;
+    transform: translate(0, 0) scale(0.6);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(6px, -22px) scale(1.6);
+  }
+}
+
+@keyframes auraPulse {
+  from {
+    opacity: 0.55;
+  }
+  to {
+    opacity: 0.9;
+  }
+}
+
+.cabin *,
+.pine *,
+.house *,
+.bulb *,
+.lantern * {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.house,
+.pine {
+  .aura {
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+}
+
+.house .win {
+  fill: #1b1d38;
+  stroke: rgba(255, 255, 255, 0.15);
+  stroke-width: 1;
+  transition: fill 0.4s;
+}
+
+.pine {
+  .tb {
+    opacity: 0.35;
+    transition: opacity 0.3s;
+  }
+
+  .tree-star {
+    fill: #6b6044;
+    transition: fill 0.4s;
+  }
+}
+
+.tile.powered {
+  .house .aura,
+  .pine .aura {
+    opacity: 0.85;
+  }
+
+  .house .win {
+    fill: #ffd27a;
+    filter: drop-shadow(0 0 4px #ffb347);
+  }
+
+  .pine .tb {
+    opacity: 1;
+    animation: treeBulb 1.4s ease-in-out infinite alternate;
+  }
+
+  .pine .tree-star {
+    fill: #ffd772;
+    filter: drop-shadow(0 0 5px #ffd772);
+  }
+}
+
+/* Unlit targets breathe gently so players know where the light must go */
+.tile.target:not(.powered) .ground {
+  stroke: rgba(247, 200, 115, 0.35);
+  stroke-dasharray: 6 6;
+  animation: targetDash 6s linear infinite;
+}
+
+@keyframes targetDash {
+  to {
+    stroke-dashoffset: -96;
+  }
+}
+
+@keyframes treeBulb {
+  to {
+    opacity: 0.45;
+  }
+}
+
+/* ------------------------------------------------------------------ hint + spin feedback */
+
+.hint-ring {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 3;
+  stroke-dasharray: 10 7;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tile.hint .hint-ring {
+  opacity: 1;
+  animation: hintDash 0.8s linear infinite;
+}
+
+@keyframes hintDash {
+  to {
+    stroke-dashoffset: -34;
+  }
+}
+
+.tile.spinning .ground {
+  stroke: rgba(247, 200, 115, 0.9);
+}
+
+/* ------------------------------------------------------------------ win cascade */
+
+.won .tile {
+  cursor: default;
+
+  .flash {
+    animation: cascadeFlash 1.1s ease-out both;
+    animation-delay: var(--d);
+  }
+
+  .glass,
+  .lantern-glass,
+  .knot {
+    animation: cascadePop 0.7s var(--ease-bounce) both;
+    animation-delay: var(--d);
+  }
+}
+
+.flash {
+  fill: #ffb347;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes cascadeFlash {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.28;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes cascadePop {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.45);
+    filter: brightness(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ------------------------------------------------------------------ snow */
+
+.snow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.flake {
+  position: absolute;
+  top: -10px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.7;
+  filter: blur(0.5px);
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translate(var(--drift, 0), 780px);
+  }
+}
+
+.win-banner {
+  white-space: nowrap;
+  padding: 2px 16px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: #3a1d06;
+  background: linear-gradient(180deg, #ffe3a3, var(--color-gold));
+  box-shadow: 0 0 30px rgba(247, 200, 115, 0.7);
+  animation: modalIn 0.5s var(--ease-bounce) both;
+}
+
+/* ------------------------------------------------------------------ actions */
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+
+  .btn {
+    padding: 8px 14px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 640px) {
+  .actions {
+    gap: 12px;
+
+    .btn {
+      padding: 8px 18px;
+      font-size: 1rem;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spin {
+    transition: none;
+  }
+  .flake {
+    display: none;
+  }
+}

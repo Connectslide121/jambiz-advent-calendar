@@ -1,0 +1,789 @@
+:host {
+  display: block;
+}
+
+.defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* ---------- HUD ---------- */
+.hud {
+  max-width: 560px;
+  margin: 0 auto 8px;
+}
+
+.hud-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 0.95rem;
+}
+
+.score-box {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.score {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.35rem;
+  color: var(--color-gold);
+  text-shadow: 0 0 14px rgba(247, 200, 115, 0.5);
+  min-width: 2ch;
+  text-align: right;
+}
+
+.combo {
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--color-text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  opacity: 0.55;
+  transition: all 0.25s var(--ease-bounce);
+
+  &.on {
+    opacity: 1;
+    color: #2b1a05;
+    background: linear-gradient(180deg, #ffd29a, var(--color-ember));
+    border-color: transparent;
+    box-shadow: 0 0 16px rgba(255, 159, 67, 0.6);
+    transform: scale(1.06);
+    transform-origin: right center;
+  }
+}
+
+.best {
+  font-size: 0.85rem;
+}
+
+.progress {
+  height: 5px;
+  margin: 4px 0 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+
+  .fill {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--color-accent-green), var(--color-aurora), var(--color-gold));
+    box-shadow: 0 0 10px rgba(92, 242, 179, 0.6);
+    transition: width 0.3s var(--ease-bounce);
+  }
+}
+
+/* Candle-shaped timer: the wax burns down from the right */
+.candle-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 12px;
+}
+
+.candle {
+  position: relative;
+  flex: 1;
+  height: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.holder {
+  flex: none;
+  width: 14px;
+  height: 24px;
+  border-radius: 4px 2px 2px 4px;
+  background: linear-gradient(90deg, #8a6420, #f7c873 45%, #a8721e);
+  box-shadow: 0 0 10px rgba(247, 200, 115, 0.35);
+  margin-right: -2px;
+  z-index: 1;
+}
+
+.wax {
+  position: relative;
+  height: 14px;
+  width: 100%;
+  border-radius: 2px 5px 5px 2px;
+  background: linear-gradient(180deg, #ff8796 0%, #e0475b 40%, #a8243a 100%);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25), 0 0 12px rgba(224, 71, 91, 0.35);
+}
+
+.drip {
+  position: absolute;
+  top: 10px;
+  width: 5px;
+  border-radius: 0 0 4px 4px;
+  background: #e0475b;
+
+  &.d1 {
+    left: 30%;
+    height: 9px;
+  }
+
+  &.d2 {
+    left: 64%;
+    height: 6px;
+  }
+}
+
+.wick {
+  position: absolute;
+  right: -5px;
+  top: 3px;
+  width: 6px;
+  height: 2px;
+  border-radius: 2px;
+  background: #2b2b3a;
+}
+
+.flame {
+  position: absolute;
+  right: -12px;
+  top: -20px;
+  width: 12px;
+  height: 20px;
+  pointer-events: none;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 46px;
+    height: 46px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 200, 110, 0.5), rgba(255, 200, 110, 0) 70%);
+  }
+
+  &.out {
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+}
+
+.flame-inner {
+  position: absolute;
+  inset: 0;
+  border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+  background: radial-gradient(ellipse at 50% 75%, #fff 0 18%, #ffe08a 35%, #ff9f43 70%, rgba(255, 90, 40, 0) 100%);
+  transform-origin: 50% 90%;
+  animation: flicker 0.18s ease-in-out infinite alternate;
+}
+
+@keyframes flicker {
+  from {
+    transform: scale(1, 1) skewX(-2deg);
+  }
+  to {
+    transform: scale(0.92, 1.08) skewX(3deg);
+  }
+}
+
+.secs {
+  min-width: 3ch;
+  text-align: right;
+  font-weight: 800;
+  color: var(--color-gold);
+  font-variant-numeric: tabular-nums;
+}
+
+.candle-row.low {
+  .secs {
+    color: #ff8a9a;
+    animation: pulse 0.6s ease-in-out infinite alternate;
+  }
+
+  .flame-inner {
+    animation-duration: 0.09s;
+  }
+}
+
+@keyframes pulse {
+  to {
+    transform: scale(1.12);
+  }
+}
+
+/* ---------- Scene ---------- */
+.scene {
+  --top: 128px;
+  position: relative;
+  max-width: 640px;
+  margin: 0 auto;
+  border-radius: 22px;
+  overflow: hidden;
+  padding: calc(var(--top) - 22px) 10px 12px;
+  background: linear-gradient(
+    180deg,
+    #070b22 0,
+    #16224f calc(var(--top) - 30px),
+    #e9f1ff calc(var(--top) - 1px),
+    #dbe6f9 70%,
+    #b9cae9 100%
+  );
+  box-shadow: 0 0 0 1px rgba(247, 200, 115, 0.18), 0 20px 50px -20px rgba(0, 0, 0, 0.8);
+  touch-action: manipulation;
+
+  &.shake {
+    animation: shake 0.35s ease-in-out;
+  }
+}
+
+/* Soft drifts and glittering snow on the yard */
+.scene::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: var(--top);
+  pointer-events: none;
+  background-image: radial-gradient(ellipse 38% 7% at 12% 40%, rgba(150, 176, 228, 0.35), transparent 70%),
+    radial-gradient(ellipse 42% 7% at 90% 66%, rgba(150, 176, 228, 0.35), transparent 70%),
+    radial-gradient(ellipse 50% 6% at 40% 96%, rgba(150, 176, 228, 0.3), transparent 70%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.9) 0 1.2px, transparent 1.8px),
+    radial-gradient(circle, rgba(160, 188, 240, 0.6) 0 1px, transparent 1.6px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 113px 97px, 167px 131px;
+  background-position: 0 0, 0 0, 0 0, 17px 23px, 61px 71px;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat, repeat;
+  animation: glitter 3s ease-in-out infinite alternate;
+}
+
+@keyframes glitter {
+  from {
+    opacity: 0.65;
+  }
+}
+
+@media (max-width: 1023px) {
+  .scene {
+    --top: 150px;
+    display: flex;
+    flex-direction: column;
+    min-height: min(calc(100dvh - 290px), 640px);
+
+    .grid {
+      flex: 1;
+      align-content: space-evenly;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .scene {
+    --top: 140px;
+  }
+}
+
+@keyframes shake {
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(5px);
+  }
+  60% {
+    transform: translateX(-3px);
+  }
+  80% {
+    transform: translateX(2px);
+  }
+}
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: var(--top);
+  width: calc(var(--top) * 400 / 150);
+  transform: translateX(-50%);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.tw-twinkle {
+  animation: twinkle 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  from {
+    opacity: 0.2;
+  }
+}
+
+.lights circle {
+  animation: bulbs 1.6s ease-in-out infinite alternate;
+
+  &:nth-child(2n) {
+    animation-delay: -0.8s;
+  }
+}
+
+@keyframes bulbs {
+  from {
+    opacity: 0.35;
+  }
+}
+
+.window {
+  animation: windowGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes windowGlow {
+  to {
+    fill: #ffe0a0;
+  }
+}
+
+.smoke circle {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: smoke 3.6s ease-out infinite;
+
+  &.s2 {
+    animation-delay: -1.2s;
+  }
+
+  &.s3 {
+    animation-delay: -2.4s;
+  }
+}
+
+@keyframes smoke {
+  0% {
+    opacity: 0;
+    transform: translate(0, 12px) scale(0.5);
+  }
+  25% {
+    opacity: 0.35;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(10px, -14px) scale(1.4);
+  }
+}
+
+/* The grid of snow mounds - sized so it always fits the screen height */
+.grid {
+  position: relative;
+  display: grid;
+  gap: 2px 6px;
+  margin: 0 auto;
+  width: min(100%, 600px, calc((100dvh - 400px) * var(--ratio)));
+  min-width: min(100%, 260px);
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    width: min(100%, 600px, calc((90vh - 422px) * var(--ratio)));
+  }
+}
+
+.hole {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  outline: none;
+
+  &:focus-visible .hole-svg {
+    filter: drop-shadow(0 0 6px var(--color-gold));
+  }
+}
+
+.hole-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Animate children without transform attributes only */
+.pop {
+  transform: translateY(96px);
+  transition: transform 0.16s ease-in;
+}
+
+.hole.up .pop {
+  transform: translateY(0);
+  transition: transform 0.26s cubic-bezier(0.34, 1.7, 0.64, 1);
+}
+
+.wobble {
+  transform-box: view-box;
+  transform-origin: 60px 100px;
+}
+
+.hole.up .wobble {
+  animation: cheeky 0.9s ease-in-out infinite alternate;
+}
+
+@keyframes cheeky {
+  0% {
+    transform: rotate(-6deg);
+  }
+  50% {
+    transform: rotate(2deg) translateY(-2px);
+  }
+  100% {
+    transform: rotate(7deg);
+  }
+}
+
+.squash {
+  transform-box: view-box;
+  transform-origin: 60px 100px;
+}
+
+.hole.hit .squash {
+  animation: bonk 0.42s ease-out both;
+}
+
+.hole.bad .squash {
+  animation: badShake 0.42s ease-out both;
+}
+
+@keyframes bonk {
+  0% {
+    transform: scale(1, 1);
+  }
+  25% {
+    transform: scale(1.18, 0.72);
+  }
+  60% {
+    transform: scale(0.95, 1.06);
+  }
+  100% {
+    transform: scale(1, 0.92);
+  }
+}
+
+@keyframes badShake {
+  0%,
+  100% {
+    transform: none;
+  }
+  20% {
+    transform: translateX(-5px) rotate(-6deg);
+  }
+  50% {
+    transform: translateX(5px) rotate(6deg);
+  }
+  80% {
+    transform: translateX(-3px);
+  }
+}
+
+.gold-glow {
+  animation: glowPulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse {
+  from {
+    opacity: 0.55;
+  }
+}
+
+/* Win: every tomte comes out to dance */
+.hole.party .wobble {
+  animation: dance 0.5s ease-in-out infinite alternate;
+  animation-delay: var(--delay, 0ms);
+}
+
+@keyframes dance {
+  from {
+    transform: rotate(-10deg) translateY(0);
+  }
+  to {
+    transform: rotate(10deg) translateY(-8px);
+  }
+}
+
+.key {
+  position: absolute;
+  right: 10%;
+  bottom: 4%;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  line-height: 18px;
+  color: #3b4f86;
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 1px 0 rgba(59, 79, 134, 0.35);
+  pointer-events: none;
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .key {
+    display: block;
+  }
+}
+
+.bonk {
+  position: absolute;
+  left: 50%;
+  top: -4%;
+  font-size: clamp(1.1rem, 4.5vw, 1.6rem);
+  pointer-events: none;
+  animation: dizzy 0.45s ease-out both;
+}
+
+@keyframes dizzy {
+  from {
+    transform: translateX(-50%) scale(0.2) rotate(-90deg);
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-50%) scale(1.15) rotate(200deg);
+  }
+}
+
+.pts {
+  position: absolute;
+  left: 50%;
+  top: 8%;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1rem, 4vw, 1.3rem);
+  color: #fff6d6;
+  -webkit-text-stroke: 4px rgba(10, 15, 36, 0.8);
+  paint-order: stroke fill;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: floatUp 0.9s ease-out both;
+
+  &.big {
+    color: var(--color-gold);
+    font-size: clamp(1.2rem, 5vw, 1.6rem);
+  }
+
+  &.bad {
+    color: #ff8a9a;
+  }
+}
+
+@keyframes floatUp {
+  from {
+    transform: translate(-50%, 10px) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    transform: translate(-50%, 0) scale(1.1);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -34px) scale(1);
+    opacity: 0;
+  }
+}
+
+/* ---------- Overlays ---------- */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  background: rgba(5, 7, 26, 0.5);
+  backdrop-filter: blur(3px);
+  animation: fadeIn 0.3s ease-out both;
+}
+
+.overlay-card {
+  text-align: center;
+  max-width: 340px;
+  padding: 18px 20px;
+  border-radius: 20px;
+  background: linear-gradient(170deg, #1f2754, #131a40);
+  border: 1px solid rgba(247, 200, 115, 0.25);
+  box-shadow: var(--shadow-soft);
+  animation: modalIn 0.45s var(--ease-bounce) both;
+}
+
+.final-score {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--color-gold);
+  text-shadow: 0 0 20px rgba(247, 200, 115, 0.6);
+}
+
+.new-best {
+  font-weight: 800;
+  color: var(--color-aurora);
+}
+
+.hearts {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 4px 0 6px;
+}
+
+.heart {
+  color: var(--color-accent-red);
+  text-shadow: 0 0 10px rgba(224, 71, 91, 0.6);
+  font-size: 1.3rem;
+  line-height: 1;
+  transition: color 0.3s, transform 0.3s;
+
+  &.lost {
+    color: rgba(255, 255, 255, 0.16);
+    text-shadow: none;
+    transform: scale(0.8);
+  }
+}
+
+.overlay-emoji {
+  font-size: 2.4rem;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.legend {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.legend-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 2px 4px;
+  border-radius: 14px;
+  background: radial-gradient(circle at 50% 30%, rgba(207, 230, 255, 0.16), rgba(255, 255, 255, 0.03));
+
+  svg {
+    width: 52px;
+    height: 56px;
+  }
+
+  span {
+    font-weight: 800;
+    font-size: 0.9rem;
+  }
+
+  .good {
+    color: var(--color-aurora);
+  }
+
+  .badc {
+    color: #ff8a9a;
+  }
+}
+
+.key-tip {
+  margin-top: 10px;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  opacity: 0.8;
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .key-tip {
+    display: block;
+  }
+}
+
+.countdown {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+
+  span {
+    font-family: var(--font-display);
+    font-size: 5rem;
+    font-weight: 800;
+    color: var(--color-gold);
+    -webkit-text-stroke: 6px rgba(10, 15, 36, 0.7);
+    paint-order: stroke fill;
+    text-shadow: 0 0 30px rgba(247, 200, 115, 0.8);
+    animation: countPop 0.7s ease-out both;
+  }
+}
+
+@keyframes countPop {
+  from {
+    transform: scale(2);
+    opacity: 0;
+  }
+  30% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.8);
+    opacity: 0.2;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}
+
+.win-banner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 12px;
+  margin: 0 auto;
+  width: fit-content;
+  max-width: calc(100% - 24px);
+  text-align: center;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: #3a1d06;
+  background: linear-gradient(180deg, #ffe3a3, var(--color-gold));
+  box-shadow: 0 0 30px rgba(247, 200, 115, 0.7);
+  animation: modalIn 0.5s var(--ease-bounce) both;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hole.up .wobble,
+  .hole.party .wobble,
+  .tw-twinkle,
+  .lights circle,
+  .smoke circle,
+  .scene::before {
+    animation: none;
+  }
+}

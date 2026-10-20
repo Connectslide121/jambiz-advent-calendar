@@ -1,0 +1,131 @@
+<div class="sbt">
+  <!-- Header -->
+  <div class="head">
+    <div class="flex items-center justify-center gap-3 flex-wrap">
+      <h3 class="text-xl sm:text-2xl font-bold text-gold">⛄ {{ 'challenges.snowballToss.title' | translate }}</h3>
+      @if (isCompleted) {
+      <span class="pill">
+        <lucide-icon [img]="Check" class="w-3 h-3" [strokeWidth]="4"></lucide-icon>
+        {{ 'calendar.completed' | translate }}
+      </span>
+      }
+    </div>
+    <p class="text-sm sm:text-base text-text-muted max-w-xl">
+      {{ 'challenges.snowballToss.instruction' | translate }}
+    </p>
+  </div>
+
+  <!-- Play field -->
+  <div class="stage" #stage [class.is-won]="phase === 'won'">
+    <canvas
+      #canvas
+      class="surface"
+      tabindex="0"
+      [attr.aria-label]="'challenges.snowballToss.canvasLabel' | translate"
+    ></canvas>
+
+    <!-- HUD -->
+    <div class="hud" [class.dim]="phase === 'intro'">
+      <div class="chip balls" [attr.aria-label]="('challenges.snowballToss.snowballs' | translate) + ': ' + ballsLeft">
+        @for (i of ballSlots; track i) {
+        <span class="snowball" [class.used]="i >= ballsLeft"></span>
+        }
+      </div>
+      @if (endless) {
+      <div class="chip">
+        <span class="lbl">{{ 'challenges.snowballToss.wave' | translate }}</span>
+        <span class="val">{{ wave }}</span>
+      </div>
+      }
+      <div class="chip">
+        <span class="lbl">⛄</span>
+        <span class="val">{{ totalSnowmen - snowmenLeft }}/{{ totalSnowmen }}</span>
+      </div>
+      <div class="chip wind" [class.calm]="!windArrow">
+        <span class="lbl">{{ 'challenges.snowballToss.wind' | translate }}</span>
+        @if (windArrow) {
+        <span class="val">{{ windArrow }} {{ windLabel }}</span>
+        } @else {
+        <span class="val calm-text">{{ 'challenges.snowballToss.calm' | translate }}</span>
+        }
+      </div>
+      <div class="chip score">
+        <span class="val">{{ score }}</span>
+        @if (bestScore !== null) {
+        <span class="best">🏆 {{ bestScore }}</span>
+        }
+      </div>
+      @if (phase === 'playing') {
+      <button type="button" class="chip icon-btn" (click)="retry()" [attr.aria-label]="'ui.reset' | translate" [title]="'ui.reset' | translate">
+        <lucide-icon [img]="RotateCcw" class="w-4 h-4" [strokeWidth]="2.5"></lucide-icon>
+      </button>
+      }
+    </div>
+
+    <!-- Intro -->
+    @if (phase === 'intro') {
+    <div class="overlay">
+      <div class="card intro-card">
+        <div class="intro-art" aria-hidden="true">
+          <span class="ia-ball">❄️</span><span class="ia-man">⛄</span>
+        </div>
+        <h3 class="text-xl font-bold text-gold mb-3">{{ 'challenges.snowballToss.introTitle' | translate }}</h3>
+        <ul class="howto">
+          <li><span>👆</span>{{ 'challenges.snowballToss.how1' | translate }}</li>
+          <li><span>🎏</span>{{ 'challenges.snowballToss.how2' | translate }}</li>
+          @if (endless) {
+          <li><span>🌊</span>{{ 'challenges.snowballToss.howEndless' | translate }}</li>
+          } @else {
+          <li><span>⛄</span>{{ 'challenges.snowballToss.how3' | translate : { snowmen: totalSnowmen, balls: totalBalls } }}</li>
+          }
+        </ul>
+        <p class="kbd-tip">⌨️ {{ 'challenges.snowballToss.keyboard' | translate }}</p>
+        <button type="button" class="btn btn-primary w-full mt-3" (click)="startGame()">
+          {{ 'ui.startGame' | translate }}
+        </button>
+      </div>
+    </div>
+    }
+
+    <!-- Lost -->
+    @if (phase === 'lost') {
+    <div class="overlay soft">
+      <div class="card result-card">
+        @if (endless) {
+        <div class="text-4xl mb-1">{{ newBest ? '🏆' : '⛄' }}</div>
+        <h3 class="text-xl font-bold text-gold mb-1">{{ 'challenges.snowballToss.endlessOver' | translate }}</h3>
+        <p class="text-text-muted mb-2">{{ 'challenges.snowballToss.endlessText' | translate : { wave: wave } }}</p>
+        <div class="final-score">{{ score }}</div>
+        @if (newBest) {
+        <p class="new-best">✨ {{ 'challenges.snowballToss.newBest' | translate }} ✨</p>
+        } @else if (bestScore !== null) {
+        <p class="text-text-muted text-sm mb-3">🏆 {{ 'challenges.snowballToss.best' | translate }}: {{ bestScore }}</p>
+        }
+        <button type="button" class="btn btn-primary w-full" (click)="retry()">{{ 'ui.playAgain' | translate }}</button>
+        } @else {
+        <div class="text-4xl mb-1">🥶</div>
+        <h3 class="text-xl font-bold text-gold mb-1">{{ 'challenges.snowballToss.loseTitle' | translate }}</h3>
+        <p class="text-text-muted mb-4">{{ 'challenges.snowballToss.loseText' | translate : { left: snowmenLeft } }}</p>
+        <button type="button" class="btn btn-primary w-full" (click)="retry()">{{ 'ui.tryAgain' | translate }}</button>
+        }
+      </div>
+    </div>
+    }
+
+    <!-- Won -->
+    @if (phase === 'won') {
+    <div class="win-banner" aria-live="polite">
+      <div class="win-title">✨ {{ 'challenges.snowballToss.win' | translate }} ✨</div>
+      <div class="win-score">{{ 'challenges.snowballToss.score' | translate }}: {{ score }}</div>
+    </div>
+    }
+  </div>
+
+  @if (isCompleted && phase !== 'won' && !endless) {
+  <div class="actions">
+    <button class="btn btn-primary w-full sm:w-auto" (click)="showReward()" type="button">
+      {{ 'ui.showReward' | translate }}
+    </button>
+  </div>
+  }
+</div>

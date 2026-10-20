@@ -1,0 +1,234 @@
+<div class="sorter">
+  <!-- Header -->
+  <div class="flex flex-col items-center text-center mb-2">
+    <div class="flex items-center justify-center gap-3 mb-1 flex-wrap">
+      <h3 class="text-xl sm:text-2xl font-bold text-gold">
+        🧝 {{ 'challenges.toySorter.title' | translate }}
+        @if (endless) {
+        <span class="endless-badge">∞</span>
+        }
+      </h3>
+      @if (isCompleted) {
+      <span class="pill">
+        <lucide-icon [img]="Check" class="w-3 h-3" [strokeWidth]="4"></lucide-icon>
+        {{ 'calendar.completed' | translate }}
+      </span>
+      }
+    </div>
+    <p class="text-xs sm:text-base text-text-muted max-w-xl">
+      {{ 'challenges.toySorter.instruction' | translate }}
+    </p>
+  </div>
+
+  <!-- Current sorting rule -->
+  <div class="rule-card" [class.flash]="ruleFlash" aria-live="polite">
+    <div class="rule-side left">
+      <span class="arrow">◀</span>
+      <span class="icon">{{ rule.leftIcon }}</span>
+      <span class="label">{{ 'challenges.toySorter.rules.' + rule.id + '.left' | translate }}</span>
+    </div>
+    <div class="divider"></div>
+    <div class="rule-side right">
+      <span class="label">{{ 'challenges.toySorter.rules.' + rule.id + '.right' | translate }}</span>
+      <span class="icon">{{ rule.rightIcon }}</span>
+      <span class="arrow">▶</span>
+    </div>
+  </div>
+
+  <!-- HUD -->
+  <div class="hud">
+    <div class="lives" [attr.aria-label]="maxMistakes - mistakes + ' / ' + maxMistakes">
+      @for (i of livesLeft; track i) {
+      <span class="life" [class.lost]="i >= maxMistakes - mistakes">{{ i >= maxMistakes - mistakes ? '🤍' : '❤️' }}</span>
+      }
+    </div>
+    @if (!endless) {
+    <div class="progress" [attr.aria-label]="sorted + ' / ' + target">
+      <div class="bar" [style.width.%]="progressPct"></div>
+      <span class="progress-text">{{ 'challenges.toySorter.sorted' | translate }} {{ sorted }}/{{ target }}</span>
+    </div>
+    }
+    <div class="score">
+      <span class="text-text-muted">{{ 'challenges.toySorter.score' | translate }}</span>
+      <span class="text-gold font-bold tabular-nums">{{ score }}</span>
+      @if (multiplier > 1) {
+      <span class="mult">×{{ multiplier }}</span>
+      }
+    </div>
+    @if (bestScore > 0) {
+    <div class="score best">
+      <span class="text-text-muted">{{ 'challenges.toySorter.best' | translate }}</span>
+      <span class="text-gold font-bold tabular-nums">{{ bestScore }}</span>
+    </div>
+    }
+  </div>
+
+  <!-- Play area -->
+  <div
+    class="stage"
+    #stage
+    (pointerdown)="onPointerDown($event)"
+    (pointerup)="onPointerUp($event)"
+    (pointercancel)="onPointerUp($event)"
+  >
+    <svg class="backdrop" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="ts-wall" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#4a2c1a" />
+          <stop offset="1" stop-color="#6e4428" />
+        </linearGradient>
+        <linearGradient id="ts-floor" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#3e2414" />
+          <stop offset="1" stop-color="#22130a" />
+        </linearGradient>
+        <linearGradient id="ts-night" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#0a1433" />
+          <stop offset="1" stop-color="#2e4a82" />
+        </linearGradient>
+        <radialGradient id="ts-glow">
+          <stop offset="0" stop-color="#ffe7a8" stop-opacity="0.7" />
+          <stop offset="1" stop-color="#ffe7a8" stop-opacity="0" />
+        </radialGradient>
+        <pattern id="ts-planks" width="40" height="500" patternUnits="userSpaceOnUse">
+          <rect width="40" height="500" fill="url(#ts-wall)" />
+          <rect x="20" width="20" height="500" fill="#000" opacity="0.06" />
+          <line x1="0.5" y1="0" x2="0.5" y2="500" stroke="#2a1a10" stroke-opacity="0.45" />
+        </pattern>
+      </defs>
+      <rect width="800" height="420" fill="url(#ts-planks)" />
+      <ellipse cx="400" cy="260" rx="380" ry="240" fill="url(#ts-glow)" opacity="0.35" />
+      <rect width="800" height="22" fill="#2e1a0e" />
+      <!-- Bunting -->
+      <path d="M0 22 Q200 44 400 22 Q600 44 800 22" stroke="#2a1a10" stroke-width="1.5" fill="none" />
+      <g>
+        <polygon points="30,24 50,26 38,46" fill="#e0475b" />
+        <polygon points="80,29 100,31 89,51" fill="#f7c873" />
+        <polygon points="130,32 150,33 139,53" fill="#3aae8a" />
+        <polygon points="180,33 200,33 190,53" fill="#fdf6ec" />
+        <polygon points="230,32 250,31 241,51" fill="#e0475b" />
+        <polygon points="280,30 300,28 291,48" fill="#f7c873" />
+        <polygon points="500,28 520,30 509,50" fill="#3aae8a" />
+        <polygon points="550,31 570,32 559,52" fill="#fdf6ec" />
+        <polygon points="600,33 620,33 610,53" fill="#e0475b" />
+        <polygon points="650,32 670,31 661,51" fill="#f7c873" />
+        <polygon points="700,30 720,28 711,48" fill="#3aae8a" />
+        <polygon points="750,26 770,24 761,44" fill="#fdf6ec" />
+      </g>
+      <!-- Windows -->
+      @for (wx of [110, 690]; track wx) {
+      <g [attr.transform]="'translate(' + wx + ' 150)'">
+        <circle r="62" fill="url(#ts-glow)" opacity="0.4" />
+        <circle r="50" fill="#e8d6b0" />
+        <circle r="43" fill="url(#ts-night)" />
+        <path d="M-43 14 Q-15 0 10 10 T43 8 L43 30 Q0 50 -43 30 Z" fill="#c4d3ee" />
+        <path d="M-40 24 Q0 16 40 24 Q20 42 0 43 Q-22 42 -40 24 Z" fill="#eaf1fc" />
+        <polygon points="-22,14 -15,-8 -8,14" fill="#1d2b52" />
+        <polygon points="14,12 21,-12 28,12" fill="#1d2b52" />
+        <circle cx="14" cy="-22" r="6" fill="#fff2cf" />
+        <circle cx="-20" cy="-20" r="1.2" fill="#fff" class="tw" />
+        <circle cx="-4" cy="-30" r="1" fill="#fff" class="tw d2" />
+        <circle cx="28" cy="-6" r="1" fill="#fff" class="tw d3" />
+        <rect x="-2" y="-43" width="4" height="86" fill="#e8d6b0" />
+        <rect x="-43" y="-2" width="86" height="4" fill="#e8d6b0" />
+        <circle r="46.5" fill="none" stroke="#c9a874" stroke-width="2" />
+      </g>
+      }
+      <!-- Shelves with toys -->
+      <g>
+        <rect x="30" y="268" width="170" height="8" rx="2" fill="#9a6a40" />
+        <rect x="600" y="268" width="170" height="8" rx="2" fill="#9a6a40" />
+        <rect x="30" y="276" width="170" height="4" fill="#000" opacity="0.25" />
+        <rect x="600" y="276" width="170" height="4" fill="#000" opacity="0.25" />
+        <text x="62" y="262" font-size="30" text-anchor="middle">🪀</text>
+        <text x="110" y="262" font-size="34" text-anchor="middle">🧸</text>
+        <text x="160" y="262" font-size="30" text-anchor="middle">🚂</text>
+        <text x="640" y="262" font-size="30" text-anchor="middle">🪆</text>
+        <text x="690" y="262" font-size="34" text-anchor="middle">🤖</text>
+        <text x="740" y="262" font-size="30" text-anchor="middle">🎲</text>
+      </g>
+      <!-- Lanterns -->
+      @for (lx of [250, 550]; track lx) {
+      <g>
+        <circle [attr.cx]="lx" cy="110" r="46" fill="url(#ts-glow)" class="lantern-glow" />
+        <line [attr.x1]="lx" y1="22" [attr.x2]="lx" y2="92" stroke="#2a1a10" stroke-width="2" />
+        <rect [attr.x]="lx - 11" y="94" width="22" height="28" rx="2" fill="#ffd77a" />
+        <rect [attr.x]="lx - 14" y="90" width="28" height="6" rx="2" fill="#2a2a36" />
+        <rect [attr.x]="lx - 14" y="121" width="28" height="5" rx="2" fill="#2a2a36" />
+        <path [attr.d]="'M' + lx + ' 94 V122'" stroke="#2a2a36" stroke-width="2" />
+      </g>
+      }
+      <!-- Floor -->
+      <rect y="420" width="800" height="80" fill="url(#ts-floor)" />
+      <rect y="420" width="800" height="4" fill="#000" opacity="0.35" />
+      <g stroke="#000" stroke-opacity="0.3">
+        <line x1="0" y1="445" x2="800" y2="445" />
+        <line x1="0" y1="472" x2="800" y2="472" />
+        <line x1="120" y1="424" x2="120" y2="445" />
+        <line x1="420" y1="424" x2="420" y2="445" />
+        <line x1="700" y1="424" x2="700" y2="445" />
+        <line x1="260" y1="445" x2="260" y2="472" />
+        <line x1="560" y1="445" x2="560" y2="472" />
+      </g>
+    </svg>
+    <canvas #canvas class="play-canvas"></canvas>
+
+    <!-- Overlays -->
+    @if (phase === 'ready') {
+    <div class="overlay">
+      <div class="overlay-card">
+        <div class="big-icons">{{ rule.leftIcon }} <span class="vs">◀ ▶</span> {{ rule.rightIcon }}</div>
+        <p class="text-text">{{ 'challenges.toySorter.ready' | translate }}</p>
+        <button class="btn btn-secondary flex items-center justify-center gap-2 mx-auto" (click)="start()" type="button">
+          <lucide-icon [img]="Play" class="w-4 h-4" [strokeWidth]="2.5"></lucide-icon>
+          {{ 'ui.startGame' | translate }}
+        </button>
+      </div>
+    </div>
+    }
+    @if (phase === 'rule') {
+    <div class="rule-banner">
+      <div class="rule-banner-title">✨ {{ 'challenges.toySorter.newRule' | translate }} ✨</div>
+      <div class="rule-banner-icons">
+        <span>◀ {{ rule.leftIcon }}</span><span>{{ rule.rightIcon }} ▶</span>
+      </div>
+    </div>
+    }
+    @if (phase === 'lost') {
+    <div class="overlay">
+      <div class="overlay-card">
+        @if (endless) {
+        <div class="big-icons">🏁</div>
+        <p class="text-text font-bold">{{ 'challenges.toySorter.gameOver' | translate : { score: score } }}</p>
+        @if (newBest) {
+        <p class="new-best">🏆 {{ 'challenges.toySorter.newBest' | translate }}</p>
+        } @else if (bestScore > 0) {
+        <p class="text-text-muted text-sm">{{ 'challenges.toySorter.best' | translate }}: {{ bestScore }}</p>
+        }
+        <button class="btn btn-primary flex items-center justify-center gap-2 mx-auto" (click)="start()" type="button">
+          <lucide-icon [img]="RotateCcw" class="w-4 h-4" [strokeWidth]="2.5"></lucide-icon>
+          {{ 'ui.playAgain' | translate }}
+        </button>
+        } @else {
+        <div class="big-icons">😅</div>
+        <p class="text-text">{{ 'challenges.toySorter.lost' | translate }}</p>
+        <button class="btn btn-primary flex items-center justify-center gap-2 mx-auto" (click)="start()" type="button">
+          <lucide-icon [img]="RotateCcw" class="w-4 h-4" [strokeWidth]="2.5"></lucide-icon>
+          {{ 'ui.tryAgain' | translate }}
+        </button>
+        }
+      </div>
+    </div>
+    }
+    @if (phase === 'won') {
+    <div class="win-banner">🎉 {{ 'challenges.toySorter.win' | translate }}</div>
+    }
+  </div>
+
+  @if (isCompleted && phase !== 'won') {
+  <div class="flex justify-center mt-3">
+    <button class="btn btn-primary w-full sm:w-auto" (click)="showReward()" type="button">
+      {{ 'ui.showReward' | translate }}
+    </button>
+  </div>
+  }
+</div>

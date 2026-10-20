@@ -1,22 +1,18 @@
 ﻿export type ChallengeType =
-  // Simple filler challenges
-  | 'riddle'
-  | 'hangman'
-  | 'wordScramble'
-  | 'wordSearch'
-  | 'rebus'
-  // Complex minigames (all mobile-friendly)
-  | 'geometryDash'
-  | 'sokoban'
-  | 'climber'
-  | 'memoryCard'
-  | 'mazeRunner'
-  | 'flappySleigh'
-  | 'presentStacking'
-  | 'giftCatcher'
-  | 'slidingPuzzle'
-  | 'skiSlope'
-  | 'busses';
+  | 'juldle'
+  | 'emojiCarols'
+  | 'iceSlide'
+  | 'nonogram'
+  | 'lightPath'
+  | 'giftMatch'
+  | 'treeLights'
+  | 'jingleBells'
+  | 'snowballToss'
+  | 'chimneyDrop'
+  | 'snowmanStack'
+  | 'tomteWhack'
+  | 'spotDifference'
+  | 'toySorter';
 
 export type RewardType =
   | 'text'

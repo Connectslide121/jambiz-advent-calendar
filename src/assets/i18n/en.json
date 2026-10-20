@@ -1,14 +1,15 @@
 ﻿{
   "app": {
-    "title": "Jambiz Advent Calendar",
-    "subtitle": "One tiny challenge a day, one surprise as a reward",
+    "title": "Jambiz Advent Calendar 2026",
+    "subtitle": "24 doors · 24 cozy minigames · 24 surprises",
     "welcome": "Welcome to the Jambiz Advent Calendar!",
-    "intro": "Join us for 24 days of festive fun, challenges, and surprises. Unlock a new door each day to reveal a mini-game or puzzle and claim your reward - fun facts, videos, interactive surprises, and more!",
-    "start": "Start the Adventure",
+    "intro": "Grab a cup of glögg and get comfy. Every morning in December a new door opens with a little Christmas game behind it. Beat it to unwrap a surprise from all of us at Jambiz.",
+    "start": "Open the calendar",
     "language": {
       "en": "English",
       "sv": "Swedish"
-    }
+    },
+    "footer": "Made with 🎄, ❄️ and lots of glögg by the Jambiz team · Psst… try clicking the moon"
   },
   "celebration": {
     "title": "Congratulations! You Did It!",
@@ -25,11 +26,18 @@
     "comingSoon": "Coming Soon",
     "unlocksIn": "Unlocks in",
     "day25": {
-      "title": "The Big Day",
+      "title": "Christmas Day",
       "subtitle": "December 25th",
       "description": "Complete all 24 challenges to unlock the full rewards gallery and extra games!",
       "unlocked": "🎉 All rewards unlocked! 🎉"
-    }
+    },
+    "boardTitle": "Door by door to Christmas",
+    "boardSubtitle": "A new door opens every morning in December",
+    "nextDoor": "Door {{day}} opens in",
+    "soon": "Soon",
+    "today": "Today",
+    "opensOn": "🔒 Opens December {{day}}",
+    "ornamentsLit": "ornaments lit"
   },
   "challenges": {
     "success": {
@@ -39,328 +47,776 @@
       "imageLabel": "A little surprise for you:",
       "videoLabel": "🎁 Enjoy today's reward! 🎁"
     },
-    "riddle": {
-      "title": "Riddle Challenge",
-      "instruction": "Your answer:",
-      "placeholder": "Type your answer here...",
-      "submit": "Submit Answer",
-      "showReward": "Show Reward",
-      "correct": "Correct! Well done!",
-      "incorrect": "Not quite right. Try again!",
-      "showHint": "Show Hint",
-      "hideHint": "Hide Hint",
-      "day1": {
-        "question": "I'm tall when I'm young, and I'm short when I'm old. What am I?",
-        "hint": "You light me during celebrations and power outages."
+    "juldle": {
+      "title": "Juldle",
+      "instruction": "Guess the secret {{count}}-letter Christmas word – you have {{guesses}} tries.",
+      "guess": "Guess",
+      "best": "Best",
+      "enter": "ENTER",
+      "notEnough": "The word has {{count}} letters ✍️",
+      "win": "You got it – merry Christmas!",
+      "lostTitle": "So close! The word is hiding in the snow",
+      "lostText": "No rows left this time. The same word is waiting for you – and the clue is now on the table.",
+      "marks": {
+        "correct": "right spot",
+        "present": "in the word",
+        "absent": "not in the word"
       },
-      "day5": {
-        "question": "I have branches, but no fruit, trunk, or leaves. What am I?",
-        "hint": "You decorate me at Christmas time"
-      },
-      "day10": {
-        "question": "I'm white, I'm cold, I fall from the sky, and kids love to play in me. What am I?",
-        "hint": "You can make a snowman out of me"
-      },
-      "day11": {
-        "question": "What do you get when you cross a snowman with a vampire?",
-        "hint": "Think cold and bitey!"
-      },
-      "day17": {
-        "question": "I hang from the roof and I'm made of frozen water. What am I?",
-        "hint": "I grow when it's cold and drip when it gets warm."
-      },
-      "day24": {
-        "question": "Who wears a red suit and brings joy to children around the world on Christmas Eve?",
-        "hint": "He has a white beard and says 'Ho ho ho!'"
-      }
+      "defaultClueSv": "Han smyger runt på gården i röd luva och vill ha gröt på julafton.",
+      "defaultClueEn": "Santa's ride, pulled through the night sky by reindeer."
     },
-    "hangman": {
-      "title": "Hangman",
-      "instruction": "Guess the word!",
-      "clue": "Clue:",
-      "wrongGuesses": "Wrong guesses: {{count}} / {{max}}",
-      "completedIn": "Originally completed with {{count}} wrong guesses",
-      "youWin": "You win!",
-      "youLose": "Game over!",
-      "theWordWas": "The word was",
-      "tryAgain": "Try Again",
-      "showReward": "Show Reward",
-      "day2": {
-        "clue": "A plant associated with Christmas kisses",
-        "hint": "You hang it in doorways during the holidays"
-      },
-      "day8": {
-        "clue": "Hung by the chimney with care",
-        "hint": "Santa fills it with treats and gifts"
-      },
-      "day14": {
-        "clue": "Santa's vehicle for snowy deliveries",
-        "hint": "Pulled by reindeer across the sky"
-      },
-      "day20": {
-        "clue": "A soldier who cracks nuts in a famous ballet",
-        "hint": "Featured in Tchaikovsky's famous Christmas ballet"
-      }
-    },
-    "wordScramble": {
-      "title": "Word Scramble",
-      "instruction": "Unscramble the letters to form a word!",
-      "clue": "Clue:",
-      "answerLabel": "Your answer:",
-      "placeholder": "Type the unscrambled word...",
-      "submit": "Submit Answer",
-      "showReward": "Show Reward",
-      "incorrect": "Not quite right. Try again!",
-      "reshuffle": "Reshuffle Letters",
-      "showHint": "Show Hint",
-      "hideHint": "Hide Hint",
-      "day3": {
-        "clue": "A unique ice crystal that falls from the sky",
-        "hint": "It's often used to describe winter precipitation"
-      },
-      "day12": {
-        "clue": "Santa's sleigh-pulling animal",
-        "hint": "Rudolph is one of these"
-      },
-      "day19": {
-        "clue": "A spiced cookie often shaped like a person",
-        "hint": "Often decorated with icing and candy"
-      }
-    },
-    "wordSearch": {
-      "title": "Word Search",
-      "instruction": "Find all the words in the grid!",
-      "wordsToFind": "Words to find:",
-      "wordsFound": "{{found}} of {{total}} words found",
-      "allFound": "All words found!",
-      "showReward": "Show Reward"
-    },
-    "spotTheDifference": {
-      "title": "Spot the Difference",
-      "instruction": "Find all the differences!",
-      "differencesFound": "{{found}} of {{total}} differences found"
-    },
-    "rebus": {
-      "title": "Rebus Puzzle",
-      "instruction": "Solve the rebus puzzle!",
-      "answerLabel": "Your answer:",
-      "placeholder": "Type your answer here...",
-      "submit": "Submit Answer",
-      "showReward": "Show Reward",
-      "incorrect": "Not quite right. Try again!",
-      "showHint": "Show Hint",
-      "hideHint": "Hide Hint",
-      "day6": {
-        "puzzle": "❄️ + 👨",
-        "hint": "A frosty friend with a carrot nose"
-      },
-      "day13": {
-        "puzzle": "🎄 + 🎁",
-        "hint": "The most wonderful time of the year"
-      },
-      "day21": {
-        "puzzle": "❄️ + ⛷️",
-        "hint": "The coldest season of the year"
-      }
-    },
-    "memoryCard": {
-      "title": "Memory Challenge",
-      "instruction": "Find all the matching pairs!",
-      "moves": "Moves",
-      "matches": "Matches",
-      "win": "Perfect! All pairs found!",
-      "finalMoves": "Completed in {{moves}} moves",
-      "showReward": "Show Reward"
-    },
-    "geometryDash": {
-      "title": "Santa's Sprint",
-      "instructions": "Jump over obstacles and reach the finish line!",
-      "controlsDesktop": "Press SPACE, W, ↑, or click to jump",
-      "controlsMobile": "Tap anywhere to jump",
-      "jumpButton": "JUMP",
-      "start": "Start Game",
-      "gameOver": "Game Over!",
-      "time": "Time",
-      "crashed": "Crashed! Try again!",
-      "victory": "You made it!",
-      "showReward": "Show Reward"
-    },
-    "flappySleigh": {
-      "title": "Flappy Sleigh",
-      "instruction": "Tap or press SPACE to fly! Avoid the candy canes and reach the Christmas tree!",
-      "controlsDesktop": "Press SPACE, UP arrow, or click to fly",
-      "controlsMobile": "Tap anywhere to fly",
-      "flapButton": "FLY!",
-      "start": "Start Game",
-      "crashed": "Ouch! You hit an obstacle!",
-      "victory": "You reached the tree!",
-      "showReward": "Show Reward",
-      "endless": {
-        "tagline": "Endless flight! Glide between candy canes for as long as you can.",
-        "bestDistance": "Best distance",
-        "bestTime": "Best time",
-        "lastDistance": "Last distance",
-        "lastTime": "Last time",
-        "gameLost": "You clipped a candy cane! Ready to try again?"
-      }
-    },
-    "presentStacking": {
-      "title": "Present Tower Challenge",
-      "instruction1": "Click anywhere on the screen to drop a present",
-      "instruction2": "Stack presents to reach the golden line",
-      "instruction3": "You have {{max}} presents to use",
-      "instruction4": "Plan your drops carefully for a stable tower!",
-      "startGame": "Start Stacking",
-      "presentsUsed": "Presents Used",
-      "heightProgress": "Height Progress",
-      "currentPresent": "Current Present",
-      "nextPresent": "Next Present",
-      "clickToDrop": "Click to drop present",
-      "success": "Tower Complete!",
-      "successMessage": "Excellent stacking! You used {{used}} out of {{max}} presents.",
-      "failed": "Tower Failed",
-      "failedMessage": "A present fell out of bounds! Try stacking more carefully.",
-      "playAgain": "Play Again",
-      "tryAgain": "Try Again",
-      "reset": "Reset Game"
-    },
-    "giftCatcher": {
-      "title": "Gift Catcher",
-      "instruction": "Catch the falling gifts! Avoid the coal!",
-      "controlsDesktop": "Use LEFT and RIGHT arrow keys to move",
-      "controlsMobile": "Tap LEFT or RIGHT side of screen to move",
-      "start": "Start Game",
-      "victory": "You caught enough gifts!",
-      "successMessage": "Great job! You saved Christmas!",
-      "showReward": "Show Reward"
-    },
-    "sokoban": {
-      "title": "Gift Puzzle",
-      "instruction": "Push all gifts onto the Christmas trees to win!",
-      "controlsDesktop": "Use arrow keys or WASD to move",
-      "controlsMobile": "Swipe to move",
-      "moves": "Moves",
-      "undo": "Undo",
-      "success": "Puzzle solved!",
-      "completedIn": "Completed in {{moves}} moves",
-      "previouslyCompleted": "Previously completed in {{moves}} moves"
-    },
-    "climber": {
-      "title": "Christmas Climber",
-      "instruction": "Climb to the star at the top! Collect ornaments along the way.",
-      "controlsDesktop": "Press SPACE or click to jump. Time your jumps carefully!",
-      "controlsMobile": "Tap anywhere to jump. Time your jumps carefully!",
-      "staticPlatform": "Normal",
-      "movingPlatform": "Moving",
-      "icePlatform": "Icy",
-      "startGame": "Start Climbing",
-      "success": "You reached the star!",
-      "gameLost": "You fell! Try again.",
-      "ornamentsCollected": "Ornaments collected",
-      "endless": {
-        "tagline": "Endless climb! Stay on the platforms and reach new heights.",
-        "bestHeight": "Best height",
-        "bestTime": "Best time",
-        "lastHeight": "Last height",
-        "lastTime": "Last time",
-        "gameLost": "You slipped! Keep climbing to push your record."
-      }
-    },
-    "mazeRunner": {
-      "title": "Maze Runner",
-      "instruction": "Collect all the gifts and bring them to the tree!",
-      "moves": "Moves",
-      "success": "Maze Solved!",
-      "completedIn": "Completed in {{moves}} moves",
-      "gifts": "Gifts"
-    },
-    "slidingPuzzle": {
-      "title": "Sliding Puzzle",
-      "instruction": "Slide the tiles to arrange them in order!",
-      "controlsDesktop": "Click a tile or use arrow keys to move",
-      "controlsMobile": "Tap a tile to slide it",
-      "moves": "Moves",
+    "emojiCarols": {
+      "title": "Emoji Carols",
+      "instruction": "Which Christmas classic is hiding in the emoji? Get {{pass}} of {{total}} right!",
+      "score": "Correct",
       "goal": "Goal",
-      "win": "Puzzle Solved!",
-      "completedIn": "Completed in {{moves}} moves",
-      "shuffle": "Shuffle",
-      "showReward": "Show Reward"
-    },
-    "skiSlope": {
-      "title": "Santa's Ski Slope",
-      "instructions": "Help Santa ski down the snowy hill on his sleigh! Avoid trees and rocks, but watch out - the Grinch is chasing you!",
-      "controlsDesktop": "Use LEFT and RIGHT arrow keys or A/D to steer",
-      "controlsMobile": "Use the directional buttons to steer left or right",
-      "legend": "What to watch for:",
-      "tree": "Tree - Game Over!",
-      "rock": "Rock - Game Over!",
-      "snowdrift": "Snowdrift - Slows you down!",
-      "present": "Present - Collect for points!",
-      "grinchWarning": "The Grinch!",
-      "grinchDescription": "He's chasing you! Every time you slow down, he gets closer. If he catches you, it's game over!",
-      "caught": "The Grinch caught you!",
-      "victory": "You escaped the Grinch!",
-      "distance": "Distance",
-      "presentsCollected": "presents collected",
-      "endless": {
-        "tagline": "Endless slope! Ski as far as you can while escaping the Grinch.",
-        "bestDistance": "Best distance",
-        "bestPresents": "Best presents",
-        "lastDistance": "Last distance",
-        "lastPresents": "Last presents"
+      "best": "Best",
+      "next": "Next",
+      "seeResult": "See result",
+      "kind": {
+        "song": "Song",
+        "movie": "Movie",
+        "food": "Food"
+      },
+      "question": {
+        "song": "Which Christmas song is it?",
+        "movie": "Which Christmas movie is it?",
+        "food": "Which Christmas treat is it?"
+      },
+      "cheers": [
+        "Spot on! 🎯",
+        "Santa is impressed! 🎅",
+        "Nailed it – have a gingerbread! 🍪",
+        "Ding ding ding! 🔔",
+        "A true Christmas expert! ⭐"
+      ],
+      "jeers": [
+        "Oops – close, but no figgy pudding! 🍮",
+        "Whoops, slipped on the ice there! ⛸️",
+        "Not quite – now you know for next time! 📝",
+        "Santa shakes his head kindly 🎅",
+        "Nope – but the cocoa is still warm ☕"
+      ],
+      "win": "You know your Christmas classics!",
+      "winText": "Santa is humming along – well done!",
+      "failTitle": "So close! Have another go",
+      "failText": "You need {{pass}} right. The questions get reshuffled – you've got this!",
+      "sets": {
+        "a": [
+          {
+            "kind": "song",
+            "emoji": "🔔 🔔 🛷 ❄️",
+            "answer": "Jingle Bells",
+            "wrong": [
+              "Silent Night",
+              "Silver Bells",
+              "Let It Snow!"
+            ],
+            "fact": "The lyrics never actually mention Christmas – it's all about a sleigh ride in the snow!"
+          },
+          {
+            "kind": "movie",
+            "emoji": "🏠 👦 😱 ✈️",
+            "answer": "Home Alone",
+            "wrong": [
+              "Elf",
+              "The Polar Express",
+              "The Grinch"
+            ],
+            "fact": "The family flies to Paris without Kevin – who defends the house against two burglars."
+          },
+          {
+            "kind": "song",
+            "emoji": "🦌 🔴 👃",
+            "answer": "Rudolph the Red-Nosed Reindeer",
+            "wrong": [
+              "Frosty the Snowman",
+              "Jingle Bell Rock",
+              "Santa Claus Is Coming to Town"
+            ],
+            "fact": "Rudolph was created in 1939 for a department store's promotional booklet."
+          },
+          {
+            "kind": "movie",
+            "emoji": "💚 😠 🎁 🏔️",
+            "answer": "The Grinch",
+            "wrong": [
+              "Home Alone",
+              "Elf",
+              "A Christmas Carol"
+            ],
+            "fact": "The green grump lives on a mountain – until his heart grows three sizes."
+          },
+          {
+            "kind": "song",
+            "emoji": "❤️ 🎁 ➡️ 💔 🎄",
+            "answer": "Last Christmas",
+            "wrong": [
+              "Jingle Bell Rock",
+              "Feliz Navidad",
+              "Driving Home for Christmas"
+            ],
+            "fact": "Wham! released it in 1984 – but it didn't hit number one in the UK until 2021."
+          },
+          {
+            "kind": "movie",
+            "emoji": "🧝 📏 🏙️ 🍝",
+            "answer": "Elf",
+            "wrong": [
+              "Home Alone",
+              "The Grinch",
+              "The Holiday"
+            ],
+            "fact": "Buddy's four main food groups: candy, candy canes, candy corn and syrup – ideally on spaghetti."
+          }
+        ],
+        "b": [
+          {
+            "kind": "song",
+            "emoji": "🤫 🌙 ⭐ 👶",
+            "answer": "Silent Night",
+            "wrong": [
+              "O Holy Night",
+              "Away in a Manger",
+              "O Little Town of Bethlehem"
+            ],
+            "fact": "It was written in Austria in 1818 and is now sung in hundreds of languages."
+          },
+          {
+            "kind": "movie",
+            "emoji": "💘 🪧 ✈️ 🎄",
+            "answer": "Love Actually",
+            "wrong": [
+              "The Holiday",
+              "Christmas Vacation",
+              "Miracle on 34th Street"
+            ],
+            "fact": "A handful of love stories in Christmassy London – plus a dancing prime minister."
+          },
+          {
+            "kind": "song",
+            "emoji": "🙅‍♀️ 🎁 🎄 ➡️ 🫵 ❤️",
+            "answer": "All I Want for Christmas Is You",
+            "wrong": [
+              "Last Christmas",
+              "Santa Baby",
+              "Underneath the Tree"
+            ],
+            "fact": "Mariah Carey released it in 1994 – and every December it climbs the charts again."
+          },
+          {
+            "kind": "movie",
+            "emoji": "🏢 💥 👮 🎄",
+            "answer": "Die Hard",
+            "wrong": [
+              "Home Alone",
+              "Gremlins",
+              "Bad Santa"
+            ],
+            "fact": "John McClane saves the office Christmas party at Nakatomi Plaza. Christmas movie? The debate rages on!"
+          },
+          {
+            "kind": "song",
+            "emoji": "👉 ❄️ ❄️ ❄️",
+            "answer": "Let It Snow!",
+            "wrong": [
+              "Winter Wonderland",
+              "White Christmas",
+              "Frosty the Snowman"
+            ],
+            "fact": "It was written on a scorching July day in Hollywood in 1945 – a daydream about cold weather."
+          },
+          {
+            "kind": "movie",
+            "emoji": "🚂 ❄️ 🎫 🔔",
+            "answer": "The Polar Express",
+            "wrong": [
+              "Home Alone",
+              "Elf",
+              "Miracle on 34th Street"
+            ],
+            "fact": "Tom Hanks plays no fewer than six roles – including the conductor and Santa."
+          }
+        ],
+        "c": [
+          {
+            "kind": "song",
+            "emoji": "🎀 🏛️ 🌿 🎶",
+            "answer": "Deck the Halls",
+            "wrong": [
+              "The Twelve Days of Christmas",
+              "We Wish You a Merry Christmas",
+              "O Christmas Tree"
+            ],
+            "fact": "Fa-la-la-la-la! The melody comes from an old Welsh carol."
+          },
+          {
+            "kind": "song",
+            "emoji": "1️⃣2️⃣ 📅 🐦 🎁",
+            "answer": "The Twelve Days of Christmas",
+            "wrong": [
+              "Deck the Halls",
+              "We Wish You a Merry Christmas",
+              "Here Comes Santa Claus"
+            ],
+            "fact": "Add up every gift in the song and you get 364 – one for almost every day of the year!"
+          },
+          {
+            "kind": "song",
+            "emoji": "💭 ⚪ 🎄 ❄️",
+            "answer": "White Christmas",
+            "wrong": [
+              "Let It Snow!",
+              "Winter Wonderland",
+              "Blue Christmas"
+            ],
+            "fact": "Bing Crosby's version is the best-selling single of all time."
+          },
+          {
+            "kind": "song",
+            "emoji": "🙏 🎄 😊 🍮",
+            "answer": "We Wish You a Merry Christmas",
+            "wrong": [
+              "Deck the Halls",
+              "O Christmas Tree",
+              "Here Comes Santa Claus"
+            ],
+            "fact": "The carollers refuse to leave until they get some figgy pudding!"
+          },
+          {
+            "kind": "song",
+            "emoji": "⛄ 🎩 ✨ 🏃",
+            "answer": "Frosty the Snowman",
+            "wrong": [
+              "Rudolph the Red-Nosed Reindeer",
+              "Winter Wonderland",
+              "Let It Snow!"
+            ],
+            "fact": "Gene Autry made it a hit in 1950 – a year after his \"Rudolph\" hit."
+          },
+          {
+            "kind": "song",
+            "emoji": "🌲 😍 🎶 💚",
+            "answer": "O Christmas Tree",
+            "wrong": [
+              "Deck the Halls",
+              "Silent Night",
+              "Joy to the World"
+            ],
+            "fact": "It started life in Germany as \"O Tannenbaum\"."
+          }
+        ],
+        "d": [
+          {
+            "kind": "movie",
+            "emoji": "👻 👻 👻 💰 👴",
+            "answer": "A Christmas Carol",
+            "wrong": [
+              "The Grinch",
+              "It's a Wonderful Life",
+              "Miracle on 34th Street"
+            ],
+            "fact": "Charles Dickens wrote the story of the miser Scrooge in just six weeks in 1843."
+          },
+          {
+            "kind": "movie",
+            "emoji": "🏠 💡 💡 💡 ⚡ 🐿️",
+            "answer": "Christmas Vacation",
+            "wrong": [
+              "Home Alone",
+              "Jingle All the Way",
+              "Love Actually"
+            ],
+            "fact": "Clark Griswold covers the house in 25,000 lights – so many the power plant has to switch to backup."
+          },
+          {
+            "kind": "movie",
+            "emoji": "🐾 💧 🌙 🍗 🚫",
+            "answer": "Gremlins",
+            "wrong": [
+              "Die Hard",
+              "Bad Santa",
+              "Home Alone"
+            ],
+            "fact": "Three rules: no bright light, no water – and never feed them after midnight!"
+          },
+          {
+            "kind": "movie",
+            "emoji": "😇 🔔 🌉 👼",
+            "answer": "It's a Wonderful Life",
+            "wrong": [
+              "Miracle on 34th Street",
+              "A Christmas Carol",
+              "The Polar Express"
+            ],
+            "fact": "\"Every time a bell rings, an angel gets his wings.\""
+          },
+          {
+            "kind": "movie",
+            "emoji": "🎃 💀 ➡️ 🎄 🎅",
+            "answer": "The Nightmare Before Christmas",
+            "wrong": [
+              "Gremlins",
+              "The Grinch",
+              "The Polar Express"
+            ],
+            "fact": "Jack Skellington from Halloween Town tries to take over Christmas – it goes… so-so."
+          },
+          {
+            "kind": "movie",
+            "emoji": "🏠 🔁 🏡 💕",
+            "answer": "The Holiday",
+            "wrong": [
+              "Love Actually",
+              "Elf",
+              "It's a Wonderful Life"
+            ],
+            "fact": "Two women swap homes for Christmas – a Los Angeles mansion for an English cottage."
+          }
+        ],
+        "e": [
+          {
+            "kind": "song",
+            "emoji": "💃 🎸 🎄 🌶️",
+            "answer": "Feliz Navidad",
+            "wrong": [
+              "Last Christmas",
+              "Jingle Bell Rock",
+              "Wonderful Christmastime"
+            ],
+            "fact": "José Feliciano recorded it in 1970 – in both Spanish and English."
+          },
+          {
+            "kind": "song",
+            "emoji": "🚗 🚦 🏠 🎄",
+            "answer": "Driving Home for Christmas",
+            "wrong": [
+              "Last Christmas",
+              "Step Into Christmas",
+              "Jingle Bell Rock"
+            ],
+            "fact": "Chris Rea came up with it while stuck in traffic on his way home for Christmas."
+          },
+          {
+            "kind": "song",
+            "emoji": "🎸 🎄 💃 🕺",
+            "answer": "Rockin' Around the Christmas Tree",
+            "wrong": [
+              "Jingle Bell Rock",
+              "Merry Christmas Everyone",
+              "Wonderful Christmastime"
+            ],
+            "fact": "Brenda Lee was 13 when she recorded it in 1958 – and 65 years later it hit number one in the US."
+          },
+          {
+            "kind": "song",
+            "emoji": "🤔 🌍 🎄 🙏",
+            "answer": "Do They Know It's Christmas?",
+            "wrong": [
+              "Driving Home for Christmas",
+              "Last Christmas",
+              "Merry Christmas Everyone"
+            ],
+            "fact": "Band Aid recorded it in 1984 to raise money for famine relief in Ethiopia."
+          },
+          {
+            "kind": "song",
+            "emoji": "🧚 📖 🗽 🍺",
+            "answer": "Fairytale of New York",
+            "wrong": [
+              "Last Christmas",
+              "Wonderful Christmastime",
+              "Step Into Christmas"
+            ],
+            "fact": "The Pogues and Kirsty MacColl, 1987 – it never actually reached number one in the UK."
+          },
+          {
+            "kind": "song",
+            "emoji": "❄️ 🎉 🎄 👋",
+            "answer": "Merry Christmas Everyone",
+            "wrong": [
+              "Wonderful Christmastime",
+              "Jingle Bell Rock",
+              "Santa Baby"
+            ],
+            "fact": "Shakin' Stevens' song was the UK number one at Christmas 1985."
+          }
+        ],
+        "f": [
+          {
+            "kind": "food",
+            "emoji": "🫚 🍞 👨 🏃",
+            "answer": "Gingerbread Man",
+            "wrong": [
+              "Shortbread",
+              "Fruitcake",
+              "Stollen"
+            ],
+            "fact": "\"Run, run, as fast as you can!\" Queen Elizabeth I is said to have served gingerbread figures of her guests."
+          },
+          {
+            "kind": "food",
+            "emoji": "🍮 🔥 🌿 🍒",
+            "answer": "Christmas Pudding",
+            "wrong": [
+              "Fruitcake",
+              "Mince Pie",
+              "Yule Log"
+            ],
+            "fact": "Every family member stirs it on \"Stir-up Sunday\" – then it is served flaming with brandy."
+          },
+          {
+            "kind": "food",
+            "emoji": "🥚 🥛 🍹 🎄",
+            "answer": "Eggnog",
+            "wrong": [
+              "Hot Cocoa",
+              "Mulled Wine",
+              "Apple Cider"
+            ],
+            "fact": "George Washington had his own (very boozy) eggnog recipe."
+          },
+          {
+            "kind": "food",
+            "emoji": "🍬 🦯 ❤️ 🤍",
+            "answer": "Candy Cane",
+            "wrong": [
+              "Peppermint Bark",
+              "Lollipop",
+              "Rock Candy"
+            ],
+            "fact": "It's shaped like a shepherd's crook – the red stripes arrived around 1900."
+          },
+          {
+            "kind": "food",
+            "emoji": "🪵 🍫 🎂 🌿",
+            "answer": "Yule Log",
+            "wrong": [
+              "Black Forest Cake",
+              "Chocolate Fudge",
+              "Brownies"
+            ],
+            "fact": "The French bûche de Noël is a cake shaped like the log once burned in the hearth."
+          },
+          {
+            "kind": "food",
+            "emoji": "🥧 🍇 🍊 ⭐",
+            "answer": "Mince Pie",
+            "wrong": [
+              "Apple Pie",
+              "Pumpkin Pie",
+              "Pecan Pie"
+            ],
+            "fact": "Mince pies once contained real minced meat – today they are filled with dried fruit and spice."
+          }
+        ],
+        "g": [
+          {
+            "kind": "song",
+            "emoji": "👀 👩 💋 🎅",
+            "answer": "I Saw Mommy Kissing Santa Claus",
+            "wrong": [
+              "Santa Baby",
+              "Here Comes Santa Claus",
+              "Santa Claus Is Coming to Town"
+            ],
+            "fact": "The original was recorded in 1952 by Jimmy Boyd – who was just 13."
+          },
+          {
+            "kind": "movie",
+            "emoji": "🎅 ⚖️ 3️⃣4️⃣ 🛣️",
+            "answer": "Miracle on 34th Street",
+            "wrong": [
+              "It's a Wonderful Life",
+              "The Polar Express",
+              "The Santa Clause"
+            ],
+            "fact": "Santa ends up in court and has to prove he's real. The 1947 original won three Oscars."
+          },
+          {
+            "kind": "movie",
+            "emoji": "✉️ 🎅 🪵 ❄️",
+            "answer": "Klaus",
+            "wrong": [
+              "Arthur Christmas",
+              "The Polar Express",
+              "The Santa Clause"
+            ],
+            "fact": "A lazy postman and a reclusive toymaker invent Santa – Netflix's 2019 hit was Oscar-nominated."
+          },
+          {
+            "kind": "movie",
+            "emoji": "🐸 🐷 👻 💰",
+            "answer": "The Muppet Christmas Carol",
+            "wrong": [
+              "A Christmas Carol",
+              "The Grinch",
+              "The Polar Express"
+            ],
+            "fact": "Michael Caine plays Scrooge, and Kermit is his long-suffering clerk Bob Cratchit."
+          },
+          {
+            "kind": "song",
+            "emoji": "🥁 👦 ⭐ 🐑",
+            "answer": "The Little Drummer Boy",
+            "wrong": [
+              "Away in a Manger",
+              "Silent Night",
+              "O Holy Night"
+            ],
+            "fact": "Pa-rum-pum-pum-pum! It was first called \"Carol of the Drum\" when it was written in 1941."
+          },
+          {
+            "kind": "song",
+            "emoji": "💋 🎅 💎 🛥️",
+            "answer": "Santa Baby",
+            "wrong": [
+              "All I Want for Christmas Is You",
+              "Last Christmas",
+              "Underneath the Tree"
+            ],
+            "fact": "Eartha Kitt’s 1953 wish list includes a sable, a convertible – and a yacht."
+          }
+        ]
       }
     },
-    "miniQuiz": {
-      "title": "Mini Quiz",
-      "instruction": "Choose the correct answer!",
-      "submit": "Submit Answer",
-      "showReward": "Show Reward",
-      "correct": "Correct! Well done!",
-      "incorrect": "Not quite right. Try again!",
-      "tryAgain": "Try Again",
-      "day4": {
-        "question": "In which country did the tradition of decorating Christmas trees originate?",
-        "option1": "United States",
-        "option2": "Germany",
-        "option3": "England",
-        "option4": "France"
-      },
-      "day9": {
-        "question": "What is the name of the reindeer with a red nose?",
-        "option1": "Rudolph",
-        "option2": "Donner",
-        "option3": "Blitzen"
-      },
-      "day15": {
-        "question": "On which date is Christmas celebrated in most countries?",
-        "option1": "December 24th",
-        "option2": "December 26th",
-        "option3": "December 25th"
-      },
-      "day18": {
-        "question": "What are the traditional Christmas colors?",
-        "option1": "Blue and silver",
-        "option2": "Red and green",
-        "option3": "Gold and white"
-      },
-      "day22": {
-        "question": "What do children traditionally leave out for Santa Claus on Christmas Eve?",
-        "option1": "Milk and cookies",
-        "option2": "Carrots and apples",
-        "option3": "Juice and candy",
-        "option4": "Water and bread"
+    "iceSlide": {
+      "title": "Frozen Lake",
+      "instruction": "The penguin slides until it bumps into a rock or the shore – and stops in snowdrifts. Guide it to the present!",
+      "moves": "Moves",
+      "par": "Par",
+      "best": "Best",
+      "undo": "Undo",
+      "hint": "Hint",
+      "stuck": "Oops! The penguin can never reach the present from here.",
+      "win": "Present rescued!",
+      "perfect": "Perfect – {{moves}} moves, right on par!",
+      "done": "Done in {{moves}} moves (par {{par}})",
+      "legendRock": "Rock",
+      "legendSnow": "Snowdrift – you stop on it",
+      "keys": "Arrow keys / WASD · Z to undo",
+      "dir": {
+        "up": "up",
+        "down": "down",
+        "left": "left",
+        "right": "right"
       }
-    }
-    ,
-    "busses": {
-      "title": "Busses",
-      "instruction": "Click a bus to push it toward the corners. It keeps driving until it exits unless another bus blocks its way.",
-      "timesPlayed": "Times played",
-      "carsLeft": "Cars left",
-      "crashes": "Car crashes",
-      "win": "All buses have cleared the lot!",
-      "reset": "Restart",
-      "previouslyCompleted": "Previously completed with {{crashes}} crashes"
+    },
+    "nonogram": {
+      "title": "Christmas Picross",
+      "instruction": "The numbers tell how many squares in a row are filled in each row and column. Paint the secret picture!",
+      "time": "Time",
+      "best": "Best",
+      "size": "Size",
+      "mode": "Tool",
+      "fill": "Fill",
+      "mark": "Mark X",
+      "hint": "Hint",
+      "tip": "Drag to paint several squares · long-press or right-click for X",
+      "mistakes": "{{count}} square(s) are wrong – they flash red",
+      "revealed": "One square was filled in for you ✨",
+      "solved": "Picture complete!",
+      "reveal": "It's {{name}}!"
+    },
+    "lightPath": {
+      "title": "Light the Village",
+      "instruction": "Tap a tile to turn its string lights. Run the power from the cosy cabin to every house and tree!",
+      "lit": "Lit",
+      "moves": "Moves",
+      "best": "Best",
+      "hint": "Hint",
+      "newVillage": "New village",
+      "win": "The whole village is glowing!",
+      "tileLabel": "Tile {{col}}, {{row}}"
+    },
+    "giftMatch": {
+      "title": "Gift Match",
+      "instruction": "Swap neighbouring pieces to line up three or more. Reach {{target}} points before you run out of moves!",
+      "score": "Score",
+      "moves": "Moves",
+      "best": "Best score",
+      "combo": "Combo ×{{n}}!",
+      "shuffle": "Shuffle!",
+      "win": "Wrapped and ready!",
+      "outOfMoves": "Out of moves!",
+      "lostText": "You got {{score}} of {{target}} points. So close – have another go!",
+      "newBoard": "New board",
+      "boardLabel": "Game board. Use the arrow keys to move and Enter to pick and swap pieces.",
+      "legend": "Match 4 for a striped piece that clears a line · match 5 for a star that clears every piece of one kind",
+      "instructionEndless": "Festive time attack! Score as much as you can in {{seconds}} seconds – big combos and special pieces add extra time. The clock starts with your first swap.",
+      "seconds": "Sec",
+      "ready": "Ready",
+      "timeUp": "Time's up!",
+      "newBest": "New personal best!"
+    },
+    "treeLights": {
+      "title": "Light Up the Tree",
+      "instruction": "Tapping a bulb flips it and its neighbours. Light every bulb to make the star shine!",
+      "lit": "Lit",
+      "moves": "Moves",
+      "best": "Best",
+      "newTree": "New tree",
+      "win": "The tree is glowing!"
+    },
+    "jingleBells": {
+      "title": "Bell Choir",
+      "instruction": "Listen to the bells, then ring them back in the same order. Play a melody of {{target}} notes to win!",
+      "ready": "Ready when you are!",
+      "listen": "Listen…",
+      "yourTurn": "Your turn! ({{current}}/{{total}})",
+      "oops": "Oops! Listen again…",
+      "win": "Beautiful! The choir is complete!",
+      "round": "Notes",
+      "best": "Best",
+      "soundTip": "Best with sound on – but you can also follow the glowing bells.",
+      "bells": {
+        "red": "Red bell",
+        "gold": "Gold bell",
+        "green": "Green bell",
+        "blue": "Blue bell"
+      },
+      "endlessInstruction": "Endless mode: how long a melody can you remember? One wrong bell ends the run.",
+      "gameOver": "The choir rests! You remembered {{score}} notes."
+    },
+    "snowballToss": {
+      "title": "Snowball Fight",
+      "instruction": "Drag back from the snowball and let go to throw. Knock down every snowman!",
+      "canvasLabel": "Backyard with snowmen. Drag back to aim and release to throw.",
+      "introTitle": "Snowball fight at dusk!",
+      "how1": "Drag back from the snowball like a slingshot – the dots show where it will fly.",
+      "how2": "Check the windsock: the wind nudges every throw.",
+      "how3": "Knock down all {{snowmen}} snowmen with {{balls}} snowballs.",
+      "keyboard": "Keyboard: arrow keys aim, space throws.",
+      "snowballs": "Snowballs",
+      "wind": "Wind",
+      "calm": "Calm",
+      "score": "Score",
+      "best": "Best",
+      "win": "Bullseye! The yard is yours!",
+      "loseTitle": "Out of snowballs!",
+      "loseText": "{{left}} snowmen are still standing. Scoop up more snow and try again!",
+      "wave": "Wave",
+      "howEndless": "Endless snowball fight! Clear wave after wave – every cleared wave refills your snowballs. How far can you get?",
+      "endlessOver": "Game over!",
+      "endlessText": "You made it to wave {{wave}}. Your score:",
+      "newBest": "New personal best!"
+    },
+    "chimneyDrop": {
+      "title": "Present Drop",
+      "instruction": "Tap to drop presents from the sleigh – land them in the chimneys!",
+      "canvasLabel": "Santa's sleigh flying over a snowy town. Tap or press space to drop a present.",
+      "introTitle": "Christmas Eve delivery!",
+      "how1": "Tap, click or press space to drop a present.",
+      "how2": "Presents keep the sleigh's speed – let go a little before the chimney.",
+      "how3": "Deliver {{target}} presents. You have {{presents}} in the sack.",
+      "howWind": "Watch out – the wind sways back and forth and pushes the presents.",
+      "delivered": "Delivered",
+      "sack": "In the sack",
+      "wind": "Wind",
+      "best": "Best",
+      "win": "Ho ho ho! Every present delivered!",
+      "loseTitle": "The sack is empty!",
+      "loseText": "You delivered {{delivered}} of {{target}} presents. Santa refills the sack – try again!",
+      "howEndless": "Endless night! The sleigh slowly speeds up. Three presents in the snow and the night is over.",
+      "endlessOver": "The night is over!",
+      "endlessText": "Presents delivered: {{delivered}}. Your score:",
+      "newBest": "New personal best!"
+    },
+    "snowmanStack": {
+      "title": "Build a Snowman",
+      "instruction": "Tap (or press space) to drop the swinging snowball. Stack {{count}} balls nice and straight!",
+      "endlessInstruction": "Endless snow tower! Stack as high as you can – three tumbles and it's over.",
+      "balls": "Snowballs",
+      "height": "Height",
+      "lives": "Lives",
+      "score": "Score",
+      "best": "Best",
+      "tapToDrop": "Tap to drop the snowball",
+      "keyHint": "Space or Enter drops the ball",
+      "perfect": "Perfect!",
+      "nice": "Nice!",
+      "wobbly": "Wobbly!",
+      "oops": "Whoops!",
+      "lostTitle": "The snowman toppled over!",
+      "lostText": "You stacked {{count}} snowballs. Pack some fresh snow and try again!",
+      "endlessTitle": "The tower is done!",
+      "endlessText": "Your snow tower reached {{count}} balls.",
+      "newBest": "New personal best!",
+      "bestText": "Personal best: {{best}}",
+      "win": "What a handsome snowman!"
+    },
+    "tomteWhack": {
+      "title": "Whack-a-Tomte",
+      "instruction": "Bonk the cheeky tomtar as they pop up – reach {{target}} points before the candle burns down!",
+      "endlessInstruction": "Survival mode! Don't let a tomte slip away and leave the coal and goat alone – three slips and it's over.",
+      "score": "Score",
+      "combo": "Combo {{count}}",
+      "best": "Best",
+      "time": "Time left",
+      "lives": "Lives",
+      "hole": "Snow mound {{n}}",
+      "kinds": {
+        "tomte": "tomte",
+        "golden": "golden tomte",
+        "coal": "lump of coal",
+        "goat": "Christmas goat"
+      },
+      "legend": "Tap tomtar (golden ones are worth extra). Leave the coal and the Christmas goat alone!",
+      "endlessLegend": "Missing a tomte or tapping coal or the goat costs a heart. It gets faster and faster!",
+      "keyHint": "Keys 1–9 bonk the mounds",
+      "timeUp": "The candle burned out!",
+      "overText": "You got {{score}} of {{target}} points. The tomtar are hiding again – one more go?",
+      "endlessTitle": "Out of hearts!",
+      "endlessText": "You scored {{score}} points.",
+      "newBest": "New personal best!",
+      "bestText": "Personal best: {{best}}",
+      "missed": "Missed!",
+      "win": "The tomtar give up – you win!"
+    },
+    "spotDifference": {
+      "title": "Spot the Difference",
+      "instruction": "The right picture hides {{count}} differences. Tap them on either picture!",
+      "time": "Time",
+      "misses": "Misses",
+      "best": "Best",
+      "original": "Original",
+      "changed": "{{count}} left",
+      "newSet": "New differences",
+      "win": "Eagle eyes! You found them all!"
+    },
+    "toySorter": {
+      "title": "Elf Workshop",
+      "instruction": "Send every item into the right sack before it tumbles off the belt. Swipe, tap a side or use ← →.",
+      "sorted": "Sorted",
+      "score": "Score",
+      "best": "Best",
+      "streak": "Streak",
+      "newRule": "New rule!",
+      "ready": "The belt is ready – are you, elf?",
+      "oops": "Oops!",
+      "missed": "Too slow!",
+      "lost": "Three mix-ups – the elves are giggling! Ready for another shift?",
+      "win": "Workshop sorted! Santa is impressed!",
+      "gameOver": "Shift over! Final score: {{score}}",
+      "newBest": "New personal best!",
+      "rules": {
+        "wrapped": {
+          "left": "Wrapped presents",
+          "right": "Unwrapped toys"
+        },
+        "color": {
+          "left": "Red things",
+          "right": "Green things"
+        },
+        "tomte": {
+          "left": "For the Tomte",
+          "right": "For the reindeer"
+        },
+        "naughty": {
+          "left": "Nice list",
+          "right": "Naughty list (coal)"
+        }
+      }
     }
   },
   "funFacts": {
@@ -399,7 +855,9 @@
     "hideHint": "Hide Hint",
     "showReward": "Show Reward",
     "startGame": "Start Game",
-    "back": "Back"
+    "back": "Back",
+    "soundOn": "Turn sound on",
+    "soundOff": "Turn sound off"
   },
   "rewards": {
     "galleryButton": "All Rewards",
@@ -531,370 +989,330 @@
     "levelsCompleted": "completed",
     "lockedHint": "Complete all 24 days to unlock",
     "games": {
-      "riddle": {
-        "title": "Riddles",
+      "juldle": {
+        "title": "Juldle",
         "levels": {
-          "extra-riddle-1": {
-            "name": "Easy Riddle",
-            "description": "A festive gift riddle"
+          "extra-juldle-1": {
+            "name": "Juldle: Warm-up",
+            "description": "A short four-letter word to get you started."
           },
-          "extra-riddle-2": {
-            "name": "Medium Riddle",
-            "description": "A cozy chimney riddle"
+          "extra-juldle-2": {
+            "name": "Juldle: Candlelight",
+            "description": "Five letters with a festive glow."
           },
-          "extra-riddle-3": {
-            "name": "Hard Riddle",
-            "description": "A jingling riddle"
-          }
-        },
-        "extra-riddle-1": {
-          "question": "I'm wrapped in colorful paper and tied with a bow. You find me under the tree. What am I?",
-          "hint": "Santa brings lots of these on Christmas Eve"
-        },
-        "extra-riddle-2": {
-          "question": "I'm a tall brick tube on the roof where Santa enters. What am I?",
-          "hint": "Don't forget to leave it unlocked on Christmas Eve!"
-        },
-        "extra-riddle-3": {
-          "question": "I jingle when Santa's sleigh moves. What am I?",
-          "hint": "You might hear me ringing in Christmas songs"
-        }
-      },
-      "hangman": {
-        "title": "Hangman",
-        "levels": {
-          "extra-hangman-1": {
-            "name": "Easy Hangman",
-            "description": "A decorative Christmas word"
+          "extra-juldle-3": {
+            "name": "Juldle: Sweet Tooth",
+            "description": "Something sweet from the Christmas table."
           },
-          "extra-hangman-2": {
-            "name": "Medium Hangman",
-            "description": "A shiny decoration"
+          "extra-juldle-4": {
+            "name": "Juldle: Six Letters",
+            "description": "A longer word – and only five tries."
           },
-          "extra-hangman-3": {
-            "name": "Hard Hangman",
-            "description": "A festive door decoration"
-          }
-        },
-        "extra-hangman-1": {
-          "clue": "Shiny decoration for the Christmas tree",
-          "hint": "Often made of glass or plastic and comes in many colors"
-        },
-        "extra-hangman-2": {
-          "clue": "Long, shiny strands that hang on the tree",
-          "hint": "It shimmers and reflects light"
-        },
-        "extra-hangman-3": {
-          "clue": "A circular decoration hung on doors",
-          "hint": "Made of evergreen branches and decorated with a bow"
-        }
-      },
-      "wordScramble": {
-        "title": "Word Scramble",
-        "levels": {
-          "extra-scramble-1": {
-            "name": "Easy Scramble",
-            "description": "A warm Christmas feature"
-          },
-          "extra-scramble-2": {
-            "name": "Medium Scramble",
-            "description": "A green tree type"
-          },
-          "extra-scramble-3": {
-            "name": "Hard Scramble",
-            "description": "A decorative string"
-          }
-        },
-        "extra-scramble-1": {
-          "clue": "A cozy place where you hang stockings",
-          "hint": "Santa enters through this on Christmas Eve"
-        },
-        "extra-scramble-2": {
-          "clue": "A type of tree that stays green all year",
-          "hint": "Pine and fir trees are types of these"
-        },
-        "extra-scramble-3": {
-          "clue": "A decorative chain or strand hung at Christmas",
-          "hint": "You drape this on the tree or around the house"
-        }
-      },
-      "memoryCard": {
-        "title": "Memory Match",
-        "levels": {
-          "extra-memory-1": {
-            "name": "Easy Match",
-            "description": "4x4 grid of Christmas icons"
-          },
-          "extra-memory-2": {
-            "name": "Medium Match",
-            "description": "6x6 grid with more pairs"
-          },
-          "extra-memory-3": {
-            "name": "Hard Match",
-            "description": "8x8 grid challenge"
+          "extra-juldle-5": {
+            "name": "Juldle: Expert",
+            "description": "Seven letters. Only for true word elves."
           }
         }
       },
-      "geometryDash": {
-        "title": "Santa's Sprint",
+      "emojiCarols": {
+        "title": "Emoji Carols",
         "levels": {
-          "extra-dash-1": {
-            "name": "Easy Sprint",
-            "description": "Gentle obstacles, slower pace"
+          "extra-emojiCarols-1": {
+            "name": "Carol Classics",
+            "description": "Timeless carols and sing-alongs in emoji."
           },
-          "extra-dash-2": {
-            "name": "Medium Sprint",
-            "description": "More obstacles, faster pace"
+          "extra-emojiCarols-2": {
+            "name": "Movie Night",
+            "description": "Six Christmas movies hiding in emoji."
           },
-          "extra-dash-3": {
-            "name": "Expert Sprint",
-            "description": "Maximum challenge!"
+          "extra-emojiCarols-3": {
+            "name": "Pop Hits",
+            "description": "The Christmas pop songs on every December playlist."
           },
-          "extra-dash-infinite-easy": {
-            "name": "Endless Easy",
-            "description": "Survive as long as possible - Easy mode"
+          "extra-emojiCarols-4": {
+            "name": "Christmas Treats",
+            "description": "Guess the Christmas food and drink – 5 of 6 to pass."
           },
-          "extra-dash-infinite-medium": {
-            "name": "Endless Medium",
-            "description": "How long can you last? - Medium mode"
-          },
-          "extra-dash-infinite-hard": {
-            "name": "Endless Hard",
-            "description": "Ultimate survival challenge!"
+          "extra-emojiCarols-5": {
+            "name": "Expert Mix",
+            "description": "Deep cuts for true Christmas buffs – 5 of 6 to pass."
           }
         }
       },
-      "climber": {
-        "title": "Christmas Climber",
+      "iceSlide": {
+        "title": "Frozen Lake",
         "levels": {
-          "extra-climber-1": {
-            "name": "Gentle Climb",
-            "description": "Shorter ascent with steady platforms"
+          "extra-iceSlide-1": {
+            "name": "First Steps on Ice",
+            "description": "A small 7×7 warm-up lake with two snowdrifts."
           },
-          "extra-climber-2": {
-            "name": "Frosty Climb",
-            "description": "Higher peaks with icy surprises"
+          "extra-iceSlide-2": {
+            "name": "Snowdrift Slalom",
+            "description": "An 8×8 lake where the snowdrifts are your friends."
           },
-          "extra-climber-3": {
-            "name": "Blizzard Summit",
-            "description": "Tall tower with slippery ledges"
+          "extra-iceSlide-3": {
+            "name": "Thin Ice",
+            "description": "A 9×9 lake with snowdrifts that stop you mid-glide."
           },
-          "extra-climber-infinite-easy": {
-            "name": "Endless Cozy Climb",
-            "description": "Gentle pacing with generous footholds"
+          "extra-iceSlide-4": {
+            "name": "Penguin Parade",
+            "description": "A wide 10×10 lake – plan your route around the rocks."
           },
-          "extra-climber-infinite-medium": {
-            "name": "Endless Frost Climb",
-            "description": "Icy shifts and brisk platform swings"
-          },
-          "extra-climber-infinite-hard": {
-            "name": "Endless Blizzard Climb",
-            "description": "Rapid gaps and slippery challenges"
+          "extra-iceSlide-5": {
+            "name": "The Ice Labyrinth",
+            "description": "Expert: the longest glide of the season. Only for true ice skaters!"
           }
         }
       },
-      "rebus": {
-        "title": "Rebus Puzzles",
+      "nonogram": {
+        "title": "Christmas Picross",
         "levels": {
-          "extra-rebus-1": {
-            "name": "Easy Rebus",
-            "description": "The jolly man himself"
+          "extra-nonogram-1": {
+            "name": "Sweet Stripes",
+            "description": "Red and white and sweet all over. Can you paint it?"
           },
-          "extra-rebus-2": {
-            "name": "Medium Rebus",
-            "description": "Santa's home base"
+          "extra-nonogram-2": {
+            "name": "Ding Dong",
+            "description": "Something golden rings in the Christmas night."
           },
-          "extra-rebus-3": {
-            "name": "Hard Rebus",
-            "description": "A sweet striped treat"
-          }
-        },
-        "extra-rebus-1": {
-          "puzzle": "🎅 + 🏠",
-          "hint": "The person who brings presents on Christmas Eve"
-        },
-        "extra-rebus-2": {
-          "puzzle": "⬆️ + 🌍",
-          "hint": "Where Santa lives and makes toys"
-        },
-        "extra-rebus-3": {
-          "puzzle": "🍬 + 🦯",
-          "hint": "A red and white striped Christmas treat"
-        }
-      },
-      "wordSearch": {
-        "title": "Word Search",
-        "levels": {
-          "extra-wordsearch-1": {
-            "name": "Easy Search",
-            "description": "7x10 grid with Christmas words"
+          "extra-nonogram-3": {
+            "name": "Wrapped Up",
+            "description": "A 10×10 picture puzzle – what's under the tree?"
           },
-          "extra-wordsearch-2": {
-            "name": "Medium Search",
-            "description": "10x11 grid with more words"
+          "extra-nonogram-4": {
+            "name": "Rudolph's Portrait",
+            "description": "Antlers, ears and a shiny red nose – paint them all."
           },
-          "extra-wordsearch-3": {
-            "name": "Hard Search",
-            "description": "11x12 grid - ultimate challenge"
+          "extra-nonogram-5": {
+            "name": "The Big Guest",
+            "description": "Expert: a big 12×12 picross. Who's coming down the chimney?"
           }
         }
       },
-      "flappySleigh": {
-        "title": "Flappy Sleigh",
+      "lightPath": {
+        "title": "Light the Village",
         "levels": {
-          "extra-flappy-1": {
-            "name": "Easy Flight",
-            "description": "Gentle pace, wider gaps"
+          "extra-lightPath-1": {
+            "name": "Village Lights: Hamlet",
+            "description": "A small farm on a snowy hill – three cottages waiting for light."
           },
-          "extra-flappy-2": {
-            "name": "Medium Flight",
-            "description": "Faster speed, tighter gaps"
+          "extra-lightPath-2": {
+            "name": "Village Lights: Main Street",
+            "description": "Four houses along the main street need their windows aglow."
           },
-          "extra-flappy-3": {
-            "name": "Expert Flight",
-            "description": "Maximum challenge!"
+          "extra-lightPath-3": {
+            "name": "Village Lights: Market Square",
+            "description": "A bigger grid and five targets around the Christmas market."
           },
-          "extra-flappy-infinite-easy": {
-            "name": "Endless North Wind",
-            "description": "Smooth glide with forgiving tunnels"
+          "extra-lightPath-4": {
+            "name": "Village Lights: Old Town",
+            "description": "Winding alleys and long strands – plan your route from the cabin."
           },
-          "extra-flappy-infinite-medium": {
-            "name": "Endless Midnight Run",
-            "description": "Quicker sleigh, nimble weaving"
-          },
-          "extra-flappy-infinite-hard": {
-            "name": "Endless Aurora Dash",
-            "description": "Blistering pace for fearless pilots"
+          "extra-lightPath-5": {
+            "name": "Village Lights: Whole Town (expert)",
+            "description": "The expert grid: 72 tiles and six homes to light before Christmas Eve."
           }
         }
       },
-      "sokoban": {
-        "title": "Gift Puzzle",
+      "giftMatch": {
+        "title": "Gift Match",
         "levels": {
-          "extra-sokoban-1": {
-            "name": "Complex Challenge",
-            "description": "13 gifts to arrange - plan carefully!"
+          "extra-giftMatch-1": {
+            "name": "Gift Match: Express Wrap",
+            "description": "A wider board but only 16 moves – make every swap count."
           },
-          "extra-sokoban-2": {
-            "name": "Medium Puzzle",
-            "description": "More gifts to organize"
+          "extra-giftMatch-2": {
+            "name": "Gift Match: Snowflake Storm",
+            "description": "Six kinds of pieces in play – matches are harder to find."
           },
-          "extra-sokoban-3": {
-            "name": "Tricky Puzzle",
-            "description": "Strategic thinking required"
+          "extra-giftMatch-3": {
+            "name": "Gift Match: Santa's Workshop",
+            "description": "The big board with six kinds and a high target. For match-3 masters."
           },
-          "extra-sokoban-4": {
-            "name": "Hard Puzzle",
-            "description": "Tight spaces and many boxes"
-          },
-          "extra-sokoban-5": {
-            "name": "Expert Puzzle",
-            "description": "Master-level gift arrangement"
-          },
-          "extra-sokoban-6": {
-            "name": "Ultimate Puzzle",
-            "description": "The ultimate Sokoban challenge"
+          "extra-giftMatch-4": {
+            "name": "Gift Match: Festive Time Attack",
+            "description": "Endless mode: 90 seconds on the clock, big combos add time. How high can you score?"
           }
         }
       },
-      "mazeRunner": {
-        "title": "Maze Runner",
+      "treeLights": {
+        "title": "Light Up the Tree",
         "levels": {
-          "extra-maze-1": {
-            "name": "Easy Maze",
-            "description": "A simple path to the tree"
+          "extra-treeLights-1": {
+            "name": "Little Spruce",
+            "description": "A small tree to warm up"
           },
-          "extra-maze-2": {
-            "name": "Medium Maze",
-            "description": "More twists and turns"
+          "extra-treeLights-2": {
+            "name": "Office Tree",
+            "description": "Five rows, a few more tangles"
           },
-          "extra-maze-3": {
-            "name": "Hard Maze",
-            "description": "A complex labyrinth"
+          "extra-treeLights-3": {
+            "name": "Living Room Tree",
+            "description": "Six rows of tangled lights"
+          },
+          "extra-treeLights-4": {
+            "name": "Forest Giant",
+            "description": "Six rows, badly tangled"
+          },
+          "extra-treeLights-5": {
+            "name": "Town Square Giant",
+            "description": "Seven rows. Good luck!"
           }
         }
       },
-      "presentStacking": {
-        "title": "Present Stacking",
+      "jingleBells": {
+        "title": "Bell Choir",
         "levels": {
-          "extra-present-stacking-1": {
-            "name": "Light Stack",
-            "description": "Build a tower with 12 gifts"
+          "extra-jingleBells-1": {
+            "name": "Carol Practice",
+            "description": "A melody of 8 notes"
           },
-          "extra-present-stacking-2": {
-            "name": "Tall Tower",
-            "description": "Build a higher tower with 16 gifts"
+          "extra-jingleBells-2": {
+            "name": "Christmas Concert",
+            "description": "10 notes, a little faster"
           },
-          "extra-present-stacking-3": {
-            "name": "Sky High",
-            "description": "Build the tallest tower with 24 gifts"
+          "extra-jingleBells-3": {
+            "name": "Grand Finale",
+            "description": "12 notes at full speed"
+          },
+          "extra-jingleBells-4": {
+            "name": "Endless Choir",
+            "description": "How long a melody can you remember? ♾️"
           }
         }
       },
-      "giftCatcher": {
-        "title": "Gift Catcher",
+      "snowballToss": {
+        "title": "Snowball Fight",
         "levels": {
-          "extra-gift-catcher-1": {
-            "name": "Gift Shower",
-            "description": "Catch 15 gifts at a steady pace"
+          "extra-snowballToss-1": {
+            "name": "Headwind Hill",
+            "description": "Five snowmen, a gusty headwind and a shorter aiming guide."
           },
-          "extra-gift-catcher-2": {
-            "name": "Blizzard Blitz",
-            "description": "Faster gifts, catch 25 to win"
+          "extra-snowballToss-2": {
+            "name": "Gliding Guards",
+            "description": "Two snowmen slide on icy ledges – and the wind is strong. Only six snowballs!"
           },
-          "extra-gift-catcher-3": {
-            "name": "Santa's Rush",
-            "description": "High speed challenge, catch 40 gifts!"
+          "extra-snowballToss-3": {
+            "name": "The Snow Fortress",
+            "description": "Six snowmen, three sliding ledges and almost no aiming guide."
+          },
+          "extra-snowballToss-4": {
+            "name": "Endless Snowball Fight",
+            "description": "Wave after wave of snowmen. Every cleared wave refills your snowballs – how far can you get?"
           }
         }
       },
-      "slidingPuzzle": {
-        "title": "Sliding Puzzle",
+      "chimneyDrop": {
+        "title": "Present Drop",
         "levels": {
-          "extra-sliding-puzzle-1": {
-            "name": "Medium Puzzle",
-            "description": "4x4 sliding puzzle with 15 tiles"
+          "extra-chimneyDrop-1": {
+            "name": "Rush Hour",
+            "description": "Santa is running late – the sleigh flies much faster tonight."
           },
-          "extra-sliding-puzzle-2": {
-            "name": "Hard Puzzle",
-            "description": "5x5 sliding puzzle with 24 tiles"
+          "extra-chimneyDrop-2": {
+            "name": "Stormy Night",
+            "description": "A strong wind sways back and forth and pushes every present."
           },
-          "extra-sliding-puzzle-3": {
-            "name": "Expert Puzzle",
-            "description": "6x6 sliding puzzle with 35 tiles"
+          "extra-chimneyDrop-3": {
+            "name": "Narrow Chimneys",
+            "description": "Slim chimneys, a breeze and a quick sleigh. Precision delivery!"
+          },
+          "extra-chimneyDrop-4": {
+            "name": "Endless Night",
+            "description": "Deliver as many presents as you can while the sleigh speeds up. Three misses and the night is over."
           }
         }
       },
-      "skiSlope": {
-        "title": "Santa's Ski Slope",
+      "snowmanStack": {
+        "title": "Build a Snowman",
         "levels": {
-          "extra-ski-slope-1": {
-            "name": "Bunny Slope",
-            "description": "Gentle hill with fewer obstacles"
+          "extra-snowmanStack-1": {
+            "name": "Big Snowman",
+            "description": "Five snowballs high and a little quicker swing."
           },
-          "extra-ski-slope-2": {
-            "name": "Mountain Run",
-            "description": "Longer slope with more challenges"
+          "extra-snowmanStack-2": {
+            "name": "Snow Storm",
+            "description": "The wind is up: a fast swing and less room for error."
           },
-          "extra-ski-slope-3": {
-            "name": "Black Diamond",
-            "description": "Expert slope - maximum danger!"
+          "extra-snowmanStack-3": {
+            "name": "Snow Tower",
+            "description": "Ten snowballs stacked to the sky – the camera follows you up!"
           },
-          "extra-ski-slope-infinite-easy": {
-            "name": "Endless Easy",
-            "description": "Ski forever on an easy slope"
+          "extra-snowmanStack-4": {
+            "name": "Endless Snow Tower",
+            "description": "Stack as high as you can until three balls tumble. Beat your best height!"
+          }
+        }
+      },
+      "tomteWhack": {
+        "title": "Whack-a-Tomte",
+        "levels": {
+          "extra-tomteWhack-1": {
+            "name": "The Big Yard",
+            "description": "Sixteen snow mounds and twice the tomtar."
           },
-          "extra-ski-slope-infinite-medium": {
-            "name": "Endless Medium",
-            "description": "How far can you ski?"
+          "extra-tomteWhack-2": {
+            "name": "Tomte Rush",
+            "description": "Quick as a flash – the tomtar barely stay up."
           },
-          "extra-ski-slope-infinite-hard": {
-            "name": "Endless Expert",
-            "description": "Ultimate survival challenge!"
+          "extra-tomteWhack-3": {
+            "name": "Short Candle",
+            "description": "Only six mounds, but the candle is short and the pace is wild."
+          },
+          "extra-tomteWhack-4": {
+            "name": "Tomte Survival",
+            "description": "Endless mode: miss a tomte or hit coal or the goat and you lose a heart. How far can you get?"
+          }
+        }
+      },
+      "spotDifference": {
+        "title": "Spot the Difference",
+        "levels": {
+          "extra-spotDifference-1": {
+            "name": "Santa's Workshop",
+            "description": "Elves, toys and a ticking clock – find 7 differences in the workshop."
+          },
+          "extra-spotDifference-2": {
+            "name": "Snowy Village at Dusk",
+            "description": "Lamps, chimneys and sledding kids – 8 differences hide in the village."
+          },
+          "extra-spotDifference-3": {
+            "name": "Fireside Living Room",
+            "description": "The cosy living room again, now with 8 differences."
+          },
+          "extra-spotDifference-4": {
+            "name": "Village: Sharp Eyes",
+            "description": "Subtler changes – a dark window, a missing star, a tiny bird."
+          },
+          "extra-spotDifference-5": {
+            "name": "Workshop: Master Detective",
+            "description": "The trickiest set – tiny details all over Santa's workshop."
+          }
+        }
+      },
+      "toySorter": {
+        "title": "Elf Workshop",
+        "levels": {
+          "extra-toySorter-1": {
+            "name": "Rush Hour",
+            "description": "A faster belt and four rules, including the naughty list."
+          },
+          "extra-toySorter-2": {
+            "name": "Reindeer Feeding Time",
+            "description": "Tomte or reindeer? Naughty or nice? Keep up with the switching rules!"
+          },
+          "extra-toySorter-3": {
+            "name": "Christmas Eve Panic",
+            "description": "The night before Christmas: 30 items at top speed."
+          },
+          "extra-toySorter-4": {
+            "name": "Endless Shift",
+            "description": "No finish line – rules rotate, the belt speeds up. How high can you score?"
           }
         }
       }
-    }
+    },
+    "endless": "Endless"
   },
   "info": {
     "button": "How It Works",
@@ -909,8 +1327,8 @@
         "content": "Just like a real advent calendar, each day unlocks on its date in December. So day 1 opens on December 1st, day 5 opens on December 5th, and so on. You'll see a lock icon on days that aren't available yet – but don't worry, they'll be ready when the time comes!"
       },
       "challenges": {
-        "title": "🎮 The Challenges",
-        "content": "Each day has a different mini-game or puzzle waiting for you. We've got riddles, word games, memory challenges, and even some arcade-style action! Don't stress about being perfect – the goal is to have fun."
+        "title": "🎮 The Games",
+        "content": "Behind every door waits one of 14 brand-new Christmas games: Juldle, emoji carols, a frozen lake to slide across, Christmas picross, whack-a-tomte, a snowball fight, Santa's present drop and more. They take a few minutes each and you can always retry – the goal is cosy fun, not perfection."
       },
       "rewards": {
         "title": "🏆 Completing Challenges",
@@ -926,7 +1344,7 @@
       },
       "extras": {
         "title": "🎁 Extras & Rewards Gallery",
-        "content": "Complete all 24 challenges (or just wait until Christmas!) and you'll unlock the Extras section with even more games and a gallery with all the rewards. Think of it as a little bonus for the dedicated adventurers!"
+        "content": "Finish all 24 doors (or just wait until Christmas Day) to unlock the Extras: bonus levels for every game, from easy to expert, plus endless modes where you chase your own high score. The gallery collects every reward in one place."
       },
       "tip": {
         "title": "💡 Pro Tip",
@@ -942,5 +1360,21 @@
     "clearAll": "Clear All Progress",
     "confirmClearAll": "Are you sure you want to clear all progress? This will reset all calendar days and extras. This cannot be undone.",
     "allCleared": "All progress has been cleared!"
+  },
+  "landing": {
+    "eyebrow": "Jambiz presents",
+    "title": "Advent Calendar",
+    "countdownLabel": "The first door opens in",
+    "days": "days",
+    "hours": "hours",
+    "minutes": "min",
+    "seconds": "sec",
+    "todayOpen": "Door {{day}} is open – come on in!",
+    "christmas": "Merry Christmas! Every door is open.",
+    "chips": {
+      "doors": "24 doors",
+      "games": "Christmas minigames",
+      "rewards": "Jambiz surprises"
+    }
   }
 }

@@ -1,297 +1,132 @@
-# 🎄 Jambiz Advent Calendar
+# 🎄 Jambiz Julkalender 2026
 
-An interactive Christmas advent calendar web application featuring 24 daily challenges, fun facts, and engaging minigames for Jambiz colleagues. Built with Angular and designed to bring holiday cheer with a mix of puzzles and games!
+An interactive advent calendar for Jambiz colleagues. Every morning in December a new door opens with
+a cosy Christmas minigame behind it, and beating the game unwraps a reward. Live at
+**[jambizadvent.se](https://jambizadvent.se)**.
 
-![Angular](https://img.shields.io/badge/Angular-20.3.0-red)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-blue)
+![Angular](https://img.shields.io/badge/Angular-20.3-red)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8)
-![License](https://img.shields.io/badge/License-MIT-green)
 
-## ✨ Features
+> The 2025 calendar is archived on the [`advent-2025`](../../tree/advent-2025) branch.
 
-### 🎮 Diverse Challenge Types
-- **Simple Puzzles:** Riddles, Hangman, Word Scramble, Word Search, Rebus, Mini Quiz, Sliding Puzzle
-- **Complex Minigames:** 
-  - 🎯 Geometry Dash (rhythm-based obstacle avoider)
-  - 📦 Sokoban (box-pushing puzzles)
-  - 🧗 Climber (vertical platform jumper)
-  - 🎴 Memory Cards (Christmas-themed matching)
-  - 🌀 Maze Runner (navigate procedural mazes)
-  - 🛷 Flappy Sleigh (Flappy Bird style)
-  - 🎁 Gift Catcher (catch falling presents)
-  - 🏗️ Present Stacking (physics-based stacking)
-  - ⛷️ Ski Slope (downhill skiing avoider)
+## ✨ What's inside
 
-### 🎁 Extra Challenges
-- **Bonus Levels:** Additional challenges beyond the 24 advent days
-- **Endless Modes:** Infinite survival variants for Climber, Flappy Sleigh, and Geometry Dash
-- **High Score Tracking:** Best scores persist across sessions using localStorage
+- **24 doors, 14 games.** Word, logic, action and observation games, all new for 2026, from
+  *Juldle* and *Frusna sjön* to *Bonka tomten* and *Klappleveransen*. See **[GAMES.md](GAMES.md)**
+  for the full list and the day-by-day plan.
+- **Extras.** After all 24 doors (or on Christmas Day) a bonus menu opens with 5 extra levels per
+  puzzle game, and harder levels plus an **endless ♾️ mode** for the action games.
+- **"Nordic Christmas night" design.**
+  - Background: an animated scene with northern lights, twinkling stars and shooting stars, parallax
+    hills with a log cabin, and snow that drifts with the mouse. Click the moon to call Santa's sleigh.
+  - Doors: 3D advent doors that swing open on hinges, shiver when locked and glow on the day they open.
+  - Progress: a Christmas tree that lights one ornament per finished day.
+  - Lights: a swaying string of fairy lights; tap a bulb to ring it.
+- **Sound.** Bells and chimes are synthesized with Web Audio, so there are no sound files. Sound is
+  off by default and toggled in the header.
+- **Puzzle picture.** Each finished door reveals a piece of a hidden picture.
+- **Swedish and English**, with Swedish as the default.
+- **Works on phones and desktops**, with touch, mouse and keyboard.
+- **No backend.** Progress and best scores are stored in the browser's `localStorage`.
 
-### 🌍 Internationalization
-- **Bilingual Support:** Full Swedish and English translations
-- **Language Toggle:** Seamless switching between languages
-- **Default Language:** Swedish (SV)
+## 🚀 Getting started
 
-### 📱 Mobile-Optimized
-- **Responsive Design:** Works perfectly on phones, tablets, and desktops
-- **Touch Controls:** Virtual joystick, D-pad, and buttons for mobile gaming
-- **Swipe Gestures:** Natural touch interactions for compatible games
-- **Adaptive Layout:** 3/4/6 column grid adjusts to screen size
+Requires Node.js 18+ and npm 9+.
 
-### 🎨 Design System
-- **Dark Christmas Theme:** Rich blue, red, green, and gold color palette
-- **Tailwind CSS:** Utility-first styling with custom design tokens
-- **Smooth Animations:** Snow effects, card flips, transitions
-- **Lucide Icons:** Modern, scalable iconography
+```bash
+git clone https://github.com/Connectslide121/jambiz-advent-calendar.git
+cd jambiz-advent-calendar
+npm install
+npm start            # http://localhost:4200
+```
 
-### 💾 State Management
-- **Progress Tracking:** Mark days as completed
-- **Stats Persistence:** Save game statistics (moves, time, scores)
-- **Replay Functionality:** Replay completed challenges without losing progress
-- **localStorage:** Client-side state with no backend required
-- **Version-Based Reset:** Automatic data reset when new version is deployed (clears beta tester data)
+| Command | What it does |
+|---|---|
+| `npm start` | Dev server with live reload |
+| `npm run build` | Production build into `dist/` |
+| `npm run deploy` | Production build published to GitHub Pages (`jambizadvent.se`) |
+| `npm test` | Unit tests (Karma) |
 
-## 🚀 Getting Started
+### Testing the calendar outside December
 
-### Prerequisites
-- Node.js (v18 or higher)
-- npm (v9 or higher)
+Type **`devtools`** anywhere on the calendar page (not in an input) to show the hidden dev tools:
 
-### Installation
+- **Dev mode:** unlocks every door.
+- **Date override:** pretend it's a given December day (1–31). Countdowns follow it too.
+- **Mark all complete / clear progress:** test the end-of-calendar celebration and the Extras.
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Connectslide121/jambiz-advent-calendar.git
-   cd jambiz-advent-calendar
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Start the development server**
-   ```bash
-   npm start
-   ```
-
-4. **Open your browser**
-   Navigate to `http://localhost:4200/`
-
-## 🛠️ Tech Stack
-
-| Technology | Purpose |
-|------------|---------|
-| **Angular 20.3.0** | Framework with standalone components |
-| **TypeScript 5.9.2** | Type-safe development |
-| **Tailwind CSS 3.4** | Utility-first styling |
-| **ngx-translate 17** | Internationalization |
-| **Lucide Icons** | SVG icon library |
-| **SCSS** | Component-level styling |
-
-## 📁 Project Structure
+## 🗂️ Project structure
 
 ```
 src/
 ├── app/
 │   ├── components/
-│   │   ├── calendar/              # Main calendar grid
-│   │   ├── challenge-host/        # Modal for challenges
-│   │   ├── extras-modal/          # Extra challenges menu
-│   │   ├── fun-fact-reveal/       # Fun fact display
-│   │   ├── touch-controls/        # Mobile game controls
-│   │   └── challenges/            # Individual challenge components
-│   │       ├── climber-challenge/
-│   │       ├── flappy-sleigh-challenge/
-│   │       ├── geometry-dash-challenge/
-│   │       ├── gift-catcher-challenge/
-│   │       ├── hangman-challenge/
-│   │       ├── maze-runner-challenge/
-│   │       ├── memory-card-challenge/
-│   │       ├── mini-quiz-challenge/
-│   │       ├── present-stacking-challenge/
-│   │       ├── rebus-challenge/
-│   │       ├── riddle-challenge/
-│   │       ├── ski-slope-challenge/
-│   │       ├── sliding-puzzle-challenge/
-│   │       ├── sokoban-challenge/
-│   │       ├── word-scramble-challenge/
-│   │       └── word-search-challenge/
+│   │   ├── winter-scene/      # Animated background: sky, aurora, moon, sleigh, hills, snow
+│   │   ├── string-lights/     # Fairy-light garland
+│   │   ├── landing-page/      # Title page with the countdown to December 1st
+│   │   ├── calendar/          # 3D doors, sidebar, Christmas Day card
+│   │   ├── progress-tree/     # One ornament per finished day
+│   │   ├── challenge-host/    # Modal that lazy-loads a game, then shows the reward
+│   │   ├── fun-fact-reveal/   # Reward screens (text, video, audio, coupons, snow globe…)
+│   │   └── challenges/        # The 14 games, one folder each
 │   ├── config/
-│   │   ├── calendar-config.ts     # 24 days configuration
-│   │   └── extras-config.ts       # Extra levels configuration
-│   ├── models/
-│   │   └── calendar.models.ts     # TypeScript interfaces
-│   ├── services/
-│   │   ├── calendar-state.service.ts  # State management
-│   │   ├── game.service.ts            # Game loop & utilities
-│   │   ├── keyboard.service.ts        # Keyboard input
-│   │   └── sprite.service.ts          # Sprite loading
-│   └── app.ts                     # Root component
-├── assets/
-│   ├── i18n/                      # Translation files
-│   │   ├── en.json
-│   │   └── sv.json
-│   └── sprites/                   # Game sprites
-└── styles.scss                    # Global styles
+│   │   ├── calendar-config.ts # Day → game, game settings and reward
+│   │   ├── extras-config.ts   # Bonus levels for the Extras menu
+│   │   ├── challenge-registry.ts # Lazy loaders for every game
+│   │   └── challenge-icons.ts
+│   ├── models/calendar.models.ts
+│   └── services/
+│       ├── calendar-state.service.ts # Progress, stats, unlock rules, dev tools
+│       └── sound.service.ts          # Web Audio bells
+├── assets/i18n/{sv,en}.json   # All text (UTF-8 with BOM)
+└── styles.scss                # Design tokens and global .btn / .card / .input / .pill
+public/rewards/                # Reward media (videos, audio, wallpaper)
 ```
 
-## 🔧 Development
+## 🛠️ Configuration
 
-### Available Scripts
+### Days and rewards
+`src/app/config/calendar-config.ts` maps each day to a game (`challengeType` + `challengeData`) and a
+reward (`reward` or a `funFactKey`). `gridPosition` (0–23) decides where the door sits in the 6×4
+grid and which piece of the puzzle picture it reveals. Reward types: `text`, `image`, `video`,
+`audio`, `coupon`, `snowGlobe`, `magic8Ball`, `popupCard`, `fortuneCookie`, `iceBreaker`.
 
-```bash
-# Start development server
-npm start
+> **2026 rewards are still to be decided.** The current rewards and the puzzle picture
+> (`src/assets/Calendar_puzzle.png`) are last year's placeholders. Ideas include free e-learning
+> courses and releases of JambizHub modules.
 
-# Build for production
-npm run build
+### Games and extras
+See [GAMES.md](GAMES.md) for every game's settings and [docs/ADDING_A_GAME.md](docs/ADDING_A_GAME.md)
+to build a new one.
 
-# Deploy to GitHub Pages
-npm run deploy
+### Design system
+The tokens in `src/styles.scss` are mirrored in `tailwind.config.js`: midnight blue `--color-bg`,
+cranberry `--color-accent-red`, pine `--color-accent-green`, candle gold `--color-gold`, plus frost,
+aurora and ember. The display font is Fraunces and the body font is Nunito. Games reuse the global
+`.btn`, `.card`, `.input` and `.pill` classes, so a palette change reaches all of them.
 
-# Run tests
-npm test
+### Unlock rules
+- Door *n* opens on December *n* at midnight in the visitor's local time.
+- On Christmas Day everything opens for everyone.
+- The Extras menu and the rewards gallery unlock when all 24 doors are done, or on Christmas Day.
 
-# Lint code
-npm run lint
-```
+### Resetting everyone's progress
+`CALENDAR_VERSION` in `calendar-state.service.ts` is stored in the browser. When it changes, all
+saved progress is wiped on the next visit. It is currently `2026-dev`.
 
-### Adding New Challenges
-
-1. Generate component:
-   ```bash
-   ng generate component components/challenges/my-challenge --standalone
-   ```
-
-2. Add to `calendar-config.ts` or `extras-config.ts`
-
-3. Update translations in `assets/i18n/en.json` and `assets/i18n/sv.json`
-
-4. Import in `challenge-host.ts`
+- **Launch checklist:** change it to `2026-release` before December 1st to clear beta testers' data.
+- Never change it during December unless you really want to reset everyone.
 
 ## 🌐 Deployment
 
-The app is deployed to GitHub Pages at: `https://connectslide121.github.io/jambiz-advent-calendar/`
-
-To deploy:
 ```bash
 npm run deploy
 ```
 
-## 📝 Configuration
-
-### Calendar Days
-Edit `src/app/config/calendar-config.ts` to customize the 24 advent challenges.
-
-### Extra Levels
-Edit `src/app/config/extras-config.ts` to add bonus challenges.
-
-### Translations
-Update `src/assets/i18n/en.json` and `src/assets/i18n/sv.json` for text content.
-
-### Design System
-Modify CSS variables in `src/styles.scss` for theming:
-
-```scss
-:root {
-  --color-bg: #06121f;           // Dark night blue
-  --color-surface: #102437;      // Card background
-  --color-accent-red: #e63946;   // Christmas red
-  --color-accent-green: #2a9d8f; // Christmas green
-  --color-gold: #f4d35e;         // Gold accent
-  --color-text: #f8f9fa;         // Light text
-  --color-text-muted: #adb5bd;   // Muted text
-}
-```
-
-### Version-Based Data Reset
-
-The app includes a version-based reset mechanism to clear all user data when needed (e.g., clearing beta tester data before official launch).
-
-**How it works:**
-1. A `CALENDAR_VERSION` constant is defined in `CalendarStateService`
-2. On app startup, the stored version is compared to the current version
-3. If they don't match, all localStorage data is cleared automatically
-4. The new version is saved
-
-**To trigger a reset:**
-1. Open `src/app/services/calendar-state.service.ts`
-2. Change the `CALENDAR_VERSION` constant to a new value
-3. Deploy the updated app
-
-```typescript
-// Example: Bump version to reset all data
-private readonly CALENDAR_VERSION = '2025-release-v2';
-```
-
-### Secret Dev Tools
-
-The app includes hidden developer tools for testing. Type **`devtools`** on your keyboard (not in an input field) to toggle visibility.
-
-**Available tools:**
-- Dev Mode Toggle (unlock all days)
-- Date Override (fake December day)
-- Mark All Complete
-- Clear All Progress
-
-> **Note:** Dev tools state is session-only and resets on page refresh.
-
-## 🎯 Game Controls
-
-### Desktop
-- **Arrow Keys / WASD:** Movement
-- **Space:** Jump / Flap / Action
-- **Mouse:** Click to interact
-- **ESC:** Pause (where applicable)
-
-### Mobile
-- **Tap:** Jump / Select
-- **Swipe:** Directional movement (maze, Sokoban)
-- **Virtual D-Pad:** 4-directional controls
-- **Virtual Joystick:** Smooth directional input
-- **Action Buttons:** Jump, interact
-
-## 🤝 Contributing
-
-This is an internal Jambiz project. For contributions:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License.
+This builds for production and publishes `dist/jambiz-advent-calendar/browser` to the `gh-pages`
+branch. The custom domain comes from `src/CNAME`.
 
 ## 👥 Credits
 
-**Developed for Jambiz AB**
-
-- **Framework:** Angular Team
-- **Design:** Tailwind CSS
-- **Icons:** Lucide Icons
-- **Translations:** ngx-translate
-
-## 🐛 Known Issues
-
-- Best score persistence requires levelId support (✅ Fixed in v1.1.0)
-- Mobile touch controls may need calibration on some devices
-- Safari iOS may require user interaction before audio (if added)
-
-## 🔮 Future Enhancements
-
-- [ ] Sound effects and background music (toggle-able)
-- [ ] Daily unlock mechanism (one challenge per day) 
-- [ ] Final event, last day unlock all daily rewards + extras menu
-- [ ] More mini-games
-- [ ] More endless mode variants
-- [ ] Achievement badges
-- [ ] Confetti animations on completion
-- [ ] Final reward
-
----
-
-**Happy Holidays! 🎅🎄🎁**
+Built for Jambiz with Angular, Tailwind CSS, ngx-translate and Lucide icons.
