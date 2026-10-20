@@ -1,3 +1,19 @@
+@if (!backend.signedIn() || !backend.player()) {
+  <app-winter-scene [compact]="false"></app-winter-scene>
+  <main class="relative z-10 min-h-screen flex items-center justify-center p-6">
+    <section class="card p-8 max-w-lg text-center">
+      <h1 class="text-3xl mb-4">{{ 'app.title' | translate }}</h1>
+      <p class="mb-6">{{ 'online.welcome' | translate }}</p>
+      @if (backend.error()) { <p role="alert" class="mb-4">{{ backend.error() | translate }}</p> }
+      <button class="btn btn-primary" (click)="backend.login()">{{ 'online.signIn' | translate }}</button>
+      <button class="btn btn-outline ml-2" (click)="toggleLanguage()">{{ currentLanguage === 'sv' ? 'EN' : 'SV' }}</button>
+    </section>
+  </main>
+} @else {
+  <div class="relative z-10 flex flex-wrap justify-end items-center gap-3 px-4 py-2 text-sm">
+    <span>{{ backend.player()?.displayName }}</span>
+    <button class="btn btn-outline" (click)="backend.logout()">{{ 'online.signOut' | translate }}</button>
+  </div>
 <!-- Jambiz Julkalender 2026 -->
 <app-winter-scene [compact]="!showLandingPage"></app-winter-scene>
 
@@ -130,6 +146,7 @@
       (openExtras)="openExtras()"
       (calendarComplete)="onCalendarComplete()"
     ></app-calendar>
+    <app-scoreboard></app-scoreboard>
   </main>
 
   <footer class="footer">{{ 'app.footer' | translate }}</footer>
@@ -816,4 +833,6 @@
     </div>
   </div>
 </div>
+}
+
 }

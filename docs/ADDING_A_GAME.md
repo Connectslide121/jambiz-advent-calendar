@@ -82,7 +82,8 @@ Content that differs per language (words, song titles) belongs in translations o
        (m) => m.MyGameChallenge
      ),
    ```
-4. Use it in `src/app/config/calendar-config.ts` (keep each day's `gridPosition` and `reward`).
+4. Add it to the Cosmos `calendar` document and `api/Data/calendar-2026.json` seed (keep each day's
+   `gridPosition` and `reward`). `src/app/config/calendar-config.ts` is filled by the API at startup.
 5. Add a section to `src/app/config/extras-config.ts`, plus `extras.games.<type>` titles and level
    names in both i18n files.
 6. Document it in `GAMES.md`.

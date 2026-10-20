@@ -6,9 +6,9 @@ and [docs/ADDING_A_GAME.md](../docs/ADDING_A_GAME.md) before touching a game.
 
 ## Project in one paragraph
 
-**Jambiz Julkalender** is a front-end-only Angular 20 app: an advent calendar with 24 doors, each
+**Jambiz Julkalender** is an Angular 20 app with a C# Azure Functions backend: an advent calendar with 24 doors, each
 hiding a Christmas minigame and a reward. It is bilingual (Swedish by default, English), stores
-everything in `localStorage`, and is deployed to GitHub Pages at jambizadvent.se. Each season gets
+progress and rewards in Cosmos DB, with single-tenant Entra authentication. Read [docs/BACKEND.md](../docs/BACKEND.md) for the Azure development deployment. The existing GitHub Pages site at jambizadvent.se remains separate. Each season gets
 a new branch: 2025 lives on `advent-2025`, and 2026 is developed on the main development branch.
 
 ## Tech stack
@@ -37,7 +37,7 @@ src/app/
 - Every game must follow the contract in `docs/ADDING_A_GAME.md`. Don't add game-specific code to
   the host.
 - `CalendarStateService` is the single source of truth for completed days, game stats, dev mode,
-  the date override and the version reset.
+  the local date override and the hydrated cloud progress. `BackendService` owns Entra/API access.
 
 ## Styling
 
@@ -62,14 +62,9 @@ src/app/
 - Key layout: `app.*`, `landing.*`, `calendar.*`, `challenges.<type>.*`, `extras.games.<type>.*`,
   `rewards.*`, `funFacts.*`, `info.*`, `ui.*` (generic buttons such as showReward, playAgain, reset).
 
-## Version-based data reset
+## Seasons and progress
 
-`CALENDAR_VERSION` in `calendar-state.service.ts` wipes all stored progress when it changes.
-
-- It is `2026-dev` during development.
-- Change it to `2026-release` right before launch to clear beta testers' data.
-- **Never change it during December** unless a full reset is intended, and log every change in the
-  version history comment.
+Cloud progress is partitioned by season and Entra user. The old browser version-reset mechanism is removed. Local dev tools do not reset cloud data.
 
 ## Secret dev tools
 
@@ -79,7 +74,7 @@ Type `devtools` on the page (not in an input) to show:
 - mark all complete
 - clear progress
 
-They are session-only.
+They are session-only, localhost-only previews. The API still enforces real dates and saved completions.
 
 ## Checks before committing
 

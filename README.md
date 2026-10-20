@@ -28,11 +28,11 @@ a cosy Christmas minigame behind it, and beating the game unwraps a reward. Live
 - **Puzzle picture.** Each finished door reveals a piece of a hidden picture.
 - **Swedish and English**, with Swedish as the default.
 - **Works on phones and desktops**, with touch, mouse and keyboard.
-- **No backend.** Progress and best scores are stored in the browser's `localStorage`.
+- **Azure backend.** C#/.NET 10 Azure Functions with Cosmos DB stores rewards, progress and results. Entra sign-in uses the same tenant as podium-ops; daily and global scoreboards show each player's best runs. See [backend and deployment](docs/BACKEND.md).
 
 ## 🚀 Getting started
 
-Requires Node.js 18+ and npm 9+.
+Requires Node.js 20.19+ (or a supported newer Angular 20 Node version), npm and .NET 10 SDK. The committed runtime configuration connects local development to the Azure backend.
 
 ```bash
 git clone https://github.com/Connectslide121/jambiz-advent-calendar.git
@@ -50,7 +50,7 @@ npm start            # http://localhost:4200
 
 ### Testing the calendar outside December
 
-Type **`devtools`** anywhere on the calendar page (not in an input) to show the hidden dev tools:
+On localhost, type **`devtools`** on the calendar page (outside an input) for UI previews. The API still enforces real dates; these controls do not create official results or reset cloud data.
 
 - **Dev mode:** unlocks every door.
 - **Date override:** pretend it's a given December day (1–31). Countdowns follow it too.
@@ -87,7 +87,7 @@ public/rewards/                # Reward media (videos, audio, wallpaper)
 ## 🛠️ Configuration
 
 ### Days and rewards
-`src/app/config/calendar-config.ts` maps each day to a game (`challengeType` + `challengeData`) and a
+`api/Data/calendar-2026.json` seeds the Cosmos calendar document with each game (`challengeType` + `challengeData`) and a
 reward (`reward` or a `funFactKey`). `gridPosition` (0–23) decides where the door sits in the 6×4
 grid and which piece of the puzzle picture it reveals. Reward types: `text`, `image`, `video`,
 `audio`, `coupon`, `snowGlobe`, `magic8Ball`, `popupCard`, `fortuneCookie`, `iceBreaker`.
@@ -107,18 +107,20 @@ aurora and ember. The display font is Fraunces and the body font is Nunito. Game
 `.btn`, `.card`, `.input` and `.pill` classes, so a palette change reaches all of them.
 
 ### Unlock rules
-- Door *n* opens on December *n* at midnight in the visitor's local time.
+- Door *n* opens on December *n*, 2026 at midnight in Europe/Stockholm, enforced by the API.
 - On Christmas Day everything opens for everyone.
 - The Extras menu and the rewards gallery unlock when all 24 doors are done, or on Christmas Day.
 
-### Resetting everyone's progress
-`CALENDAR_VERSION` in `calendar-state.service.ts` is stored in the browser. When it changes, all
-saved progress is wiped on the next visit. It is currently `2026-dev`.
-
-- **Launch checklist:** change it to `2026-release` before December 1st to clear beta testers' data.
-- Never change it during December unless you really want to reset everyone.
+### Progress and seasons
+Progress is stored per Entra user and season in Cosmos DB. Browser resets do not erase cloud results.
+Developer controls cannot reset cloud progress. See [backend guide](docs/BACKEND.md).
 
 ## 🌐 Deployment
+
+Azure: [Open the 2026 calendar](https://calm-water-0b43e6903.5.azurestaticapps.net).
+Use ./scripts/deploy.ps1 from PowerShell. See [Azure setup and API guide](docs/BACKEND.md).
+
+The following command targets the existing GitHub Pages site:
 
 ```bash
 npm run deploy

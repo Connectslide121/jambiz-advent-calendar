@@ -66,7 +66,7 @@ export class LandingPage implements OnInit, OnDestroy {
     this.phase.set('before');
     const now = new Date();
     // January-November counts down to December 1st of this year
-    const target = new Date(now.getFullYear(), 11, 1, 0, 0, 0, 0);
+    const target = new Date('2026-12-01T00:00:00+01:00');
     const diff = Math.max(0, target.getTime() - now.getTime());
     const pad = (n: number) => n.toString().padStart(2, '0');
     this.countdown.set({

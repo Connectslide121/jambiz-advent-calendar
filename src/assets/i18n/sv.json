@@ -1376,5 +1376,25 @@
       "games": "Julspel",
       "rewards": "Jambiz-överraskningar"
     }
+  },
+  "online": {
+    "welcome": "Logga in med ditt Microsoft-konto hos Jambiz för att spela och delta i topplistorna.",
+    "signIn": "Logga in med Microsoft",
+    "signOut": "Logga ut",
+    "scoreboard": "Julens topplista",
+    "ranking": "Topplista",
+    "global": "Alla dagar",
+    "refresh": "Uppdatera",
+    "points": "p",
+    "empty": "Inga resultat ännu. Bli först!",
+    "loading": "Laddar…",
+    "saving": "Sparar ditt resultat…",
+    "retry": "Försök spara igen",
+    "scoring": "1 000 poäng per avklarad dag plus en tidsbonus. Ditt bästa försök per dag räknas i totalen. Topp 100 spelare.",
+    "connectionError": "Vi kunde inte ansluta till kalendern. Försök logga in igen.",
+    "configError": "Inloggningen är inte konfigurerad. Kontakta kalenderns administratör.",
+    "loginError": "Logga in igen för att fortsätta.",
+    "startError": "Försöket kunde inte starta. Luckan kan fortfarande vara låst. Stäng och försök igen.",
+    "saveError": "Ditt resultat kunde inte sparas. Låt fönstret vara öppet och försök igen."
   }
 }

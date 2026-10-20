@@ -25,6 +25,8 @@ import {
 import { CalendarStateService } from './services/calendar-state.service';
 import { SoundService } from './services/sound.service';
 import { WinterScene } from './components/winter-scene/winter-scene';
+import { BackendService } from './services/backend.service';
+import { Scoreboard } from './components/scoreboard/scoreboard';
 import { StringLights } from './components/string-lights/string-lights';
 
 @Component({
@@ -39,11 +41,13 @@ import { StringLights } from './components/string-lights/string-lights';
     FunFactReveal,
     WinterScene,
     StringLights,
+    Scoreboard,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App implements OnDestroy {
+  readonly backend = inject(BackendService);
   readonly X = X;
   readonly ArrowLeft = ArrowLeft;
   readonly Check = Check;
@@ -73,7 +77,7 @@ export class App implements OnDestroy {
   selectedExtraId: string | null = null;
   extraLevels = EXTRA_LEVELS;
   calendarDays = CALENDAR_DAYS;
-  private readonly STORAGE_KEY = 'extras-completed';
+  private get STORAGE_KEY(): string { return `extras-completed:${this.backend.player()?.id ?? 'signed-out'}`; }
   private completedExtras = new Set<string>();
 
   constructor(private translate: TranslateService, public calendarState: CalendarStateService) {
@@ -81,7 +85,7 @@ export class App implements OnDestroy {
     const savedLang = localStorage.getItem('language') || 'sv';
     this.currentLanguage = savedLang;
     this.translate.use(savedLang);
-    this.loadCompletedExtras();
+    this.completedExtras = new Set(Object.keys(this.backend.player()?.extras ?? {}));
   }
 
   switchLanguage(lang: string): void {
@@ -101,6 +105,7 @@ export class App implements OnDestroy {
   @HostListener('document:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent): void {
     // Ignore if user is typing in an input field
+    if (location.hostname !== 'localhost') return;
     const target = event.target as HTMLElement;
     if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
       return;

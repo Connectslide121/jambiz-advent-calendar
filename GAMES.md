@@ -24,7 +24,7 @@ Each one saves a personal best through `CalendarStateService.saveGameStats`.
 | 11 | 🔎 Hitta felen (village) | 23 | 🏡 Tänd byn (6×6) |
 | 12 | ⛄ Bygg en snögubbe | 24 | 🔎 Hitta felen (cosy living room) |
 
-Days are configured in `src/app/config/calendar-config.ts`, bonus levels in
+Days are configured in the Cosmos `calendar` document, seeded by `api/Data/calendar-2026.json`; bonus levels in
 `src/app/config/extras-config.ts`. Icons live in `challenge-icons.ts`, and the lazy-loaded component
 registry in `challenge-registry.ts`.
 

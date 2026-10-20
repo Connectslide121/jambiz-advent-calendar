@@ -46,6 +46,7 @@ export class Calendar implements OnInit, OnDestroy {
 
   /** Door currently playing its opening animation */
   openingDay: number | null = null;
+  private wasCompleteWhenOpened = false;
   /** Locked door that was just poked (plays a shiver) */
   shakingDay: number | null = null;
 
@@ -114,7 +115,7 @@ export class Calendar implements OnInit, OnDestroy {
       const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
       diff = (nextDay - override - 1) * 86400000 + (midnight.getTime() - now.getTime());
     } else {
-      diff = new Date(now.getFullYear(), 11, nextDay).getTime() - now.getTime();
+      diff = new Date(`2026-12-${String(nextDay).padStart(2, '0')}T00:00:00+01:00`).getTime() - now.getTime();
     }
 
     if (diff <= 0) {
@@ -161,9 +162,10 @@ export class Calendar implements OnInit, OnDestroy {
 
     // Swing the door open, then show the challenge
     this.openingDay = day.day;
+    this.wasCompleteWhenOpened = this.stateService.isCalendarComplete();
     this.sound.doorOpen();
     this.openTimer = setTimeout(() => {
-      this.selectedDay = day;
+      this.selectedDay = CALENDAR_DAYS.find(d => d.day === day.day) ?? day;
     }, DOOR_OPEN_MS);
   }
 
@@ -174,7 +176,7 @@ export class Calendar implements OnInit, OnDestroy {
 
   onChallengeCompleted(): void {
     if (this.selectedDay) {
-      const wasAlreadyComplete = this.stateService.isCalendarComplete();
+      const wasAlreadyComplete = this.wasCompleteWhenOpened;
       this.stateService.markDayComplete(this.selectedDay.day);
       this.sound.fanfare();
 

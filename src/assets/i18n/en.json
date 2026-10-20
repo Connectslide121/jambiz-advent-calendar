@@ -1376,5 +1376,25 @@
       "games": "Christmas minigames",
       "rewards": "Jambiz surprises"
     }
+  },
+  "online": {
+    "welcome": "Sign in with your Jambiz Microsoft account to play and join the scoreboards.",
+    "signIn": "Sign in with Microsoft",
+    "signOut": "Sign out",
+    "scoreboard": "Christmas scoreboard",
+    "ranking": "Ranking",
+    "global": "All days",
+    "refresh": "Refresh",
+    "points": "pts",
+    "empty": "No results yet. Be the first!",
+    "loading": "Loading…",
+    "saving": "Saving your result…",
+    "retry": "Retry save",
+    "scoring": "1,000 points per completed day plus a speed bonus. Your best run per day counts toward the total. Top 100 players.",
+    "connectionError": "We could not connect to the calendar. Try signing in again.",
+    "configError": "Sign-in is not configured. Contact the calendar administrator.",
+    "loginError": "Please sign in again to continue.",
+    "startError": "This run could not start. The door may still be locked. Close it and try again.",
+    "saveError": "Your result could not be saved. Keep this window open and retry."
   }
 }
