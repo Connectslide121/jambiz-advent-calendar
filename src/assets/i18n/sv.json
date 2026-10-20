@@ -766,7 +766,7 @@
       },
       "legend": "Tryck på tomtarna (guldtomtar ger extra). Låt kolbitarna och julbocken vara!",
       "endlessLegend": "En tomte som smiter, eller ett tryck på kol eller julbock, kostar ett hjärta. Det går fortare och fortare!",
-      "keyHint": "Använd siffertangenterna: 7–8–9 överst, 1–2–3 nederst",
+      "keyHint": "Använd det numeriska tangentbordet för att bonka snöhögarna",
       "timeUp": "Ljuset brann ut!",
       "overText": "Du fick {{score}} av {{target}} poäng. Tomtarna gömmer sig igen – en runda till?",
       "endlessTitle": "Slut på hjärtan!",
