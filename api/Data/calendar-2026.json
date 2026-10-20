@@ -26,7 +26,7 @@
       "challengeType": "jingleBells",
       "funFactKey": "funFacts.day2",
       "challengeData": {
-        "targetLength": 6,
+        "targetLength": 11,
         "startSpeed": 650
       }
     },

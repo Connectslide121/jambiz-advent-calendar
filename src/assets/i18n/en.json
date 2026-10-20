@@ -660,7 +660,7 @@
     },
     "jingleBells": {
       "title": "Bell Choir",
-      "instruction": "Listen to the bells, then ring them back in the same order. Play a melody of {{target}} notes to win!",
+      "instruction": "Listen to Jingle Bells, then ring the bells in the same order. Repeat all {{target}} notes to win — you do not need to copy the rhythm.",
       "ready": "Ready when you are!",
       "listen": "Listen…",
       "yourTurn": "Your turn! ({{current}}/{{total}})",
@@ -1165,15 +1165,15 @@
         "levels": {
           "extra-jingleBells-1": {
             "name": "Carol Practice",
-            "description": "A melody of 8 notes"
+            "description": "A melody of 12 notes"
           },
           "extra-jingleBells-2": {
             "name": "Christmas Concert",
-            "description": "10 notes, a little faster"
+            "description": "14 notes, a little faster"
           },
           "extra-jingleBells-3": {
             "name": "Grand Finale",
-            "description": "12 notes at full speed"
+            "description": "15 notes at full speed"
           },
           "extra-jingleBells-4": {
             "name": "Endless Choir",

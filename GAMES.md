@@ -93,10 +93,12 @@ scrambling a lit tree, so they are always solvable and the hint is exact.
 - Extras: 5 trees, 4 → 7 rows.
 
 ### 🔔 Klockkören / Bell Choir (`jingleBells`)
-Simon says with four singing bells. Bells play even when UI sound is muted, because the melody is
-the game.
-- Config: `{ targetLength = 7, startSpeed = 650, endless }`.
-- Extras: 8, 10 and 12 notes, plus ♾️ endless (one slip ends the run).
+Repeat the 11-note opening refrain of **Jingle Bells**, played immediately with its real rhythm.
+The four bells play C, D, E and G. Mistakes replay the same phrase; the response checks note order,
+not timing. Bells play even when UI sounds are muted because the melody is the game.
+- Config: `{ targetLength = 11, startSpeed = 650, endless }`. Shorter legacy targets expand to the
+  complete phrase; finite levels keep a steady beat. Harder levels continue the repeated refrain.
+- Extras: 12, 14 and 15 notes, plus ♾️ random Simon sequences (one slip ends the run).
 
 ## Action
 

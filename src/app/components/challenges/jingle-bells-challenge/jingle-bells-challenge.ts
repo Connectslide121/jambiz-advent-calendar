@@ -6,7 +6,7 @@ import { CalendarStateService } from '../../../services/calendar-state.service';
 import { SoundService } from '../../../services/sound.service';
 
 export interface JingleBellsConfig {
-  targetLength?: number; // Melody length needed to win. Default 7
+  targetLength?: number; // At least the 11-note Jingle Bells opening phrase
   startSpeed?: number; // Milliseconds per note at the start. Default 650
   endless?: boolean; // Extras: no target, the first mistake ends the run
 }
@@ -21,10 +21,20 @@ interface Bell {
 
 type Phase = 'idle' | 'listening' | 'playing' | 'oops' | 'won' | 'over';
 
+// Jingle Bells, opening refrain in C: E E E | E E E | E G C D E.
+// Beats preserve the held notes and dotted rhythm; no recording is needed.
+const JINGLE_BELLS = [
+  { bell: 2, beats: 1 }, { bell: 2, beats: 1 }, { bell: 2, beats: 2 },
+  { bell: 2, beats: 1 }, { bell: 2, beats: 1 }, { bell: 2, beats: 2 },
+  { bell: 2, beats: 1 }, { bell: 3, beats: 1 }, { bell: 0, beats: 1.5 },
+  { bell: 1, beats: 0.5 }, { bell: 2, beats: 4 },
+] as const;
+
 /**
  * Bell choir - Simon says with four singing bells.
  * Listen to the melody, then ring the bells back in the same order.
- * Each round adds a note. A mistake replays the melody so you can try again.
+ * Start with the Jingle Bells opening phrase. Harder levels add notes to it.
+ * A mistake replays the same phrase. Endless mode keeps random Simon sequences.
  */
 @Component({
   selector: 'app-jingle-bells-challenge',
@@ -52,9 +62,9 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
 
   readonly bells: Bell[] = [
     { id: 0, color: '#ff5a6e', dark: '#9b2335', note: 523.25, labelKey: 'challenges.jingleBells.bells.red' },
-    { id: 1, color: '#f7c873', dark: '#a8721e', note: 659.25, labelKey: 'challenges.jingleBells.bells.gold' },
-    { id: 2, color: '#5cf2b3', dark: '#17573f', note: 783.99, labelKey: 'challenges.jingleBells.bells.green' },
-    { id: 3, color: '#7fb8ff', dark: '#2a4387', note: 1046.5, labelKey: 'challenges.jingleBells.bells.blue' },
+    { id: 1, color: '#f7c873', dark: '#a8721e', note: 587.33, labelKey: 'challenges.jingleBells.bells.gold' },
+    { id: 2, color: '#5cf2b3', dark: '#17573f', note: 659.25, labelKey: 'challenges.jingleBells.bells.green' },
+    { id: 3, color: '#7fb8ff', dark: '#2a4387', note: 783.99, labelKey: 'challenges.jingleBells.bells.blue' },
   ];
 
   phase: Phase = 'idle';
@@ -63,12 +73,13 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
   ringing: number | null = null;
   mistakes = 0;
   bestRound = 0;
-  targetLength = 7;
+  targetLength: number = JINGLE_BELLS.length;
   endless = false;
   /** Melody length reached in the last endless run */
   finalScore = 0;
 
   private timers: ReturnType<typeof setTimeout>[] = [];
+  private clearedNotes = 0;
 
   get round(): number {
     return this.sequence.length;
@@ -76,7 +87,7 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
 
   /** Melodies fully played back so far */
   get roundsCleared(): number {
-    return this.phase === 'won' ? this.targetLength : Math.max(0, this.round - 1);
+    return this.clearedNotes;
   }
 
   get noteSlots(): number[] {
@@ -86,7 +97,9 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.targetLength = Math.max(3, Math.min(15, this.config?.targetLength ?? 7));
+    // Older stored calendar definitions requested only six notes (all E's).
+    // Always include the complete phrase, including its recognisable ending.
+    this.targetLength = Math.max(JINGLE_BELLS.length, Math.min(15, this.config?.targetLength ?? JINGLE_BELLS.length));
     this.endless = !!this.config?.endless;
     const stats = this.statsKey ? this.stateService.getGameStats(this.statsKey) : null;
     this.bestRound = stats?.bestRound ?? 0;
@@ -98,7 +111,8 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
 
   start(): void {
     this.clearTimers();
-    this.sequence = [];
+    this.sequence = this.endless ? [] : JINGLE_BELLS.slice(0, -1).map(note => note.bell);
+    this.clearedNotes = 0;
     this.mistakes = 0;
     this.nextRound();
   }
@@ -123,6 +137,7 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
 
     this.inputIndex++;
     if (this.inputIndex >= this.sequence.length) {
+      this.clearedNotes = this.sequence.length;
       this.recordBest(this.sequence.length);
       if (!this.endless && this.sequence.length >= this.targetLength) {
         this.onWin();
@@ -138,28 +153,33 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
   }
 
   private nextRound(): void {
-    this.sequence.push(Math.floor(Math.random() * this.bells.length));
+    this.sequence.push(this.endless
+      ? Math.floor(Math.random() * this.bells.length)
+      : JINGLE_BELLS[this.sequence.length % JINGLE_BELLS.length].bell);
     this.playSequence();
   }
 
   private playSequence(): void {
     this.phase = 'listening';
     this.inputIndex = 0;
-    // Speed up a little every round
+    // Keep the carol's beat steady; only the random endless mode accelerates.
     const speed = Math.max(
       320,
-      (this.config?.startSpeed ?? 650) - (this.sequence.length - 1) * 35
+      (this.config?.startSpeed ?? 650) - (this.endless ? (this.sequence.length - 1) * 35 : 0)
     );
+    let offset = 500;
     this.sequence.forEach((id, i) => {
-      this.later(() => this.flash(this.bells[id], speed * 0.6), 500 + i * speed);
+      const duration = speed * (this.endless ? 1 : JINGLE_BELLS[i % JINGLE_BELLS.length].beats);
+      this.later(() => this.flash(this.bells[id], duration * 0.65), offset);
+      offset += duration;
     });
-    this.later(() => (this.phase = 'playing'), 500 + this.sequence.length * speed);
+    this.later(() => (this.phase = 'playing'), offset);
   }
 
   private flash(bell: Bell, duration: number): void {
     this.ringing = bell.id;
     // The melody IS the game, so bells play even when UI sounds are muted
-    this.sound.note(bell.note, 0.32);
+    this.sound.note(bell.note, 0.22);
     this.later(() => {
       if (this.ringing === bell.id) this.ringing = null;
     }, duration);

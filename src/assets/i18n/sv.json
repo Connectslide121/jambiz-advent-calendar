@@ -660,7 +660,7 @@
     },
     "jingleBells": {
       "title": "Klockkören",
-      "instruction": "Lyssna på klockorna och ring sedan i samma ordning. Spela en melodi på {{target}} toner för att vinna!",
+      "instruction": "Lyssna på Bjällerklang och ring sedan klockorna i samma ordning. Upprepa alla {{target}} toner för att vinna — du behöver inte följa rytmen.",
       "ready": "Redo när du är!",
       "listen": "Lyssna…",
       "yourTurn": "Din tur! ({{current}}/{{total}})",
@@ -1165,15 +1165,15 @@
         "levels": {
           "extra-jingleBells-1": {
             "name": "Sångövning",
-            "description": "En melodi på 8 toner"
+            "description": "En melodi på 12 toner"
           },
           "extra-jingleBells-2": {
             "name": "Julkonserten",
-            "description": "10 toner, lite snabbare"
+            "description": "14 toner, lite snabbare"
           },
           "extra-jingleBells-3": {
             "name": "Stora finalen",
-            "description": "12 toner i full fart"
+            "description": "15 toner i full fart"
           },
           "extra-jingleBells-4": {
             "name": "Oändlig kör",
