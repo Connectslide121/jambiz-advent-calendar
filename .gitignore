@@ -44,3 +44,9 @@ Thumbs.db
 
 # Agent worktrees
 .claude/worktrees/
+
+# Backend and deployment output
+**/bin/
+**/obj/
+api/local.settings.json
+.azure-local/
