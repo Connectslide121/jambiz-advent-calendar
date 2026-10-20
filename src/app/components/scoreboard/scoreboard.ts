@@ -6,15 +6,19 @@ import { BackendService, Board } from '../../services/backend.service';
 @Component({
   selector: 'app-scoreboard', imports: [FormsModule, TranslateModule],
   template: `
-    <section class="card p-4 sm:p-6 my-6" aria-labelledby="scoreboard-title">
-      <div class="flex flex-wrap items-center gap-3 mb-3">
-        <h2 id="scoreboard-title" class="text-xl flex-1">{{ 'online.scoreboard' | translate }}</h2>
-        <label for="board-day">{{ 'online.ranking' | translate }}</label>
-        <select id="board-day" class="input" [(ngModel)]="day" (ngModelChange)="load()">
-          <option value="global">{{ 'online.global' | translate }}</option>
-          @for (d of days; track d) { <option [value]="d">{{ 'calendar.dayLabel' | translate: { day: d } }}</option> }
-        </select>
-        <button class="btn btn-outline" (click)="load()" [disabled]="loading()">{{ 'online.refresh' | translate }}</button>
+    <section class="card pointer-events-auto p-4 sm:p-6 my-6" aria-labelledby="scoreboard-title">
+      <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-4">
+        <h2 id="scoreboard-title" class="text-xl sm:flex-1">{{ 'online.scoreboard' | translate }}</h2>
+        <div class="flex items-end gap-3 w-full sm:w-auto">
+          <div class="flex-1 sm:flex-none min-w-0">
+            <label for="board-day" class="block text-xs text-text-muted mb-1">{{ 'online.ranking' | translate }}</label>
+            <select id="board-day" class="input h-11 w-full sm:min-w-48" [(ngModel)]="day" (ngModelChange)="load()">
+              <option value="global">{{ 'online.global' | translate }}</option>
+              @for (d of days; track d) { <option [value]="d">{{ 'calendar.dayLabel' | translate: { day: d } }}</option> }
+            </select>
+          </div>
+          <button class="btn btn-outline h-11 shrink-0" (click)="load()" [disabled]="loading()">{{ 'online.refresh' | translate }}</button>
+        </div>
       </div>
       <p class="text-text-muted text-sm mb-3">{{ 'online.scoring' | translate }}</p>
       @if (loading()) { <p role="status">{{ 'online.loading' | translate }}</p> }
