@@ -1336,7 +1336,7 @@
       },
       "replay": {
         "title": "🔄 Want to Play Again?",
-        "content": "Already finished a challenge but want another go? No problem! You can replay any completed challenge as many times as you like. It won't affect your completion status – once done is done!"
+        "content": "Replay any completed day by clicking its revealed picture, or choose Play Again in the game window. Each new run can improve your daily best and global total. Slower runs never reduce your best score, and completed days stay completed."
       },
       "christmas": {
         "title": "🎅 The Big Day - December 25th",
@@ -1393,7 +1393,7 @@
     "loading": "Loading…",
     "saving": "Saving your result…",
     "retry": "Retry save",
-    "scoring": "1,000 points per completed day plus a speed bonus. Your best run per day counts toward the total. Top 100 players.",
+    "scoring": "1,000 points per completed day plus a speed bonus. Your best run per day counts toward the total. Top 100 players. Replay any day to improve your best score.",
     "connectionError": "We could not connect to the calendar. Try signing in again.",
     "configError": "Sign-in is not configured. Contact the calendar administrator.",
     "loginError": "Please sign in again to continue.",

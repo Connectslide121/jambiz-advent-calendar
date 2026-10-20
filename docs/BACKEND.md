@@ -93,6 +93,12 @@ comparable contributions. Each player's best run per day counts; the global boar
 scores. A worse replay cannot reduce a score. Ties use elapsed time, then achievement time and
 stable player ID. Both boards show the top 100.
 
+Completed doors have a full-size replay button over the revealed picture. **Play Again** in the
+game window restarts any game, including from its reward/success screen. The host destroys the
+previous game to stop its timers, remounts a fresh instance, and creates a new timed attempt for
+daily scored runs. Extra-level wins stay in the window so they can be replayed too. Viewing an
+already-earned reward does not submit a result. Dev-mode replays keep skipping cloud writes.
+
 Identity comes from the token; duration/points come from the server. Clients cannot submit points,
 timestamps or another user's ID. An ETag-conditional Cosmos transaction consumes a run and updates
 the player together. Duplicate retries are idempotent; concurrent saves retry without losing other days.

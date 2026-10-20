@@ -549,6 +549,22 @@
   box-shadow: 0 0 0 1.5px rgba(247, 200, 115, 0.8), 0 3px 8px rgba(0, 0, 0, 0.5);
 }
 
+.replay-target {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border: 0;
+  padding: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 3px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+}
+
 .replay-hint {
   position: absolute;
   z-index: 5;

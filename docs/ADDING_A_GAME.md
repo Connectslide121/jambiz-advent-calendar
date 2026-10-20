@@ -24,7 +24,9 @@ export class <PascalName>Challenge {
 }
 ```
 
-`ChallengeHost` creates the component and passes these four inputs with `setInput`. Rules:
+`ChallengeHost` creates the component and passes these four inputs with `setInput`. Its **Play Again**
+button destroys/remounts the game with `isCompleted=false`, preserving best stats and day completion.
+The host handles already-earned rewards and fresh scored run IDs. Rules:
 
 - **Win:** celebrate in the game (animation plus `sound.fanfare()`), save stats, then emit `completed`
   after about 1.5–2 s. The host then shows the day's reward.

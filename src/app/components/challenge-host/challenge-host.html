@@ -14,6 +14,10 @@
         {{ 'calendar.dayLabel' | translate : { day: dayConfig.day } }} 🎁 } @else { 🎁
         {{ 'extras.challengeTitle' | translate }} 🎁 }
       </h2>
+      <button class="btn btn-outline ml-auto mr-2 text-xs sm:text-sm"
+        (click)="replay()" [disabled]="busy || loadingGame">
+        {{ 'ui.playAgain' | translate }}
+      </button>
       <button
         (click)="onClose()"
         class="btn btn-outline p-1 md:p-2 min-w-0 text-xs md:text-base"
@@ -25,8 +29,9 @@
 
     @if (previewRun) { <p class="text-sm text-gold mb-3">{{ 'admin.previewNotice' | translate }}</p> }
     @if ((isCompleted || previewRun) && (dayConfig.reward || dayConfig.funFactKey) && !showFunFact && !busy) {
-      <button class="btn btn-outline mb-3" (click)="showFunFact = true">{{ 'ui.showReward' | translate }}</button>
+      <button class="btn btn-outline mb-3" (click)="viewReward()" [disabled]="loadingGame">{{ 'ui.showReward' | translate }}</button>
     }
+    @if (loadingGame) { <p role="status">{{ 'online.loading' | translate }}</p> }
     @if (busy) { <p role="status">{{ 'online.saving' | translate }}</p> }
     @if (error) {
       <div class="card p-4" role="alert">
@@ -37,8 +42,7 @@
       </div>
     }
     <!-- Challenge Content Area -->
-    @if (!showFunFact) {
-    <div class="challenge-content flex-1 overflow-y-auto pb-4 sm:pb-0">
+    <div [hidden]="showFunFact" class="challenge-content flex-1 overflow-y-auto pb-4 sm:pb-0">
       <!-- Dynamic challenge component container -->
       <ng-container #challengeContainer></ng-container>
 
@@ -52,14 +56,22 @@
       </div>
       }
     </div>
-    } @else {
+    @if (showFunFact) {
     <!-- Fun Fact Display -->
     <div class="flex-1 overflow-y-auto pb-4 sm:pb-0">
+      @if (dayConfig.reward || dayConfig.funFactKey) {
       <app-fun-fact-reveal
         [funFactKey]="dayConfig.funFactKey"
         [reward]="dayConfig.reward"
         (continue)="onCloseFunFact()"
       ></app-fun-fact-reveal>
+      } @else {
+        <div class="text-center py-8">
+          <h3 class="text-2xl text-accent-green mb-6">{{ 'challenges.success.title' | translate }}</h3>
+          <button class="btn btn-primary" (click)="replay()">{{ 'ui.playAgain' | translate }}</button>
+          <button class="btn btn-outline ml-2" (click)="onClose()">{{ 'ui.close' | translate }}</button>
+        </div>
+      }
     </div>
     }
   </div>

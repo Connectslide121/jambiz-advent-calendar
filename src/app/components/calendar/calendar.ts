@@ -184,6 +184,7 @@ export class Calendar implements OnInit, OnDestroy {
       if (!wasAlreadyComplete && this.stateService.isCalendarComplete()) {
         this.calendarComplete.emit();
       }
+      this.wasCompleteWhenOpened = this.stateService.isCalendarComplete();
     }
   }
 

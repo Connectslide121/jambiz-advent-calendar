@@ -44,6 +44,8 @@
           class="door"
           [ngClass]="getDoorTheme(dayConfig.day)"
           [disabled]="!dayConfig.challengeType"
+          [attr.tabindex]="isDayCompleted(dayConfig.day) ? -1 : 0"
+          [attr.aria-hidden]="isDayCompleted(dayConfig.day) ? true : null"
           (click)="onDaySelected(dayConfig)"
           [attr.aria-label]="
             ('calendar.dayLabel' | translate : { day: dayConfig.day }) +
@@ -68,10 +70,14 @@
 
         <!-- Status badges -->
         @if (isDayCompleted(dayConfig.day)) {
+        <button type="button" class="replay-target" (click)="onDaySelected(dayConfig)"
+          [attr.aria-label]="('calendar.dayLabel' | translate: { day: dayConfig.day }) + ': ' + ('ui.playAgain' | translate)"
+          [title]="'ui.playAgain' | translate">
+          <span class="replay-hint" aria-hidden="true">↻ {{ dayConfig.day }}</span>
+        </button>
         <span class="badge badge-done" aria-hidden="true">
           <lucide-icon [img]="Check" class="w-full h-full" [strokeWidth]="3.5"></lucide-icon>
         </span>
-        <span class="replay-hint" aria-hidden="true">{{ dayConfig.day }}</span>
         } @else if (isDayLocked(dayConfig)) {
         <span class="badge badge-lock" aria-hidden="true">
           <lucide-icon [img]="Lock" class="w-full h-full" [strokeWidth]="2.5"></lucide-icon>

@@ -1336,7 +1336,7 @@
       },
       "replay": {
         "title": "🔄 Vill du spela igen?",
-        "content": "Redan klar med en utmaning men vill köra en gång till? Inga problem! Du kan spela om alla klarade utmaningar hur många gånger du vill. Det påverkar inte din klarstatus – en gång klar är alltid klar!"
+        "content": "Spela om en avklarad dag genom att klicka på den framtagna bilden, eller välj Spela igen i spelfönstret. Varje nytt försök kan förbättra ditt dagsbästa och din totalpoäng. Långsammare försök sänker aldrig ditt bästa resultat, och avklarade dagar förblir avklarade."
       },
       "christmas": {
         "title": "🎅 Den stora dagen - 25 december",
@@ -1393,7 +1393,7 @@
     "loading": "Laddar…",
     "saving": "Sparar ditt resultat…",
     "retry": "Försök spara igen",
-    "scoring": "1 000 poäng per avklarad dag plus en tidsbonus. Ditt bästa försök per dag räknas i totalen. Topp 100 spelare.",
+    "scoring": "1 000 poäng per avklarad dag plus en tidsbonus. Ditt bästa försök per dag räknas i totalen. Topp 100 spelare. Spela om en dag för att förbättra ditt bästa resultat.",
     "connectionError": "Vi kunde inte ansluta till kalendern. Försök logga in igen.",
     "configError": "Inloggningen är inte konfigurerad. Kontakta kalenderns administratör.",
     "loginError": "Logga in igen för att fortsätta.",

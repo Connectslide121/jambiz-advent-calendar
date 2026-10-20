@@ -32,7 +32,9 @@ export class ChallengeHost implements OnInit, OnDestroy {
   private attemptId?: string;
   private destroyed = false;
   private saved = false;
+  private runGeneration = 0;
   previewRun = false;
+  loadingGame = false;
   busy = false;
   error = '';
   ngOnDestroy(): void { this.destroyed = true; }
@@ -50,43 +52,65 @@ export class ChallengeHost implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.previewRun = this.state.devMode;
+    this.loadingGame = true;
     // Dynamically load challenge component after view init
     setTimeout(() => this.loadChallengeComponent(), 0);
   }
 
   private async loadChallengeComponent(): Promise<void> {
+    if (this.destroyed) return;
+    const run = ++this.runGeneration;
+    this.loadingGame = true;
+    this.challengeContainer?.clear();
     try {
       if (this.dayConfig.day > 0 && !this.previewRun) this.attemptId = await this.backend.startRun(this.dayConfig.day);
-    } catch { this.error = 'online.startError'; return; }
-    if (this.destroyed) return;
-    if (!this.challengeContainer || !this.dayConfig.challengeType) return;
+      if (this.destroyed) return;
+      if (!this.challengeContainer || !this.dayConfig.challengeType) return;
 
-    const loader = CHALLENGE_LOADERS[this.dayConfig.challengeType];
-    if (!loader) {
-      // Unknown challenge type: the template shows a placeholder
-      return;
-    }
-    // Each game is its own chunk, downloaded the first time its door opens
-    const componentType = await loader();
-    if (this.destroyed) return;
-    this.challengeContainer.clear();
+      const loader = CHALLENGE_LOADERS[this.dayConfig.challengeType];
+      if (!loader) {
+        // Unknown challenge type: the template shows a placeholder
+        return;
+      }
+      // Each game is its own chunk, downloaded the first time its door opens
+      const componentType = await loader();
+      if (this.destroyed) return;
+      this.challengeContainer.clear();
 
-    this.challengeComponentRef = this.challengeContainer.createComponent(componentType);
-    const ref = this.challengeComponentRef;
+      this.challengeComponentRef = this.challengeContainer.createComponent(componentType);
+      const ref = this.challengeComponentRef;
 
-    // Every game takes the same inputs (see GAME_SPEC in the README)
-    ref.setInput('config', this.dayConfig.challengeData ?? {});
-    ref.setInput('isCompleted', this.dayConfig.day > 0 ? false : this.isCompleted);
-    if (this.dayConfig.day > 0) {
-      ref.setInput('day', this.dayConfig.day);
-    }
-    if (this.dayConfig.levelId) {
-      ref.setInput('levelId', this.dayConfig.levelId);
-    }
+      // Every game takes the same inputs (see GAME_SPEC in the README)
+      ref.setInput('config', this.dayConfig.challengeData ?? {});
+      ref.setInput('isCompleted', false);
+      if (this.dayConfig.day > 0) {
+        ref.setInput('day', this.dayConfig.day);
+      }
+      if (this.dayConfig.levelId) {
+        ref.setInput('levelId', this.dayConfig.levelId);
+      }
 
-    ref.instance.completed.subscribe(() => {
-      this.onChallengeComplete();
-    });
+      ref.instance.completed.subscribe(() => {
+        if (run === this.runGeneration) this.onChallengeComplete();
+      });
+    } catch { this.error = 'online.startError'; }
+    finally { this.loadingGame = false; }
+  }
+
+  async replay(): Promise<void> {
+    if (this.busy || this.loadingGame || this.destroyed) return;
+    this.saved = false;
+    this.error = '';
+    this.attemptId = undefined;
+    this.showFunFact = false;
+    await this.loadChallengeComponent();
+  }
+
+  viewReward(): void {
+    if (this.busy || this.loadingGame) return;
+    this.runGeneration++;
+    this.challengeContainer?.clear();
+    this.showFunFact = true;
   }
 
   onClose(): void {
@@ -109,15 +133,12 @@ export class ChallengeHost implements OnInit, OnDestroy {
         await this.backend.saveExtra(this.dayConfig.levelId, this.state.getGameStats(this.dayConfig.levelId) ?? {});
       }
       this.saved = true;
+      this.isCompleted = true;
     } catch { this.error = 'online.saveError'; return; }
     finally { this.busy = false; }
     if (this.destroyed) return;
-    // Only show the reward screen if there is one (extras have no rewards)
-    if (this.dayConfig.funFactKey || this.dayConfig.reward) {
-      this.showFunFact = true;
-    } else {
-      this.close.emit();
-    }
+    this.challengeContainer?.clear();
+    this.showFunFact = true;
     this.challengeCompleted.emit();
   }
 
