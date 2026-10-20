@@ -46,7 +46,7 @@
   </p>
 
   <!-- The bells -->
-  <div class="bells" [class.disabled]="phase !== 'playing'">
+  <div class="bells" [style.--bell-count]="visibleBells.length" [class.disabled]="phase !== 'playing'">
     @for (b of visibleBells; track b.id) {
     <button
       type="button"

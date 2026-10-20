@@ -97,7 +97,8 @@ Simon-style memory game with five singing bells. Start with one note and earn on
 note each round. Day 2 uses the eight-note opening of **We Wish You a Merry Christmas**:
 G–C–C–D–C–B–A–A. Matching the rhythm is optional. After the final correct answer, the song
 continues through the rest of its verse before the reward appears. Two extra bells join the choir
-after winning so every note in that continuation has a matching glow and ringing animation. Mistakes replay the same
+after winning so every note in that continuation has a matching glow and ringing animation.
+All seven bells have distinct colors and fit on one row, shrinking on narrow screens. Mistakes replay the same
 round. Bells play even when UI sounds are muted because the melody is the game.
 - Config: `{ targetLength = 8, startSpeed = 650, endless }`. Day 2 stays at eight notes, including
   with older cloud configurations. Longer extras repeat the fragment; finite levels keep a steady beat.

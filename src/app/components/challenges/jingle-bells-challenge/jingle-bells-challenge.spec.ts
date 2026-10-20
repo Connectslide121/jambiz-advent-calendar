@@ -99,6 +99,15 @@ describe('Step-by-step Christmas melody', () => {
     fixture.detectChanges();
     expect(buttons().length).toBe(7);
     expect(buttons()[5].disabled).toBeTrue();
+    const choir = fixture.nativeElement.querySelector('.bells') as HTMLElement;
+    for (const width of [342, 1280]) {
+      fixture.nativeElement.style.width = `${width}px`;
+      expect(new Set(Array.from(buttons(), bell => bell.offsetTop)).size).toBe(1);
+      expect(choir.scrollWidth).toBeLessThanOrEqual(choir.clientWidth);
+    }
+    const colors = Array.from(buttons(), bell => getComputedStyle(bell.querySelector('.body')!).fill);
+    expect(new Set(colors).size).toBe(7);
+
     sound.note.and.callFake(note => {
       fixture.detectChanges();
       const index = game.visibleBells.findIndex(b => b.note === note);

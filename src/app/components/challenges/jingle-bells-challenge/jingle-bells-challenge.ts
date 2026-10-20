@@ -84,8 +84,8 @@ export class JingleBellsChallenge implements OnInit, OnDestroy {
 
   private readonly fullChoir: Bell[] = [
     ...this.bells,
-    { id: 5, color: 'var(--color-gold)', dark: '#a8721e', note: 659.25, labelKey: 'challenges.jingleBells.bells.highGold' },
-    { id: 6, color: 'var(--color-accent-green)', dark: '#17573f', note: 698.46, labelKey: 'challenges.jingleBells.bells.highGreen' },
+    { id: 5, color: 'var(--color-ember)', dark: 'color-mix(in srgb, var(--color-ember) 60%, var(--color-bg-deep))', note: 659.25, labelKey: 'challenges.jingleBells.bells.orange' },
+    { id: 6, color: 'color-mix(in srgb, var(--color-accent-red) 45%, #7fb8ff)', dark: 'color-mix(in srgb, var(--color-accent-red) 35%, #2a4387)', note: 698.46, labelKey: 'challenges.jingleBells.bells.purple' },
   ];
 
   get visibleBells(): Bell[] {

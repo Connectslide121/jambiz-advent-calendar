@@ -675,8 +675,8 @@
         "green": "Green bell",
         "blue": "Blue bell",
         "frost": "Frost bell",
-        "highGold": "High gold bell",
-        "highGreen": "High green bell"
+        "orange": "Orange bell",
+        "purple": "Purple bell"
       },
       "endlessInstruction": "Endless mode: how long a melody can you remember? One wrong bell ends the run.",
       "gameOver": "The choir rests! You remembered {{score}} notes."

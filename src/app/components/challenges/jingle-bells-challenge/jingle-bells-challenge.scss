@@ -62,15 +62,10 @@
 
 .bells {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(12px, 3vw, 24px);
-  max-width: 400px;
+  grid-template-columns: repeat(var(--bell-count, 5), minmax(0, 1fr));
+  gap: clamp(4px, 1.4vw, 16px);
+  max-width: 760px;
   margin: 0 auto;
-
-  @media (min-width: 640px) {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    max-width: 620px;
-  }
 
   &.disabled .bell {
     cursor: default;
@@ -81,7 +76,8 @@
   position: relative;
   aspect-ratio: 1;
   border: 0;
-  border-radius: 24px;
+  min-width: 0;
+  border-radius: clamp(8px, 2vw, 24px);
   padding: 10% 14% 6%;
   cursor: pointer;
   background: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.07), rgba(0, 0, 0, 0.25));

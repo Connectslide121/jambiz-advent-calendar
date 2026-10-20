@@ -675,8 +675,8 @@
         "green": "Grön klocka",
         "blue": "Blå klocka",
         "frost": "Frostklocka",
-        "highGold": "Ljus guldklocka",
-        "highGreen": "Ljus grön klocka"
+        "orange": "Orange klocka",
+        "purple": "Lila klocka"
       },
       "endlessInstruction": "Oändligt läge: hur lång melodi kan du komma ihåg? En fel klocka avslutar rundan.",
       "gameOver": "Kören tar paus! Du kom ihåg {{score}} toner."
