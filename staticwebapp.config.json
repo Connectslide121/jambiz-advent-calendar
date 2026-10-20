@@ -1,0 +1,5 @@
+{
+  "navigationFallback": { "rewrite": "/index.html", "exclude": ["/assets/*", "/rewards/*", "/*.{js,css,json,ico,png,webp}"] },
+  "routes": [{ "route": "/app-config.json", "headers": { "Cache-Control": "no-store" } }],
+  "globalHeaders": { "X-Content-Type-Options": "nosniff", "Referrer-Policy": "strict-origin-when-cross-origin" }
+}
