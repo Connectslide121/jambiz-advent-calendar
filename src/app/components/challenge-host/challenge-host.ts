@@ -32,6 +32,7 @@ export class ChallengeHost implements OnInit, OnDestroy {
   private attemptId?: string;
   private destroyed = false;
   private saved = false;
+  previewRun = false;
   busy = false;
   error = '';
   ngOnDestroy(): void { this.destroyed = true; }
@@ -48,13 +49,14 @@ export class ChallengeHost implements OnInit, OnDestroy {
   private challengeComponentRef?: ComponentRef<any>;
 
   ngOnInit(): void {
+    this.previewRun = this.state.devMode;
     // Dynamically load challenge component after view init
     setTimeout(() => this.loadChallengeComponent(), 0);
   }
 
   private async loadChallengeComponent(): Promise<void> {
     try {
-      if (this.dayConfig.day > 0) this.attemptId = await this.backend.startRun(this.dayConfig.day);
+      if (this.dayConfig.day > 0 && !this.previewRun) this.attemptId = await this.backend.startRun(this.dayConfig.day);
     } catch { this.error = 'online.startError'; return; }
     if (this.destroyed) return;
     if (!this.challengeContainer || !this.dayConfig.challengeType) return;
@@ -96,7 +98,9 @@ export class ChallengeHost implements OnInit, OnDestroy {
     this.busy = true;
     this.error = '';
     try {
-      if (this.dayConfig.day > 0) {
+      if (this.previewRun) {
+        if (this.dayConfig.day > 0) this.state.markDayComplete(this.dayConfig.day);
+      } else if (this.dayConfig.day > 0) {
         if (!this.attemptId) throw new Error('Missing run');
         await this.backend.complete(this.attemptId, this.state.getGameStats(this.dayConfig.day) ?? {});
         this.state.loadCloudProgress();

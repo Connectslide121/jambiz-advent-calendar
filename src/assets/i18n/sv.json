@@ -1359,7 +1359,10 @@
     "allMarkedComplete": "Alla utmaningar har markerats som slutförda!",
     "clearAll": "Rensa alla framsteg",
     "confirmClearAll": "Är du säker på att du vill rensa alla framsteg? Detta återställer alla kalenderdagar och extranivåer. Detta kan inte ångras.",
-    "allCleared": "Alla framsteg har rensats!"
+    "allCleared": "Alla framsteg har rensats!",
+    "previewMode": "Utvecklarläge",
+    "previewNotice": "Lokal förhandsvisning: alla spel, bonusnivåer och belöningar är tillgängliga. Resultaten sparas bara i sessionen och räknas inte i topplistorna.",
+    "previewError": "Förhandsvisningen kunde inte laddas. Starta om npm start och försök igen."
   },
   "landing": {
     "eyebrow": "Jambiz presenterar",

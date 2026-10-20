@@ -64,6 +64,7 @@
       <div class="devtools">
         <button
           (click)="calendarState.toggleDevMode()"
+          [disabled]="calendarState.previewLoading"
           class="btn text-xs px-2.5 py-1.5"
           [class.btn-secondary]="calendarState.devMode"
           [class.btn-outline]="!calendarState.devMode"
@@ -71,6 +72,7 @@
           title="Dev Mode: {{ calendarState.devMode ? 'ON' : 'OFF' }} (unlocks all days)"
         >
           <lucide-icon [img]="Code" class="w-4 h-4" [strokeWidth]="2"></lucide-icon>
+          {{ 'admin.previewMode' | translate }} {{ calendarState.devMode ? 'ON' : 'OFF' }}
         </button>
         <div class="flex items-center gap-1">
           <input
@@ -146,6 +148,8 @@
       (openExtras)="openExtras()"
       (calendarComplete)="onCalendarComplete()"
     ></app-calendar>
+    @if (calendarState.devMode) { <p class="card p-3 my-3 text-gold" role="status">{{ 'admin.previewNotice' | translate }}</p> }
+    @if (calendarState.previewError) { <p class="card p-3 my-3" role="alert">{{ 'admin.previewError' | translate }}</p> }
     <app-scoreboard></app-scoreboard>
   </main>
 

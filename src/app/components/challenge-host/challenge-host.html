@@ -23,7 +23,8 @@
       </button>
     </div>
 
-    @if (isCompleted && dayConfig.reward && !showFunFact && !busy) {
+    @if (previewRun) { <p class="text-sm text-gold mb-3">{{ 'admin.previewNotice' | translate }}</p> }
+    @if ((isCompleted || previewRun) && (dayConfig.reward || dayConfig.funFactKey) && !showFunFact && !busy) {
       <button class="btn btn-outline mb-3" (click)="showFunFact = true">{{ 'ui.showReward' | translate }}</button>
     }
     @if (busy) { <p role="status">{{ 'online.saving' | translate }}</p> }

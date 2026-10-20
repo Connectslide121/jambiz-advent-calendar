@@ -100,7 +100,7 @@ export class App implements OnDestroy {
   }
 
   /**
-   * Secret dev tools toggle: Type "jambiz" anywhere to toggle visibility
+   * Type "devtools" outside an input to show local preview controls.
    */
   @HostListener('document:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent): void {
@@ -130,6 +130,7 @@ export class App implements OnDestroy {
       // Check if sequence matches
       if (this.secretSequence.join('') === this.SECRET_CODE.join('')) {
         this.showDevTools = !this.showDevTools;
+        if (this.showDevTools) this.showLandingPage = false;
         this.secretSequence = [];
       }
 
@@ -326,6 +327,7 @@ export class App implements OnDestroy {
   }
 
   isExtraCompleted(levelId: string): boolean {
+    if (!this.calendarState.devMode) return !!this.backend.player()?.extras[levelId];
     return this.completedExtras.has(levelId);
   }
 

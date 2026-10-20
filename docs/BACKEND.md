@@ -68,6 +68,16 @@ remain in `extras-config.ts`; their saved results are separate from the competit
 Old browser progress is intentionally not imported into official results. Language/sound settings
 remain local. Dev tools are localhost-only previews and cannot bypass server dates or reset cloud data.
 
+For full local access, type **`devtools`** outside an input. This opens the calendar and its developer
+controls. Turn **Dev mode ON** to play every day and extra level and browse all rewards. Preview games
+skip run creation and result/extra submissions; completions and stats stay in memory for that session.
+The game modal also offers **Show reward** without requiring a win. Turning dev mode off restores
+the authenticated calendar and cloud progress. A banner identifies preview runs.
+
+Reward definitions for preview come from `/dev-preview/calendar-2026.json`, copied from the seed
+only by Angular's **development** build configuration. Production output does not contain this asset,
+and activation also requires a development build on `localhost`. Preview does not relax API checks.
+
 ## Scoring and reliability
 
 Door N opens December N, 2026 at **00:00 Europe/Stockholm**, and stays unlocked afterward.

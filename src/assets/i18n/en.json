@@ -1359,7 +1359,10 @@
     "allMarkedComplete": "All challenges have been marked as completed!",
     "clearAll": "Clear All Progress",
     "confirmClearAll": "Are you sure you want to clear all progress? This will reset all calendar days and extras. This cannot be undone.",
-    "allCleared": "All progress has been cleared!"
+    "allCleared": "All progress has been cleared!",
+    "previewMode": "Dev mode",
+    "previewNotice": "Local preview: all games, extras and rewards are available. Results stay in this session and do not count on scoreboards.",
+    "previewError": "Preview content could not load. Restart npm start and try again."
   },
   "landing": {
     "eyebrow": "Jambiz presents",

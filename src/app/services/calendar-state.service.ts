@@ -1,5 +1,7 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, isDevMode } from '@angular/core';
 import { BackendService } from './backend.service';
+import { CALENDAR_DAYS } from '../config/calendar-config';
+import { CalendarDayConfig } from '../models/calendar.models';
 
 @Injectable({ providedIn: 'root' })
 export class CalendarStateService {
@@ -8,6 +10,9 @@ export class CalendarStateService {
   private gameStats = new Map<string, any>();
   private _devMode = false;
   private _dateOverride: number | null = null;
+  private officialDays: CalendarDayConfig[] | null = null;
+  previewLoading = false;
+  previewError = false;
 
   loadCloudProgress(): void {
     const player = this.backend.player();
@@ -16,8 +21,31 @@ export class CalendarStateService {
     for (const [key, stats] of Object.entries(player?.extras ?? {})) this.gameStats.set(key, stats);
   }
   get devMode(): boolean { return this._devMode; }
-  set devMode(value: boolean) { this._devMode = location.hostname === 'localhost' && value; }
-  toggleDevMode(): void { this.devMode = !this.devMode; }
+  async toggleDevMode(): Promise<void> { await this.setDevMode(!this.devMode); }
+  async setDevMode(enabled: boolean): Promise<void> {
+    if (!isDevMode() || location.hostname !== 'localhost' || this.previewLoading || enabled === this.devMode) return;
+    this.previewError = false;
+    if (!enabled) {
+      this._devMode = false;
+      this._dateOverride = null;
+      CALENDAR_DAYS.splice(0, CALENDAR_DAYS.length, ...(this.officialDays ?? []));
+      this.officialDays = null;
+      this.gameStats.clear();
+      this.loadCloudProgress();
+      return;
+    }
+    this.previewLoading = true;
+    try {
+      const response = await fetch('/dev-preview/calendar-2026.json', { cache: 'no-store', signal: AbortSignal.timeout(10000) });
+      if (!response.ok) throw new Error('Preview content unavailable');
+      const preview = await response.json() as { days: CalendarDayConfig[] };
+      if (!Array.isArray(preview.days) || preview.days.length !== 24) throw new Error('Invalid preview calendar');
+      this.officialDays = [...CALENDAR_DAYS];
+      CALENDAR_DAYS.splice(0, CALENDAR_DAYS.length, ...preview.days);
+      this._devMode = true;
+    } catch { this.previewError = true; }
+    finally { this.previewLoading = false; }
+  }
   get dateOverride(): number | null { return this._dateOverride; }
   set dateOverride(value: number | null) { if (location.hostname === 'localhost') this._dateOverride = value; }
   private stockholmDate(): string {
@@ -38,9 +66,12 @@ export class CalendarStateService {
   isDayCompleted(day: number): boolean { return this.completedDays.has(day); }
   isCalendarComplete(): boolean { return this.completedDays.size === 24; }
   isChristmasDay(): boolean { return this.stockholmDate() >= '2026-12-25'; }
-  isFullyUnlocked(): boolean { return this.isCalendarComplete() || this.isChristmasDay(); }
+  isFullyUnlocked(): boolean { return this.devMode || this.isCalendarComplete() || this.isChristmasDay(); }
   // Cloud completion is loaded by ChallengeHost after the API commits the result.
-  markDayComplete(_day: number): void { this.loadCloudProgress(); }
+  markDayComplete(day: number): void {
+    if (this.devMode) this.completedDays.add(day);
+    else this.loadCloudProgress();
+  }
   markAllDaysComplete(): void {
     if (location.hostname === 'localhost') for (let day = 1; day <= 24; day++) this.completedDays.add(day);
   }
