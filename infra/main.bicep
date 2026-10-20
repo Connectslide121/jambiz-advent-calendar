@@ -76,7 +76,7 @@ resource api 'Microsoft.Web/sites@2024-04-01' = {
     httpsOnly: true
     siteConfig: {
       minTlsVersion: '1.2'
-      cors: { allowedOrigins: ['https://${swa.properties.defaultHostname}', 'http://localhost:4200'] }
+      cors: { allowedOrigins: ['https://${swa.properties.defaultHostname}', 'https://jambizadvent.se', 'http://localhost:4200'] }
     }
     functionAppConfig: {
       deployment: {

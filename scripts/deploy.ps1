@@ -21,7 +21,7 @@ $config = @{ tenantId = $entra.tenantId; spaClientId = $entra.spaClientId; apiCl
 $config | ConvertTo-Json | Set-Content public/app-config.json
 $app = az ad app show --id $entra.spaClientId -o json | ConvertFrom-Json
 Check 'Read SPA registration'
-$redirects = @(@($app.spa.redirectUris) + @($outputs.siteUrl.value, 'http://localhost:4200') | Sort-Object -Unique)
+$redirects = @(@($app.spa.redirectUris) + @($outputs.siteUrl.value, 'https://jambizadvent.se', 'http://localhost:4200') | Sort-Object -Unique)
 @{ spa = @{ redirectUris = $redirects } } | ConvertTo-Json -Depth 5 | Set-Content .azure-local/redirects.json
 az rest --method PATCH --url "https://graph.microsoft.com/v1.0/applications/$($entra.spaObjectId)" --body '@.azure-local/redirects.json' --only-show-errors -o none
 Check 'Configure site redirect URI'

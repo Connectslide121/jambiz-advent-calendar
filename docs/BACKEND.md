@@ -18,8 +18,8 @@ Subscription **Sprinta Intern** (`ffb12bea-8324-4344-8361-bdcf71f032d0`), resour
 | Database / container / partition key | `advent` / `calendar` / `/season` |
 | Function host/package storage | `stadventwipgysmx` |
 
-This is a separate development deployment. Existing `jambizadvent.se` GitHub Pages hosting and
-podium-ops resources are unchanged. There are no always-ready Function instances or provisioned
+This is a separate development deployment. `jambizadvent.se` also serves the current frontend through GitHub Pages; both frontend origins
+use this backend. Podium-ops resources are unchanged. There are no always-ready Function instances or provisioned
 Cosmos throughput. Azure resources still have usage charges.
 
 ## Authentication and data access
@@ -34,12 +34,12 @@ The calendar uses independent registrations and does not request access to the O
 - Tenant users, including admitted guests, can sign in subject to tenant policies. No app-level
   group, email-domain or user allowlist is imposed, and enterprise-app assignment is not required.
 - MSAL uses authorization code with PKCE and full-page redirects, with the SWA origin and
-  `http://localhost:4200` registered. No client secret is used.
+  `http://localhost:4200` and `https://jambizadvent.se` registered. No client secret is used.
 - Every API route validates bearer signature, v2 issuer, API audience, tenant, calling SPA (`azp`),
   delegated scope (`scp`) and user object ID (`oid`). There is no development auth bypass.
 - Functions' `AuthorizationLevel.Anonymous` means no Function key is required; the explicit
   Entra checks in `CalendarFunctions.Execute` still apply.
-- `public/app-config.json` contains only public IDs and API origin. CORS allows the SWA origin
+- `public/app-config.json` contains only public IDs and API origin. CORS allows the SWA origin, `https://jambizadvent.se`
   and localhost. Player responses have `Cache-Control: no-store`.
 - Cosmos key authentication is disabled. The Function's managed identity has Cosmos Data
   Contributor scoped to `/dbs/advent` only.
@@ -188,7 +188,9 @@ Deploy builds/tests first, uploads the Angular output with SWA CLI, then publish
 including hidden host files. The frontend must understand the new game types before the API
 applies a calendar revision. Already-open browser tabs may need a reload after the update. The SWA deployment token is held only in a process environment variable
 and removed afterward. No Git push or automatic GitHub Actions deployment is configured here.
-The old `npm run deploy` targets GitHub Pages; use the PowerShell script for Azure.
+`npm run deploy` builds and publishes the frontend to the existing `gh-pages` branch for
+`https://jambizadvent.se`. It uses the same public API configuration and Entra SPA as the SWA.
+Use the PowerShell script for Azure. Azure DevOps migration and pipeline setup are deferred.
 
 Optional live Cosmos tests create uniquely named test players/runs and clean them up:
 
