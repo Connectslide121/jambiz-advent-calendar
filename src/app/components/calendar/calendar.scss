@@ -99,6 +99,12 @@
   }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}
+
 /* ==========================================================================
    Window grid
    ========================================================================== */
@@ -574,7 +580,9 @@
   display: grid;
   gap: clamp(14px, 2vw, 20px);
   grid-template-columns: minmax(0, 1fr);
-  animation: rise 0.9s var(--ease-out) 0.15s both;
+  // Fade only, and not filled forwards: a lingering transform or opacity animation makes this
+  // column a stacking context that traps the scoreboard's fixed modal below the header
+  animation: fadeIn 0.9s var(--ease-out) 0.15s backwards;
 
   @media (min-width: 640px) and (max-width: 1023px) {
     grid-template-columns: 1fr 1fr;
