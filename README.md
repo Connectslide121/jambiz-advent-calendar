@@ -22,7 +22,7 @@ a cosy Christmas minigame behind it, and beating the game unwraps a reward. Live
     hills with a log cabin, and snow that drifts with the mouse. Click the moon to call Santa's sleigh.
   - Doors: 24 frosted windowpanes that swing open on hinges and shiver when locked; today's window glows
     like a lit candle, and finished windows show their piece of the picture.
-  - Progress: a line-drawn constellation tree that lights one star per finished day.
+  - Progress: a Christmas tree that lights one ornament per finished day.
   - Menus and cards: quiet glass panels with hairline borders, serif headings and paper-white buttons,
     matching the welcome page.
   - Lights: a swaying string of fairy lights; tap a bulb to ring it.
@@ -69,7 +69,7 @@ src/
 │   │   ├── string-lights/     # Fairy-light garland
 │   │   ├── landing-page/      # Title page with the countdown to December 1st
 │   │   ├── calendar/          # Windowpane doors, sidebar, Christmas Day card
-│   │   ├── progress-tree/     # Constellation tree, one star per finished day
+│   │   ├── progress-tree/     # One ornament per finished day
 │   │   ├── challenge-host/    # Modal that lazy-loads a game, then shows the reward
 │   │   ├── fun-fact-reveal/   # Reward screens (text, video, audio, coupons, snow globe…)
 │   │   └── challenges/        # The 24 games, one folder each
