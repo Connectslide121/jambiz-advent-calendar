@@ -21,6 +21,15 @@ public sealed class ApiException(int status, string message) : Exception(message
 
 public static class CalendarRules
 {
+    // The scoreboard name: the Entra display name, else the sign-in address (preferred_username,
+    // email, upn). Only a token without any of these gets a short id-based label.
+    public static string DisplayName(Guid oid, params string?[] candidates)
+    {
+        var name = candidates.Select(c => c?.Trim()).FirstOrDefault(c => !string.IsNullOrEmpty(c))
+            ?? $"Jambiz #{oid.ToString("N")[..6]}";
+        return name[..Math.Min(100, name.Length)];
+    }
+
     public static bool IsUnlocked(int year, int day, DateTimeOffset now) =>
         TimeZoneInfo.ConvertTime(now, TimeZoneInfo.FindSystemTimeZoneById("Europe/Stockholm")).Date
         >= new DateTime(year, 12, day);

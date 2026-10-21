@@ -63,7 +63,9 @@ One logical partition per season (`2026`) contains:
   and all player documents. An ETag-conditional write retries concurrent edits. After the revision
   is applied, subsequent requests preserve later edits to game definitions too.
 - `player:<Entra oid>`: display name, best scored result and game statistics per day, plus
-  extra-level completions/statistics. Cloud progress follows the user across devices.
+  extra-level completions/statistics. Cloud progress follows the user across devices. The display
+  name is the token's `name`, else the sign-in address (`preferred_username`, `email`, `upn`), else
+  `Jambiz #<oid prefix>`; loading the calendar refreshes a stored name that has changed.
 - `attempt:<random id>`: owner, day, server start time and consumed flag; one-hour TTL.
 
 Media stays under `public/rewards/`; Cosmos stores URLs/configuration rather than binary files.

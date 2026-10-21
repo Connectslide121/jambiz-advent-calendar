@@ -33,6 +33,11 @@ Check(CalendarRules.KeepBest([result], result with { Score = 1200 }).Single().Sc
 Check(CalendarRules.KeepBest([result], result with { Score = 1600 }).Single().Score == 1600, "Best result not saved");
 Check(CalendarRules.KeepBest([result], result with { Day = 2 }).Count == 2, "New day lost");
 Check(CalendarRules.KeepBest([result], result with { ElapsedSeconds = 59.99 }).Single().ElapsedSeconds == 59.99, "Tied score must use precise elapsed time");
+var oid = Guid.Parse("1a2b3c4d-0000-0000-0000-000000000000");
+Check(CalendarRules.DisplayName(oid, "Anna Lind", "anna@jambiz.se") == "Anna Lind", "Display name must win");
+Check(CalendarRules.DisplayName(oid, "  ", null, "anna@jambiz.se") == "anna@jambiz.se", "Blank name must fall back to the email");
+Check(CalendarRules.DisplayName(oid, null, null, null, null) == "Jambiz #1a2b3c", "Missing claims need a distinct label");
+Check(CalendarRules.DisplayName(oid, new string('x', 150)).Length == 100, "Names are capped");
 
 var catalog = JsonNode.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Data", "calendar-2026.json")))!.AsObject();
 var legacy = (JsonObject)catalog.DeepClone();

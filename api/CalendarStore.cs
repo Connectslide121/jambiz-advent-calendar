@@ -44,9 +44,17 @@ public sealed class CalendarStore
     }
     public async Task<PlayerDocument> Player(string playerId, string name)
     {
-        try { return (await container.ReadItemAsync<PlayerDocument>(playerId, new(Season))).Resource; }
+        ItemResponse<PlayerDocument> response;
+        try { response = await container.ReadItemAsync<PlayerDocument>(playerId, new(Season)); }
         catch (CosmosException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         { return new(playerId, Season, name, []); }
+        var player = response.Resource;
+        if (player.DisplayName == name) return player;
+        // Keep the scoreboard name current (e.g. an old "Player" fallback) without waiting for a new result.
+        var renamed = player with { DisplayName = name };
+        try { await container.ReplaceItemAsync(renamed, playerId, new(Season), new() { IfMatchEtag = response.ETag }); }
+        catch (CosmosException ex) when (ex.StatusCode == HttpStatusCode.PreconditionFailed) { } // a save won; it carries the name too
+        return renamed;
     }
     public async Task<AttemptDocument> Start(string playerId, int day)
     {

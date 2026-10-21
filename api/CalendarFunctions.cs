@@ -20,8 +20,9 @@ public sealed class CalendarFunctions(CalendarStore store, IConfiguration config
         request.HttpContext.Response.Headers.CacheControl = "no-store";
         try
         {
-            var displayName = user.FindFirstValue("name") ?? "Player";
-            return new OkObjectResult(await action($"player:{oid}", displayName[..Math.Min(100, displayName.Length)]));
+            var displayName = CalendarRules.DisplayName(oid, user.FindFirstValue("name"),
+                user.FindFirstValue("preferred_username"), user.FindFirstValue("email"), user.FindFirstValue("upn"));
+            return new OkObjectResult(await action($"player:{oid}", displayName));
         }
         catch (ApiException ex) { return new ObjectResult(new { error = ex.Message }) { StatusCode = ex.Status }; }
         catch (JsonException) { return new BadRequestObjectResult(new { error = "Invalid JSON." }); }
