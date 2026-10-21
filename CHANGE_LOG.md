@@ -1,3 +1,4 @@
+- 2026-10-21 - feat: redesign the calendar, menus and cards to match the welcome page: frosted windowpane doors with a candle-lit today, a constellation progress tree, hairline glass panels, numbered info and journal-style rewards, quieter buttons, game headings and reward reveal.
 - 2026-10-17 - feat: replace every game with 12 new Christmas games plus Tree Lights and Bell Choir (14 types), lazy-loaded through a registry; new Extras with 5 levels per puzzle game and endless modes for the action games.
 - 2026-10-17 - feat: classier ivory landing page; lighter aurora rendering (no CSS blur) for smoother animation.
 - 2026-10-17 - feat: start the 2026 calendar with the "Nordic Christmas Night" redesign (winter scene, 3D doors, progress tree, Web Audio bells). 2025 archived on the advent-2025 branch.

@@ -20,8 +20,11 @@ a cosy Christmas minigame behind it, and beating the game unwraps a reward. Live
 - **"Nordic Christmas night" design.**
   - Background: an animated scene with northern lights, twinkling stars and shooting stars, parallax
     hills with a log cabin, and snow that drifts with the mouse. Click the moon to call Santa's sleigh.
-  - Doors: 3D advent doors that swing open on hinges, shiver when locked and glow on the day they open.
-  - Progress: a Christmas tree that lights one ornament per finished day.
+  - Doors: 24 frosted windowpanes that swing open on hinges and shiver when locked; today's window glows
+    like a lit candle, and finished windows show their piece of the picture.
+  - Progress: a line-drawn constellation tree that lights one star per finished day.
+  - Menus and cards: quiet glass panels with hairline borders, serif headings and paper-white buttons,
+    matching the welcome page.
   - Lights: a swaying string of fairy lights; tap a bulb to ring it.
 - **Sound.** Bells and chimes are synthesized with Web Audio, so there are no sound files. Sound is
   on by default, with a mute toggle in the header that remembers your choice.
@@ -65,8 +68,8 @@ src/
 │   │   ├── winter-scene/      # Animated background: sky, aurora, moon, sleigh, hills, snow
 │   │   ├── string-lights/     # Fairy-light garland
 │   │   ├── landing-page/      # Title page with the countdown to December 1st
-│   │   ├── calendar/          # 3D doors, sidebar, Christmas Day card
-│   │   ├── progress-tree/     # One ornament per finished day
+│   │   ├── calendar/          # Windowpane doors, sidebar, Christmas Day card
+│   │   ├── progress-tree/     # Constellation tree, one star per finished day
 │   │   ├── challenge-host/    # Modal that lazy-loads a game, then shows the reward
 │   │   ├── fun-fact-reveal/   # Reward screens (text, video, audio, coupons, snow globe…)
 │   │   └── challenges/        # The 24 games, one folder each
