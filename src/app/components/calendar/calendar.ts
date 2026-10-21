@@ -9,6 +9,7 @@ import { CalendarDayConfig, ChallengeType } from '../../models/calendar.models';
 import { CHALLENGE_ICONS } from '../../config/challenge-icons';
 import { ChallengeHost } from '../challenge-host/challenge-host';
 import { ProgressTree } from '../progress-tree/progress-tree';
+import { Scoreboard } from '../scoreboard/scoreboard';
 
 // Grid configuration for puzzle image
 const GRID_COLS = 6;
@@ -22,7 +23,7 @@ const DOOR_OPEN_MS = 650;
 
 @Component({
   selector: 'app-calendar',
-  imports: [CommonModule, TranslateModule, ChallengeHost, LucideAngularModule, ProgressTree],
+  imports: [CommonModule, TranslateModule, ChallengeHost, LucideAngularModule, ProgressTree, Scoreboard],
   templateUrl: './calendar.html',
   styleUrl: './calendar.scss',
 })

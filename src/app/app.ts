@@ -27,7 +27,6 @@ import { CalendarStateService } from './services/calendar-state.service';
 import { SoundService } from './services/sound.service';
 import { WinterScene } from './components/winter-scene/winter-scene';
 import { BackendService } from './services/backend.service';
-import { Scoreboard } from './components/scoreboard/scoreboard';
 import { StringLights } from './components/string-lights/string-lights';
 
 @Component({
@@ -42,7 +41,6 @@ import { StringLights } from './components/string-lights/string-lights';
     FunFactReveal,
     WinterScene,
     StringLights,
-    Scoreboard,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
