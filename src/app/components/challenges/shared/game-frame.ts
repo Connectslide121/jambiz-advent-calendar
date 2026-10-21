@@ -42,7 +42,7 @@ import { GamePhase } from './seasonal-game';
     }
     @if (phase === 'won') {
       <div class="win" role="status">
-        ✨ {{ 'challenges.shared.win' | translate }} <strong>{{ score }}</strong>
+        {{ 'challenges.shared.win' | translate }} <strong>{{ score }}</strong>
       </div>
     }
   </section>`,

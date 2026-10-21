@@ -1,16 +1,16 @@
 <div class="text-center py-8 sm:py-12">
-  <!-- Celebration Icon -->
-  <div class="mb-6 animate-bounce">
-    <div class="text-6xl sm:text-7xl lg:text-8xl">🎉</div>
-  </div>
+  <!-- A single point of light instead of confetti -->
+  <svg class="reveal-spark" viewBox="-20 -20 40 40" aria-hidden="true">
+    <path d="M0 -18 C1.8 -4 4 -1.8 18 0 C4 1.8 1.8 4 0 18 C-1.8 4 -4 1.8 -18 0 C-4 -1.8 -1.8 -4 0 -18 Z" />
+  </svg>
 
   <!-- Success Message -->
-  <h3 class="text-2xl sm:text-3xl font-bold text-accent-green mb-6">
+  <h3 class="reveal-title">
     {{ 'challenges.success.title' | translate }}
   </h3>
 
   <!-- Reward Label -->
-  <p class="text-lg sm:text-xl text-gold font-semibold mb-4">
+  <p class="kicker mb-5">
     @if (effectiveReward && effectiveReward.title) {
     {{ effectiveReward.title | translate }}
     } @else {
