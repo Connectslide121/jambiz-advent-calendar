@@ -33,9 +33,20 @@ dotnet publish api/Jambiz.Advent.Api.csproj -c Release -o .azure-local/api
 Check 'Publish backend'
 npx ng build --configuration production
 Check 'Build frontend'
+# Windows PowerShell 5.1 does not load the zip types by default. Write forward-slash entries plus
+# explicit folder entries: the Linux Function host rejects a package without a .azurefunctions/ folder.
+Add-Type -AssemblyName System.IO.Compression, System.IO.Compression.FileSystem
+$apiRoot = (Resolve-Path .azure-local/api).Path
 $zipPath = Join-Path (Get-Location) '.azure-local/api.zip'
 if (Test-Path $zipPath) { Remove-Item -LiteralPath $zipPath }
-[IO.Compression.ZipFile]::CreateFromDirectory((Join-Path (Get-Location) '.azure-local/api'), $zipPath)
+$zip = [IO.Compression.ZipFile]::Open($zipPath, 'Create')
+try {
+  Get-ChildItem -LiteralPath $apiRoot -Recurse -Force | ForEach-Object {
+    $entry = $_.FullName.Substring($apiRoot.Length + 1).Replace('\', '/')
+    if ($_.PSIsContainer) { [void]$zip.CreateEntry("$entry/") }
+    else { [void][IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip, $_.FullName, $entry) }
+  }
+} finally { $zip.Dispose() }
 try {
   $env:SWA_CLI_DEPLOYMENT_TOKEN = az staticwebapp secrets list --subscription $Subscription -g $ResourceGroup -n $outputs.staticSiteName.value --query properties.apiKey -o tsv
   Check 'Get frontend deployment token'
