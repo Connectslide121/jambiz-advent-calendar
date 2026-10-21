@@ -591,13 +591,6 @@
   // Not sticky: with the scoreboard the column is taller than most screens
 }
 
-// Two-column tablet layout: tree and Christmas Day side by side, scoreboard below
-.side-wide {
-  @media (min-width: 640px) and (max-width: 1023px) {
-    grid-column: 1 / -1;
-    order: 1;
-  }
-}
 
 .side-card {
   border-radius: var(--radius-lg);
@@ -686,12 +679,34 @@
 }
 
 /* ---------- Day 25 ---------- */
+// Full width under the doors; on wider screens title, text and links sit in one row
+.finale-row {
+  margin-top: clamp(16px, 2.4vw, 28px);
+}
+
 .day25 {
   position: relative;
   overflow: hidden;
 
   &.unlocked {
     border-color: rgba(255, 217, 154, 0.45);
+  }
+
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) minmax(200px, 260px);
+    align-items: center;
+    gap: 28px;
+
+    .day25-text {
+      margin: 0;
+      padding-left: 28px;
+      border-left: 1px solid var(--hairline);
+    }
+
+    .day25-actions {
+      border-top: 0;
+    }
   }
 }
 

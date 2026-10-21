@@ -109,9 +109,57 @@
       </div>
       }
     </div>
+
+    <!-- Christmas Day: centred under the doors, two doors wide -->
+    <div class="finale-row">
+      <div class="side-card day25" [class.unlocked]="isUnlocked()">
+        <div class="day25-head">
+          <span class="day25-num">25</span>
+          <div>
+            <span class="kicker">{{ 'calendar.day25.subtitle' | translate }}</span>
+            <h3 class="day25-title">{{ 'calendar.day25.title' | translate }}</h3>
+          </div>
+        </div>
+
+        @if (isUnlocked()) {
+        <p class="day25-text unlocked-text">{{ 'calendar.day25.unlocked' | translate }}</p>
+        } @else {
+        <p class="day25-text">
+          {{ 'rewards.unlockHint' | translate : { completed: getCompletedCount(), total: 24 } }}
+        </p>
+        }
+
+        <div class="day25-actions">
+          <button
+            class="day25-link"
+            [disabled]="!isUnlocked()"
+            (click)="onOpenRewardsGallery()"
+          >
+            <span>{{ 'rewards.galleryButton' | translate }}</span>
+            @if (isUnlocked()) {
+            <span class="link-arrow" aria-hidden="true">→</span>
+            } @else {
+            <lucide-icon [img]="Lock" class="w-3.5 h-3.5" [strokeWidth]="2"></lucide-icon>
+            }
+          </button>
+          <button
+            class="day25-link"
+            [disabled]="!isUnlocked()"
+            (click)="onOpenExtras()"
+          >
+            <span>{{ 'extras.button' | translate }}</span>
+            @if (isUnlocked()) {
+            <span class="link-arrow" aria-hidden="true">→</span>
+            } @else {
+            <lucide-icon [img]="Lock" class="w-3.5 h-3.5" [strokeWidth]="2"></lucide-icon>
+            }
+          </button>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Sidebar: the progress tree and Christmas Day -->
+  <!-- Sidebar: the progress tree and the scoreboard -->
   <aside class="side">
     <div class="side-card tree-card">
       <app-progress-tree
@@ -128,52 +176,7 @@
       </div>
     </div>
 
-    <app-scoreboard class="side-wide"></app-scoreboard>
-
-    <div class="side-card day25" [class.unlocked]="isUnlocked()">
-      <div class="day25-head">
-        <span class="day25-num">25</span>
-        <div>
-          <span class="kicker">{{ 'calendar.day25.subtitle' | translate }}</span>
-          <h3 class="day25-title">{{ 'calendar.day25.title' | translate }}</h3>
-        </div>
-      </div>
-
-      @if (isUnlocked()) {
-      <p class="day25-text unlocked-text">{{ 'calendar.day25.unlocked' | translate }}</p>
-      } @else {
-      <p class="day25-text">
-        {{ 'rewards.unlockHint' | translate : { completed: getCompletedCount(), total: 24 } }}
-      </p>
-      }
-
-      <div class="day25-actions">
-        <button
-          class="day25-link"
-          [disabled]="!isUnlocked()"
-          (click)="onOpenRewardsGallery()"
-        >
-          <span>{{ 'rewards.galleryButton' | translate }}</span>
-          @if (isUnlocked()) {
-          <span class="link-arrow" aria-hidden="true">→</span>
-          } @else {
-          <lucide-icon [img]="Lock" class="w-3.5 h-3.5" [strokeWidth]="2"></lucide-icon>
-          }
-        </button>
-        <button
-          class="day25-link"
-          [disabled]="!isUnlocked()"
-          (click)="onOpenExtras()"
-        >
-          <span>{{ 'extras.button' | translate }}</span>
-          @if (isUnlocked()) {
-          <span class="link-arrow" aria-hidden="true">→</span>
-          } @else {
-          <lucide-icon [img]="Lock" class="w-3.5 h-3.5" [strokeWidth]="2"></lucide-icon>
-          }
-        </button>
-      </div>
-    </div>
+    <app-scoreboard></app-scoreboard>
   </aside>
 
   <!-- Challenge Modal -->
