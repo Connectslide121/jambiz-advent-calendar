@@ -42,13 +42,15 @@ src/app/
 ## Styling
 
 - Prefer Tailwind utilities and the global classes in `src/styles.scss`: `.btn` (`-primary`,
-  `-secondary`, `-outline`), `.card`, `.input`, `.pill`, `.modal-overlay` / `.modal-content`.
+  `-secondary`, `-outline`), `.card`, `.input`, `.pill`, `.modal-overlay` / `.modal-content`, and for
+  modal headers `.modal-head`, `.kicker`, `.modal-title` and `.close-btn`. Game headings use `.game-title`.
 - Use the tokens (`--color-bg`, `--color-gold`, `--color-accent-red`, `--color-accent-green`,
   `--color-frost`, …) and the Tailwind names that mirror them (`text-gold`, `bg-surface`,
   `text-text-muted`, …). Don't hard-code new palettes.
 - Headings use Fraunces (`h1`–`h3` automatically, or `.font-display`); body text uses Nunito.
-- The landing page and headings use a restrained ivory/frost style. Keep gold as an accent, not a
-  gradient fill on large text.
+- The whole app uses the welcome page's restrained ivory/frost style: glass panels (`--glass`) with
+  hairlines (`--hairline`), italic Fraunces headings, paper-white primary buttons (`--color-snow`).
+  Warm `--color-candle` marks today and finished things; keep gold as an accent, not a gradient fill.
 - `.card` sets only `background-color`, so `bg-*` utilities can recolour it.
 - Performance: avoid large CSS `filter: blur()` or `backdrop-filter` on animated, full-screen
   layers. The winter scene pauses itself while a modal is open.
