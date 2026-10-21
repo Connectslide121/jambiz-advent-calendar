@@ -45,6 +45,11 @@
   cursor: pointer;
   transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 
+  &.on {
+    color: var(--color-snow);
+  }
+
+  // After .on, so a lit sound button still turns dark on its white hover fill
   &:hover {
     color: var(--color-bg);
     background: var(--color-snow);
@@ -54,10 +59,6 @@
   &:focus-visible {
     outline: 2px solid var(--color-frost);
     outline-offset: 3px;
-  }
-
-  &.on {
-    color: var(--color-snow);
   }
 
   &.lang {
