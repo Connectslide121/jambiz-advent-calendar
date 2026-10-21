@@ -1,10 +1,11 @@
 <div class="calendar-layout">
-  <!-- The advent cabinet -->
-  <section class="cabinet">
-    <div class="cabinet-head">
+  <!-- Twenty-four windows on a winter night -->
+  <section class="board">
+    <header class="board-head">
       <div>
-        <h2 class="cabinet-title">{{ 'calendar.boardTitle' | translate }}</h2>
-        <p class="cabinet-sub">{{ 'calendar.boardSubtitle' | translate }}</p>
+        <span class="kicker">December 2026</span>
+        <h2 class="board-title">{{ 'calendar.boardTitle' | translate }}</h2>
+        <p class="board-sub">{{ 'calendar.boardSubtitle' | translate }}</p>
       </div>
       @if (nextUnlockDay && countdown) {
       <div class="next-unlock">
@@ -12,12 +13,13 @@
         <span class="next-time">{{ countdown }}</span>
       </div>
       }
-    </div>
+    </header>
 
     <div class="door-grid">
       @for (dayConfig of calendarDays; track dayConfig.day) {
       <div
         class="slot"
+        [ngClass]="getDoorTheme(dayConfig.day)"
         [class.is-open]="isDoorOpen(dayConfig.day)"
         [class.is-locked]="isDayLocked(dayConfig)"
         [class.is-completed]="isDayCompleted(dayConfig.day)"
@@ -26,7 +28,7 @@
         [class.is-empty]="!dayConfig.challengeType"
         [style.--i]="dayConfig.gridPosition ?? 0"
       >
-        <!-- What's behind the door -->
+        <!-- What's behind the window -->
         <div class="inside">
           <div
             class="puzzle-piece"
@@ -39,10 +41,9 @@
           }
         </div>
 
-        <!-- The door itself -->
+        <!-- The frosted pane itself -->
         <button
           class="door"
-          [ngClass]="getDoorTheme(dayConfig.day)"
           [disabled]="!dayConfig.challengeType"
           [attr.tabindex]="isDayCompleted(dayConfig.day) ? -1 : 0"
           [attr.aria-hidden]="isDayCompleted(dayConfig.day) ? true : null"
@@ -53,39 +54,32 @@
           "
         >
           <span class="door-front">
-            <span class="door-pattern"></span>
-            <span class="medallion">
-              <span class="medallion-num">{{ dayConfig.day }}</span>
-            </span>
-            <span class="knob"></span>
+            <span class="pane-light" aria-hidden="true"></span>
+            <span class="door-num">{{ dayConfig.day }}</span>
             @if (isDayLocked(dayConfig)) {
-            <span class="frost"></span>
+            <span class="state-mark lock" aria-hidden="true">
+              <lucide-icon [img]="Lock" class="w-full h-full" [strokeWidth]="1.75"></lucide-icon>
+            </span>
+            @if (isNextToUnlock(dayConfig.day) && countdown) {
+            <span class="state-word soon">{{ 'calendar.soon' | translate }}</span>
+            } } @else if (isToday(dayConfig.day) && !isDayCompleted(dayConfig.day)) {
+            <span class="state-word today">{{ 'calendar.today' | translate }}</span>
             }
           </span>
           <span class="door-back"></span>
         </button>
 
-        <!-- Snow piled on top of the frame -->
-        <span class="snowcap" aria-hidden="true"></span>
-
-        <!-- Status badges -->
+        <!-- Completed: the picture shows through, click to play again -->
         @if (isDayCompleted(dayConfig.day)) {
         <button type="button" class="replay-target" (click)="onDaySelected(dayConfig)"
           [attr.aria-label]="('calendar.dayLabel' | translate: { day: dayConfig.day }) + ': ' + ('ui.playAgain' | translate)"
           [title]="'ui.playAgain' | translate">
-          <span class="replay-hint" aria-hidden="true">↻ {{ dayConfig.day }}</span>
+          <span class="replay-num" aria-hidden="true">{{ dayConfig.day }}</span>
+          <span class="replay-hint" aria-hidden="true">↻</span>
+          <span class="done-mark" aria-hidden="true">
+            <lucide-icon [img]="Check" class="w-full h-full" [strokeWidth]="2.5"></lucide-icon>
+          </span>
         </button>
-        <span class="badge badge-done" aria-hidden="true">
-          <lucide-icon [img]="Check" class="w-full h-full" [strokeWidth]="3.5"></lucide-icon>
-        </span>
-        } @else if (isDayLocked(dayConfig)) {
-        <span class="badge badge-lock" aria-hidden="true">
-          <lucide-icon [img]="Lock" class="w-full h-full" [strokeWidth]="2.5"></lucide-icon>
-        </span>
-        @if (isNextToUnlock(dayConfig.day) && countdown) {
-        <span class="soon">{{ 'calendar.soon' | translate }}</span>
-        } } @if (isToday(dayConfig.day) && !isDayCompleted(dayConfig.day)) {
-        <span class="today-ribbon">{{ 'calendar.today' | translate }}</span>
         }
 
         <!-- Sparkle burst when opening -->
@@ -129,14 +123,17 @@
         <span class="tree-of">/ 24</span>
         <span class="tree-label">{{ 'calendar.ornamentsLit' | translate }}</span>
       </p>
+      <div class="tree-meter" aria-hidden="true">
+        <span [style.width.%]="(getCompletedCount() / 24) * 100"></span>
+      </div>
     </div>
 
     <div class="side-card day25" [class.unlocked]="isUnlocked()">
       <div class="day25-head">
         <span class="day25-num">25</span>
         <div>
+          <span class="kicker">{{ 'calendar.day25.subtitle' | translate }}</span>
           <h3 class="day25-title">{{ 'calendar.day25.title' | translate }}</h3>
-          <p class="day25-sub">{{ 'calendar.day25.subtitle' | translate }}</p>
         </div>
       </div>
 
@@ -150,26 +147,28 @@
 
       <div class="day25-actions">
         <button
-          class="btn w-full flex items-center justify-center gap-2"
-          [class.btn-primary]="isUnlocked()"
-          [class.btn-outline]="!isUnlocked()"
+          class="day25-link"
           [disabled]="!isUnlocked()"
           (click)="onOpenRewardsGallery()"
         >
-          @if (!isUnlocked()) {
-          <lucide-icon [img]="Lock" class="w-4 h-4" [strokeWidth]="2.25"></lucide-icon>
-          } 🏆 {{ 'rewards.galleryButton' | translate }}
+          <span>{{ 'rewards.galleryButton' | translate }}</span>
+          @if (isUnlocked()) {
+          <span class="link-arrow" aria-hidden="true">→</span>
+          } @else {
+          <lucide-icon [img]="Lock" class="w-3.5 h-3.5" [strokeWidth]="2"></lucide-icon>
+          }
         </button>
         <button
-          class="btn w-full flex items-center justify-center gap-2"
-          [class.btn-secondary]="isUnlocked()"
-          [class.btn-outline]="!isUnlocked()"
+          class="day25-link"
           [disabled]="!isUnlocked()"
           (click)="onOpenExtras()"
         >
-          @if (!isUnlocked()) {
-          <lucide-icon [img]="Lock" class="w-4 h-4" [strokeWidth]="2.25"></lucide-icon>
-          } 🎮 {{ 'extras.button' | translate }}
+          <span>{{ 'extras.button' | translate }}</span>
+          @if (isUnlocked()) {
+          <span class="link-arrow" aria-hidden="true">→</span>
+          } @else {
+          <lucide-icon [img]="Lock" class="w-3.5 h-3.5" [strokeWidth]="2"></lucide-icon>
+          }
         </button>
       </div>
     </div>

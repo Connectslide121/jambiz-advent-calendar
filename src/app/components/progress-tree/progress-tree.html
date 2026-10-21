@@ -1,86 +1,39 @@
-<svg viewBox="0 0 220 300" class="tree" role="img" [attr.aria-label]="completed.size + ' / ' + total">
+<svg viewBox="0 0 220 290" class="tree" role="img" [attr.aria-label]="completed.size + ' / ' + total">
   <defs>
-    <linearGradient id="pt-tier" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#2f9a74" />
-      <stop offset="1" stop-color="#15523f" />
-    </linearGradient>
-    <radialGradient id="pt-glass" cx="0.35" cy="0.3" r="0.8">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.25" />
-      <stop offset="1" stop-color="#ffffff" stop-opacity="0.04" />
-    </radialGradient>
-    <radialGradient id="pt-shine" cx="0.32" cy="0.28" r="0.5">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.85" />
-      <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
-    </radialGradient>
     <radialGradient id="pt-halo">
-      <stop offset="0" stop-color="#f7c873" stop-opacity="0.8" />
-      <stop offset="1" stop-color="#f7c873" stop-opacity="0" />
+      <stop offset="0" stop-color="#ffd99a" stop-opacity="0.7" />
+      <stop offset="1" stop-color="#ffd99a" stop-opacity="0" />
     </radialGradient>
   </defs>
 
-  <!-- Soft floor glow -->
-  <ellipse cx="110" cy="290" rx="90" ry="8" fill="#000" opacity="0.35" />
-
-  <!-- Trunk and pot -->
-  <rect x="100" y="256" width="20" height="24" rx="2" fill="#5a3324" />
-  <path d="M84 274 h52 l-6 20 h-40 z" fill="#c22f45" />
-  <rect x="82" y="270" width="56" height="7" rx="2" fill="#e0475b" />
-
-  <!-- Three tiers of branches -->
+  <!-- The tree, drawn with a single hairline -->
   <path
-    d="M110 150 L210 262 Q185 252 160 262 Q135 250 110 262 Q85 250 60 262 Q35 252 10 262 Z"
-    fill="url(#pt-tier)"
+    class="tree-line"
+    d="M110 42 L58 126 L84 126 L30 196 L66 196 L12 262 L208 262 L154 196 L190 196 L136 126 L162 126 Z"
   />
-  <path
-    d="M110 88 L190 196 Q170 186 150 196 Q130 184 110 196 Q90 184 70 196 Q50 186 30 196 Z"
-    fill="url(#pt-tier)"
-  />
-  <path
-    d="M110 38 L162 126 Q148 118 136 126 Q123 116 110 126 Q97 116 84 126 Q72 118 58 126 Z"
-    fill="url(#pt-tier)"
-  />
+  <path class="tree-line" d="M102 262 V278 M118 262 V278" />
 
-  <!-- Snow on the branch tips -->
-  <path
-    d="M10 262 Q35 252 60 262 Q85 250 110 262 Q135 250 160 262 Q185 252 210 262 Q185 257 160 266 Q135 255 110 266 Q85 255 60 266 Q35 257 10 262 Z M30 196 Q50 186 70 196 Q90 184 110 196 Q130 184 150 196 Q170 186 190 196 Q170 191 150 200 Q130 189 110 200 Q90 189 70 200 Q50 191 30 196 Z M58 126 Q72 118 84 126 Q97 116 110 126 Q123 116 136 126 Q148 118 162 126 Q148 122 136 130 Q123 121 110 130 Q97 121 84 130 Q72 122 58 126 Z"
-    fill="#eef4ff"
-    opacity="0.9"
-  />
+  <!-- A faint thread through the stars, in day order -->
+  <path class="thread" [attr.d]="thread" />
 
-  <!-- Twinkling garland -->
-  <path
-    class="garland"
-    d="M64 104 Q110 124 150 100 M40 168 Q110 196 176 162 M24 232 Q110 262 198 226"
-    fill="none"
-  />
-
-  <!-- Ornaments: one per day -->
+  <!-- One star per day -->
   @for (o of ornaments; track o.day) {
   <g class="ornament" [class.lit]="completed.has(o.day)" [attr.transform]="'translate(' + o.x + ' ' + o.y + ')'">
-    <line x1="0" [attr.y1]="-o.r - 5" x2="0" [attr.y2]="-o.r" stroke="#c9a65a" stroke-width="1" />
-    <rect x="-2.2" [attr.y]="-o.r - 2.5" width="4.4" height="3" rx="0.8" fill="#d9b56a" />
     @if (completed.has(o.day)) {
-    <g class="bauble" [style.animation-delay.ms]="300 + litIndex(o.day) * 70">
-      <circle [attr.r]="o.r * 2.2" [attr.fill]="o.color" opacity="0.25" class="glow" />
+    <g class="spark" [style.animation-delay.ms]="300 + litIndex(o.day) * 70">
+      <circle [attr.r]="o.r * 4" fill="url(#pt-halo)" class="glow" />
+      <path class="flare" [attr.d]="'M0 ' + -o.r * 2.6 + ' V' + o.r * 2.6 + ' M' + -o.r * 2.6 + ' 0 H' + o.r * 2.6" />
       <circle [attr.r]="o.r" [attr.fill]="o.color" />
-      <circle [attr.r]="o.r" fill="url(#pt-shine)" />
     </g>
     } @else {
-    <circle [attr.r]="o.r" fill="url(#pt-glass)" stroke="rgba(255,255,255,0.22)" stroke-width="0.8" />
-    <text y="2.6" text-anchor="middle" class="num">{{ o.day }}</text>
+    <circle [attr.r]="o.r * 0.8" class="unlit" />
     }
   </g>
   }
 
-  <!-- Star -->
-  <g class="star" [class.lit]="starLit" transform="translate(110 30)">
-    <circle r="26" fill="url(#pt-halo)" [attr.opacity]="starGlow" class="star-halo" />
-    <path
-      d="M0 -16 L4.7 -5.2 L16 -4.9 L7.2 2.6 L10 14 L0 7.6 L-10 14 L-7.2 2.6 L-16 -4.9 L-4.7 -5.2 Z"
-      [attr.fill]="starLit ? '#ffd772' : '#8a7a55'"
-      stroke="#fff3c8"
-      [attr.stroke-opacity]="starLit ? 0.9 : 0.3"
-      stroke-width="1.2"
-    />
+  <!-- The star on top -->
+  <g class="star" [class.lit]="starLit" transform="translate(110 26)">
+    <circle r="24" fill="url(#pt-halo)" [attr.opacity]="starGlow" class="star-halo" />
+    <path d="M0 -14 C1.4 -3 3 -1.4 14 0 C3 1.4 1.4 3 0 14 C-1.4 3 -3 1.4 -14 0 C-3 -1.4 -1.4 -3 0 -14 Z" />
   </g>
 </svg>
