@@ -21,6 +21,7 @@ import {
   Info,
   Volume2,
   VolumeX,
+  Download,
 } from 'lucide-angular';
 import { CalendarStateService } from './services/calendar-state.service';
 import { SoundService } from './services/sound.service';
@@ -58,6 +59,7 @@ export class App implements OnDestroy {
   readonly Info = Info;
   readonly Volume2 = Volume2;
   readonly VolumeX = VolumeX;
+  readonly Download = Download;
   readonly sound = inject(SoundService);
   currentLanguage: string;
   showInfoModal = false;
@@ -77,6 +79,7 @@ export class App implements OnDestroy {
   selectedExtraConfig: CalendarDayConfig | null = null;
   selectedExtraId: string | null = null;
   extraLevels = EXTRA_LEVELS;
+  readonly infoSections = ['welcome', 'unlocking', 'challenges', 'rewards', 'replay', 'christmas', 'extras', 'tip'];
   calendarDays = CALENDAR_DAYS;
   private get STORAGE_KEY(): string { return `extras-completed:${this.backend.player()?.id ?? 'signed-out'}`; }
   private completedExtras = new Set<string>();
@@ -390,5 +393,10 @@ export class App implements OnDestroy {
   private saveCompletedExtras(): void {
     const array = Array.from(this.completedExtras);
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(array));
+  }
+
+  /** Section titles carry a leading emoji; the numbered info list reads cleaner without it */
+  plainTitle(title: string): string {
+    return title.replace(/^[\p{Extended_Pictographic}‍️\s]+/u, '');
   }
 }

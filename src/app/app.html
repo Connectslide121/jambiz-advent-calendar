@@ -18,10 +18,6 @@
     </main>
   </div>
 } @else {
-  <div class="relative z-10 flex flex-wrap justify-end items-center gap-3 px-4 py-2 text-sm">
-    <span>{{ backend.player()?.displayName }}</span>
-    <button class="btn btn-outline" (click)="backend.logout()">{{ 'online.signOut' | translate }}</button>
-  </div>
 <!-- Jambiz Julkalender 2026 -->
 <app-winter-scene [compact]="!showLandingPage"></app-winter-scene>
 
@@ -122,6 +118,10 @@
       </div>
       }
 
+      <span class="player">
+        <span class="player-name">{{ backend.player()?.displayName }}</span>
+        <button class="player-out" (click)="backend.logout()">{{ 'online.signOut' | translate }}</button>
+      </span>
       <button
         (click)="openInfoModal()"
         class="icon-btn"
@@ -169,112 +169,95 @@
 @if (showExtrasMenu) {
 <div class="modal-overlay" (click)="closeExtrasMenu()">
   <div
-    class="modal-content w-full h-full lg:w-[90vw] lg:max-w-5xl lg:max-h-[90vh] lg:rounded-2xl flex flex-col overflow-hidden"
+    class="modal-content w-full h-full lg:w-[90vw] lg:max-w-5xl lg:max-h-[90vh] flex flex-col overflow-hidden"
     (click)="$event.stopPropagation()"
   >
-    <!-- Header -->
-    <div class="flex items-center justify-between mb-6 flex-shrink-0">
-      <div class="flex items-center gap-4">
-        <h2 class="text-2xl sm:text-3xl font-bold text-text">
-          🎁 {{ 'extras.title' | translate }} 🎁
-        </h2>
+    <header class="modal-head">
+      <div class="min-w-0">
+        <span class="kicker">{{ 'extras.button' | translate }}</span>
+        <h2 class="modal-title">{{ 'extras.title' | translate }}</h2>
       </div>
-      <button (click)="closeExtrasMenu()" class="btn btn-outline p-2 min-w-0" aria-label="Close">
-        <lucide-icon [img]="X" class="w-6 h-6" [strokeWidth]="2"></lucide-icon>
+      <button (click)="closeExtrasMenu()" class="close-btn" aria-label="Close">
+        <lucide-icon [img]="X" class="w-5 h-5" [strokeWidth]="1.75"></lucide-icon>
       </button>
-    </div>
+    </header>
 
     <!-- Extras Content -->
-    <div class="flex-1 overflow-y-auto">
+    <div class="flex-1 overflow-y-auto -mx-1 px-1">
       @if (!selectedGame) {
       <!-- Game Selection View -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="tile-grid">
         @for (game of extraLevels; track game.type) {
         <button
           (click)="selectGame(game)"
-          class="card p-6 text-left hover:bg-opacity-80 transition-all cursor-pointer"
-          [class.border-2]="getCompletionCount(game).completed === getCompletionCount(game).total"
-          [class.border-accent-green]="
-            getCompletionCount(game).completed === getCompletionCount(game).total
-          "
+          class="game-tile"
+          [class.is-done]="getCompletionCount(game).completed === getCompletionCount(game).total"
         >
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <span class="text-5xl">{{ getGameIcon(game.type) }}</span>
-              <div>
-                <h3 class="text-xl font-bold text-text">
-                  {{ 'extras.games.' + game.type + '.title' | translate }}
-                </h3>
-                <p class="text-sm text-text-muted">
-                  {{ getCompletionCount(game).completed }}/{{ getCompletionCount(game).total }}
-                  {{ 'extras.levelsCompleted' | translate }}
-                </p>
-              </div>
-            </div>
-            @if (getCompletionCount(game).completed === getCompletionCount(game).total) {
-            <lucide-icon
-              [img]="Check"
-              class="w-8 h-8 text-accent-green"
-              [strokeWidth]="3"
-            ></lucide-icon>
-            }
-          </div>
+          <span class="game-icon" aria-hidden="true">{{ getGameIcon(game.type) }}</span>
+          <span class="game-text">
+            <span class="game-name">{{ 'extras.games.' + game.type + '.title' | translate }}</span>
+            <span class="game-meta">
+              {{ getCompletionCount(game).completed }}/{{ getCompletionCount(game).total }}
+              {{ 'extras.levelsCompleted' | translate }}
+            </span>
+          </span>
+          @if (getCompletionCount(game).completed === getCompletionCount(game).total) {
+          <span class="tile-check" aria-hidden="true">
+            <lucide-icon [img]="Check" class="w-full h-full" [strokeWidth]="2.5"></lucide-icon>
+          </span>
+          } @else {
+          <span class="tile-arrow" aria-hidden="true">→</span>
+          }
+          <span class="tile-meter" aria-hidden="true">
+            <span
+              [style.width.%]="(getCompletionCount(game).completed / getCompletionCount(game).total) * 100"
+            ></span>
+          </span>
         </button>
         }
       </div>
       } @else {
       <!-- Level Selection View -->
-      <div class="mb-6 pb-6 border-b border-surface flex items-center gap-4">
-        <button
-          (click)="backToGameSelection()"
-          class="btn btn-outline p-2 min-w-0"
-          aria-label="Back"
-        >
-          <lucide-icon [img]="ArrowLeft" class="w-6 h-6" [strokeWidth]="2"></lucide-icon>
+      <div class="level-head">
+        <button (click)="backToGameSelection()" class="close-btn" aria-label="Back">
+          <lucide-icon [img]="ArrowLeft" class="w-5 h-5" [strokeWidth]="1.75"></lucide-icon>
         </button>
-
-        <span class="text-6xl">{{ getGameIcon(selectedGame.type) }}</span>
-        <div>
-          <h3 class="text-2xl font-bold text-text mb-2">
-            {{ 'extras.games.' + selectedGame.type + '.title' | translate }}
-          </h3>
-          <p class="text-text-muted">
-            {{ getCompletionCount(selectedGame).completed }}/{{
-              getCompletionCount(selectedGame).total
-            }}
+        <span class="level-icon" aria-hidden="true">{{ getGameIcon(selectedGame.type) }}</span>
+        <div class="min-w-0">
+          <h3 class="level-title">{{ 'extras.games.' + selectedGame.type + '.title' | translate }}</h3>
+          <p class="game-meta">
+            {{ getCompletionCount(selectedGame).completed }}/{{ getCompletionCount(selectedGame).total }}
             {{ 'extras.levelsCompleted' | translate }}
           </p>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        @for (level of selectedGame.levels; track level.id) {
-        <button
-          (click)="selectExtra(level)"
-          class="card p-6 text-left hover:bg-opacity-80 transition-all"
-          [class.border-2]="isExtraCompleted(level.id)"
-          [class.border-accent-green]="isExtraCompleted(level.id)"
-        >
-          <div class="flex items-start justify-between mb-3">
-            <h4 class="text-lg font-bold text-text">
-              {{ level.nameKey | translate }}
-            </h4>
+      <ol class="level-list">
+        @for (level of selectedGame.levels; track level.id; let i = $index) {
+        <li>
+          <button
+            (click)="selectExtra(level)"
+            class="level-row"
+            [class.is-done]="isExtraCompleted(level.id)"
+          >
+            <span class="level-index">{{ i + 1 < 10 ? '0' + (i + 1) : i + 1 }}</span>
+            <span class="level-text">
+              <span class="level-name">{{ level.nameKey | translate }}</span>
+              <span class="level-desc">{{ level.descriptionKey | translate }}</span>
+            </span>
             @if (level.isInfinite) {
-            <span class="pill shrink-0">♾️ {{ 'extras.endless' | translate }}</span>
+            <span class="pill shrink-0">∞ {{ 'extras.endless' | translate }}</span>
             } @else if (isExtraCompleted(level.id)) {
-            <lucide-icon
-              [img]="Check"
-              class="w-6 h-6 text-accent-green"
-              [strokeWidth]="3"
-            ></lucide-icon>
+            <span class="tile-check" aria-hidden="true">
+              <lucide-icon [img]="Check" class="w-full h-full" [strokeWidth]="2.5"></lucide-icon>
+            </span>
+            } @else {
+            <span class="tile-arrow" aria-hidden="true">→</span>
             }
-          </div>
-          <p class="text-sm text-text-muted">
-            {{ level.descriptionKey | translate }}
-          </p>
-        </button>
+          </button>
+        </li>
         }
-      </div>
+      </ol>
       }
     </div>
   </div>
@@ -295,113 +278,33 @@
 @if (showInfoModal) {
 <div class="modal-overlay" (click)="closeInfoModal()">
   <div
-    class="modal-content w-full h-full lg:w-[90vw] lg:max-w-3xl lg:max-h-[90vh] lg:rounded-2xl flex flex-col overflow-hidden"
+    class="modal-content w-full h-full lg:w-[90vw] lg:max-w-3xl lg:max-h-[90vh] flex flex-col overflow-hidden"
     (click)="$event.stopPropagation()"
   >
-    <!-- Header -->
-    <div class="flex items-center justify-between mb-6 flex-shrink-0">
-      <div class="flex items-center gap-3">
-        <lucide-icon [img]="Info" class="w-7 h-7 text-accent-green" [strokeWidth]="2"></lucide-icon>
-        <h2 class="text-xl sm:text-2xl font-bold text-text">
-          {{ 'info.title' | translate }}
-        </h2>
+    <header class="modal-head">
+      <div class="min-w-0">
+        <span class="kicker">{{ 'info.button' | translate }}</span>
+        <h2 class="modal-title">{{ 'info.title' | translate }}</h2>
       </div>
-      <button (click)="closeInfoModal()" class="btn btn-outline p-2 min-w-0" aria-label="Close">
-        <lucide-icon [img]="X" class="w-6 h-6" [strokeWidth]="2"></lucide-icon>
+      <button (click)="closeInfoModal()" class="close-btn" aria-label="Close">
+        <lucide-icon [img]="X" class="w-5 h-5" [strokeWidth]="1.75"></lucide-icon>
       </button>
-    </div>
+    </header>
 
-    <!-- Content -->
-    <div class="flex-1 overflow-y-auto space-y-6 pr-2">
-      <!-- Welcome -->
-      <div class="card p-4 sm:p-5">
-        <h3 class="text-lg font-bold text-gold mb-2">
-          {{ 'info.sections.welcome.title' | translate }}
-        </h3>
-        <p class="text-text-muted text-sm sm:text-base leading-relaxed">
-          {{ 'info.sections.welcome.content' | translate }}
-        </p>
-      </div>
-
-      <!-- Unlocking -->
-      <div class="card p-4 sm:p-5">
-        <h3 class="text-lg font-bold text-gold mb-2">
-          {{ 'info.sections.unlocking.title' | translate }}
-        </h3>
-        <p class="text-text-muted text-sm sm:text-base leading-relaxed">
-          {{ 'info.sections.unlocking.content' | translate }}
-        </p>
-      </div>
-
-      <!-- Challenges -->
-      <div class="card p-4 sm:p-5">
-        <h3 class="text-lg font-bold text-gold mb-2">
-          {{ 'info.sections.challenges.title' | translate }}
-        </h3>
-        <p class="text-text-muted text-sm sm:text-base leading-relaxed">
-          {{ 'info.sections.challenges.content' | translate }}
-        </p>
-      </div>
-
-      <!-- Rewards -->
-      <div class="card p-4 sm:p-5">
-        <h3 class="text-lg font-bold text-gold mb-2">
-          {{ 'info.sections.rewards.title' | translate }}
-        </h3>
-        <p class="text-text-muted text-sm sm:text-base leading-relaxed">
-          {{ 'info.sections.rewards.content' | translate }}
-        </p>
-      </div>
-
-      <!-- Replay -->
-      <div class="card p-4 sm:p-5">
-        <h3 class="text-lg font-bold text-gold mb-2">
-          {{ 'info.sections.replay.title' | translate }}
-        </h3>
-        <p class="text-text-muted text-sm sm:text-base leading-relaxed">
-          {{ 'info.sections.replay.content' | translate }}
-        </p>
-      </div>
-
-      <!-- Christmas -->
-      <div class="card p-4 sm:p-5 border-2 border-accent-green">
-        <h3 class="text-lg font-bold text-accent-green mb-2">
-          {{ 'info.sections.christmas.title' | translate }}
-        </h3>
-        <p class="text-text-muted text-sm sm:text-base leading-relaxed">
-          {{ 'info.sections.christmas.content' | translate }}
-        </p>
-      </div>
-
-      <!-- Extras -->
-      <div class="card p-4 sm:p-5">
-        <h3 class="text-lg font-bold text-gold mb-2">
-          {{ 'info.sections.extras.title' | translate }}
-        </h3>
-        <p class="text-text-muted text-sm sm:text-base leading-relaxed">
-          {{ 'info.sections.extras.content' | translate }}
-        </p>
-      </div>
-
-      <!-- Pro Tip -->
-      <div
-        class="card p-4 sm:p-5 bg-opacity-50"
-        style="
-          background: linear-gradient(135deg, rgba(244, 211, 94, 0.1), rgba(42, 157, 143, 0.1));
-        "
-      >
-        <h3 class="text-lg font-bold text-gold mb-2">
-          {{ 'info.sections.tip.title' | translate }}
-        </h3>
-        <p class="text-text-muted text-sm sm:text-base leading-relaxed">
-          {{ 'info.sections.tip.content' | translate }}
-        </p>
-      </div>
-
-      <!-- Closing -->
-      <div class="text-center py-4">
-        <p class="text-text text-base sm:text-lg font-medium">{{ 'info.closing' | translate }}</p>
-      </div>
+    <!-- Content: a short, numbered read -->
+    <div class="flex-1 overflow-y-auto pr-2">
+      <ol class="info-list">
+        @for (key of infoSections; track key; let i = $index) {
+        <li class="info-item" [class.is-feature]="key === 'christmas'">
+          <span class="info-index">0{{ i + 1 }}</span>
+          <div>
+            <h3 class="info-title">{{ plainTitle('info.sections.' + key + '.title' | translate) }}</h3>
+            <p class="info-text">{{ 'info.sections.' + key + '.content' | translate }}</p>
+          </div>
+        </li>
+        }
+      </ol>
+      <p class="info-closing">{{ 'info.closing' | translate }}</p>
     </div>
   </div>
 </div>
@@ -411,338 +314,182 @@
 @if (showRewardsGallery) {
 <div class="modal-overlay" (click)="closeRewardsGallery()">
   <div
-    class="modal-content w-full h-full lg:w-[90vw] lg:max-w-5xl lg:max-h-[90vh] lg:rounded-2xl flex flex-col overflow-hidden"
+    class="modal-content w-full h-full lg:w-[90vw] lg:max-w-5xl lg:max-h-[90vh] flex flex-col overflow-hidden"
     (click)="$event.stopPropagation()"
   >
-    <!-- Header -->
-    <div class="flex items-center justify-between mb-6 flex-shrink-0">
-      <div class="flex items-center gap-4">
-        <h2 class="text-2xl sm:text-3xl font-bold text-text">
-          🏆 {{ 'rewards.galleryTitle' | translate }} 🏆
-        </h2>
+    <header class="modal-head">
+      <div class="min-w-0">
+        <span class="kicker">December 2026</span>
+        <h2 class="modal-title">{{ 'rewards.galleryTitle' | translate }}</h2>
       </div>
-      <button
-        (click)="closeRewardsGallery()"
-        class="btn btn-outline p-2 min-w-0"
-        aria-label="Close"
-      >
-        <lucide-icon [img]="X" class="w-6 h-6" [strokeWidth]="2"></lucide-icon>
+      <button (click)="closeRewardsGallery()" class="close-btn" aria-label="Close">
+        <lucide-icon [img]="X" class="w-5 h-5" [strokeWidth]="1.75"></lucide-icon>
       </button>
-    </div>
+    </header>
 
     <!-- Rewards List -->
-    <div class="flex-1 overflow-y-auto">
-      <div class="space-y-4">
+    <div class="flex-1 overflow-y-auto pr-1">
+      <ol class="reward-list">
         @for (day of getSortedCalendarDays(); track day.day) {
-        <div class="card p-4 sm:p-6">
-          <div class="flex items-start gap-4">
-            <!-- Day Badge -->
-            <div
-              class="flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-accent-red flex items-center justify-center"
-            >
-              <span class="text-lg sm:text-2xl font-bold text-white">{{ day.day }}</span>
+        <li class="reward-item">
+          <span class="reward-day" aria-hidden="true">{{ day.day }}</span>
+
+          <div class="min-w-0">
+            <div class="reward-head">
+              <h3 class="reward-title">
+                <span class="reward-emoji" aria-hidden="true">{{ getGameIcon(day.challengeType || '') }}</span>
+                {{ 'calendar.dayLabel' | translate : { day: day.day } }}
+              </h3>
+              @if (hasImageReward(day)) { <span class="reward-tag">Wallpaper</span> }
+              @if (hasVideoReward(day)) { <span class="reward-tag">Video</span> }
+              @if (hasAudioReward(day)) { <span class="reward-tag">Audio</span> }
+              @if (hasCouponReward(day)) { <span class="reward-tag">Coupon</span> }
+              @if (hasSnowGlobeReward(day)) { <span class="reward-tag">Snow Globe</span> }
+              @if (hasMagic8BallReward(day)) { <span class="reward-tag">Magic 8-Ball</span> }
+              @if (hasPopupCardReward(day)) { <span class="reward-tag">Pop-up Card</span> }
+              @if (hasFortuneCookieReward(day)) { <span class="reward-tag">Fortune Cookie</span> }
+              @if (hasIceBreakerReward(day)) { <span class="reward-tag">Ice Breaker</span> }
             </div>
 
-            <!-- Reward Content -->
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-2 mb-2 flex-wrap">
-                <span class="text-2xl">{{ getGameIcon(day.challengeType || '') }}</span>
-                <h3 class="text-lg sm:text-xl font-bold text-gold">
-                  {{ 'calendar.dayLabel' | translate : { day: day.day } }}
-                </h3>
-                @if (hasImageReward(day)) {
-                <span class="text-sm bg-pink-500 text-white px-2 py-0.5 rounded-full"
-                  >🖼️ Wallpaper</span
-                >
-                } @if (hasVideoReward(day)) {
-                <span class="text-sm bg-accent-green text-white px-2 py-0.5 rounded-full"
-                  >🎬 Video</span
-                >
-                } @if (hasAudioReward(day)) {
-                <span class="text-sm bg-gold text-bg px-2 py-0.5 rounded-full">🎵 Audio</span>
-                } @if (hasCouponReward(day)) {
-                <span class="text-sm bg-white text-accent-red px-2 py-0.5 rounded-full"
-                  >🎟️ Coupon</span
-                >
-                } @if (hasSnowGlobeReward(day)) {
-                <span class="text-sm bg-blue-500 text-white px-2 py-0.5 rounded-full"
-                  >🔮 Snow Globe</span
-                >
-                } @if (hasMagic8BallReward(day)) {
-                <span class="text-sm bg-purple-600 text-white px-2 py-0.5 rounded-full"
-                  >🎱 Magic 8-Ball</span
-                >
-                } @if (hasPopupCardReward(day)) {
-                <span class="text-sm bg-red-600 text-white px-2 py-0.5 rounded-full"
-                  >💌 Pop-up Card</span
-                >
-                } @if (hasFortuneCookieReward(day)) {
-                <span class="text-sm bg-amber-500 text-white px-2 py-0.5 rounded-full"
-                  >🥠 Fortune Cookie</span
-                >
-                } @if (hasIceBreakerReward(day)) {
-                <span class="text-sm bg-cyan-500 text-white px-2 py-0.5 rounded-full"
-                  >🧊 Ice Breaker</span
-                >
-                }
-              </div>
+            <!-- Fun Fact / Text Reward -->
+            @if (getRewardText(day)) {
+            <p class="reward-text">{{ getRewardText(day) | translate }}</p>
+            }
 
-              <!-- Fun Fact / Text Reward -->
-              @if (getRewardText(day)) {
-              <p class="text-sm sm:text-base text-text leading-relaxed">
-                {{ getRewardText(day) | translate }}
-              </p>
-              }
-
-              <!-- Image Reward -->
-              @if (hasImageReward(day) && day.reward?.imageUrl) {
-              <div class="mt-4">
-                <img
-                  [src]="day.reward!.imageUrl"
-                  [alt]="day.reward!.imageAlt ? (day.reward!.imageAlt | translate) : 'Reward image'"
-                  class="max-w-full h-auto rounded-lg shadow-lg"
-                  style="max-height: 300px"
-                  loading="lazy"
-                />
-                @if (day.reward?.caption) {
-                <p class="text-sm text-text-muted mt-2 italic">
-                  {{ day.reward!.caption | translate }}
-                </p>
-                } @if (day.reward?.downloadable) {
-                <a
-                  [href]="day.reward!.imageUrl"
-                  [download]="(day.reward!.downloadFileName || 'reward') + '.png'"
-                  class="btn btn-primary flex items-center gap-2 mt-4 w-fit"
-                >
-                  <span>📥</span>
-                  {{ 'rewards.downloadWallpaper' | translate }}
-                </a>
-                }
-              </div>
-              }
-
-              <!-- Video Reward -->
-              @if (hasVideoReward(day) && day.reward?.videoUrl) {
-              <div class="mt-4">
-                <video
-                  [src]="day.reward!.videoUrl"
-                  controls
-                  class="max-w-full h-auto rounded-lg shadow-lg"
-                  style="max-height: 200px"
-                  playsinline
-                >
-                  <source
-                    [src]="day.reward!.videoUrl!"
-                    [type]="'video/' + (day.reward!.videoType || 'mp4')"
-                  />
-                </video>
-              </div>
-              }
-
-              <!-- Audio Reward -->
-              @if (hasAudioReward(day) && day.reward?.audioUrl) {
-              <div class="mt-4 space-y-3">
-                <div
-                  class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 bg-surface rounded-lg p-3"
-                >
-                  @if (day.reward?.title) {
-                  <span class="text-sm sm:text-base font-semibold text-gold">
-                    {{ day.reward!.title | translate }}
-                  </span>
-                  }
-                  <audio [src]="day.reward!.audioUrl" controls class="w-full sm:flex-1 h-10">
-                    <source
-                      [src]="day.reward!.audioUrl!"
-                      [type]="'audio/' + (day.reward!.audioType || 'mp3')"
-                    />
-                  </audio>
-                </div>
-                @if (day.reward?.lyrics) {
-                <details class="bg-surface rounded-lg">
-                  <summary
-                    class="cursor-pointer p-3 text-gold font-semibold flex items-center gap-2"
-                  >
-                    <span>📝</span>
-                    <span>{{ 'rewards.lyricsLabel' | translate }}</span>
-                  </summary>
-                  <pre
-                    class="p-3 pt-0 text-sm text-text whitespace-pre-wrap font-sans leading-relaxed"
-                    >{{ day.reward!.lyrics | translate }}</pre
-                  >
-                </details>
-                }
-              </div>
-              }
-
-              <!-- Coupon Reward -->
-              @if (hasCouponReward(day) && day.reward?.couponTitleKey) {
-              <div class="mt-4">
-                <button
-                  (click)="openInteractiveReward(day)"
-                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-accent-red/50 hover:border-accent-red"
-                >
-                  <span class="text-3xl sm:text-4xl">{{ day.reward!.couponEmoji || '🎟️' }}</span>
-                  <div class="flex-1 min-w-0 text-left">
-                    <h4 class="text-base sm:text-lg font-bold text-gold">
-                      {{ day.reward!.couponTitleKey | translate }}
-                    </h4>
-                    <p class="text-xs sm:text-sm text-text-muted">
-                      {{ 'rewards.gallery.clickToInteract' | translate }}
-                    </p>
-                  </div>
-                </button>
-              </div>
-              }
-
-              <!-- Snow Globe Reward -->
-              @if (hasSnowGlobeReward(day)) {
-              <div class="mt-4">
-                <button
-                  (click)="openInteractiveReward(day)"
-                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-blue-500/50 hover:border-blue-500"
-                >
-                  <span class="text-4xl">🔮</span>
-                  <div class="text-left">
-                    <h4 class="text-base sm:text-lg font-bold text-gold">
-                      {{ 'rewards.snowGlobe.title' | translate }}
-                    </h4>
-                    <p class="text-xs sm:text-sm text-text-muted">
-                      {{ 'rewards.gallery.clickToInteract' | translate }}
-                    </p>
-                  </div>
-                </button>
-              </div>
-              }
-
-              <!-- Magic 8-Ball Reward -->
-              @if (hasMagic8BallReward(day)) {
-              <div class="mt-4">
-                <button
-                  (click)="openInteractiveReward(day)"
-                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-purple-500/50 hover:border-purple-500"
-                >
-                  <span class="text-4xl">🎱</span>
-                  <div class="text-left">
-                    <h4 class="text-base sm:text-lg font-bold text-gold">
-                      {{ 'rewards.magic8Ball.title' | translate }}
-                    </h4>
-                    <p class="text-xs sm:text-sm text-text-muted">
-                      {{ 'rewards.gallery.clickToInteract' | translate }}
-                    </p>
-                  </div>
-                </button>
-              </div>
-              }
-
-              <!-- Pop-up Card Reward -->
-              @if (hasPopupCardReward(day)) {
-              <div class="mt-4">
-                <button
-                  (click)="openInteractiveReward(day)"
-                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-red-500/50 hover:border-red-500"
-                >
-                  <span class="text-4xl">💌</span>
-                  <div class="text-left">
-                    <h4 class="text-base sm:text-lg font-bold text-gold">
-                      {{ 'rewards.popupCard.title' | translate }}
-                    </h4>
-                    <p class="text-xs sm:text-sm text-text-muted">
-                      {{ 'rewards.gallery.clickToInteract' | translate }}
-                    </p>
-                  </div>
-                </button>
-              </div>
-              }
-
-              <!-- Fortune Cookie Reward -->
-              @if (hasFortuneCookieReward(day)) {
-              <div class="mt-4">
-                <button
-                  (click)="openInteractiveReward(day)"
-                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-amber-500/50 hover:border-amber-500"
-                >
-                  <span class="text-4xl">🥠</span>
-                  <div class="text-left">
-                    <h4 class="text-base sm:text-lg font-bold text-gold">
-                      {{ 'rewards.fortuneCookie.title' | translate }}
-                    </h4>
-                    <p class="text-xs sm:text-sm text-text-muted">
-                      {{ 'rewards.gallery.clickToInteract' | translate }}
-                    </p>
-                  </div>
-                </button>
-              </div>
-              }
-
-              <!-- Ice Breaker Reward -->
-              @if (hasIceBreakerReward(day)) {
-              <div class="mt-4">
-                <button
-                  (click)="openInteractiveReward(day)"
-                  class="w-full flex items-center gap-3 bg-surface hover:bg-opacity-80 rounded-lg p-4 transition-all cursor-pointer border-2 border-cyan-500/50 hover:border-cyan-500"
-                >
-                  <span class="text-4xl">🧊</span>
-                  <div class="text-left">
-                    <h4 class="text-base sm:text-lg font-bold text-gold">
-                      {{ 'rewards.iceBreaker.title' | translate }}
-                    </h4>
-                    <p class="text-xs sm:text-sm text-text-muted">
-                      {{ 'rewards.gallery.clickToInteract' | translate }}
-                    </p>
-                  </div>
-                </button>
-              </div>
-              }
-            </div>
-          </div>
-        </div>
-        }
-
-        <!-- Day 25 - Completed Puzzle Image -->
-        <div class="card p-4 sm:p-6 border-2 border-gold">
-          <div class="flex flex-col items-center gap-4">
-            <!-- Day Badge -->
-            <div
-              class="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gold flex items-center justify-center"
-            >
-              <span class="text-2xl sm:text-3xl font-bold text-bg">25</span>
-            </div>
-
-            <!-- Content -->
-            <div class="text-center">
-              <div class="flex items-center justify-center gap-2 mb-3">
-                <span class="text-3xl">🎄</span>
-                <h3 class="text-xl sm:text-2xl font-bold text-gold">
-                  {{ 'rewards.puzzleComplete.title' | translate }}
-                </h3>
-                <span class="text-3xl">🎄</span>
-              </div>
-              <p class="text-sm sm:text-base text-text-muted mb-4">
-                {{ 'rewards.puzzleComplete.description' | translate }}
-              </p>
-            </div>
-
-            <!-- Puzzle Image -->
-            <div class="w-full max-w-md">
+            <!-- Image Reward -->
+            @if (hasImageReward(day) && day.reward?.imageUrl) {
+            <figure class="reward-media">
               <img
-                src="assets/Calendar_puzzle.png"
-                alt="Completed Advent Calendar Puzzle"
-                class="w-full h-auto rounded-lg shadow-lg border-2 border-gold"
+                [src]="day.reward!.imageUrl"
+                [alt]="day.reward!.imageAlt ? (day.reward!.imageAlt | translate) : 'Reward image'"
+                style="max-height: 300px"
+                loading="lazy"
               />
-            </div>
-
-            <!-- Download Button -->
+              @if (day.reward?.caption) {
+              <figcaption>{{ day.reward!.caption | translate }}</figcaption>
+              }
+            </figure>
+            @if (day.reward?.downloadable) {
             <a
-              href="assets/Calendar_puzzle.png"
-              download="Jambiz_Advent_Calendar_2025.png"
-              class="btn btn-primary flex items-center gap-2 mt-4"
+              [href]="day.reward!.imageUrl"
+              [download]="(day.reward!.downloadFileName || 'reward') + '.png'"
+              class="btn btn-outline mt-3"
             >
-              <span>📥</span>
-              {{ 'rewards.puzzleComplete.download' | translate }}
+              <lucide-icon [img]="Download" class="w-4 h-4" [strokeWidth]="2"></lucide-icon>
+              {{ 'rewards.downloadWallpaper' | translate }}
             </a>
+            }
+            }
+
+            <!-- Video Reward -->
+            @if (hasVideoReward(day) && day.reward?.videoUrl) {
+            <div class="reward-media">
+              <video [src]="day.reward!.videoUrl" controls style="max-height: 220px" playsinline>
+                <source [src]="day.reward!.videoUrl!" [type]="'video/' + (day.reward!.videoType || 'mp4')" />
+              </video>
+            </div>
+            }
+
+            <!-- Audio Reward -->
+            @if (hasAudioReward(day) && day.reward?.audioUrl) {
+            <div class="reward-audio">
+              @if (day.reward?.title) {
+              <span class="reward-audio-title">{{ day.reward!.title | translate }}</span>
+              }
+              <audio [src]="day.reward!.audioUrl" controls class="w-full h-10">
+                <source [src]="day.reward!.audioUrl!" [type]="'audio/' + (day.reward!.audioType || 'mp3')" />
+              </audio>
+              @if (day.reward?.lyrics) {
+              <details class="reward-lyrics">
+                <summary>{{ 'rewards.lyricsLabel' | translate }}</summary>
+                <pre>{{ day.reward!.lyrics | translate }}</pre>
+              </details>
+              }
+            </div>
+            }
+
+            <!-- Interactive rewards -->
+            @if (hasCouponReward(day) && day.reward?.couponTitleKey) {
+            <button (click)="openInteractiveReward(day)" class="reward-open">
+              <span class="reward-open-icon" aria-hidden="true">{{ day.reward!.couponEmoji || '🎟️' }}</span>
+              <span class="reward-open-text">
+                <span class="reward-open-title">{{ day.reward!.couponTitleKey | translate }}</span>
+                <span class="reward-open-hint">{{ 'rewards.gallery.clickToInteract' | translate }}</span>
+              </span>
+              <span class="tile-arrow" aria-hidden="true">→</span>
+            </button>
+            }
+            @if (hasSnowGlobeReward(day)) {
+            <button (click)="openInteractiveReward(day)" class="reward-open">
+              <span class="reward-open-icon" aria-hidden="true">🔮</span>
+              <span class="reward-open-text">
+                <span class="reward-open-title">{{ 'rewards.snowGlobe.title' | translate }}</span>
+                <span class="reward-open-hint">{{ 'rewards.gallery.clickToInteract' | translate }}</span>
+              </span>
+              <span class="tile-arrow" aria-hidden="true">→</span>
+            </button>
+            }
+            @if (hasMagic8BallReward(day)) {
+            <button (click)="openInteractiveReward(day)" class="reward-open">
+              <span class="reward-open-icon" aria-hidden="true">🎱</span>
+              <span class="reward-open-text">
+                <span class="reward-open-title">{{ 'rewards.magic8Ball.title' | translate }}</span>
+                <span class="reward-open-hint">{{ 'rewards.gallery.clickToInteract' | translate }}</span>
+              </span>
+              <span class="tile-arrow" aria-hidden="true">→</span>
+            </button>
+            }
+            @if (hasPopupCardReward(day)) {
+            <button (click)="openInteractiveReward(day)" class="reward-open">
+              <span class="reward-open-icon" aria-hidden="true">💌</span>
+              <span class="reward-open-text">
+                <span class="reward-open-title">{{ 'rewards.popupCard.title' | translate }}</span>
+                <span class="reward-open-hint">{{ 'rewards.gallery.clickToInteract' | translate }}</span>
+              </span>
+              <span class="tile-arrow" aria-hidden="true">→</span>
+            </button>
+            }
+            @if (hasFortuneCookieReward(day)) {
+            <button (click)="openInteractiveReward(day)" class="reward-open">
+              <span class="reward-open-icon" aria-hidden="true">🥠</span>
+              <span class="reward-open-text">
+                <span class="reward-open-title">{{ 'rewards.fortuneCookie.title' | translate }}</span>
+                <span class="reward-open-hint">{{ 'rewards.gallery.clickToInteract' | translate }}</span>
+              </span>
+              <span class="tile-arrow" aria-hidden="true">→</span>
+            </button>
+            }
+            @if (hasIceBreakerReward(day)) {
+            <button (click)="openInteractiveReward(day)" class="reward-open">
+              <span class="reward-open-icon" aria-hidden="true">🧊</span>
+              <span class="reward-open-text">
+                <span class="reward-open-title">{{ 'rewards.iceBreaker.title' | translate }}</span>
+                <span class="reward-open-hint">{{ 'rewards.gallery.clickToInteract' | translate }}</span>
+              </span>
+              <span class="tile-arrow" aria-hidden="true">→</span>
+            </button>
+            }
           </div>
-        </div>
-      </div>
+        </li>
+        }
+      </ol>
+
+      <!-- Day 25 - Completed Puzzle Image -->
+      <section class="finale">
+        <span class="finale-num" aria-hidden="true">25</span>
+        <span class="kicker">{{ 'calendar.day25.subtitle' | translate }}</span>
+        <h3 class="finale-title">{{ 'rewards.puzzleComplete.title' | translate }}</h3>
+        <p class="finale-text">{{ 'rewards.puzzleComplete.description' | translate }}</p>
+        <img src="assets/Calendar_puzzle.png" alt="Completed Advent Calendar Puzzle" class="finale-image" />
+        <a
+          href="assets/Calendar_puzzle.png"
+          download="Jambiz_Advent_Calendar_2026.png"
+          class="btn btn-primary mt-6"
+        >
+          <lucide-icon [img]="Download" class="w-4 h-4" [strokeWidth]="2"></lucide-icon>
+          {{ 'rewards.puzzleComplete.download' | translate }}
+        </a>
+      </section>
     </div>
   </div>
 </div>
@@ -752,16 +499,16 @@
 @if (showInteractiveReward && interactiveRewardConfig) {
 <div class="modal-overlay" (click)="closeInteractiveReward()">
   <div
-    class="modal-content w-full h-full sm:w-[90vw] sm:max-w-2xl sm:h-auto sm:max-h-[90vh] sm:rounded-2xl flex flex-col p-8 relative overflow-y-auto"
+    class="modal-content w-full h-full sm:w-[90vw] sm:max-w-2xl sm:h-auto sm:max-h-[90vh] flex flex-col p-8 relative overflow-y-auto"
     (click)="$event.stopPropagation()"
   >
     <!-- Close Button -->
     <button
       (click)="closeInteractiveReward()"
-      class="absolute top-4 right-4 btn btn-outline p-2 min-w-0 z-10"
+      class="close-btn absolute top-4 right-4 z-10"
       aria-label="Close"
     >
-      <lucide-icon [img]="X" class="w-6 h-6" [strokeWidth]="2"></lucide-icon>
+      <lucide-icon [img]="X" class="w-5 h-5" [strokeWidth]="1.75"></lucide-icon>
     </button>
 
     <!-- Interactive Reward Component -->
@@ -787,60 +534,30 @@
   </div>
 
   <div
-    class="modal-content celebration-modal w-[95vw] max-w-lg p-6 sm:p-8 rounded-2xl text-center relative overflow-hidden"
+    class="modal-content celebration-modal w-[94vw] max-w-lg h-auto rounded-[28px] text-center"
     (click)="$event.stopPropagation()"
   >
-    <!-- Decorative background -->
-    <div
-      class="absolute inset-0 bg-gradient-to-br from-accent-red/20 via-surface to-accent-green/20 -z-10"
-    ></div>
-
-    <!-- Close Button -->
     <button
       (click)="closeCelebration()"
-      class="absolute top-3 right-3 btn btn-outline p-2 min-w-0"
+      class="close-btn absolute top-4 right-4"
       aria-label="Close"
     >
-      <lucide-icon [img]="X" class="w-5 h-5" [strokeWidth]="2"></lucide-icon>
+      <lucide-icon [img]="X" class="w-5 h-5" [strokeWidth]="1.75"></lucide-icon>
     </button>
 
-    <!-- Trophy and Stars -->
-    <div class="text-6xl sm:text-7xl mb-4 animate-bounce">🏆</div>
-    <div class="text-3xl sm:text-4xl mb-6 flex justify-center gap-2">
-      <span class="animate-pulse" style="animation-delay: 0s">⭐</span>
-      <span class="animate-pulse" style="animation-delay: 0.2s">🌟</span>
-      <span class="animate-pulse" style="animation-delay: 0.4s">⭐</span>
+    <div class="celebration-count" aria-hidden="true">
+      <span>24</span><span class="slash">/</span><span>24</span>
     </div>
 
-    <!-- Title -->
-    <h2 class="text-2xl sm:text-3xl font-bold text-gold mb-3">
-      {{ 'celebration.title' | translate }}
-    </h2>
+    <h2 class="modal-title mb-3">{{ 'celebration.title' | translate }}</h2>
+    <p class="text-text-muted leading-relaxed mb-8">{{ 'celebration.message' | translate }}</p>
 
-    <!-- Message -->
-    <p class="text-base sm:text-lg text-text mb-6">
-      {{ 'celebration.message' | translate }}
-    </p>
-
-    <!-- Unlocked Features -->
-    <div class="bg-surface/50 rounded-xl p-4 mb-6">
-      <p class="text-sm sm:text-base text-accent-green font-semibold mb-3">
-        {{ 'celebration.unlocked' | translate }}
-      </p>
-      <div class="flex justify-center gap-4 text-2xl">
-        <span title="All Rewards">🎁</span>
-        <span title="Extra Games">🎮</span>
-        <span title="Puzzle Complete">🧩</span>
-      </div>
-    </div>
-
-    <!-- Action Buttons -->
     <div class="flex flex-col sm:flex-row gap-3 justify-center">
       <button class="btn btn-primary px-6 py-3" (click)="closeCelebration(); openRewardsGallery()">
-        🏆 {{ 'celebration.viewRewards' | translate }}
+        {{ 'celebration.viewRewards' | translate }}
       </button>
       <button class="btn btn-outline px-6 py-3" (click)="closeCelebration(); openExtras()">
-        🎮 {{ 'celebration.playExtras' | translate }}
+        {{ 'celebration.playExtras' | translate }}
       </button>
     </div>
   </div>

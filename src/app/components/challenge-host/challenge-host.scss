@@ -1,6 +1,44 @@
-// Component-specific styles for challenge host
-// Using Tailwind utilities in template
-
 :host {
   display: block;
+}
+
+.host-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-shrink: 0;
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--hairline);
+
+  @media (max-width: 767px) {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.host-title {
+  margin: 2px 0 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.25rem, 3vw, 1.9rem);
+  line-height: 1.1;
+  color: var(--color-snow);
+}
+
+.host-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.host-status {
+  margin-bottom: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-frost);
 }
