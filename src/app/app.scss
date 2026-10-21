@@ -11,6 +11,11 @@
   > * {
     pointer-events: auto;
   }
+
+  // The fairy lights overlap the header: only the bulbs themselves take clicks
+  > app-string-lights {
+    pointer-events: none;
+  }
 }
 
 .landing-host {
