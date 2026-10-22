@@ -948,14 +948,14 @@
     },
     "carolConductor": {
       "title": "Juldirigenten",
-      "instruction": "Spela med till We Wish You a Merry Christmas. Tryck på varje spår när tonen når den ljusa linjen. Använd D, F, J, K eller de fyra knapparna.",
+      "instruction": "Spela Bjällerklang själv. Varje spår är en ton, C D E F G från låg till hög: tryck när julgranskulan når den gyllene linjen. Tangenterna D, F, mellanslag, J och K, eller knapparna. Ett mjukt klick håller takten.",
       "miss": "Miss — hitta takten igen!",
       "perfect": "Perfekt!",
       "good": "Bra tajming!",
       "lost": "Orkestern behöver en repetition till. Träffa minst 75 % av tonerna och undvik feltryck.",
       "ready": "Gör dig redo…",
       "lane": "Spår {{n}}",
-      "goal": "Träffa minst 45 av 60 toner. Musiktonerna spelas även när vanliga ljudeffekter är avstängda."
+      "goal": "Spela minst tre fjärdedelar av tonerna. Musiktonerna hörs även när vanliga ljudeffekter är avstängda."
     },
     "snowGlobeJigsaw": {
       "title": "Snöglobspusslet",

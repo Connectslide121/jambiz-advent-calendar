@@ -948,14 +948,14 @@
     },
     "carolConductor": {
       "title": "Carol Conductor",
-      "instruction": "Play along with We Wish You a Merry Christmas. Tap each lane as its note reaches the bright line. Use D, F, J, K or the four pads.",
+      "instruction": "Play Jingle Bells yourself. Each lane is one note, C D E F G from low to high: tap it as the ornament reaches the golden line. Keys D, F, Space, J and K, or the pads. A soft click keeps the beat.",
       "miss": "Miss — find the beat again!",
       "perfect": "Perfect!",
       "good": "Good timing!",
       "lost": "The orchestra needs another rehearsal. Hit at least 75% of the notes and avoid stray taps.",
       "ready": "Get ready…",
       "lane": "Lane {{n}}",
-      "goal": "Land at least 45 of 60 notes. Musical notes play even when ordinary effects are muted."
+      "goal": "Play at least three quarters of the notes. Musical notes play even when ordinary effects are muted."
     },
     "snowGlobeJigsaw": {
       "title": "Snow Globe Jigsaw",
