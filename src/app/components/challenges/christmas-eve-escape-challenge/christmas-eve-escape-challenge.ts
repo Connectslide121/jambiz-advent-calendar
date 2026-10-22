@@ -11,14 +11,21 @@ export type EscapeSpot = 'desk' | 'clock' | 'books' | 'cabinet' | 'window' | 'pr
   styleUrls: ['../shared/game-board.scss', './christmas-eve-escape-challenge.scss'],
 })
 export class ChristmasEveEscapeChallenge extends SeasonalGame implements OnInit {
-  readonly spots: { id: EscapeSpot; x: number; y: number; icon: string }[] = [
-    { id: 'desk', x: 14, y: 72, icon: '✉️' },
-    { id: 'clock', x: 50, y: 15, icon: '🕰️' },
-    { id: 'books', x: 85, y: 31, icon: '📚' },
-    { id: 'cabinet', x: 85, y: 78, icon: '🗄️' },
-    { id: 'window', x: 17, y: 23, icon: '❄️' },
-    { id: 'present', x: 49, y: 79, icon: '🎁' },
+  /** Clickable areas of the study, in the 640×400 room drawing */
+  readonly spots: { id: EscapeSpot; x: number; y: number; w: number; h: number }[] = [
+    { id: 'window', x: 36, y: 36, w: 128, h: 118 },
+    { id: 'clock', x: 286, y: 108, w: 68, h: 66 },
+    { id: 'books', x: 464, y: 52, w: 142, h: 182 },
+    { id: 'desk', x: 26, y: 214, w: 170, h: 90 },
+    { id: 'cabinet', x: 474, y: 240, w: 132, h: 96 },
+    { id: 'present', x: 404, y: 292, w: 70, h: 70 },
   ];
+  /** Places already inspected; the rest sparkle */
+  visited = new Set<EscapeSpot>();
+  readonly bookColors = ['#a8243a', '#2f8a5c', '#3a5aa8', '#c99a46', '#6a3a8a', '#b2562e'];
+  get hourAngle(): number {
+    return (this.hour % 12) * 30;
+  }
   readonly symbols = ['⭐', '🔔', '🎄', '❄️', '🎁'];
   readonly slots = [0, 1, 2];
   readonly itemIcons: Record<Item, string> = {
@@ -47,6 +54,7 @@ export class ChristmasEveEscapeChallenge extends SeasonalGame implements OnInit 
   restart(): void {
     this.resetBase();
     this.spot = null;
+    this.visited = new Set();
     this.storyKey = 'challenges.christmasEveEscape.welcome';
     this.items = [];
     this.selected = null;
@@ -64,6 +72,7 @@ export class ChristmasEveEscapeChallenge extends SeasonalGame implements OnInit 
   inspect(spot: EscapeSpot): void {
     if (this.won) return;
     this.spot = spot;
+    this.visited.add(spot);
     this.status = '';
     this.sound.tap();
     this.storyKey = 'challenges.christmasEveEscape.' + spot;
