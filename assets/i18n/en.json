@@ -884,7 +884,7 @@
     },
     "giftPacking": {
       "title": "Gift Packing",
-      "instruction": "Fit every present into the sack without overlaps. Select a shape, rotate it, then choose its top-left position. Tap a packed present to pick it up again.",
+      "instruction": "Fit every present into the sack without overlaps. Select a present and rotate it; a preview shows where it will land as you point at the sack. Tap a packed present to pick it up again.",
       "piece": "Present {{n}}",
       "noFit": "That present does not fit there. Rotate it or make room first.",
       "keys": "Keyboard: arrows choose a space, Enter places, R rotates, Backspace undoes. You can also click or tap everything."
