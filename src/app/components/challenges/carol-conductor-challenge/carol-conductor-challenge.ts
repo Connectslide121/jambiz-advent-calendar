@@ -43,6 +43,13 @@ const TUNE: [number, number][] = [
   [493.88, 1],
   [523.25, 3],
 ];
+/** A short-lived judgement shown in a lane */
+interface Flash {
+  lane: number;
+  key: string;
+  kind: 'perfect' | 'good' | 'miss';
+  id: number;
+}
 @Component({
   selector: 'app-carol-conductor-challenge',
   imports: [TranslateModule, GameFrame],
@@ -60,12 +67,18 @@ export class CarolConductorChallenge extends SeasonalGame implements OnInit {
   bestCombo = 0;
   errors = 0;
   activeLane = -1;
+  flashes: Flash[] = [];
+  readonly staff = [0, 1, 2, 3, 4];
+  private flashId = 0;
   private lightUntil = 0;
   private judgmentUntil = 0;
   get visibleNotes(): Beat[] {
     return this.notes.filter(
       (n) => !n.judged && n.at - this.time <= 1.8 && n.at - this.time >= -0.18
     );
+  }
+  get progress(): number {
+    return this.songEnd ? Math.min(100, (this.time / this.songEnd) * 100) : 0;
   }
   get accuracy(): number {
     return this.notes.length ? Math.round((this.hits / this.notes.length) * 100) : 0;
@@ -83,6 +96,7 @@ export class CarolConductorChallenge extends SeasonalGame implements OnInit {
     this.activeLane = -1;
     this.lightUntil = 0;
     this.judgmentUntil = 0;
+    this.flashes = [];
     let at = 2;
     const pitch = [392, 440, 493.88, 523.25, 587.33, 659.25, 698.46];
     this.notes = [...TUNE, ...TUNE].map(([frequency, beats]) => {
@@ -122,12 +136,11 @@ export class CarolConductorChallenge extends SeasonalGame implements OnInit {
         note.judged = true;
         this.combo = 0;
         this.errors++;
-        this.message('challenges.carolConductor.miss');
-        this.judgmentUntil = this.time + 0.6;
+        this.flash(note.lane, 'miss');
       }
     }
     if (this.time > this.lightUntil) this.activeLane = -1;
-    if (this.time > this.judgmentUntil) this.status = '';
+    if (this.time > this.judgmentUntil) this.flashes = [];
     if (this.time >= this.songEnd) {
       const required = Math.ceil(this.notes.length * 0.75);
       if (this.hits >= required && this.errors <= 20)
@@ -150,7 +163,7 @@ export class CarolConductorChallenge extends SeasonalGame implements OnInit {
       this.combo = 0;
       this.errors++;
       this.sound.thud();
-      this.message('challenges.carolConductor.miss');
+      this.flash(lane, 'miss');
     } else {
       const delta = Math.abs(note.at - this.time);
       note.judged = true;
@@ -160,11 +173,16 @@ export class CarolConductorChallenge extends SeasonalGame implements OnInit {
       this.bestCombo = Math.max(this.bestCombo, this.combo);
       this.score +=
         (delta <= 0.065 ? 1000 : delta <= 0.13 ? 700 : 400) + Math.min(200, this.combo * 10);
-      this.sound.tap();
-      this.message(
-        delta <= 0.065 ? 'challenges.carolConductor.perfect' : 'challenges.carolConductor.good'
-      );
+      // Your hit rings a bell an octave above the melody
+      this.sound.bell(note.frequency * 2, 0.12, 0, true);
+      this.flash(lane, delta <= 0.065 ? 'perfect' : 'good');
     }
+  }
+  private flash(lane: number, kind: Flash['kind']): void {
+    this.flashes = [
+      ...this.flashes.filter((f) => f.lane !== lane),
+      { lane, kind, key: 'challenges.carolConductor.' + kind, id: ++this.flashId },
+    ];
     this.judgmentUntil = this.time + 0.6;
   }
   @HostListener('document:keydown', ['$event']) onKey(e: KeyboardEvent): void {

@@ -1,8 +1,58 @@
+// Lane colours: gold, pine, frost, cranberry
+[data-lane='0'] {
+  --lane: #f7c873;
+}
+[data-lane='1'] {
+  --lane: #5cd6a4;
+}
+[data-lane='2'] {
+  --lane: #8fc4ff;
+}
+[data-lane='3'] {
+  --lane: #ff6b80;
+}
+.combo {
+  min-width: 3.5ch;
+  transition: color 0.2s ease, transform 0.2s ease;
+
+  &.hot {
+    color: var(--color-candle);
+    transform: scale(1.15);
+  }
+}
+.song {
+  width: 100%;
+  max-width: 520px;
+  height: 4px;
+  margin: 0 auto;
+  border-radius: 4px;
+  background: var(--hairline);
+  overflow: hidden;
+
+  span {
+    display: block;
+    height: 100%;
+    background: var(--color-candle);
+  }
+}
 .rhythm {
   height: 330px;
   max-width: 520px;
   width: 100%;
   margin: auto;
+  background: radial-gradient(120% 70% at 50% 100%, rgba(255, 200, 120, 0.12), transparent 60%),
+    linear-gradient(180deg, #0b1030, #141a44);
+}
+.staff {
+  position: absolute;
+  inset: 40px 0 auto;
+  display: grid;
+  gap: 18px;
+
+  span {
+    height: 1px;
+    background: rgba(207, 230, 255, 0.07);
+  }
 }
 .lanes {
   position: absolute;
@@ -11,39 +61,115 @@
   grid-template-columns: repeat(4, 1fr);
 }
 .lane {
-  border-right: 1px solid var(--color-border);
-  background: var(--color-surface);
+  border-right: 1px solid rgba(207, 230, 255, 0.06);
+  transition: background-color 0.1s ease;
+
+  &:last-child {
+    border-right: 0;
+  }
+  &.active {
+    background: linear-gradient(0deg, color-mix(in srgb, var(--lane) 22%, transparent), transparent 80%);
+  }
 }
-.lane.active {
-  background: var(--color-surface-2);
-}
-.falling {
-  position: absolute;
-  width: 17%;
-  height: 22px;
-  background: var(--color-gold);
-  border-radius: 6px;
-  text-align: center;
-  color: var(--color-bg);
-  font-weight: 900;
-  pointer-events: none;
-}
-.falling[data-lane='1'] {
-  background: var(--color-aurora);
-}
-.falling[data-lane='2'] {
-  background: var(--color-frost);
-}
-.falling[data-lane='3'] {
-  background: var(--color-accent-red);
-}
+// The golden line with a target ring per lane
 .hit-line {
   position: absolute;
   left: 0;
   right: 0;
   top: 300px;
-  border-top: 3px solid var(--color-text);
-  box-shadow: 0 0 14px var(--color-gold);
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-candle), transparent);
+  box-shadow: 0 0 12px rgba(255, 217, 154, 0.7);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.target {
+  justify-self: center;
+  width: 34px;
+  height: 34px;
+  margin-top: -16px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--lane) 70%, transparent);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+
+  &.active {
+    transform: scale(1.2);
+    box-shadow: 0 0 20px var(--lane);
+  }
+}
+// Notes are glowing ornaments with a tail for long notes
+.falling {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff, var(--lane) 45%, color-mix(in srgb, var(--lane) 60%, #000));
+  box-shadow: 0 0 14px color-mix(in srgb, var(--lane) 80%, transparent);
+  pointer-events: none;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    width: 6px;
+    height: var(--len);
+    margin-left: -3px;
+    border-radius: 3px;
+    background: linear-gradient(0deg, color-mix(in srgb, var(--lane) 55%, transparent), transparent);
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -5px;
+    width: 8px;
+    height: 5px;
+    margin-left: -4px;
+    border-radius: 2px;
+    background: #d9b56a;
+  }
+}
+.flash {
+  position: absolute;
+  top: 246px;
+  transform: translateX(-50%);
+  font-weight: 800;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: rise 0.6s var(--ease-out) both;
+
+  // Keep long text inside the board on the outer lanes
+  &[data-lane='0'] {
+    transform: translateX(-30%);
+  }
+  &[data-lane='3'] {
+    transform: translateX(-70%);
+  }
+  &[data-kind='perfect'] {
+    color: var(--color-candle);
+  }
+  &[data-kind='good'] {
+    color: var(--color-aurora);
+  }
+  &[data-kind='miss'] {
+    color: var(--color-text-muted);
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+  30% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    translate: 0 -18px;
+  }
 }
 .pads {
   display: grid;
@@ -54,24 +180,42 @@
   margin: auto;
 }
 .pads button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   height: 58px;
-  border-radius: 10px;
-  background: var(--color-surface-2);
-  color: var(--color-text);
+  border-radius: 14px;
+  background: rgba(246, 240, 228, 0.04);
+  border: 1px solid color-mix(in srgb, var(--lane) 50%, transparent);
+  border-bottom: 3px solid var(--lane);
+  color: var(--color-snow);
   font-weight: 900;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   touch-action: none;
-  border-bottom: 3px solid var(--color-gold);
-}
-.pads button.active {
-  background: var(--color-gold);
-  color: var(--color-bg);
+  cursor: pointer;
+  transition: background-color 0.08s ease, transform 0.08s ease;
+
+  svg {
+    width: 22px;
+    height: 22px;
+    fill: var(--lane);
+  }
+  &.active {
+    background: color-mix(in srgb, var(--lane) 30%, transparent);
+    transform: translateY(2px);
+  }
+  &:disabled {
+    opacity: 0.6;
+  }
 }
 .count-in {
   position: absolute;
   inset: 0;
   display: grid;
   place-content: center;
-  color: var(--color-gold);
-  font-size: 1.5rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--color-snow);
+  font-size: 1.8rem;
 }

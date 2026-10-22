@@ -11,32 +11,48 @@
   (reward)="completed.emit()"
 >
   <div class="hud">
-    <span>🎯 {{ hits }}/{{ notes.length }}</span
-    ><span>🔥 {{ combo }}</span
-    ><span>⭐ {{ score }}</span>
+    <span>🎯 {{ hits }}/{{ notes.length }}</span>
+    <span class="combo" [class.hot]="combo >= 10">×{{ combo }}</span>
+    <span>⭐ {{ score }}</span>
   </div>
+  <div class="song" aria-hidden="true"><span [style.width.%]="progress"></span></div>
   <div
     class="rhythm board"
     data-game-board
     tabindex="0"
     [attr.aria-label]="'challenges.carolConductor.title' | translate"
   >
-    <div class="lanes">
-      @for (lane of lanes; track lane) {
-        <div class="lane" [class.active]="activeLane === lane"></div>
+    <!-- Faint sheet-music staff behind the lanes -->
+    <div class="staff" aria-hidden="true">
+      @for (l of staff; track l) {
+        <span></span>
       }
     </div>
-    @for (note of visibleNotes; track $index) {
+    <div class="lanes">
+      @for (lane of lanes; track lane) {
+        <div class="lane" [attr.data-lane]="lane" [class.active]="activeLane === lane"></div>
+      }
+    </div>
+    <div class="hit-line" aria-hidden="true">
+      @for (lane of lanes; track lane) {
+        <span class="target" [attr.data-lane]="lane" [class.active]="activeLane === lane"></span>
+      }
+    </div>
+    @for (note of visibleNotes; track note.at) {
       <div
         class="falling"
-        [style.left.%]="note.lane * 25 + 4"
-        [style.top.px]="noteY(note) - 9"
+        [style.left.%]="note.lane * 25 + 12.5"
+        [style.top.px]="noteY(note)"
         [attr.data-lane]="note.lane"
-      >
-        ♪
+        [style.--len.px]="note.duration * 160"
+        aria-hidden="true"
+      ></div>
+    }
+    @for (f of flashes; track f.id) {
+      <div class="flash" [attr.data-kind]="f.kind" [attr.data-lane]="f.lane" [style.left.%]="f.lane * 25 + 12.5">
+        {{ f.key | translate }}
       </div>
     }
-    <div class="hit-line" aria-hidden="true"></div>
     @if (phase === 'playing' && time < 2) {
       <div class="count-in">{{ 'challenges.carolConductor.ready' | translate }}</div>
     }
@@ -45,6 +61,7 @@
     @for (lane of lanes; track lane) {
       <button
         type="button"
+        [attr.data-lane]="lane"
         [class.active]="activeLane === lane"
         [disabled]="phase !== 'playing'"
         (pointerdown)="$event.preventDefault(); hit(lane)"
@@ -52,7 +69,11 @@
         (keydown.space)="$event.preventDefault(); hit(lane)"
         [attr.aria-label]="'challenges.carolConductor.lane' | translate: { n: lane + 1 }"
       >
-        {{ keys[lane] }}
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3 C7 3 6 8 6 11 C6 15 4 16 3 18 H21 C20 16 18 15 18 11 C18 8 17 3 12 3 Z" />
+          <circle cx="12" cy="20.5" r="2" />
+        </svg>
+        <span>{{ keys[lane] }}</span>
       </button>
     }
   </div>
