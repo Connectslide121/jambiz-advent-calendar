@@ -1,15 +1,18 @@
-// Lane colours: gold, pine, frost, cranberry
+// Lane colours from low to high
 [data-lane='0'] {
-  --lane: #f7c873;
+  --lane: #ff6b80;
 }
 [data-lane='1'] {
-  --lane: #5cd6a4;
+  --lane: #ff9f6b;
 }
 [data-lane='2'] {
-  --lane: #8fc4ff;
+  --lane: #f7c873;
 }
 [data-lane='3'] {
-  --lane: #ff6b80;
+  --lane: #5cd6a4;
+}
+[data-lane='4'] {
+  --lane: #c79bff;
 }
 .combo {
   min-width: 3.5ch;
@@ -58,7 +61,7 @@
   position: absolute;
   inset: 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
 }
 .lane {
   border-right: 1px solid rgba(207, 230, 255, 0.06);
@@ -81,13 +84,13 @@
   background: linear-gradient(90deg, transparent, var(--color-candle), transparent);
   box-shadow: 0 0 12px rgba(255, 217, 154, 0.7);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
 }
 .target {
   justify-self: center;
-  width: 34px;
-  height: 34px;
-  margin-top: -16px;
+  width: 30px;
+  height: 30px;
+  margin-top: -14px;
   border-radius: 50%;
   border: 2px solid color-mix(in srgb, var(--lane) 70%, transparent);
   transition: transform 0.1s ease, box-shadow 0.1s ease;
@@ -100,9 +103,9 @@
 // Notes are glowing ornaments with a tail for long notes
 .falling {
   position: absolute;
-  width: 26px;
-  height: 26px;
-  margin: -13px 0 0 -13px;
+  width: 24px;
+  height: 24px;
+  margin: -12px 0 0 -12px;
   border-radius: 50%;
   background: radial-gradient(circle at 35% 30%, #fff, var(--lane) 45%, color-mix(in srgb, var(--lane) 60%, #000));
   box-shadow: 0 0 14px color-mix(in srgb, var(--lane) 80%, transparent);
@@ -145,7 +148,7 @@
   &[data-lane='0'] {
     transform: translateX(-30%);
   }
-  &[data-lane='3'] {
+  &[data-lane='4'] {
     transform: translateX(-70%);
   }
   &[data-kind='perfect'] {
@@ -173,41 +176,51 @@
 }
 .pads {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 3px;
   max-width: 520px;
   width: 100%;
   margin: auto;
 }
 .pads button {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
-  height: 58px;
-  border-radius: 14px;
-  background: rgba(246, 240, 228, 0.04);
-  border: 1px solid color-mix(in srgb, var(--lane) 50%, transparent);
-  border-bottom: 3px solid var(--lane);
-  color: var(--color-snow);
-  font-weight: 900;
-  font-size: 1.1rem;
+  justify-content: flex-end;
+  gap: 2px;
+  height: 92px;
+  padding-bottom: 8px;
+  border-radius: 0 0 10px 10px;
+  background: linear-gradient(180deg, #f6f0e4, #e4dccb);
+  border: 0;
+  border-top: 4px solid var(--lane);
+  box-shadow: inset 0 -6px 0 #cfc5b0, 0 4px 10px -4px rgba(0, 0, 0, 0.6);
+  color: #2a2236;
   touch-action: none;
   cursor: pointer;
-  transition: background-color 0.08s ease, transform 0.08s ease;
+  transition: transform 0.06s ease, box-shadow 0.06s ease, background-color 0.06s ease;
 
-  svg {
-    width: 22px;
-    height: 22px;
-    fill: var(--lane);
-  }
   &.active {
-    background: color-mix(in srgb, var(--lane) 30%, transparent);
-    transform: translateY(2px);
+    transform: translateY(3px);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--lane) 35%, #f6f0e4), #e4dccb);
+    box-shadow: inset 0 -2px 0 #cfc5b0, 0 1px 4px -2px rgba(0, 0, 0, 0.6);
   }
   &:disabled {
-    opacity: 0.6;
+    opacity: 0.75;
   }
+}
+.note-name {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.key-hint {
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #8a7f98;
 }
 .count-in {
   position: absolute;

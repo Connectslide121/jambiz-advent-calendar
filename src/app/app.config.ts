@@ -8,7 +8,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 export function HttpLoaderFactory(http: HttpClient) {
   // GitHub Pages caches stable asset URLs; keep returning visitors on this release's text.
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json?v=2026-10-22-packing');
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json?v=2026-10-22-jinglebells');
 }
 
 export const appConfig: ApplicationConfig = {

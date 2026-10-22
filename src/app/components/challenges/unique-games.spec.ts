@@ -309,9 +309,11 @@ describe('Twenty-four unique calendar games', () => {
     }
     game.step(game.songEnd - game.time + 0.01);
     expect(game.won).toBeTrue();
-    expect(game.hits).toBe(60);
-    expect(game.bestCombo).toBe(60);
-    expect(sound.note.calls.count()).toBe(61);
+    expect(game.hits).toBe(game.notes.length);
+    expect(game.bestCombo).toBe(game.notes.length);
+    // One note for the start plus the melody note of every hit
+    expect(sound.note.calls.count()).toBe(game.notes.length + 1);
+    expect(new Set(game.notes.map((n) => n.lane)).size).toBe(5);
     game.restart();
     tick(2000);
     expect(emitted).not.toHaveBeenCalled();

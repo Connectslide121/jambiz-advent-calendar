@@ -11,37 +11,37 @@ interface Beat {
   played: boolean;
   hit: boolean;
 }
+/** Seconds per quarter note (125 bpm) */
+const BEAT = 0.48;
+const C = 523.25,
+  D = 587.33,
+  E = 659.25,
+  F = 698.46,
+  G = 783.99;
+/** The five notes of the tune, one lane each from low to high */
+const PITCHES = [C, D, E, F, G];
+/** Jingle Bells chorus: [pitch, beats] in 4/4, starting on a downbeat */
 const TUNE: [number, number][] = [
-  [392, 1],
-  [523.25, 1],
-  [523.25, 0.5],
-  [587.33, 0.5],
-  [523.25, 0.5],
-  [493.88, 0.5],
-  [440, 1],
-  [440, 1],
-  [440, 1],
-  [587.33, 1],
-  [587.33, 0.5],
-  [659.25, 0.5],
-  [587.33, 0.5],
-  [523.25, 0.5],
-  [493.88, 1],
-  [392, 1],
-  [392, 1],
-  [659.25, 1],
-  [659.25, 0.5],
-  [698.46, 0.5],
-  [659.25, 0.5],
-  [587.33, 0.5],
-  [523.25, 1],
-  [440, 1],
-  [392, 0.5],
-  [392, 0.5],
-  [440, 1],
-  [587.33, 1],
-  [493.88, 1],
-  [523.25, 3],
+  // Jingle bells, jingle bells, jingle all the way
+  [E, 1], [E, 1], [E, 2],
+  [E, 1], [E, 1], [E, 2],
+  [E, 1], [G, 1], [C, 1.5], [D, 0.5],
+  [E, 4],
+  // Oh what fun it is to ride in a one-horse open sleigh, hey
+  [F, 1], [F, 1], [F, 1.5], [F, 0.5],
+  [F, 1], [E, 1], [E, 1], [E, 0.5], [E, 0.5],
+  [E, 1], [D, 1], [D, 1], [E, 1],
+  [D, 2], [G, 2],
+  // Jingle bells, jingle bells, jingle all the way
+  [E, 1], [E, 1], [E, 2],
+  [E, 1], [E, 1], [E, 2],
+  [E, 1], [G, 1], [C, 1.5], [D, 0.5],
+  [E, 4],
+  // Oh what fun it is to ride in a one-horse open sleigh
+  [F, 1], [F, 1], [F, 1], [F, 1],
+  [F, 1], [E, 1], [E, 1], [E, 0.5], [E, 0.5],
+  [G, 1], [G, 1], [F, 1], [D, 1],
+  [C, 4],
 ];
 /** A short-lived judgement shown in a lane */
 interface Flash {
@@ -57,9 +57,16 @@ interface Flash {
   styleUrls: ['../shared/game-board.scss', './carol-conductor-challenge.scss'],
 })
 export class CarolConductorChallenge extends SeasonalGame implements OnInit {
-  readonly lanes = [0, 1, 2, 3];
-  readonly keys = ['D', 'F', 'J', 'K'];
+  /** One lane per pitch, low to high like a keyboard: C D E F G */
+  readonly lanes = [0, 1, 2, 3, 4];
+  readonly names = ['C', 'D', 'E', 'F', 'G'];
+  /** Space plays the middle E, the note the tune uses most */
+  readonly keys = ['D', 'F', ' ', 'J', 'K'];
+  readonly keyLabels = ['D', 'F', '␣', 'J', 'K'];
   notes: Beat[] = [];
+  /** Metronome clicks: a count-in, then every quarter beat; downbeats of the 3/4 bar are accented */
+  ticks: { at: number; accent: boolean; done: boolean }[] = [];
+  private clockStart = 0;
   time = 0;
   songEnd = 0;
   hits = 0;
@@ -98,13 +105,12 @@ export class CarolConductorChallenge extends SeasonalGame implements OnInit {
     this.judgmentUntil = 0;
     this.flashes = [];
     let at = 2;
-    const pitch = [392, 440, 493.88, 523.25, 587.33, 659.25, 698.46];
-    this.notes = [...TUNE, ...TUNE].map(([frequency, beats]) => {
+    this.notes = TUNE.map(([frequency, beats]) => {
       const note = {
         at,
-        lane: pitch.indexOf(frequency) % 4,
+        lane: PITCHES.indexOf(frequency),
         frequency,
-        duration: beats * 0.48,
+        duration: beats * BEAT,
         judged: false,
         played: false,
         hit: false,
@@ -113,13 +119,19 @@ export class CarolConductorChallenge extends SeasonalGame implements OnInit {
       return note;
     });
     this.songEnd = at + 0.6;
+    // A one-bar count-in, then a click every beat with the first beat of each 4/4 bar accented
+    this.ticks = [];
+    for (let t = 2 - 4 * BEAT; t < at - 0.01; t += BEAT)
+      this.ticks.push({ at: t, accent: Math.round((t - 2) / BEAT) % 4 === 0, done: false });
   }
   start(): void {
     if (this.phase !== 'ready') return;
     this.phase = 'playing';
     this.focusBoard();
-    this.sound.note(392, 0.025);
-    this.startLoop((dt) => this.step(dt));
+    this.sound.note(C, 0.025);
+    // Follow the real clock, not summed frame times, so dropped frames never bend the tempo
+    this.clockStart = performance.now() - this.time * 1000;
+    this.startLoop(() => this.step((performance.now() - this.clockStart) / 1000 - this.time));
   }
   noteY(note: Beat): number {
     return 300 - ((note.at - this.time) / 1.8) * 300;
@@ -127,11 +139,12 @@ export class CarolConductorChallenge extends SeasonalGame implements OnInit {
   step(dt: number): void {
     if (this.phase !== 'playing') return;
     this.time += dt;
-    for (const note of this.notes) {
-      if (!note.played && this.time >= note.at) {
-        note.played = true;
-        this.sound.note(note.frequency, 0.12);
+    for (const tick of this.ticks)
+      if (!tick.done && this.time >= tick.at) {
+        tick.done = true;
+        this.sound.bell(tick.accent ? 1568 : 1175, tick.accent ? 0.05 : 0.025);
       }
+    for (const note of this.notes) {
       if (!note.judged && this.time > note.at + 0.18) {
         note.judged = true;
         this.combo = 0;
@@ -173,8 +186,8 @@ export class CarolConductorChallenge extends SeasonalGame implements OnInit {
       this.bestCombo = Math.max(this.bestCombo, this.combo);
       this.score +=
         (delta <= 0.065 ? 1000 : delta <= 0.13 ? 700 : 400) + Math.min(200, this.combo * 10);
-      // Your hit rings a bell an octave above the melody
-      this.sound.bell(note.frequency * 2, 0.12, 0, true);
+      // You play the melody: the note sounds when you hit it
+      this.sound.note(note.frequency, 0.2);
       this.flash(lane, delta <= 0.065 ? 'perfect' : 'good');
     }
   }
@@ -187,6 +200,8 @@ export class CarolConductorChallenge extends SeasonalGame implements OnInit {
   }
   @HostListener('document:keydown', ['$event']) onKey(e: KeyboardEvent): void {
     if (!this.gameKey(e) || e.repeat) return;
+    // A focused pad handles its own Space press
+    if (e.key === ' ' && (e.target as HTMLElement)?.closest('button')) return;
     const lane = this.keys.indexOf(e.key.toUpperCase());
     if (lane >= 0) {
       e.preventDefault();

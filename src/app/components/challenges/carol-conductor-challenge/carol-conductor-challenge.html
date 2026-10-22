@@ -41,7 +41,7 @@
     @for (note of visibleNotes; track note.at) {
       <div
         class="falling"
-        [style.left.%]="note.lane * 25 + 12.5"
+        [style.left.%]="(note.lane + 0.5) * (100 / 5)"
         [style.top.px]="noteY(note)"
         [attr.data-lane]="note.lane"
         [style.--len.px]="note.duration * 160"
@@ -49,7 +49,7 @@
       ></div>
     }
     @for (f of flashes; track f.id) {
-      <div class="flash" [attr.data-kind]="f.kind" [attr.data-lane]="f.lane" [style.left.%]="f.lane * 25 + 12.5">
+      <div class="flash" [attr.data-kind]="f.kind" [attr.data-lane]="f.lane" [style.left.%]="(f.lane + 0.5) * (100 / 5)">
         {{ f.key | translate }}
       </div>
     }
@@ -69,11 +69,8 @@
         (keydown.space)="$event.preventDefault(); hit(lane)"
         [attr.aria-label]="'challenges.carolConductor.lane' | translate: { n: lane + 1 }"
       >
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 3 C7 3 6 8 6 11 C6 15 4 16 3 18 H21 C20 16 18 15 18 11 C18 8 17 3 12 3 Z" />
-          <circle cx="12" cy="20.5" r="2" />
-        </svg>
-        <span>{{ keys[lane] }}</span>
+        <span class="note-name">{{ names[lane] }}</span>
+        <span class="key-hint">{{ keyLabels[lane] }}</span>
       </button>
     }
   </div>
