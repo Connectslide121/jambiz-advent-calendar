@@ -61,6 +61,8 @@ export class TreeLightsChallenge implements OnInit, OnDestroy {
   hintId: number | null = null;
   bestMoves: number | null = null;
   rippleId: number | null = null;
+  /** Bulb under the pointer; the bulbs it would toggle are outlined */
+  previewId: number | null = null;
 
   private rows = 5;
   private initialLit: boolean[] = [];
@@ -107,6 +109,59 @@ export class TreeLightsChallenge implements OnInit, OnDestroy {
     const bottom = 70 + (this.rows - 1) * 52 + 40;
     const c = this.centerX;
     return `M${c} ${top} L${c + this.halfWidth} ${bottom} L${c - this.halfWidth} ${bottom} Z`;
+  }
+
+  /** Layered branches: one scalloped tier per row, widest at the bottom, with snow on the tips */
+  get tiers(): { path: string; snow: string }[] {
+    const c = this.centerX;
+    return Array.from({ length: this.rows }, (_, row) => {
+      const top = row === 0 ? 34 : 70 + (row - 1) * 52 + 4;
+      const bottom = 70 + row * 52 + 34;
+      const half = 26 + (row + 1) * 26 + 4;
+      const scallops = row + 2;
+      const step = (half * 2) / scallops;
+      let edge = '';
+      let snow = `M${c - half} ${bottom}`;
+      for (let i = 0; i < scallops; i++) {
+        const x = c + half - (i + 1) * step;
+        edge += ` Q${(x + step / 2).toFixed(1)} ${bottom - 9} ${x.toFixed(1)} ${bottom}`;
+      }
+      for (let i = 0; i < scallops; i++) {
+        const x = c - half + (i + 1) * step;
+        snow += ` Q${(x - step / 2).toFixed(1)} ${bottom - 9} ${x.toFixed(1)} ${bottom}`;
+      }
+      return {
+        path: `M${c} ${top} L${c + half} ${bottom}${edge} Z`,
+        snow: snow + ` L${c + half} ${bottom + 3} L${c - half} ${bottom + 3} Z`,
+      };
+    });
+  }
+
+  /** The light-string wire, sagging between the bulbs of each row */
+  get wires(): string[] {
+    return Array.from({ length: this.rows }, (_, row) => {
+      const inRow = this.bulbs.filter((b) => b.row === row);
+      const first = inRow[0];
+      const half = 26 + (row + 1) * 26 - 16;
+      const points = [
+        { x: this.centerX - half, y: first.y - 22 },
+        ...inRow.map((b) => ({ x: b.x, y: b.y - 18 })),
+        { x: this.centerX + half, y: first.y - 22 },
+      ];
+      return points
+        .map((p, i) => {
+          if (!i) return `M${p.x} ${p.y}`;
+          const prev = points[i - 1];
+          return ` Q${(prev.x + p.x) / 2} ${Math.max(prev.y, p.y) + 9} ${p.x} ${p.y}`;
+        })
+        .join('');
+    });
+  }
+
+  /** Whether a tap on the previewed bulb would toggle this one */
+  inPreview(bulb: Bulb): boolean {
+    if (this.previewId === null || this.won) return false;
+    return this.neighbours(this.bulbs[this.previewId]).includes(bulb);
   }
 
   get trunkY(): number {

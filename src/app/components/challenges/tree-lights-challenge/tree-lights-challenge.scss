@@ -48,6 +48,13 @@
     stroke-width: 2.5;
   }
 
+  // Every bulb the hovered bulb would toggle
+  &.preview .glass {
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-dasharray: 3 3;
+  }
+
   &.hint .glass {
     stroke: #fff;
     stroke-width: 3;
@@ -118,4 +125,11 @@
   background: linear-gradient(180deg, #ffe3a3, var(--color-gold));
   box-shadow: 0 0 30px rgba(247, 200, 115, 0.7);
   animation: modalIn 0.5s var(--ease-bounce) both;
+}
+
+.wire {
+  fill: none;
+  stroke: #10291f;
+  stroke-width: 2;
+  stroke-linecap: round;
 }
