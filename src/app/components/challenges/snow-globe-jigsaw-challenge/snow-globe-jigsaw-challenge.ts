@@ -35,8 +35,19 @@ export class SnowGlobeJigsawChallenge extends SeasonalGame implements OnInit {
   position(id: number): string {
     return (id % 3) * 50 + '% ' + Math.floor(id / 3) * 50 + '%';
   }
+  /** Snowflakes drifting inside the glass */
+  readonly flakes = Array.from({ length: 18 }, (_, i) => ({
+    x: 6 + ((i * 37) % 88),
+    delay: -((i * 0.77) % 6),
+    size: 3 + (i % 3) * 2,
+  }));
   select(id: number): void {
     if (this.won) return;
+    // Tapping the selected piece again turns it
+    if (this.selected === id) {
+      this.rotate();
+      return;
+    }
     this.selected = id;
     this.sound.tap();
   }

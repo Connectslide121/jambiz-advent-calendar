@@ -13,27 +13,45 @@
     🧩 {{ assembled }}/9 <span>{{ 'challenges.shared.moves' | translate }}: {{ moves }}</span>
   </div>
   <div class="puzzle-layout">
-    <div class="picture board">
-      @for (slot of slots; track slot) {
-        <button
-          type="button"
-          class="tile"
-          [disabled]="won"
-          (click)="place(slot)"
-          [attr.aria-label]="'challenges.shared.cell' | translate: { n: slot + 1 }"
-        >
-          @if (board[slot] >= 0) {
-            <span
-              class="fragment"
-              [style.background-position]="position(board[slot])"
-              [style.transform]="'rotate(' + rotations[board[slot]] * 90 + 'deg)'"
-              [style.background-image]="'url(' + image + ')'"
-            ></span>
-          } @else {
-            <span aria-hidden="true">✧</span>
+    <div class="globe-wrap" [class.won]="won">
+      <div class="globe">
+        <!-- Snow drifting inside the glass -->
+        <div class="flakes" aria-hidden="true">
+          @for (f of flakes; track $index) {
+            <span [style.left.%]="f.x" [style.animation-delay.s]="f.delay" [style.width.px]="f.size" [style.height.px]="f.size"></span>
           }
-        </button>
-      }
+        </div>
+        <div class="picture board">
+          @for (slot of slots; track slot) {
+            <button
+              type="button"
+              class="tile"
+              [class.filled]="board[slot] >= 0"
+              [disabled]="won"
+              (click)="place(slot)"
+              [attr.aria-label]="'challenges.shared.cell' | translate: { n: slot + 1 }"
+            >
+              @if (board[slot] >= 0) {
+                <span
+                  class="fragment"
+                  [style.background-position]="position(board[slot])"
+                  [style.transform]="'rotate(' + rotations[board[slot]] * 90 + 'deg)'"
+                  [style.background-image]="'url(' + image + ')'"
+                ></span>
+              } @else {
+                <!-- A faint ghost of what belongs here -->
+                <span
+                  class="fragment ghost"
+                  [style.background-position]="position(slot)"
+                  [style.background-image]="'url(' + image + ')'"
+                ></span>
+              }
+            </button>
+          }
+        </div>
+        <span class="glare" aria-hidden="true"></span>
+      </div>
+      <div class="base" aria-hidden="true"><span class="plaque">2026</span></div>
     </div>
     <div class="tray">
       @for (id of available; track id) {
