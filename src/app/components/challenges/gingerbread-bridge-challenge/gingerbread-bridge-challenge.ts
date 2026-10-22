@@ -27,6 +27,14 @@ export class GingerbreadBridgeChallenge extends SeasonalGame implements OnInit {
   deflection = 0;
   hints = 0;
   hintEdge: Beam | null = null;
+  /** Pointer position in board units, for the plank preview */
+  pointer: { x: number; y: number } | null = null;
+  hoverJoint = -1;
+  readonly reach = 160;
+  readonly stars = Array.from({ length: 30 }, (_, i) => ({
+    x: (i * 211 + i * i * 17) % 640,
+    y: 10 + ((i * i * 31 + i * 53) % 170),
+  }));
   private failedFor = 0;
   ngOnInit(): void {
     this.restart();
@@ -78,6 +86,32 @@ export class GingerbreadBridgeChallenge extends SeasonalGame implements OnInit {
     this.hintEdge = null;
     this.status = '';
     this.sound.bonk(380);
+  }
+  /** Whether a plank from the selected joint could reach this joint */
+  inReach(id: number): boolean {
+    if (this.selected < 0 || id === this.selected) return false;
+    const a = this.points[this.selected],
+      b = this.points[id];
+    return Math.hypot(a.x - b.x, a.y - b.y) <= this.reach;
+  }
+  /** Preview plank from the selected joint to the hovered joint or pointer */
+  get preview(): { x: number; y: number; ok: boolean } | null {
+    if (this.selected < 0 || this.testing || this.won) return null;
+    const target = this.hoverJoint >= 0 && this.hoverJoint !== this.selected ? this.points[this.hoverJoint] : this.pointer;
+    if (!target) return null;
+    const ok =
+      this.hoverJoint >= 0 && this.hoverJoint !== this.selected
+        ? this.inReach(this.hoverJoint) && this.beams.length < this.budget
+        : true;
+    return { x: target.x, y: target.y, ok };
+  }
+  track(e: PointerEvent): void {
+    // Map through the SVG's own transform so letterboxing does not skew the preview
+    const svg = e.currentTarget as SVGSVGElement;
+    const matrix = svg.getScreenCTM();
+    if (!matrix) return;
+    const p = new DOMPoint(e.clientX, e.clientY).matrixTransform(matrix.inverse());
+    this.pointer = { x: p.x, y: p.y };
   }
   undo(): void {
     if (!this.testing && !this.won) {

@@ -1,13 +1,94 @@
+// Keep the scene's own proportions so it never letterboxes
 .art {
-  max-height: 500px;
+  width: min(100%, 727px);
+  aspect-ratio: 640 / 440;
+  margin: 0 auto;
 }
-.art g[role='button'] {
+.budget {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.bar {
+  width: 90px;
+  height: 6px;
+  border-radius: 6px;
+  background: var(--hairline);
+  overflow: hidden;
+
+  span {
+    display: block;
+    height: 100%;
+    background: #c9813f;
+  }
+}
+.plank {
+  stroke: #a8642c;
+  stroke-width: 11;
+  stroke-linecap: round;
+}
+.icing {
+  stroke: #fff7ea;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1 6;
+}
+.preview {
+  stroke: rgba(201, 129, 63, 0.75);
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-dasharray: 10 6;
+  pointer-events: none;
+
+  &.bad {
+    stroke: rgba(224, 71, 91, 0.85);
+  }
+}
+.reach {
+  fill: rgba(207, 230, 255, 0.04);
+  stroke: rgba(207, 230, 255, 0.25);
+  stroke-dasharray: 4 6;
+  pointer-events: none;
+}
+.hint {
+  stroke: var(--color-aurora);
+  stroke-width: 5;
+  stroke-dasharray: 8 6;
+  stroke-linecap: round;
+}
+.joint {
   cursor: pointer;
-}
-.art g[role='button']:focus {
   outline: none;
+
+  .ring {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 3;
+  }
+  &.selected .ring {
+    stroke: var(--color-snow);
+  }
+  &.reachable .ring {
+    stroke: rgba(92, 242, 179, 0.7);
+    stroke-dasharray: 4 3;
+  }
+  &.far {
+    opacity: 0.4;
+  }
+  &:hover .ring,
+  &:focus-visible .ring {
+    stroke: var(--color-snow);
+  }
 }
-.art g[role='button']:focus circle:last-child {
-  stroke: var(--color-gold);
-  stroke-width: 4;
+.gumdrop {
+  fill: #e0475b;
+  stroke: rgba(0, 0, 0, 0.25);
+  stroke-width: 1;
+
+  &[data-color='1'] {
+    fill: #3aae8a;
+  }
+  &[data-color='2'] {
+    fill: #f7c873;
+  }
 }

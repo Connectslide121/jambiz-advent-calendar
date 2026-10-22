@@ -10,7 +10,10 @@
   (reward)="completed.emit()"
 >
   <div class="hud">
-    <span>🪵 {{ beams.length }}/{{ budget }}</span>
+    <span class="budget">
+      🍪 {{ beams.length }}/{{ budget }}
+      <span class="bar" aria-hidden="true"><span [style.width.%]="(beams.length / budget) * 100"></span></span>
+    </span>
     @if (testing) {
       <span>{{ 'challenges.gingerbreadBridge.flex' | translate }} {{ deflection }}</span>
     }
@@ -21,74 +24,113 @@
     data-game-board
     tabindex="0"
     [attr.aria-label]="'challenges.gingerbreadBridge.title' | translate"
+    (pointermove)="track($event)"
+    (pointerleave)="pointer = null"
   >
-    <rect width="640" height="440" fill="var(--color-bg-deep)" />
-    <path d="M0 300H72V440H0ZM568 300H640V440H568Z" fill="var(--color-surface-2)" />
-    <path d="M0 300H72M568 300H640" stroke="var(--color-text)" stroke-width="10" />
-    <path
-      d="M75 415Q200 365 320 410T565 400"
-      stroke="var(--color-frost)"
-      stroke-width="6"
-      fill="none"
-      opacity=".4"
-    />
+    <defs>
+      <linearGradient id="gb-sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#070a1f" />
+        <stop offset="1" stop-color="#1c2456" />
+      </linearGradient>
+      <linearGradient id="gb-ice" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#9fc6ee" />
+        <stop offset="1" stop-color="#4a6fa8" />
+      </linearGradient>
+      <linearGradient id="gb-rock" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#4a3a52" />
+        <stop offset="1" stop-color="#2e2438" />
+      </linearGradient>
+    </defs>
+
+    <!-- Night sky, moon and far hills -->
+    <rect width="640" height="440" fill="url(#gb-sky)" />
+    @for (s of stars; track $index) {
+      <circle [attr.cx]="s.x" [attr.cy]="s.y" r="1.2" fill="#dfeaff" opacity="0.75" />
+    }
+    <circle cx="560" cy="64" r="22" fill="#fff6dc" />
+    <path d="M0 330 Q120 270 250 320 T470 300 T640 320 V440 H0 Z" fill="#141b44" />
+
+    <!-- Frozen river with cracks -->
+    <path d="M60 400 Q320 380 580 400 V440 H60 Z" fill="url(#gb-ice)" />
+    <path d="M150 412 l30 8 l20 -6 M380 404 l24 10 l30 -4 M260 420 l18 6" stroke="#dbeaff" stroke-width="1.5" fill="none" opacity="0.7" />
+
+    <!-- Snowy cliffs -->
+    <path d="M0 300 H76 L84 360 L70 440 H0 Z" fill="url(#gb-rock)" />
+    <path d="M640 300 H564 L556 360 L570 440 H640 Z" fill="url(#gb-rock)" />
+    <path d="M0 292 H78 Q84 300 76 306 Q50 300 30 308 Q10 300 0 306 Z" fill="#f4f7ff" />
+    <path d="M640 292 H562 Q556 300 564 306 Q590 300 610 308 Q630 300 640 306 Z" fill="#f4f7ff" />
+
+    <!-- Gingerbread planks with a line of icing -->
     @for (beam of beams; track $index) {
       <line
-        [attr.x1]="points[beam[0]].x"
-        [attr.y1]="points[beam[0]].y"
-        [attr.x2]="points[beam[1]].x"
-        [attr.y2]="points[beam[1]].y"
-        stroke="var(--color-ember)"
-        stroke-width="9"
-        stroke-linecap="round"
+        [attr.x1]="points[beam[0]].x" [attr.y1]="points[beam[0]].y"
+        [attr.x2]="points[beam[1]].x" [attr.y2]="points[beam[1]].y"
+        class="plank"
       />
       <line
-        [attr.x1]="points[beam[0]].x"
-        [attr.y1]="points[beam[0]].y - 3"
-        [attr.x2]="points[beam[1]].x"
-        [attr.y2]="points[beam[1]].y - 3"
-        stroke="var(--color-gold)"
-        stroke-width="2"
+        [attr.x1]="points[beam[0]].x" [attr.y1]="points[beam[0]].y"
+        [attr.x2]="points[beam[1]].x" [attr.y2]="points[beam[1]].y"
+        class="icing"
       />
     }
+
+    <!-- Plank preview from the selected joint -->
+    @if (preview; as p) {
+      <line
+        [attr.x1]="points[selected].x" [attr.y1]="points[selected].y"
+        [attr.x2]="p.x" [attr.y2]="p.y"
+        class="preview" [class.bad]="!p.ok"
+      />
+    }
+    @if (selected >= 0 && !testing && !won) {
+      <circle [attr.cx]="points[selected].x" [attr.cy]="points[selected].y" [attr.r]="reach" class="reach" />
+    }
+
     @if (hintEdge) {
       <line
-        [attr.x1]="points[hintEdge[0]].x"
-        [attr.y1]="points[hintEdge[0]].y"
-        [attr.x2]="points[hintEdge[1]].x"
-        [attr.y2]="points[hintEdge[1]].y"
-        stroke="var(--color-aurora)"
-        stroke-width="5"
-        stroke-dasharray="8 6"
+        [attr.x1]="points[hintEdge[0]].x" [attr.y1]="points[hintEdge[0]].y"
+        [attr.x2]="points[hintEdge[1]].x" [attr.y2]="points[hintEdge[1]].y"
+        class="hint"
       />
     }
+
+    <!-- Joints: gumdrops, with peppermints anchored in the cliffs -->
     @for (point of points; track $index; let id = $index) {
       <g
         role="button"
+        class="joint"
+        [class.selected]="selected === id"
+        [class.reachable]="inReach(id)"
+        [class.far]="selected >= 0 && selected !== id && !inReach(id)"
         [attr.tabindex]="testing || won ? -1 : 0"
         [attr.aria-label]="'challenges.gingerbreadBridge.joint' | translate: { n: id + 1 }"
         (click)="connect(id)"
+        (pointerenter)="hoverJoint = id"
+        (pointerleave)="hoverJoint = -1"
         (keydown.enter)="connect(id)"
         (keydown.space)="$event.preventDefault(); connect(id)"
+        [attr.transform]="'translate(' + point.x + ' ' + point.y + ')'"
       >
-        <circle [attr.cx]="point.x" [attr.cy]="point.y" r="44" fill="transparent" />
-        <circle
-          [attr.cx]="point.x"
-          [attr.cy]="point.y"
-          [attr.r]="selected === id ? 12 : 8"
-          [attr.fill]="point.fixed ? 'var(--color-gold)' : 'var(--color-frost)'"
-          stroke="var(--color-bg)"
-          stroke-width="2"
-        />
+        <circle r="40" fill="transparent" />
+        @if (point.fixed) {
+          <circle r="11" fill="#fff" stroke="#c22f45" stroke-width="2" />
+          <path d="M0 -11 A11 11 0 0 1 11 0 L0 0 Z M0 11 A11 11 0 0 1 -11 0 L0 0 Z" fill="#e0475b" />
+        } @else {
+          <path class="gumdrop" [attr.data-color]="id % 3" d="M-9 6 Q-10 -9 0 -10 Q10 -9 9 6 Z" />
+          <path d="M-5 -3 Q-3 -7 1 -7" stroke="rgba(255,255,255,0.6)" stroke-width="2" fill="none" stroke-linecap="round" />
+        }
+        <circle r="15" class="ring" />
       </g>
     }
+
+    <!-- The reindeer crossing -->
     <g [attr.transform]="'translate(' + loadX + ',' + reindeerY + ')'">
       <text transform="scale(-1 1)" text-anchor="middle" font-size="35">🦌</text>
     </g>
   </svg>
   <div class="controls">
     <button class="btn btn-primary" [disabled]="testing || won" (click)="test()">
-      {{ 'challenges.gingerbreadBridge.test' | translate }}</button
+      🦌 {{ 'challenges.gingerbreadBridge.test' | translate }}</button
     ><button class="btn btn-outline" [disabled]="testing || won" (click)="undo()">
       {{ 'challenges.shared.undo' | translate }}</button
     ><button class="btn btn-outline" [disabled]="testing || won" (click)="hint()">
