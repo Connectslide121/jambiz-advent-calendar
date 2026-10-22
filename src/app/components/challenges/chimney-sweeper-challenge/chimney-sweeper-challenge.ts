@@ -12,6 +12,13 @@ interface Power {
   x: number;
   y: number;
 }
+/** A puff of soot where a brick broke */
+interface Puff {
+  x: number;
+  y: number;
+  t: number;
+  gold: boolean;
+}
 @Component({
   selector: 'app-chimney-sweeper-challenge',
   imports: [TranslateModule, GameFrame],
@@ -21,6 +28,22 @@ interface Power {
 export class ChimneySweeperChallenge extends SeasonalGame implements OnInit {
   bricks: Brick[] = [];
   powers: Power[] = [];
+  puffs: Puff[] = [];
+  /** Recent ball positions for a short snowball trail */
+  trail: { x: number; y: number }[] = [];
+  /** Soot texture spots per brick, fixed so they do not flicker */
+  readonly soot = [
+    { x: 14, y: 8, r: 5 },
+    { x: 40, y: 15, r: 6 },
+    { x: 70, y: 9, r: 4 },
+    { x: 84, y: 17, r: 5 },
+  ];
+  /** Background chimney bricks, alternating rows */
+  readonly wallRows = Array.from({ length: 19 }, (_, i) => i);
+  readonly stars = Array.from({ length: 12 }, (_, i) => ({ x: 260 + ((i * 97) % 290), y: 6 + ((i * 13) % 20) }));
+  age(p: Puff): number {
+    return Math.min(1, (this.elapsed - p.t) / 0.5);
+  }
   paddle = 400;
   ball = { x: 400, y: 379, vx: 140, vy: -280 };
   lives = 3;
@@ -46,6 +69,8 @@ export class ChimneySweeperChallenge extends SeasonalGame implements OnInit {
       gold: i % 6 === 0,
     }));
     this.powers = [];
+    this.puffs = [];
+    this.trail = [];
     this.paddle = 400;
     this.lives = 3;
     this.serving = true;
@@ -116,6 +141,8 @@ export class ChimneySweeperChallenge extends SeasonalGame implements OnInit {
     }
     const ball = this.ball,
       previous = { x: ball.x, y: ball.y };
+    this.puffs = this.puffs.filter((p) => this.elapsed - p.t < 0.5);
+    if (Math.round(this.elapsed * 120) % 3 === 0) this.trail = [{ x: ball.x, y: ball.y }, ...this.trail].slice(0, 5);
     ball.x += ball.vx * dt;
     ball.y += ball.vy * dt;
     if (ball.x < 10) {
@@ -159,6 +186,7 @@ export class ChimneySweeperChallenge extends SeasonalGame implements OnInit {
       ball.vx *= 1.015;
       ball.vy *= 1.015;
       if (brick.gold) this.powers.push({ x: brick.x + 48, y: brick.y + 20 });
+      this.puffs.push({ x: brick.x + 48, y: brick.y + 12, t: this.elapsed, gold: brick.gold });
       this.sound.bell(600 + ((28 - this.left) % 7) * 90, 0.09);
       break;
     }
@@ -172,6 +200,7 @@ export class ChimneySweeperChallenge extends SeasonalGame implements OnInit {
       if (this.lives <= 0) this.lose('challenges.chimneySweeper.lost');
       else {
         this.serving = true;
+        this.trail = [];
         ball.x = this.paddle;
         ball.y = 379;
         ball.vx = 140;

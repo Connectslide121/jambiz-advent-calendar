@@ -1,7 +1,37 @@
 .art {
   min-height: 240px;
   max-height: 520px;
+  cursor: none;
+  touch-action: none;
 }
 .hud {
+  gap: 18px;
   font-variant-numeric: tabular-nums;
+}
+.lives span {
+  color: var(--color-accent-red);
+  margin: 0 1px;
+
+  &.lost {
+    color: var(--hairline-strong);
+  }
+}
+.wide {
+  color: var(--color-candle);
+}
+.serve {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 24px;
+  fill: var(--color-snow);
+}
+.spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: spin 1.6s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
