@@ -9,43 +9,121 @@
   (restart)="restart()"
   (reward)="completed.emit()"
 >
-  <div class="houses">
+  <!-- One icon for any choice: elves wear their own hat, the Lucia bun is a saffron curl -->
+  <ng-template #icon let-category="category" let-value="value">
+    @if (value < 0) {
+      <span class="icon empty" aria-hidden="true">?</span>
+    } @else if (category === 0) {
+      <svg class="icon" viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="16" cy="20" r="9" fill="#f2c7a5" />
+        <path d="M7 15 L16 1 L25 15 Z" [attr.fill]="elfHats[value]" />
+        <rect x="6" y="13" width="20" height="4" rx="2" fill="#f4f7ff" />
+        <circle cx="16" cy="2" r="2.6" fill="#f4f7ff" />
+        <path d="M6 20 L2 17 M26 20 L30 17" stroke="#f2c7a5" stroke-width="3" stroke-linecap="round" />
+        <circle cx="13" cy="20" r="1.2" fill="#2a1d18" />
+        <circle cx="19" cy="20" r="1.2" fill="#2a1d18" />
+        <path d="M13 24 Q16 26 19 24" stroke="#2a1d18" stroke-width="1.2" fill="none" stroke-linecap="round" />
+      </svg>
+    } @else if (category === 2 && value === 0) {
+      <svg class="icon" viewBox="0 0 32 32" aria-hidden="true">
+        <path
+          d="M8 22 C2 22 2 12 9 12 C14 12 14 19 18 19 C24 19 24 10 17 10 M24 10 C30 10 30 20 23 20 C18 20 18 13 14 13 C8 13 8 22 15 22"
+          fill="none" stroke="#e9a43a" stroke-width="5" stroke-linecap="round"
+        />
+        <circle cx="9" cy="17" r="1.6" fill="#4a2a1c" />
+        <circle cx="23" cy="15" r="1.6" fill="#4a2a1c" />
+      </svg>
+    } @else {
+      <span class="icon emoji" aria-hidden="true">{{ icons[category][value] }}</span>
+    }
+  </ng-template>
+
+  <div class="street">
     @for (h of houses; track h) {
-      <section class="house">
-        <div class="roof" aria-hidden="true">❄️</div>
-        <h4>{{ 'challenges.christmasDetective.house' | translate: { n: h + 1 } }}</h4>
-        @for (category of categories; track category; let c = $index) {
-          <label
-            >{{ 'challenges.christmasDetective.' + category + '.label' | translate
-            }}<select
-              class="input"
+      <section class="house" [attr.data-house]="h" [attr.aria-label]="'challenges.christmasDetective.house' | translate: { n: h + 1 }">
+        <svg class="roof" viewBox="0 0 200 74" preserveAspectRatio="none" aria-hidden="true">
+          <rect x="138" y="8" width="18" height="40" fill="#8f3a2c" />
+          <rect x="134" y="4" width="26" height="8" rx="3" fill="#f4f7ff" />
+          <path d="M-2 74 L100 6 L202 74 Z" class="roof-tiles" />
+          <path d="M-4 74 L100 2 L204 74 L192 74 L100 14 L8 74 Z" fill="#f4f7ff" />
+          <circle cx="100" cy="48" r="15" fill="#fbe6b4" stroke="#2a1d18" stroke-width="3" />
+          <text x="100" y="55" text-anchor="middle" class="house-number">{{ h + 1 }}</text>
+        </svg>
+        <div class="body">
+          @for (category of categories; track category; let c = $index) {
+            <button
+              type="button"
+              class="slot"
+              [attr.data-house]="h"
+              [attr.data-category]="c"
+              [class.open]="open?.house === h && open?.category === c"
+              [class.filled]="assignments[c][h] >= 0"
               [disabled]="won"
-              [value]="assignments[c][h]"
-              (change)="assign(h, c, $event)"
+              (click)="toggle(h, c)"
+              [attr.aria-expanded]="open?.house === h && open?.category === c"
             >
-              <option value="-1">—</option>
+              <ng-container *ngTemplateOutlet="icon; context: { category: c, value: assignments[c][h] }"></ng-container>
+              <span class="slot-text">
+                <span class="slot-label">{{ 'challenges.christmasDetective.' + category + '.label' | translate }}</span>
+                <span class="slot-value">
+                  @if (assignments[c][h] >= 0) {
+                    {{ 'challenges.christmasDetective.' + category + '.' + assignments[c][h] | translate }}
+                  } @else {
+                    —
+                  }
+                </span>
+              </span>
+            </button>
+          }
+          <span class="door" aria-hidden="true"></span>
+
+          @if (open?.house === h) {
+            <div class="picker" role="listbox" [attr.aria-label]="'challenges.christmasDetective.' + categories[open!.category] + '.label' | translate">
               @for (value of choices; track value) {
-                <option [value]="value">
-                  {{ 'challenges.christmasDetective.' + category + '.' + value | translate }}
-                </option>
+                <button
+                  type="button"
+                  class="option"
+                  role="option"
+                  [attr.data-value]="value"
+                  [class.current]="assignments[open!.category][h] === value"
+                  [class.elsewhere]="usedBy(open!.category, value) >= 0 && usedBy(open!.category, value) !== h"
+                  (click)="pick(value)"
+                >
+                  <ng-container *ngTemplateOutlet="icon; context: { category: open!.category, value }"></ng-container>
+                  <span>{{ 'challenges.christmasDetective.' + categories[open!.category] + '.' + value | translate }}</span>
+                  @if (usedBy(open!.category, value) >= 0 && usedBy(open!.category, value) !== h) {
+                    <small>{{ 'challenges.christmasDetective.house' | translate: { n: usedBy(open!.category, value) + 1 } }}</small>
+                  }
+                </button>
               }
-            </select></label
-          >
-        }
+              <button type="button" class="picker-clear" (click)="clear()">
+                {{ 'ui.reset' | translate }}
+              </button>
+            </div>
+          }
+        </div>
       </section>
     }
   </div>
-  <ol class="clues">
+
+  <!-- The detective's notepad: tick clues off as you use them -->
+  <ol class="notepad">
     @for (id of clueIds; track id) {
-      <li [class.satisfied]="checked && clues[id]">
-        <span aria-hidden="true">{{ checked && clues[id] ? '✓' : '✦' }}</span
-        >{{ 'challenges.christmasDetective.clues.' + id | translate }}
+      <li
+        [class.crossed]="crossed.has(id)"
+        [class.satisfied]="checked && clues[id]"
+        [class.broken]="checked && !clues[id]"
+      >
+        <button type="button" class="tick" (click)="cross(id)" [attr.aria-pressed]="crossed.has(id)">
+          {{ checked ? (clues[id] ? '✓' : '✗') : crossed.has(id) ? '✓' : '' }}
+        </button>
+        <span>{{ 'challenges.christmasDetective.clues.' + id | translate }}</span>
       </li>
     }
   </ol>
   <div class="controls">
     <button class="btn btn-primary" [disabled]="won" (click)="check()">
-      {{ 'challenges.shared.check' | translate }}
+      🔍 {{ 'challenges.shared.check' | translate }}
     </button>
   </div>
 </app-game-frame>

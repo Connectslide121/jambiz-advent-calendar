@@ -1,64 +1,289 @@
-.houses {
+// Lay out by the game's own width, not the window's
+:host {
+  display: block;
+  container-type: inline-size;
+}
+// A snowy street of four houses
+.street {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
+  gap: 14px;
+  padding: 0 4px 14px;
+  border-bottom: 6px solid #f4f7ff;
+  border-radius: 0 0 6px 6px;
 }
 .house {
-  padding: 14px 10px;
-  background: var(--color-surface-2);
-  border: 1px solid var(--color-border);
-  border-radius: 14px;
+  --wall: #6b2f3a;
+  --roof: #3a2230;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.house[data-house='1'] {
+  --wall: #2c4a6b;
+  --roof: #1d2a44;
+}
+.house[data-house='2'] {
+  --wall: #2f5a4c;
+  --roof: #1d3a30;
+}
+.house[data-house='3'] {
+  --wall: #7a5a3a;
+  --roof: #4a3424;
 }
 .roof {
-  text-align: center;
-  font-size: 1.5rem;
-  border-bottom: 3px solid var(--color-accent-red);
-}
-h4 {
-  color: var(--color-gold);
-  text-align: center;
-  margin: 8px 0;
-}
-label {
   display: block;
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
-  margin-top: 8px;
-}
-select {
   width: 100%;
-  font-size: 0.9rem;
-  padding: 8px 4px;
-  color: var(--color-text);
-  background: var(--color-bg);
+  height: 74px;
+  margin-bottom: -1px;
+  overflow: visible;
 }
-.clues {
+.roof-tiles {
+  fill: var(--roof);
+}
+.house-number {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 22px;
+  fill: #2a1d18;
+}
+.body {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0 8px;
+  padding: 10px 8px 46px;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.12) 0 1px, transparent 1px 12px), var(--wall);
+  border-radius: 0 0 4px 4px;
+  box-shadow: inset 0 8px 12px -6px rgba(0, 0, 0, 0.5);
+}
+.door {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 28px;
+  height: 38px;
+  transform: translateX(-50%);
+  border-radius: 14px 14px 0 0;
+  background: #3a2418;
+  box-shadow: inset 0 0 0 3px #2a1810;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 6px;
+    top: 20px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-gold);
+  }
+}
+// Each slot is a lit window
+.slot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  padding: 6px 8px;
+  border-radius: 10px;
+  text-align: left;
+  background: rgba(10, 14, 36, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+
+  &.filled {
+    background: linear-gradient(180deg, #ffe7b0, #f3c46e);
+    border-color: #f7d89a;
+
+    .slot-label {
+      color: #6a4a22;
+    }
+    .slot-value {
+      color: #2a1d18;
+    }
+  }
+  &:hover:not(:disabled),
+  &.open {
+    border-color: var(--color-snow);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--color-frost);
+    outline-offset: 2px;
+  }
+}
+.slot-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.15;
+}
+.slot-label {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.slot-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--color-snow);
+}
+.icon {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+.icon.empty {
+  border-radius: 50%;
+  border: 1.5px dashed var(--hairline-strong);
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--color-text-muted);
+}
+// The chooser opens inside the house
+.picker {
+  position: absolute;
+  z-index: 3;
+  inset: 4px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  padding: 12px;
-  background: var(--color-surface);
+  grid-auto-rows: 1fr;
+  gap: 6px;
+  padding: 8px;
   border-radius: 12px;
+  background: var(--color-panel);
+  border: 1px solid var(--hairline-strong);
+  box-shadow: 0 16px 30px -10px rgba(0, 0, 0, 0.8);
+  animation: pop 0.18s var(--ease-out);
 }
-.clues li {
-  display: flex;
-  gap: 8px;
-  font-size: 0.9rem;
-  color: var(--color-text-muted);
-}
-.clues span {
-  color: var(--color-gold);
-}
-.clues .satisfied {
-  color: var(--color-aurora);
-}
-@media (max-width: 600px) {
-  .houses {
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
   }
-  .clues {
+}
+.option {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  padding: 6px 4px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-snow);
+  background: rgba(246, 240, 228, 0.04);
+  border: 1px solid var(--hairline);
+  cursor: pointer;
+
+  span {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  small {
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+  &:hover {
+    border-color: var(--color-snow);
+  }
+  &.current {
+    background: rgba(255, 217, 154, 0.16);
+    border-color: var(--color-candle);
+  }
+  &.elsewhere {
+    opacity: 0.7;
+  }
+}
+.picker-clear {
+  grid-column: 1 / -1;
+  padding: 4px;
+  border: 0;
+  background: none;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  cursor: pointer;
+}
+// Notepad: cream paper with ruled lines
+.notepad {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 28px;
+  margin: 0;
+  padding: 14px 22px 18px 44px;
+  list-style: none;
+  border-radius: 6px;
+  // Red margin line
+  background: linear-gradient(90deg, transparent 30px, rgba(200, 70, 80, 0.45) 30px 32px, transparent 32px),
+    #f6efdf;
+  box-shadow: 0 16px 34px -18px rgba(0, 0, 0, 0.9);
+  color: #2a2236;
+}
+.notepad li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 36px;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(80, 110, 160, 0.25);
+  font-size: 0.9rem;
+  line-height: 1.25;
+
+  &.crossed span {
+    text-decoration: line-through;
+    text-decoration-color: rgba(42, 34, 54, 0.55);
+    color: rgba(42, 34, 54, 0.5);
+  }
+  &.satisfied .tick {
+    color: #1f6f58;
+    border-color: #1f6f58;
+  }
+  &.broken .tick {
+    color: #a8243a;
+    border-color: #a8243a;
+  }
+}
+.tick {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  border: 1.5px solid rgba(42, 34, 54, 0.45);
+  background: transparent;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #2a2236;
+  cursor: pointer;
+}
+@container (max-width: 700px) {
+  .street {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 20px;
+  }
+  .notepad {
     grid-template-columns: 1fr;
   }
 }

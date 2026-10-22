@@ -243,20 +243,34 @@ describe('Twenty-four unique calendar games', () => {
     const game = fixture.componentInstance;
     game.check();
     expect(game.won).toBeFalse();
-    const selects = fixture.nativeElement.querySelectorAll(
-      'select'
-    ) as NodeListOf<HTMLSelectElement>;
+    // Fill every house through its slot buttons and the picker that opens
+    const element = fixture.nativeElement as HTMLElement;
     for (let house = 0; house < 4; house++)
       for (let category = 0; category < 3; category++) {
-        const select = selects[house * 3 + category];
-        select.value = String(solutions[0][category][house]);
-        select.dispatchEvent(new Event('change'));
+        fixture.detectChanges();
+        element.querySelector<HTMLButtonElement>(`.slot[data-house="${house}"][data-category="${category}"]`)!.click();
+        fixture.detectChanges();
+        element.querySelector<HTMLButtonElement>(`.option[data-value="${solutions[0][category][house]}"]`)!.click();
       }
+    expect(game.assignments).toEqual(solutions[0]);
     game.check();
     expect(game.won).toBeTrue();
     tick(1900);
     fixture.destroy();
   }));
+
+  it('swaps a detective choice that is already used in another house', () => {
+    const fixture = create(ChristmasDetectiveChallenge);
+    const game = fixture.componentInstance;
+    game.toggle(0, 1);
+    game.pick(2);
+    game.toggle(3, 1);
+    game.pick(1);
+    game.toggle(3, 1);
+    game.pick(2);
+    expect(game.assignments[1]).toEqual([1, -1, -1, 2]);
+    fixture.destroy();
+  });
 
   it('requires coverage and precision on every cookie, then completes all three drawings', fakeAsync(() => {
     const fixture = create(CookieDecoratorChallenge);
