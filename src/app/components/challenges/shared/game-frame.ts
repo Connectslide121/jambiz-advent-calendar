@@ -47,6 +47,9 @@ import { GamePhase } from './seasonal-game';
     }
   </section>`,
   styleUrl: './game-frame.scss',
+  // The title input is a translation key; without this it also stays a native title attribute
+  // and the browser shows the raw key as a tooltip over the whole game
+  host: { '[attr.title]': 'null' },
 })
 export class GameFrame {
   @Input() title = '';
