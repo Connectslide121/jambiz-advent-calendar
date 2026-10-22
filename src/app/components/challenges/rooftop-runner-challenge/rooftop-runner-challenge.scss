@@ -1,4 +1,6 @@
 .jump {
+  align-self: center;
+  min-width: 180px;
   min-height: 52px;
   font-size: 1.1rem;
   touch-action: manipulation;
@@ -7,5 +9,73 @@
   max-height: 480px;
 }
 .hud {
+  gap: 18px;
   font-variant-numeric: tabular-nums;
+}
+.lives span {
+  color: var(--color-accent-red);
+  margin: 0 1px;
+
+  &.lost {
+    color: var(--hairline-strong);
+  }
+}
+.progress {
+  width: 120px;
+  height: 6px;
+  border-radius: 6px;
+  background: var(--hairline);
+  overflow: hidden;
+
+  span {
+    display: block;
+    height: 100%;
+    background: var(--color-candle);
+  }
+}
+// Each house gets its own wall colour
+.house .wall {
+  fill: #2c3a6b;
+}
+.house[data-look='1'] .wall {
+  fill: #6b2f3a;
+}
+.house[data-look='2'] .wall {
+  fill: #2f5a4c;
+}
+.house[data-look='3'] .wall {
+  fill: #5a4a3a;
+}
+.smoke circle {
+  fill: rgba(220, 228, 255, 0.35);
+  animation: smoke 2.4s ease-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.smoke circle:nth-child(2) {
+  animation-delay: 0.6s;
+}
+.smoke circle:nth-child(3) {
+  animation-delay: 1.2s;
+}
+@keyframes smoke {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-14px) scale(1.4);
+  }
+}
+.gift {
+  animation: bob 1.6s ease-in-out infinite alternate;
+}
+@keyframes bob {
+  to {
+    translate: 0 -4px;
+  }
 }

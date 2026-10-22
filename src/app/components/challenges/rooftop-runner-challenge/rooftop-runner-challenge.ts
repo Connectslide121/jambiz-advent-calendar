@@ -6,9 +6,18 @@ interface Roof {
   x: number;
   y: number;
   width: number;
+  /** Chimney x; the first roof has none so the run starts calmly */
   chimney: number;
   height: number;
+  /** Which wall colour and window pattern the house uses */
+  look: number;
 }
+/** Hand-tuned course: roof widths, the gap after each roof and the chimney position on it */
+const WIDTHS = [380, 320, 300, 340, 280, 360, 300, 330, 290, 340, 310, 400];
+const GAPS = [70, 80, 75, 90, 80, 95, 85, 90, 100, 90, 100];
+const RISE = [0, 12, 24, 12, 0, 24, 12, 0, 24, 12, 0, 12];
+const CHIMNEY_AT = [0, 0.5, 0.42, 0.6, 0.45, 0.55, 0.4, 0.62, 0.5, 0.45, 0.58, 0.5];
+const NO_CHIMNEY = -10000;
 interface Gift {
   x: number;
   y: number;
@@ -34,9 +43,17 @@ export class RooftopRunnerChallenge extends SeasonalGame implements OnInit {
   invulnerable = 0;
   checkpoint = 0;
   goal = 12;
-  readonly stars = Array.from({ length: 26 }, (_, i) => ({
-    x: (i * 137) % 800,
-    y: 18 + ((i * 73) % 170),
+  readonly stars = Array.from({ length: 34 }, (_, i) => ({
+    x: (i * 263 + i * i * 37) % 800,
+    y: 12 + ((i * i * 53 + i * 97) % 160),
+    r: i % 5 === 0 ? 1.8 : 1.1,
+  }));
+  /** Far-away town silhouette, scrolled slower than the roofs */
+  readonly skyline = Array.from({ length: 22 }, (_, i) => ({
+    x: i * 70,
+    w: 46 + ((i * 29) % 30),
+    h: 50 + ((i * 47) % 70),
+    roof: i % 3 === 0,
   }));
   private jumpBuffer = 0;
   private coyote = 0;
@@ -58,6 +75,13 @@ export class RooftopRunnerChallenge extends SeasonalGame implements OnInit {
       (r) => r.x + r.width > this.camera - 40 && r.x < this.camera + this.viewWidth + 40
     );
   }
+  /** Running pose: legs swing while grounded */
+  get stride(): number {
+    return this.grounded && this.phase === 'playing' ? Math.sin(this.elapsed * 22) * 5 : 0;
+  }
+  get finishLocal(): number {
+    return this.finishX - this.camera;
+  }
   get visibleGifts(): Gift[] {
     return this.gifts.filter(
       (g) => !g.taken && g.x > this.camera - 30 && g.x < this.camera + this.viewWidth + 30
@@ -68,16 +92,25 @@ export class RooftopRunnerChallenge extends SeasonalGame implements OnInit {
   }
   restart(): void {
     this.resetBase('ready');
-    this.roofs = Array.from({ length: 12 }, (_, i) => ({
-      x: i * 410,
-      y: 280 - (i % 3) * 12,
-      width: 340,
-      chimney: i * 410 + 170,
-      height: 36 + (i % 3) * 7,
-    }));
+    let x = 0;
+    this.roofs = WIDTHS.map((width, i) => {
+      const roof = {
+        x,
+        y: 280 - RISE[i],
+        width,
+        chimney: i === 0 ? NO_CHIMNEY : x + Math.round(width * CHIMNEY_AT[i]),
+        height: 36 + (i % 3) * 7,
+        look: i % 4,
+      };
+      x += width + (GAPS[i] ?? 0);
+      return roof;
+    });
+    // A high present floats over each chimney (grab it while jumping), a low one waits near the edge
     this.gifts = this.roofs.flatMap((r) => [
-      { x: r.x + 115, y: r.y - 95, taken: false },
-      { x: r.x + 290, y: r.y - 35, taken: false },
+      r.chimney === NO_CHIMNEY
+        ? { x: r.x + 190, y: r.y - 95, taken: false }
+        : { x: r.chimney + 14, y: r.y - r.height - 58, taken: false },
+      { x: r.x + r.width - 60, y: r.y - 30, taken: false },
     ]);
     this.x = 40;
     this.y = 240;
