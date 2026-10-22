@@ -12,19 +12,29 @@
   <div class="hud">
     🎁 {{ placed.size }}/7 <span>{{ 'challenges.shared.moves' | translate }}: {{ moves }}</span>
   </div>
-  <div class="sack board" data-game-board tabindex="0">
+  <div class="sack board" data-game-board tabindex="0" (pointerleave)="hover = null">
     @for (i of cells; track i) {
       <button
         type="button"
         class="square"
         [attr.data-piece]="board[i]"
+        [attr.data-ghost]="isGhost(i) ? selected : null"
+        [class.ghost]="isGhost(i)"
+        [class.blocked]="isGhost(i) && !ghost!.fits"
+        [class.lift]="hover === i && board[i] >= 0"
         [class.cursor]="cursor === i"
+        [class]="joins(i)"
         [disabled]="won"
+        (pointerenter)="point(i)"
+        (focus)="point(i)"
         (click)="cell(i)"
         [attr.aria-label]="'challenges.shared.cell' | translate: { n: i + 1 }"
       >
-        @if (board[i] >= 0) {
-          <span aria-hidden="true">✦</span>
+        @if (hasBow(i)) {
+          <svg class="bow" viewBox="0 0 24 16" aria-hidden="true">
+            <path d="M12 8 C6 -2 0 2 3 8 C0 14 6 16 12 8 Z M12 8 C18 -2 24 2 21 8 C24 14 18 16 12 8 Z" />
+            <circle cx="12" cy="8" r="2.6" />
+          </svg>
         }
       </button>
     }
@@ -41,7 +51,8 @@
       >
         <svg viewBox="-2 -2 84 84" aria-hidden="true">
           @for (c of shape(id); track $index) {
-            <rect [attr.x]="c[0] * 21" [attr.y]="c[1] * 21" width="19" height="19" rx="3" />
+            <rect [attr.x]="c[0] * 21" [attr.y]="c[1] * 21" width="20" height="20" rx="3" />
+            <rect class="ribbon" [attr.x]="c[0] * 21 + 8" [attr.y]="c[1] * 21" width="4" height="20" />
           }
         </svg>
       </button>

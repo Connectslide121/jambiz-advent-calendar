@@ -14,6 +14,7 @@ import {
   PACKING_PIECES,
   PACKING_SOLUTION,
   packingFits,
+  packingPlacement,
   rotateCells,
 } from './gift-packing-challenge/gift-packing-challenge';
 import {
@@ -170,25 +171,55 @@ describe('Twenty-four unique calendar games', () => {
   it('packs all seven pieces without overlaps, rejects an impossible placement and supports undo', fakeAsync(() => {
     const fixture = create(GiftPackingChallenge);
     const game = fixture.componentInstance;
+    // A lone free square cannot hold a four-square present
     game.select(1);
-    game.rotations[1] = 0;
+    game.board = Array(25).fill(6);
+    game.board[24] = -1;
     game.cell(24);
     expect(game.placed.size).toBe(0);
+    game.restart();
     for (let id = 0; id < PACKING_PIECES.length; id++) {
       game.select(id);
       while (game.rotations[id] !== 0) game.rotate();
       const pos = PACKING_SOLUTION[id];
       expect(packingFits(game.board, game.shape(id), pos.x, pos.y)).toBeTrue();
-      game.cell(pos.y * 5 + pos.x);
+      // Point at the present's own top-left square, not its bounding box corner
+      const [ax, ay] = [...game.shape(id)].sort((a, b) => a[1] - b[1] || a[0] - b[0])[0];
+      const target = (pos.y + ay) * 5 + pos.x + ax;
+      game.cell(target);
       if (id === 0) {
         game.undo();
         expect(game.placed.size).toBe(0);
-        game.cell(pos.y * 5 + pos.x);
+        game.cell(target);
       }
     }
     expect(game.won).toBeTrue();
     expect(game.board.filter((c) => c >= 0).length).toBe(25);
     tick(1900);
+    fixture.destroy();
+  }));
+
+  it('drops a present into the hole under the pointer and previews it first', fakeAsync(() => {
+    const fixture = create(GiftPackingChallenge);
+    const game = fixture.componentInstance;
+    // Piece 4 unrotated is an L whose bounding-box corner is empty; leave exactly its hole free,
+    // with the corner square (3,2) already packed
+    const hole = [14, 18, 19, 24];
+    game.board = Array(25).fill(6);
+    for (const i of hole) game.board[i] = -1;
+    game.select(4);
+    game.rotations[4] = 0;
+    for (const target of [18, 14, 19, 24]) {
+      const placement = packingPlacement(game.board, game.shape(4), target);
+      expect(placement.fits).toBeTrue();
+      expect([...placement.cells].sort((a, b) => a - b)).toEqual(hole);
+    }
+    game.point(18);
+    expect(game.ghost?.fits).toBeTrue();
+    expect(hole.every((i) => game.isGhost(i))).toBeTrue();
+    game.cell(18);
+    expect(game.placed.has(4)).toBeTrue();
+    expect(hole.every((i) => game.board[i] === 4)).toBeTrue();
     fixture.destroy();
   }));
 

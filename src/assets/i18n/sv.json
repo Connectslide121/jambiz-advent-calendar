@@ -884,7 +884,7 @@
     },
     "giftPacking": {
       "title": "Packa julklapparna",
-      "instruction": "Få plats med alla paket i säcken utan överlappning. Välj en form, rotera den och välj dess övre vänstra hörn. Tryck på ett packat paket för att lyfta upp det igen.",
+      "instruction": "Få plats med alla paket i säcken utan överlappning. Välj ett paket och rotera det; en förhandsvisning visar var det hamnar när du pekar i säcken. Tryck på ett packat paket för att lyfta upp det igen.",
       "piece": "Paket {{n}}",
       "noFit": "Paketet får inte plats där. Rotera det eller gör mer utrymme.",
       "keys": "Tangentbord: pilar väljer ruta, Enter placerar, R roterar och Backsteg ångrar. Allt går också att klicka eller trycka på."

@@ -1,23 +1,59 @@
+// The sack: woven burlap with a drawstring hem
 .sack {
+  --gap: 5px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   max-width: 390px;
   width: 100%;
   margin: auto;
-  padding: 12px;
-  gap: 5px;
-  background: var(--color-surface);
+  padding: 26px 14px 14px;
+  gap: var(--gap);
+  border: 0;
+  border-radius: 18px 18px 34px 34px;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.09) 0 2px, transparent 2px 5px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 2px, transparent 2px 5px),
+    linear-gradient(170deg, #8a6440, #5e4128);
+  box-shadow: inset 0 -12px 24px rgba(0, 0, 0, 0.35), 0 18px 40px -16px rgba(0, 0, 0, 0.8);
+  position: relative;
+
+  // Drawstring
+  &::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    top: 10px;
+    height: 4px;
+    border-radius: 4px;
+    background: repeating-linear-gradient(90deg, #d8b98a 0 6px, #b28e5c 6px 9px);
+  }
 }
 .square {
+  position: relative;
   aspect-ratio: 1;
   border-radius: 6px;
-  background: var(--color-bg);
-  border: 1px dashed var(--color-text-muted);
+  background: rgba(30, 18, 10, 0.55);
+  border: 1px dashed rgba(240, 220, 190, 0.28);
   color: var(--color-bg);
+  cursor: pointer;
+  transition: background-color 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+}
+// Ghost: where the selected present will land
+.square.ghost {
+  background: color-mix(in srgb, var(--gift) 45%, rgba(30, 18, 10, 0.55));
+  border: 2px solid var(--gift);
+}
+.square.ghost.blocked {
+  background: color-mix(in srgb, var(--color-accent-red) 25%, rgba(30, 18, 10, 0.55));
+  border: 2px dashed var(--color-accent-red);
+}
+// A packed present under the pointer can be picked up again
+.square.lift {
+  filter: brightness(1.15);
 }
 .square.cursor {
-  outline: 2px solid var(--color-frost);
-  outline-offset: -2px;
+  outline: 2px solid var(--color-snow);
+  outline-offset: 1px;
 }
 .pieces {
   display: flex;
@@ -28,53 +64,121 @@
 .pieces button {
   width: 70px;
   height: 70px;
-  background: var(--color-surface-2);
-  border-radius: 10px;
+  background: rgba(246, 240, 228, 0.04);
+  border-radius: 14px;
   padding: 8px;
-  border: 2px solid transparent;
+  border: 1px solid var(--hairline);
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.pieces button:hover:not(:disabled) {
+  border-color: var(--hairline-strong);
+  transform: translateY(-2px);
 }
 .pieces button.selected {
-  border-color: var(--color-frost);
+  border: 2px solid var(--color-snow);
+  background: rgba(246, 240, 228, 0.08);
 }
 .pieces button:disabled {
-  opacity: 0.25;
+  opacity: 0.2;
+  cursor: default;
 }
 .pieces svg {
   width: 100%;
   height: 100%;
   fill: currentColor;
+
+  .ribbon {
+    fill: rgba(255, 255, 255, 0.55);
+  }
 }
-[data-piece='0'] {
+[data-piece='0'],
+[data-ghost='0'] {
   color: var(--color-accent-red);
   --gift: var(--color-accent-red);
 }
-[data-piece='1'] {
+[data-piece='1'],
+[data-ghost='1'] {
   color: var(--color-gold);
   --gift: var(--color-gold);
 }
-[data-piece='2'] {
+[data-piece='2'],
+[data-ghost='2'] {
   color: var(--color-aurora);
   --gift: var(--color-aurora);
 }
-[data-piece='3'] {
+[data-piece='3'],
+[data-ghost='3'] {
   color: var(--color-frost);
   --gift: var(--color-frost);
 }
-[data-piece='4'] {
+[data-piece='4'],
+[data-ghost='4'] {
   color: var(--color-ember);
   --gift: var(--color-ember);
 }
-[data-piece='5'] {
-  color: var(--color-text-muted);
-  --gift: var(--color-text-muted);
+[data-piece='5'],
+[data-ghost='5'] {
+  color: #c79bff;
+  --gift: #c79bff;
 }
-[data-piece='6'] {
-  color: var(--color-text);
-  --gift: var(--color-text);
+[data-piece='6'],
+[data-ghost='6'] {
+  color: var(--color-snow);
+  --gift: var(--color-snow);
 }
+// Packed squares: wrapping paper with a ribbon, joined into one box per present
 .square:not([data-piece='-1']) {
-  background: var(--gift);
-  border-color: var(--gift);
-  color: var(--color-bg);
-  font-size: 1.5rem;
+  border: 0;
+  border-radius: 6px;
+  background: linear-gradient(90deg, transparent 42%, rgba(255, 255, 255, 0.6) 42% 58%, transparent 58%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.22) 1.5px, transparent 2px) 0 0 / 12px 12px,
+    var(--gift);
+  box-shadow: inset 0 -6px 10px rgba(0, 0, 0, 0.18);
+
+  // Bridge the grid gap towards the neighbour of the same present
+  &.join-r::after,
+  &.join-b::before {
+    content: '';
+    position: absolute;
+    background: inherit;
+    pointer-events: none;
+  }
+  &.join-r::after {
+    top: 0;
+    bottom: 0;
+    right: calc(-1 * var(--gap) - 1px);
+    width: calc(var(--gap) + 2px);
+    background: var(--gift);
+  }
+  &.join-b::before {
+    left: 0;
+    right: 0;
+    bottom: calc(-1 * var(--gap) - 1px);
+    height: calc(var(--gap) + 2px);
+    background: linear-gradient(90deg, transparent 42%, rgba(255, 255, 255, 0.6) 42% 58%, transparent 58%),
+      var(--gift);
+  }
+  &.join-d.join-r::after {
+    bottom: calc(-1 * var(--gap) - 1px);
+  }
+  &.join-r {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  &.join-b {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+.bow {
+  position: absolute;
+  z-index: 2;
+  top: -6px;
+  left: 50%;
+  width: 62%;
+  transform: translateX(-50%);
+  fill: #fff6e6;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.35));
+  pointer-events: none;
 }

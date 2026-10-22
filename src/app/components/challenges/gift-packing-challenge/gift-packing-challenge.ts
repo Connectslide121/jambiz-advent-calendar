@@ -69,6 +69,40 @@ export function packingFits(board: number[], cells: Cell[], x: number, y: number
       x + dx >= 0 && x + dx < 5 && y + dy >= 0 && y + dy < 5 && board[(y + dy) * 5 + x + dx] === -1
   );
 }
+export interface PackingPlacement {
+  x: number;
+  y: number;
+  cells: number[];
+  fits: boolean;
+}
+/**
+ * Where a piece lands when the player points at a square: one of the piece's own cells goes on
+ * that square (never the empty corner of its bounding box). The top-left cell is tried first,
+ * then the others, so pointing at any hole the piece fits into works.
+ */
+export function packingPlacement(board: number[], shape: Cell[], index: number): PackingPlacement {
+  const px = index % 5,
+    py = Math.floor(index / 5);
+  const anchors = [...shape].sort((a, b) => a[1] - b[1] || a[0] - b[0]);
+  const at = ([ax, ay]: Cell) => {
+    const x = px - ax,
+      y = py - ay;
+    return {
+      x,
+      y,
+      cells: shape
+        .map(([dx, dy]) => [x + dx, y + dy])
+        .filter(([cx, cy]) => cx >= 0 && cx < 5 && cy >= 0 && cy < 5)
+        .map(([cx, cy]) => cy * 5 + cx),
+      fits: packingFits(board, shape, x, y),
+    };
+  };
+  for (const anchor of anchors) {
+    const placement = at(anchor);
+    if (placement.fits) return placement;
+  }
+  return at(anchors[0]);
+}
 @Component({
   selector: 'app-gift-packing-challenge',
   imports: [TranslateModule, GameFrame],
@@ -85,6 +119,8 @@ export class GiftPackingChallenge extends SeasonalGame implements OnInit {
   cursor = 0;
   moves = 0;
   history: number[] = [];
+  /** Square the pointer (or keyboard cursor) is on, for the ghost preview */
+  hover: number | null = null;
   ngOnInit(): void {
     this.restart();
   }
@@ -97,6 +133,7 @@ export class GiftPackingChallenge extends SeasonalGame implements OnInit {
     this.cursor = 0;
     this.moves = 0;
     this.history = [];
+    this.hover = null;
   }
   shape(id: number): Cell[] {
     return rotateCells(this.pieces[id], this.rotations[id]);
@@ -113,27 +150,56 @@ export class GiftPackingChallenge extends SeasonalGame implements OnInit {
       this.sound.tap();
     }
   }
+  /** Ghost of the selected present on the hovered empty square */
+  get ghost(): PackingPlacement | null {
+    const index = this.hover;
+    if (index === null || this.won || this.selected < 0 || this.board[index] >= 0) return null;
+    return packingPlacement(this.board, this.shape(this.selected), index);
+  }
+  /** Sides where a packed square continues into the same present, so it reads as one box */
+  joins(index: number): string {
+    const id = this.board[index];
+    if (id < 0) return '';
+    const x = index % 5;
+    const same = (i: number) => this.board[i] === id;
+    return [
+      x < 4 && same(index + 1) ? 'join-r' : '',
+      index < 20 && same(index + 5) ? 'join-b' : '',
+      // Fill the gap crossing inside a 2×2 block of the same present
+      x < 4 && index < 20 && same(index + 1) && same(index + 5) && same(index + 6) ? 'join-d' : '',
+    ].join(' ');
+  }
+  /** The bow sits on each present's top-left square */
+  hasBow(index: number): boolean {
+    const id = this.board[index];
+    return id >= 0 && this.board.indexOf(id) === index;
+  }
+  isGhost(index: number): boolean {
+    return !!this.ghost?.cells.includes(index);
+  }
+  point(index: number): void {
+    this.hover = index;
+    this.cursor = index;
+  }
   cell(index: number): void {
     if (this.won) return;
     this.cursor = index;
     const occupant = this.board[index];
-    const x = index % 5,
-      y = Math.floor(index / 5),
-      shape = this.selected < 0 ? [] : this.shape(this.selected);
-    if (this.selected < 0 || !packingFits(this.board, shape, x, y)) {
-      if (occupant >= 0) {
-        this.remove(occupant);
-        this.selected = occupant;
-        return;
-      }
-      if (this.selected >= 0) {
-        this.message('challenges.giftPacking.noFit');
-        this.sound.thud();
-      }
+    // A packed present is picked up again
+    if (occupant >= 0) {
+      this.remove(occupant);
+      this.selected = occupant;
+      return;
+    }
+    if (this.selected < 0) return;
+    const placement = packingPlacement(this.board, this.shape(this.selected), index);
+    if (!placement.fits) {
+      this.message('challenges.giftPacking.noFit');
+      this.sound.thud();
       return;
     }
     const id = this.selected;
-    for (const [dx, dy] of shape) this.board[(y + dy) * 5 + x + dx] = id;
+    for (const i of placement.cells) this.board[i] = id;
     this.placed.add(id);
     this.history.push(id);
     this.moves++;
@@ -175,6 +241,7 @@ export class GiftPackingChallenge extends SeasonalGame implements OnInit {
         ArrowDown: 5,
       };
       this.cursor = Math.max(0, Math.min(24, this.cursor + delta[e.key]));
+      this.hover = this.cursor;
     } else if (
       (e.key === 'Enter' || e.key === ' ') &&
       !(e.target as HTMLElement)?.closest('button')
