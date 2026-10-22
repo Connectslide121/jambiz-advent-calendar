@@ -1,10 +1,125 @@
 .cookie {
   max-width: 420px;
+  width: 100%;
   margin: auto;
   cursor: crosshair;
   aspect-ratio: 1;
+  border: 0;
+  background: transparent;
+  touch-action: none;
 }
-.hud {
-  font-size: 0.85rem;
+.tray {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  padding: 10px 18px;
+  margin: 0 auto;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #3a3f55, #2a2e40);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.08), inset 0 -4px 8px rgba(0, 0, 0, 0.4);
+}
+.tray-cookie {
+  width: 52px;
+  height: 52px;
+  opacity: 0.35;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+
+  .dough {
+    fill: #c9813f;
+    stroke: #8a4c1e;
+    stroke-width: 8;
+  }
+  &.current {
+    opacity: 0.7;
+    transform: translateY(-2px);
+  }
+  &.done {
+    opacity: 1;
+
+    .dough {
+      fill: #f6f0e4;
+      stroke: #c9813f;
+    }
+  }
+}
+.meters {
+  display: grid;
   gap: 8px;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+}
+.meter {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr 3rem;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+}
+.meter-label {
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+.meter-value {
+  text-align: right;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-snow);
+}
+.bar {
+  position: relative;
+  height: 8px;
+  border-radius: 8px;
+  background: var(--hairline);
+
+  .fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    border-radius: 8px;
+    background: var(--color-frost);
+    transition: width 0.2s ease;
+  }
+  .goal {
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    width: 2px;
+    margin-left: -1px;
+    background: var(--color-snow);
+    opacity: 0.6;
+  }
+  &.ok .fill {
+    background: var(--color-aurora);
+  }
+}
+.guide {
+  fill: rgba(255, 255, 255, 0.75);
+}
+.icing,
+.icing-shadow {
+  fill: none;
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.icing {
+  stroke: #fffaf0;
+}
+.icing-shadow {
+  stroke: rgba(90, 45, 15, 0.35);
+}
+.tip {
+  pointer-events: none;
+
+  circle {
+    fill: none;
+    stroke: #3a2a4a;
+    stroke-width: 1.5;
+  }
+  .tip-dot {
+    fill: #3a2a4a;
+  }
+  &.down circle:first-child {
+    stroke: #e0475b;
+  }
 }

@@ -50,6 +50,21 @@ export function samplePattern(paths: InkPoint[][]): InkPoint[] {
     }
   return samples;
 }
+/** Cookie outline for each round: a star, a round snowflake cookie and a tree */
+const starPoints = (r1: number, r2: number) =>
+  Array.from({ length: 10 }, (_, i) => {
+    const a = -Math.PI / 2 + (i * Math.PI) / 5;
+    const r = i % 2 ? r2 : r1;
+    return (i ? 'L' : 'M') + (150 + Math.cos(a) * r).toFixed(1) + ',' + (150 + Math.sin(a) * r).toFixed(1);
+  }).join(' ') + ' Z';
+export const COOKIE_SHAPES = [
+  starPoints(138, 72),
+  'M150,20 A130,130 0 1 1 149.9,20 Z',
+  'M150,14 L58,128 L88,128 L32,214 L112,214 L112,276 L188,276 L188,214 L268,214 L212,128 L242,128 Z',
+];
+/** Pass marks for each cookie */
+export const COOKIE_COVERAGE = 86;
+export const COOKIE_PRECISION = 78;
 @Component({
   selector: 'app-cookie-decorator-challenge',
   imports: [TranslateModule, GameFrame],
@@ -68,6 +83,27 @@ export class CookieDecoratorChallenge extends SeasonalGame implements OnInit {
   completedCookies = 0;
   results: number[] = [];
   private lastSound = 0;
+  readonly coverageGoal = COOKIE_COVERAGE;
+  readonly precisionGoal = COOKIE_PRECISION;
+  readonly tray = [0, 1, 2];
+  /** Deterministic sprinkles for finished cookies */
+  readonly sprinkles = Array.from({ length: 14 }, (_, i) => ({
+    x: 90 + ((i * 53) % 120),
+    y: 90 + ((i * 89) % 120),
+    a: (i * 47) % 180,
+    c: ['#e0475b', '#3aae8a', '#7fb8ff', '#f7c873'][i % 4],
+  }));
+  /** Speckles baked into the dough */
+  readonly speckles = Array.from({ length: 40 }, (_, i) => ({
+    x: 40 + ((i * 71 + i * i * 13) % 220),
+    y: 40 + ((i * 97 + i * i * 7) % 220),
+  }));
+  get shape(): string {
+    return COOKIE_SHAPES[this.round];
+  }
+  shapeOf(round: number): string {
+    return COOKIE_SHAPES[round];
+  }
   get reference(): InkPoint[][] {
     return COOKIE_PATTERNS[this.round];
   }
@@ -161,7 +197,7 @@ export class CookieDecoratorChallenge extends SeasonalGame implements OnInit {
   check(): void {
     if (this.won) return;
     this.drawing = false;
-    if (this.coverage < 86 || this.precision < 78) {
+    if (this.coverage < COOKIE_COVERAGE || this.precision < COOKIE_PRECISION) {
       this.message('challenges.cookieDecorator.notYet');
       this.sound.thud();
       return;

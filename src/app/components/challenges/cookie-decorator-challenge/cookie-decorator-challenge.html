@@ -9,11 +9,39 @@
   (restart)="restart()"
   (reward)="completed.emit()"
 >
-  <div class="hud">
-    <span>🍪 {{ completedCookies }}/3</span
-    ><span>{{ 'challenges.cookieDecorator.coverage' | translate }} {{ coverage }}%</span
-    ><span>{{ 'challenges.cookieDecorator.precision' | translate }} {{ precision }}%</span>
+  <!-- Baking tray: finished cookies get sprinkles -->
+  <div class="tray" aria-hidden="true">
+    @for (i of tray; track i) {
+      <svg viewBox="0 0 300 300" class="tray-cookie" [class.done]="i < completedCookies" [class.current]="i === round && !won">
+        <path [attr.d]="shapeOf(i)" class="dough" />
+        @if (i < completedCookies) {
+          @for (s of sprinkles; track $index) {
+            <rect [attr.x]="s.x" [attr.y]="s.y" width="16" height="5" rx="2.5" [attr.fill]="s.c" [attr.transform]="'rotate(' + s.a + ' ' + (s.x + 8) + ' ' + (s.y + 2) + ')'" />
+          }
+        }
+      </svg>
+    }
   </div>
+
+  <div class="meters">
+    <div class="meter">
+      <span class="meter-label">{{ 'challenges.cookieDecorator.coverage' | translate }}</span>
+      <span class="bar" [class.ok]="coverage >= coverageGoal">
+        <span class="fill" [style.width.%]="coverage"></span>
+        <span class="goal" [style.left.%]="coverageGoal"></span>
+      </span>
+      <span class="meter-value">{{ coverage }}%</span>
+    </div>
+    <div class="meter">
+      <span class="meter-label">{{ 'challenges.cookieDecorator.precision' | translate }}</span>
+      <span class="bar" [class.ok]="precision >= precisionGoal">
+        <span class="fill" [style.width.%]="precision"></span>
+        <span class="goal" [style.left.%]="precisionGoal"></span>
+      </span>
+      <span class="meter-value">{{ precision }}%</span>
+    </div>
+  </div>
+
   <svg
     viewBox="0 0 300 300"
     class="art board cookie"
@@ -26,44 +54,41 @@
     (pointerup)="up()"
     (pointercancel)="up()"
   >
-    <rect x="10" y="10" width="280" height="280" rx="55" fill="var(--color-ember)" />
-    <rect
-      x="19"
-      y="19"
-      width="262"
-      height="262"
-      rx="50"
-      fill="var(--color-accent-red-dark)"
-      opacity=".45"
-    />
-    @for (line of reference; track $index) {
-      <path
-        [attr.d]="path(line)"
-        stroke="var(--color-gold)"
-        stroke-width="5"
-        stroke-linecap="round"
-        stroke-dasharray="2 9"
-        fill="none"
-      />
+    <defs>
+      <radialGradient id="cd-dough" cx="0.45" cy="0.4" r="0.7">
+        <stop offset="0" stop-color="#d99550" />
+        <stop offset="0.75" stop-color="#bf7638" />
+        <stop offset="1" stop-color="#9c5a26" />
+      </radialGradient>
+      <clipPath id="cd-clip"><path [attr.d]="shape" /></clipPath>
+    </defs>
+    <!-- Parchment under the cookie -->
+    <rect width="300" height="300" rx="18" fill="#efe4cf" />
+    <path d="M0 40 H300 M0 120 H300 M0 200 H300 M0 280 H300" stroke="#e4d6bb" stroke-width="2" />
+    <!-- The cookie -->
+    <path [attr.d]="shape" fill="rgba(70, 35, 10, 0.25)" transform="translate(4 7)" />
+    <path [attr.d]="shape" fill="url(#cd-dough)" stroke="#8a4c1e" stroke-width="5" stroke-linejoin="round" />
+    <g clip-path="url(#cd-clip)" fill="#7a4018" opacity="0.35">
+      @for (s of speckles; track $index) {
+        <circle [attr.cx]="s.x" [attr.cy]="s.y" r="1.6" />
+      }
+    </g>
+    <!-- Guide dots disappear as they are iced over -->
+    @for (s of samples; track $index; let i = $index) {
+      @if (i % 2 === 0 && !covered.has(i)) {
+        <circle [attr.cx]="s.x" [attr.cy]="s.y" r="2.4" class="guide" />
+      }
     }
+    <!-- Icing -->
     @for (line of strokes; track $index) {
-      <path
-        [attr.d]="path(line)"
-        stroke="var(--color-text)"
-        stroke-width="7"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        fill="none"
-      />
+      <path [attr.d]="path(line)" class="icing-shadow" transform="translate(1.5 2.5)" />
+      <path [attr.d]="path(line)" class="icing" />
     }
-    <circle
-      [attr.cx]="pen.x"
-      [attr.cy]="pen.y"
-      r="5"
-      stroke="var(--color-frost)"
-      stroke-width="1.5"
-      fill="none"
-    />
+    <!-- Piping tip -->
+    <g [attr.transform]="'translate(' + pen.x + ' ' + pen.y + ')'" class="tip" [class.down]="drawing">
+      <circle r="7" />
+      <circle r="2" class="tip-dot" />
+    </g>
   </svg>
   <div class="controls">
     <button class="btn btn-primary" [disabled]="won" (click)="check()">
