@@ -391,14 +391,30 @@
       "day": 19,
       "gridPosition": 21,
       "challengeType": "carolConductor",
-      "funFactKey": "funFacts.day9",
+      "reward": {
+        "type": "text",
+        "title": "rewards.day19.title",
+        "textKey": "rewards.day19.text"
+      },
       "challengeData": {}
     },
     {
       "day": 20,
       "gridPosition": 2,
       "challengeType": "treeLights",
-      "funFactKey": "funFacts.day20",
+      "reward": {
+        "type": "text",
+        "textFormat": "jokes",
+        "title": "rewards.day20.title",
+        "textKey": "rewards.day20.intro",
+        "items": [
+          "rewards.day20.jokes.1",
+          "rewards.day20.jokes.2",
+          "rewards.day20.jokes.3",
+          "rewards.day20.jokes.4",
+          "rewards.day20.jokes.5"
+        ]
+      },
       "challengeData": {
         "rows": 5,
         "scrambleTaps": 5
