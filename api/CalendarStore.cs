@@ -27,7 +27,7 @@ public sealed class CalendarStore
             try
             {
                 var response = await container.ReadItemAsync<JsonObject>("calendar", new(Season));
-                var upgraded = CalendarMigrations.UpgradeGames(response.Resource, seedDocument);
+                var upgraded = CalendarMigrations.Upgrade(response.Resource, seedDocument);
                 if (upgraded is null) return response.Resource.Deserialize<SeasonDocument>(Json)!;
                 // ETag protects a reward editor or another host migrating the same revision.
                 await container.ReplaceItemAsync(upgraded, "calendar", new(Season), new() { IfMatchEtag = response.ETag });

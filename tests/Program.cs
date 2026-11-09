@@ -64,6 +64,48 @@ newerCatalog["gameRevision"] = 999;
 Check(CalendarMigrations.UpgradeGames(newerCatalog, catalog) is null, "Older release overwrote a newer calendar");
 Check(upgradedCatalog["days"]!.AsArray().OfType<JsonObject>().Select(d => d["challengeType"]!.GetValue<string>()).Distinct().Count() == 24, "Calendar still contains duplicate game types");
 
+// Reward revisions replace every day's reward and funFactKey once, and nothing else.
+JsonObject Day(JsonObject calendar, int day) => calendar["days"]!.AsArray().OfType<JsonObject>().Single(d => d["day"]!.GetValue<int>() == day);
+var storedRewards = (JsonObject)catalog.DeepClone();
+storedRewards.Remove("rewardRevision");
+Check(CalendarMigrations.Upgrade(storedRewards, catalog) is null, "The seed's current reward revision must not migrate stored rewards");
+var rewardSeed = (JsonObject)catalog.DeepClone();
+rewardSeed["rewardRevision"] = 1;
+Day(rewardSeed, 1).Remove("reward");
+Day(rewardSeed, 1)["funFactKey"] = "rewards.day1.fact";
+Day(rewardSeed, 2).Remove("funFactKey");
+Day(rewardSeed, 2)["reward"] = new JsonObject { ["type"] = "text", ["textFormat"] = "letter", ["textKey"] = "rewards.day2.body" };
+Day(rewardSeed, 3)["reward"] = new JsonObject { ["type"] = "coupon", ["couponTitleKey"] = "rewards.day3.title" };
+Day(rewardSeed, 3)["challengeData"] = new JsonObject { ["seedOnly"] = true };
+Day(storedRewards, 3)["challengeData"] = new JsonObject { ["edited"] = true };
+Day(storedRewards, 3)["gridPosition"] = 5;
+Day(storedRewards, 3)["editorNote"] = "keep me";
+storedRewards["customField"] = "preserve me";
+var rewarded = CalendarMigrations.Upgrade(storedRewards, rewardSeed)!;
+Check(rewarded["rewardRevision"]!.GetValue<int>() == 1, "Reward revision not recorded");
+Check(Day(rewarded, 1)["reward"] is null && Day(rewarded, 1)["funFactKey"]!.GetValue<string>() == "rewards.day1.fact", "Old reward kept beside the seed's fun fact");
+Check(Day(rewarded, 2)["funFactKey"] is null && Day(rewarded, 2)["reward"]!["textFormat"]!.GetValue<string>() == "letter", "Old fun fact kept beside the seed's reward");
+Check(Day(rewarded, 3)["reward"]!["couponTitleKey"]!.GetValue<string>() == "rewards.day3.title", "Reward not replaced");
+Check(Day(rewarded, 3)["challengeData"]!["edited"]!.GetValue<bool>(), "Reward migration replaced game settings");
+Check(Day(rewarded, 3)["gridPosition"]!.GetValue<int>() == 5, "Reward migration moved the door");
+Check(Day(rewarded, 3)["editorNote"]!.GetValue<string>() == "keep me", "Reward migration lost day metadata");
+Check(rewarded["customField"]!.GetValue<string>() == "preserve me" && rewarded["gameRevision"]!.GetValue<int>() == 1, "Reward migration lost season metadata");
+Check(Day(storedRewards, 1)["reward"] is not null, "Reward migration mutated its input document");
+Check(CalendarMigrations.Upgrade(rewarded, rewardSeed) is null, "Reward migration is not idempotent");
+var editedAfter = (JsonObject)rewarded.DeepClone();
+Day(editedAfter, 3)["reward"]!["couponEmoji"] = "🎁";
+Check(CalendarMigrations.Upgrade(editedAfter, rewardSeed) is null, "Reward edits after the migration were overwritten");
+var newerRewards = (JsonObject)storedRewards.DeepClone();
+newerRewards["rewardRevision"] = 999;
+Check(CalendarMigrations.Upgrade(newerRewards, rewardSeed) is null, "Older release overwrote newer rewards");
+// Both revisions pending: games and rewards both come from the seed in one write.
+var bothPending = (JsonObject)storedRewards.DeepClone();
+bothPending.Remove("gameRevision");
+var both = CalendarMigrations.Upgrade(bothPending, rewardSeed)!;
+Check(Day(both, 3)["challengeData"]!["seedOnly"]!.GetValue<bool>() && Day(both, 3)["reward"]!["couponTitleKey"] is not null, "Combined migration skipped a revision");
+Check(both["gameRevision"]!.GetValue<int>() == 1 && both["rewardRevision"]!.GetValue<int>() == 1, "Combined migration did not record both revisions");
+Check(Day(both, 3)["gridPosition"]!.GetValue<int>() == 5, "Combined migration moved the door");
+
 if (args.Length == 2 && args[0] == "--cosmos")
 {
     using var client = new CosmosClient(args[1], new DefaultAzureCredential(), new CosmosClientOptions
