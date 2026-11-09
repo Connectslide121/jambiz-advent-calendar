@@ -7,6 +7,8 @@
   display: flex;
   flex-direction: column;
   pointer-events: none;
+  // Door sparkles fly past the edge doors; never let them make the page scroll sideways
+  overflow-x: clip;
 
   > * {
     pointer-events: auto;
