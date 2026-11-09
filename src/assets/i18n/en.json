@@ -1122,6 +1122,23 @@
       "couponValidity": "Valid for one meeting, while the Christmas spirit lasts ✨",
       "instruction": "Take a screenshot and save it for the right morning."
     },
+    "day4": {
+      "title": "🥠 Home-office fortune cookie",
+      "fortunes": {
+        "1": "Your Wi-Fi will hold through every important meeting this month.",
+        "2": "Someone will say “you're on mute”, and for once it won't be you.",
+        "3": "Your coffee will still be warm when you finally get to drink it. At least once.",
+        "4": "A meeting that could have been an email will actually become an email.",
+        "5": "The neighbour's drill will take a break just as you start presenting.",
+        "6": "Your blurred background will let you keep both ears all December.",
+        "7": "You will find that file you've been looking for, in the folder you already checked three times.",
+        "8": "Before your most important call, the cat will choose to sleep somewhere other than your keyboard."
+      }
+    },
+    "day5": {
+      "title": "😄 The emoji challenge",
+      "text": "Describe your perfect Christmas in three emojis and post them in the team chat. Then try to guess everyone else's: is 🛋️⁠📺⁠🍫 a lazy Christmas Eve in front of the telly, or just an ordinary Friday?\n\nWhoever guesses the most gets the glory (and nothing else)."
+    },
     "day18": {
       "title": "🎵 Christmas at Jambiz 🎵",
       "lyrics": "Deck the halls with PowerPoints\nFa-la-la-la-la\nOh what a joint\nCoffee cups and donut crumbs\nWorkplace cheer\nHere it comes\n\nDeadlines jingling all the way\nLast-minute tasks on Santa's sleigh\n\nChristmas at Jambiz\nWe're feeling fine\nSippin' on lattes in a deadline line\nMeetings and greetings and snacks divine\nOh\nChristmas at Jambiz\nIt's grind-and-shine!\n\nSecret Santa\nPick your fate\nOh no\nBob got a stapler plate\nUgly sweaters\nOffice flair\nWho's got eggnog? Do we care?\n\nSpreadsheet elves are on the run\nAdding columns\nHaving fun\n\nChristmas at Jambiz\nWe're feeling fine\nSippin' on lattes in a deadline line\nMeetings and greetings and snacks divine\nOh\nChristmas at Jambiz\nIt's grind-and-shine!"
