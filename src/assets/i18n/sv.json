@@ -1040,7 +1040,6 @@
     "day9": "SwCG (Swedish Consulting Group) fungerar som en mötesplats för hela IT-branschen och kopplar samman kunder med de bästa konsulterna.",
     "day11": "AnalyticLEAD erbjuder djup expertis inom informationshantering, avancerad analys, datavetenskap och datastyrning.",
     "day12": "LearningLEAD erbjuder coaching, mentorskap, kurser och workshops inom projektledning, facilitering och Lean-Agile-transformation (SAFe®).",
-    "day13": "Addends erbjuder faciliteringstjänster med LEGO® Serious Play®-metodik – med övertygelsen att affärer kan göras bättre genom lekfullhet!",
     "day14": "Sprinta skapade CertumHub – en AI-driven plattform för e-lärande, efterlevnadshantering och hållbarhetscertifieringar med över 50 kurskategorier!",
     "day15": "Namnet 'Jambiz' skapades genom att kombinera grundarnas initialer: Jorgen And Mikaels Business = JAMBIZ!",
     "day16": "Jambiz skapar trygghet, utveckling och tillväxt för medlemsbolagen genom samarbete och skalfördelar.",
@@ -1195,6 +1194,24 @@
         "8": "Tomten tvekar",
         "9": "Svaret kommer i januari",
         "10": "Ja! God jul!"
+      }
+    },
+    "day13": {
+      "title": "🕯️ Varför just den 13:e?",
+      "text": "Lucia firas den 13 december eftersom det var helgonet Lucias dödsdag, och den dagen stod hon redan i den svenska helgonkalendern på medeltiden.\n\nDatumet har också en mörkare historia. Den gamla julianska kalendern hade halkat efter solen, så lucianatten hamnade kring årets längsta natt. Den räknades som midvinternatten, och man gjorde klokast i att hålla sig inomhus.\n\n1753 bytte Sverige till den gregorianska kalendern: efter den 17 februari kom direkt den 1 mars. Lucia blev kvar den 13:e, medan årets längsta natt flyttade till runt den 21 december. Så när du ser luciatåget på skärmen i år är det mörkaste inte riktigt över, men nästan."
+    },
+    "day14": {
+      "title": "❄️ Önskegloben",
+      "instruction": "Skaka globen för en vinterönskan till resten av året.",
+      "wishes": {
+        "1": "Må resten av året bjuda på korta möten och långa luncher.",
+        "2": "Må varje ”snabb fråga” faktiskt vara snabb.",
+        "3": "Må du hinna ut i dagsljuset minst en gång om dagen.",
+        "4": "Må din inkorg krympa lite varje dag fram till jul.",
+        "5": "Må det snöa precis lagom: vackert utanför fönstret, inget att skotta.",
+        "6": "Må dina julklappar bli inslagna i god tid. Eller åtminstone bli inslagna.",
+        "7": "Må någon fråga hur du mår, och vänta på svaret.",
+        "8": "Må du få en lugn kväll med levande ljus och ingenting i kalendern."
       }
     },
     "day18": {

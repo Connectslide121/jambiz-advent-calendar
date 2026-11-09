@@ -283,7 +283,11 @@
       "day": 13,
       "gridPosition": 9,
       "challengeType": "cryptogram",
-      "funFactKey": "funFacts.day13",
+      "reward": {
+        "type": "text",
+        "title": "rewards.day13.title",
+        "textKey": "rewards.day13.text"
+      },
       "challengeData": {}
     },
     {
@@ -292,7 +296,18 @@
       "challengeType": "toySorter",
       "reward": {
         "type": "snowGlobe",
-        "title": "rewards.snowGlobe.title"
+        "title": "rewards.day14.title",
+        "instructionKey": "rewards.day14.instruction",
+        "wishes": [
+          "rewards.day14.wishes.1",
+          "rewards.day14.wishes.2",
+          "rewards.day14.wishes.3",
+          "rewards.day14.wishes.4",
+          "rewards.day14.wishes.5",
+          "rewards.day14.wishes.6",
+          "rewards.day14.wishes.7",
+          "rewards.day14.wishes.8"
+        ]
       },
       "challengeData": {
         "target": 15,

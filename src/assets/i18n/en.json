@@ -1040,7 +1040,6 @@
     "day9": "SwCG (Swedish Consulting Group) serves as a meeting place for the entire IT industry, connecting clients with the best consultants.",
     "day11": "AnalyticLEAD offers deep expertise in information management, advanced analytics, data science and data governance.",
     "day12": "LearningLEAD offers coaching, mentorship, courses and workshops within Project Management, Facilitation, and Lean-Agile Transformation (SAFe®).",
-    "day13": "Addends offers facilitation services using LEGO® Serious Play® methodology – believing business can be done better through playfulness!",
     "day14": "Sprinta created CertumHub – an AI-powered platform for e-learning, compliance management, and sustainability certifications with 50+ course categories!",
     "day15": "The name 'Jambiz' was created by combining the initials of the founders' names: Jorgen And Mikael's Business = JAMBIZ!",
     "day16": "Jambiz provides security, development, and growth for member companies through collaboration and economies of scale.",
@@ -1195,6 +1194,24 @@
         "8": "The tomte hesitates",
         "9": "Ask in January",
         "10": "Yes! Ho ho ho!"
+      }
+    },
+    "day13": {
+      "title": "🕯️ Why the 13th?",
+      "text": "Lucia is celebrated on 13 December because it was the day Saint Lucia died, and it was already her day in the Swedish saints' calendar in the Middle Ages.\n\nThe date has a darker story too. The old Julian calendar had slipped behind the sun, so Lucia night fell around the longest night of the year. It was counted as the midwinter night, and you were wise to stay indoors.\n\nIn 1753 Sweden switched to the Gregorian calendar: 17 February was followed directly by 1 March. Lucia stayed on the 13th, while the longest night moved to around 21 December. So when you watch the Lucia procession on a screen this year, the darkest part isn't quite over, but nearly."
+    },
+    "day14": {
+      "title": "❄️ The wishing globe",
+      "instruction": "Shake the globe for a winter wish for the rest of the year.",
+      "wishes": {
+        "1": "May the rest of the year bring short meetings and long lunches.",
+        "2": "May every “quick question” actually be quick.",
+        "3": "May you get out into the daylight at least once a day.",
+        "4": "May your inbox shrink a little every day until Christmas.",
+        "5": "May it snow just right: lovely outside the window, nothing to shovel.",
+        "6": "May your presents get wrapped in good time. Or at least get wrapped.",
+        "7": "May someone ask how you're doing, and wait for the answer.",
+        "8": "May you get a quiet evening with candles lit and nothing in the calendar."
       }
     },
     "day18": {
