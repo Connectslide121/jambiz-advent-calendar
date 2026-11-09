@@ -34,6 +34,7 @@ export class FunFactReveal implements OnInit {
   }> = [];
   isShakingSnowGlobe = false;
   isSnowFalling = false;
+  snowGlobeWish: string | null = null;
   private snowSpawnerInterval: any = null;
   private snowIdCounter = 0;
 
@@ -54,6 +55,14 @@ export class FunFactReveal implements OnInit {
   // Ice Breaker State
   currentTopic: string | null = null;
   isSpinningTopic = false;
+
+  // Bingo State (marks are for fun only and are not saved)
+  bingoMarked: boolean[] = [];
+  private static readonly bingoLines = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+    [0, 4, 8], [2, 4, 6],
+  ];
 
   constructor(private sanitizer: DomSanitizer) {}
 
@@ -171,7 +180,43 @@ export class FunFactReveal implements OnInit {
 
       // Start spawning new snow - it will continue indefinitely
       this.startSnowSpawner();
+      this.pickSnowGlobeWish();
     }, 600);
+  }
+
+  private pickSnowGlobeWish(): void {
+    const wishes = this.effectiveReward?.wishes;
+    if (!wishes?.length) return;
+    // Avoid showing the same wish twice in a row when there is a choice
+    const choices = wishes.length > 1 ? wishes.filter((w) => w !== this.snowGlobeWish) : wishes;
+    this.snowGlobeWish = choices[Math.floor(Math.random() * choices.length)];
+  }
+
+  // Text formats
+  get textFormat() {
+    return this.effectiveReward?.textFormat ?? 'plain';
+  }
+
+  /** A joke's setup and punchline, split at its first line break. */
+  splitJoke(text: string): { setup: string; punchline: string } {
+    const index = text.indexOf('\n');
+    return index < 0
+      ? { setup: text, punchline: '' }
+      : { setup: text.slice(0, index).trim(), punchline: text.slice(index + 1).trim() };
+  }
+
+  toggleBingo(index: number): void {
+    this.bingoMarked[index] = !this.bingoMarked[index];
+  }
+
+  get hasBingo(): boolean {
+    return FunFactReveal.bingoLines.some((line) => line.every((i) => this.bingoMarked[i]));
+  }
+
+  isInBingoLine(index: number): boolean {
+    return FunFactReveal.bingoLines.some(
+      (line) => line.includes(index) && line.every((i) => this.bingoMarked[i])
+    );
   }
 
   // Magic 8-Ball Logic

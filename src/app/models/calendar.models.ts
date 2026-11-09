@@ -36,10 +36,21 @@ export type RewardType =
   | 'fortuneCookie'
   | 'iceBreaker';
 
+// How a text reward is laid out. 'plain' (the default) is a single paragraph, such as a fun fact.
+export type TextRewardFormat = 'plain' | 'letter' | 'recipe' | 'jokes' | 'bingo';
+
 export interface RewardConfig {
   type: RewardType;
-  // For text rewards - translation key
+  // For text rewards - translation key (the body; for recipes, jokes and bingo an optional intro).
+  // Line breaks in the translation are kept; a blank line starts a new paragraph.
   textKey?: string;
+  textFormat?: TextRewardFormat;
+  signatureKey?: string; // Letter: sign-off under the body
+  ingredients?: string[]; // Recipe: translation keys, one per ingredient
+  steps?: string[]; // Recipe: translation keys, one per step (numbered)
+  items?: string[]; // Jokes: one key per joke, setup and punchline split by a line break. Bingo: 9 squares
+  // Shared by the interactive rewards: replaces the type's fixed instruction under the reward
+  instructionKey?: string;
   // For image rewards
   imageUrl?: string;
   imageAlt?: string; // Translation key for alt text
@@ -64,10 +75,19 @@ export interface RewardConfig {
   answers?: string[]; // Array of translation keys for answers
   // For Fortune Cookie
   fortunes?: string[]; // Array of translation keys for fortune messages
+  // For Snow Globe
+  wishes?: string[]; // Translation keys; shaking shows one at random under the globe
+  // For Pop-up Card (each falls back to the shared rewards.popupCard.* text)
+  cardCoverKey?: string; // On the closed cover
+  cardMessageKey?: string; // Inside the lid
+  cardGreetingKey?: string; // Along the bottom edge
   // For Ice Breaker
   topics?: string[]; // Array of translation keys for ice breaker topics
   iceBreakerTitleKey?: string; // Translation key for ice breaker title
   iceBreakerInstructionKey?: string; // Translation key for instruction
+  iceBreakerEmoji?: string; // Replaces the 🧊 on the card
+  iceBreakerButtonKey?: string; // Replaces "New topic"
+  iceBreakerValidityKey?: string; // Replaces the small print under the button
   // Common optional properties
   title?: string; // Translation key for custom title (overrides default "Fun Fact")
 }

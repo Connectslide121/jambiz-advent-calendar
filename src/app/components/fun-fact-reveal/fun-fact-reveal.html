@@ -22,10 +22,110 @@
   <div class="max-w-2xl mx-auto mb-8 px-4">
     @if (effectiveReward) {
     <!-- Text Reward -->
-    @if (rewardType === 'text' && effectiveReward.textKey) {
-    <p class="text-base sm:text-lg text-text leading-relaxed">
-      {{ effectiveReward.textKey | translate }}
-    </p>
+    @if (rewardType === 'text') {
+    @switch (textFormat) {
+    <!-- Letter: a sheet of paper with a sign-off -->
+    @case ('letter') {
+    <article class="letter-sheet">
+      @if (effectiveReward.textKey) {
+      <p class="letter-body">{{ effectiveReward.textKey | translate }}</p>
+      }
+      @if (effectiveReward.signatureKey) {
+      <p class="letter-signature">{{ effectiveReward.signatureKey | translate }}</p>
+      }
+    </article>
+    }
+
+    <!-- Recipe: intro, ingredients and numbered steps -->
+    @case ('recipe') {
+    <article class="text-panel recipe">
+      @if (effectiveReward.textKey) {
+      <p class="text-intro">{{ effectiveReward.textKey | translate }}</p>
+      }
+      <div class="recipe-columns">
+        @if (effectiveReward.ingredients?.length) {
+        <section>
+          <h4 class="panel-heading">{{ 'rewards.recipe.ingredients' | translate }}</h4>
+          <ul class="recipe-ingredients">
+            @for (key of effectiveReward.ingredients; track $index) {
+            <li>{{ key | translate }}</li>
+            }
+          </ul>
+        </section>
+        }
+        @if (effectiveReward.steps?.length) {
+        <section>
+          <h4 class="panel-heading">{{ 'rewards.recipe.steps' | translate }}</h4>
+          <ol class="recipe-steps">
+            @for (key of effectiveReward.steps; track $index) {
+            <li>
+              <span class="step-number" aria-hidden="true">{{ $index + 1 }}</span>
+              <span>{{ key | translate }}</span>
+            </li>
+            }
+          </ol>
+        </section>
+        }
+      </div>
+    </article>
+    }
+
+    <!-- Jokes: numbered cards, punchline under the setup -->
+    @case ('jokes') {
+    <div class="jokes">
+      @if (effectiveReward.textKey) {
+      <p class="text-intro">{{ effectiveReward.textKey | translate }}</p>
+      }
+      <ol class="joke-list">
+        @for (key of effectiveReward.items; track $index) {
+        @let joke = splitJoke(key | translate);
+        <li class="joke">
+          <span class="joke-number" aria-hidden="true">{{ $index + 1 }}</span>
+          <span class="joke-text">
+            <span class="joke-setup">{{ joke.setup }}</span>
+            @if (joke.punchline) {
+            <span class="joke-punchline">{{ joke.punchline }}</span>
+            }
+          </span>
+        </li>
+        }
+      </ol>
+    </div>
+    }
+
+    <!-- Bingo: a 3×3 card to mark on the day -->
+    @case ('bingo') {
+    <div class="bingo">
+      @if (effectiveReward.textKey) {
+      <p class="text-intro">{{ effectiveReward.textKey | translate }}</p>
+      }
+      <div class="bingo-grid" role="group" [attr.aria-label]="effectiveReward.title ? (effectiveReward.title | translate) : null">
+        @for (key of (effectiveReward.items || []).slice(0, 9); track $index) {
+        <button
+          type="button"
+          class="bingo-square"
+          [class.marked]="bingoMarked[$index]"
+          [class.in-line]="isInBingoLine($index)"
+          [attr.aria-pressed]="!!bingoMarked[$index]"
+          (click)="toggleBingo($index)"
+        >
+          <span>{{ key | translate }}</span>
+        </button>
+        }
+      </div>
+      <p class="bingo-status" [class.won]="hasBingo" aria-live="polite">
+        {{ (hasBingo ? 'rewards.bingo.won' : 'rewards.bingo.hint') | translate }}
+      </p>
+    </div>
+    }
+
+    <!-- Plain text, such as a fun fact -->
+    @default {
+    @if (effectiveReward.textKey) {
+    <p class="text-base sm:text-lg text-text leading-relaxed whitespace-pre-line">{{ effectiveReward.textKey | translate }}</p>
+    }
+    }
+    }
     }
 
     <!-- Image Reward -->
@@ -180,7 +280,7 @@
         <!-- Card content -->
         <div class="ice-breaker-content">
           <!-- Emoji -->
-          <div class="text-5xl sm:text-6xl mb-4">🧊</div>
+          <div class="text-5xl sm:text-6xl mb-4">{{ effectiveReward.iceBreakerEmoji || '🧊' }}</div>
 
           <!-- Title -->
           <h4 class="text-xl sm:text-2xl font-bold text-gold mb-3">
@@ -217,13 +317,13 @@
           >
             <span class="flex items-center gap-2">
               <span [class.animate-spin]="isSpinningTopic">🎲</span>
-              {{ 'rewards.iceBreaker.newTopic' | translate }}
+              {{ (effectiveReward.iceBreakerButtonKey || 'rewards.iceBreaker.newTopic') | translate }}
             </span>
           </button>
 
           <!-- Validity text -->
           <div class="text-xs sm:text-sm text-text-muted mt-4">
-            {{ 'rewards.iceBreaker.validity' | translate }}
+            {{ (effectiveReward.iceBreakerValidityKey || 'rewards.iceBreaker.validity') | translate }}
           </div>
         </div>
 
@@ -270,9 +370,20 @@
           </div>
         </div>
       </div>
-      <p class="text-sm text-text-muted mt-4 animate-pulse text-center">
-        {{ 'rewards.snowGlobe.instruction' | translate }}
+      @if (effectiveReward.wishes?.length) {
+      <!-- The wish replaces the instruction in a slot of fixed height, so nothing moves -->
+      <p class="snow-globe-wish" [class.revealed]="snowGlobeWish" aria-live="polite">
+        @if (snowGlobeWish) {
+        <span class="wish-text">{{ snowGlobeWish | translate }}</span>
+        } @else {
+        <span class="text-sm text-text-muted animate-pulse">{{ (effectiveReward.instructionKey || 'rewards.snowGlobe.instruction') | translate }}</span>
+        }
       </p>
+      } @else {
+      <p class="text-sm text-text-muted mt-4 animate-pulse text-center">
+        {{ (effectiveReward.instructionKey || 'rewards.snowGlobe.instruction') | translate }}
+      </p>
+      }
     </div>
     }
 
@@ -295,7 +406,7 @@
         </div>
       </div>
       <p class="text-sm text-text-muted mt-4 animate-pulse text-center">
-        {{ 'rewards.magic8Ball.instruction' | translate }}
+        {{ (effectiveReward.instructionKey || 'rewards.magic8Ball.instruction') | translate }}
       </p>
     </div>
     }
@@ -330,7 +441,7 @@
                 </div>
                 <div class="lid-center">
                   <span class="tree-icon">🎄</span>
-                  <span class="lid-text">{{ 'rewards.popupCard.clickToOpen' | translate }}</span>
+                  <span class="lid-text">{{ (effectiveReward.cardCoverKey || 'rewards.popupCard.clickToOpen') | translate }}</span>
                 </div>
               </div>
             </div>
@@ -342,7 +453,7 @@
                   <span class="star s2">✨</span>
                   <span class="star s3">⭐</span>
                 </div>
-                <p class="greeting-text">{{ 'rewards.popupCard.topMessage' | translate }}</p>
+                <p class="greeting-text">{{ (effectiveReward.cardMessageKey || 'rewards.popupCard.topMessage') | translate }}</p>
               </div>
             </div>
           </div>
@@ -420,7 +531,7 @@
 
           <!-- Greeting at bottom -->
           <div class="bottom-greeting">
-            <span>{{ 'rewards.popupCard.greeting' | translate }}</span>
+            <span>{{ (effectiveReward.cardGreetingKey || 'rewards.popupCard.greeting') | translate }}</span>
           </div>
         </div>
       </div>
@@ -428,7 +539,7 @@
         {{
           isCardOpen
             ? ('rewards.popupCard.clickToClose' | translate)
-            : ('rewards.popupCard.instruction' | translate)
+            : ((effectiveReward.instructionKey || 'rewards.popupCard.instruction') | translate)
         }}
       </p>
     </div>
@@ -465,7 +576,7 @@
       </div>
       <p class="text-sm text-text-muted mt-4 animate-pulse text-center">
         @if (!isCookieCracked) {
-        {{ 'rewards.fortuneCookie.instruction' | translate }}
+        {{ (effectiveReward.instructionKey || 'rewards.fortuneCookie.instruction') | translate }}
         } @else {
         {{ 'rewards.fortuneCookie.cracked' | translate }}
         }

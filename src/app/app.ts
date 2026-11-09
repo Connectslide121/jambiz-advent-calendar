@@ -207,6 +207,8 @@ export class App implements OnDestroy {
 
   // Get the reward text for a day (either from reward config or funFactKey)
   getRewardText(day: CalendarDayConfig): string {
+    // Letters, recipes, jokes and bingo open in the reward window instead
+    if (this.formattedTextIcon(day)) return '';
     if (day.reward?.textKey) {
       return day.reward.textKey;
     }
@@ -214,6 +216,13 @@ export class App implements OnDestroy {
       return day.funFactKey;
     }
     return '';
+  }
+
+  // Icon for a text reward with a structured layout, or null for plain text
+  formattedTextIcon(day: CalendarDayConfig): string | null {
+    if (day.reward?.type !== 'text') return null;
+    const icons: Record<string, string> = { letter: '✉️', recipe: '🍪', jokes: '😄', bingo: '🎯' };
+    return icons[day.reward.textFormat ?? 'plain'] ?? null;
   }
 
   // Check if day has a video reward
@@ -270,7 +279,8 @@ export class App implements OnDestroy {
         day.reward.type === 'popupCard' ||
         day.reward.type === 'coupon' ||
         day.reward.type === 'fortuneCookie' ||
-        day.reward.type === 'iceBreaker')
+        day.reward.type === 'iceBreaker' ||
+        this.formattedTextIcon(day))
     ) {
       this.interactiveRewardConfig = day.reward;
       this.showInteractiveReward = true;

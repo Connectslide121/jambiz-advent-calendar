@@ -408,6 +408,16 @@
             }
 
             <!-- Interactive rewards -->
+            @if (formattedTextIcon(day); as icon) {
+            <button (click)="openInteractiveReward(day)" class="reward-open">
+              <span class="reward-open-icon" aria-hidden="true">{{ icon }}</span>
+              <span class="reward-open-text">
+                <span class="reward-open-title">{{ (day.reward!.title || 'challenges.success.funFactLabel') | translate }}</span>
+                <span class="reward-open-hint">{{ 'rewards.gallery.clickToInteract' | translate }}</span>
+              </span>
+              <span class="tile-arrow" aria-hidden="true">→</span>
+            </button>
+            }
             @if (hasCouponReward(day) && day.reward?.couponTitleKey) {
             <button (click)="openInteractiveReward(day)" class="reward-open">
               <span class="reward-open-icon" aria-hidden="true">{{ day.reward!.couponEmoji || '🎟️' }}</span>
@@ -422,7 +432,7 @@
             <button (click)="openInteractiveReward(day)" class="reward-open">
               <span class="reward-open-icon" aria-hidden="true">🔮</span>
               <span class="reward-open-text">
-                <span class="reward-open-title">{{ 'rewards.snowGlobe.title' | translate }}</span>
+                <span class="reward-open-title">{{ (day.reward!.title || 'rewards.snowGlobe.title') | translate }}</span>
                 <span class="reward-open-hint">{{ 'rewards.gallery.clickToInteract' | translate }}</span>
               </span>
               <span class="tile-arrow" aria-hidden="true">→</span>
@@ -432,7 +442,7 @@
             <button (click)="openInteractiveReward(day)" class="reward-open">
               <span class="reward-open-icon" aria-hidden="true">🎱</span>
               <span class="reward-open-text">
-                <span class="reward-open-title">{{ 'rewards.magic8Ball.title' | translate }}</span>
+                <span class="reward-open-title">{{ (day.reward!.title || 'rewards.magic8Ball.title') | translate }}</span>
                 <span class="reward-open-hint">{{ 'rewards.gallery.clickToInteract' | translate }}</span>
               </span>
               <span class="tile-arrow" aria-hidden="true">→</span>
@@ -442,7 +452,7 @@
             <button (click)="openInteractiveReward(day)" class="reward-open">
               <span class="reward-open-icon" aria-hidden="true">💌</span>
               <span class="reward-open-text">
-                <span class="reward-open-title">{{ 'rewards.popupCard.title' | translate }}</span>
+                <span class="reward-open-title">{{ (day.reward!.title || 'rewards.popupCard.title') | translate }}</span>
                 <span class="reward-open-hint">{{ 'rewards.gallery.clickToInteract' | translate }}</span>
               </span>
               <span class="tile-arrow" aria-hidden="true">→</span>
@@ -452,7 +462,7 @@
             <button (click)="openInteractiveReward(day)" class="reward-open">
               <span class="reward-open-icon" aria-hidden="true">🥠</span>
               <span class="reward-open-text">
-                <span class="reward-open-title">{{ 'rewards.fortuneCookie.title' | translate }}</span>
+                <span class="reward-open-title">{{ (day.reward!.title || 'rewards.fortuneCookie.title') | translate }}</span>
                 <span class="reward-open-hint">{{ 'rewards.gallery.clickToInteract' | translate }}</span>
               </span>
               <span class="tile-arrow" aria-hidden="true">→</span>
@@ -460,9 +470,9 @@
             }
             @if (hasIceBreakerReward(day)) {
             <button (click)="openInteractiveReward(day)" class="reward-open">
-              <span class="reward-open-icon" aria-hidden="true">🧊</span>
+              <span class="reward-open-icon" aria-hidden="true">{{ day.reward!.iceBreakerEmoji || '🧊' }}</span>
               <span class="reward-open-text">
-                <span class="reward-open-title">{{ 'rewards.iceBreaker.title' | translate }}</span>
+                <span class="reward-open-title">{{ (day.reward!.title || 'rewards.iceBreaker.title') | translate }}</span>
                 <span class="reward-open-hint">{{ 'rewards.gallery.clickToInteract' | translate }}</span>
               </span>
               <span class="tile-arrow" aria-hidden="true">→</span>
