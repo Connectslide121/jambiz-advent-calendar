@@ -66,11 +66,15 @@ Check(upgradedCatalog["days"]!.AsArray().OfType<JsonObject>().Select(d => d["cha
 
 // Reward revisions replace every day's reward and funFactKey once, and nothing else.
 JsonObject Day(JsonObject calendar, int day) => calendar["days"]!.AsArray().OfType<JsonObject>().Single(d => d["day"]!.GetValue<int>() == day);
+var seedRewardRevision = catalog["rewardRevision"]?.GetValue<int>() ?? 0;
+var nextRewardRevision = seedRewardRevision + 1;
 var storedRewards = (JsonObject)catalog.DeepClone();
-storedRewards.Remove("rewardRevision");
 Check(CalendarMigrations.Upgrade(storedRewards, catalog) is null, "The seed's current reward revision must not migrate stored rewards");
+var unrevised = (JsonObject)catalog.DeepClone();
+unrevised.Remove("rewardRevision");
+Check(seedRewardRevision == 0 || CalendarMigrations.Upgrade(unrevised, catalog)?["rewardRevision"]?.GetValue<int>() == seedRewardRevision, "A calendar seeded before the reward revision did not get the seed's rewards");
 var rewardSeed = (JsonObject)catalog.DeepClone();
-rewardSeed["rewardRevision"] = 1;
+rewardSeed["rewardRevision"] = nextRewardRevision;
 Day(rewardSeed, 1).Remove("reward");
 Day(rewardSeed, 1)["funFactKey"] = "rewards.day1.fact";
 Day(rewardSeed, 2).Remove("funFactKey");
@@ -82,7 +86,7 @@ Day(storedRewards, 3)["gridPosition"] = 5;
 Day(storedRewards, 3)["editorNote"] = "keep me";
 storedRewards["customField"] = "preserve me";
 var rewarded = CalendarMigrations.Upgrade(storedRewards, rewardSeed)!;
-Check(rewarded["rewardRevision"]!.GetValue<int>() == 1, "Reward revision not recorded");
+Check(rewarded["rewardRevision"]!.GetValue<int>() == nextRewardRevision, "Reward revision not recorded");
 Check(Day(rewarded, 1)["reward"] is null && Day(rewarded, 1)["funFactKey"]!.GetValue<string>() == "rewards.day1.fact", "Old reward kept beside the seed's fun fact");
 Check(Day(rewarded, 2)["funFactKey"] is null && Day(rewarded, 2)["reward"]!["textFormat"]!.GetValue<string>() == "letter", "Old fun fact kept beside the seed's reward");
 Check(Day(rewarded, 3)["reward"]!["couponTitleKey"]!.GetValue<string>() == "rewards.day3.title", "Reward not replaced");
@@ -103,7 +107,7 @@ var bothPending = (JsonObject)storedRewards.DeepClone();
 bothPending.Remove("gameRevision");
 var both = CalendarMigrations.Upgrade(bothPending, rewardSeed)!;
 Check(Day(both, 3)["challengeData"]!["seedOnly"]!.GetValue<bool>() && Day(both, 3)["reward"]!["couponTitleKey"] is not null, "Combined migration skipped a revision");
-Check(both["gameRevision"]!.GetValue<int>() == 1 && both["rewardRevision"]!.GetValue<int>() == 1, "Combined migration did not record both revisions");
+Check(both["gameRevision"]!.GetValue<int>() == 1 && both["rewardRevision"]!.GetValue<int>() == nextRewardRevision,"Combined migration did not record both revisions");
 Check(Day(both, 3)["gridPosition"]!.GetValue<int>() == 5, "Combined migration moved the door");
 
 if (args.Length == 2 && args[0] == "--cosmos")

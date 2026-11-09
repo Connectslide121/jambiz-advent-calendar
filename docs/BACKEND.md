@@ -73,12 +73,16 @@ document's, every day's `reward` and `funFactKey` are replaced from the seed onc
 one in the seed loses the stored one). Games, grid positions, other fields and player documents are
 untouched, and both revisions are applied in the same ETag-conditional write. After that, later
 edits to rewards in Cosmos are kept until the next bump. Bump it once when a new set of rewards is
-ready, after the frontend that understands them is deployed. The seed holds `0` until then.
+ready, after the frontend that understands them is deployed. The seed holds `1`: the 2026 rewards
+(see below).
 
 Media stays under `public/rewards/`; Cosmos stores URLs/configuration rather than binary files.
 Those files and translation text are public assets. Reward metadata is withheld until the player
 completes that day, or December 25. This is a reveal mechanism, not confidential media storage.
-The imported rewards remain the redesign's **2025 placeholders**.
+Days 1, 3–5, 7–10 and 13–24 have their 2026 rewards from [REWARDS_2026.md](REWARDS_2026.md).
+Days 2, 6, 11 and 12 (the image days) are **still pending** and keep their 2025 placeholders
+(`funFacts.day2`, the shared pop-up card, the day 11 coupon and `day12.png`); the image task
+bumps `rewardRevision` again when they land.
 
 The frontend loads definitions from the authenticated API before rendering. Edit the Cosmos
 `calendar` document for an existing season and the seed for fresh environments. Extras definitions
