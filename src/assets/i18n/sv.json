@@ -1041,7 +1041,6 @@
     "day11": "AnalyticLEAD erbjuder djup expertis inom informationshantering, avancerad analys, datavetenskap och datastyrning.",
     "day12": "LearningLEAD erbjuder coaching, mentorskap, kurser och workshops inom projektledning, facilitering och Lean-Agile-transformation (SAFe®).",
     "day14": "Sprinta skapade CertumHub – en AI-driven plattform för e-lärande, efterlevnadshantering och hållbarhetscertifieringar med över 50 kurskategorier!",
-    "day15": "Namnet 'Jambiz' skapades genom att kombinera grundarnas initialer: Jorgen And Mikaels Business = JAMBIZ!",
     "day16": "Jambiz skapar trygghet, utveckling och tillväxt för medlemsbolagen genom samarbete och skalfördelar.",
     "day17": "XBUS erbjuder stödtjänster inom HR, Rekrytering, Ekonomi, Marknadsföring & Kommunikation och Office Support – allt under samma tak!",
     "day18": "Jambiz Groups vision: \"Framtidens företagande ligger i att sammanföra personer och bolag som vill utveckla sig själva och marknaden.\"",
@@ -1098,11 +1097,6 @@
       "day11": {
         "title": "Berättarpass",
         "description": "Visa denna för valfri kollega för att tvinga dem att lyssna på din helgberättelse med FULL entusiasm och lämpliga reaktioner!",
-        "validity": "Giltig tills: Julstämningen tar slut ✨"
-      },
-      "day16": {
-        "title": "Dåligt Skämt-licens",
-        "description": "Innehavaren får berätta ETT fruktansvärt julordvits utan att få suckar, himlade ögon eller stön. Artig skrattskyldighet gäller!",
         "validity": "Giltig tills: Julstämningen tar slut ✨"
       }
     },
@@ -1213,6 +1207,20 @@
         "7": "Må någon fråga hur du mår, och vänta på svaret.",
         "8": "Må du få en lugn kväll med levande ljus och ingenting i kalendern."
       }
+    },
+    "day15": {
+      "title": "🎟️ Dagens kupong",
+      "couponTitle": "Inslagningsjoker",
+      "couponDescription": "Pappret tog slut, så i år räknas en presentpåse som officiellt inslagningspapper. Innehavaren får lägga valfri julklapp i en påse, en tygkasse eller en skokartong och kalla den inslagen.",
+      "couponValidity": "Gäller alla klappar, så länge julstämningen räcker ✨",
+      "instruction": "Spara kupongen och visa upp den om någon klagar på inslagningen."
+    },
+    "day16": {
+      "title": "🎟️ Dagens kupong",
+      "couponTitle": "Promenadkupong",
+      "couponDescription": "Innehavaren får ta nästa samtal på tu man hand som en vinterpromenad med telefonen i stället för framför kameran. Frisk luft och dagsljus ingår, mössa rekommenderas.",
+      "couponValidity": "Gäller ett samtal, så länge julstämningen räcker ✨",
+      "instruction": "Fråga den du ska prata med om hen vill följa med ut, på var sitt håll."
     },
     "day18": {
       "title": "🎵 Christmas at Jambiz 🎵",

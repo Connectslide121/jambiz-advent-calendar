@@ -323,7 +323,15 @@
       "day": 15,
       "gridPosition": 4,
       "challengeType": "giftPacking",
-      "funFactKey": "funFacts.day15",
+      "reward": {
+        "type": "coupon",
+        "title": "rewards.day15.title",
+        "couponTitleKey": "rewards.day15.couponTitle",
+        "couponDescriptionKey": "rewards.day15.couponDescription",
+        "couponEmoji": "🎁",
+        "couponValidityKey": "rewards.day15.couponValidity",
+        "instructionKey": "rewards.day15.instruction"
+      },
       "challengeData": {}
     },
     {
@@ -332,10 +340,12 @@
       "challengeType": "rooftopRunner",
       "reward": {
         "type": "coupon",
-        "title": "rewards.coupon.title",
-        "couponEmoji": "🃏",
-        "couponTitleKey": "rewards.coupon.day16.title",
-        "couponDescriptionKey": "rewards.coupon.day16.description"
+        "title": "rewards.day16.title",
+        "couponTitleKey": "rewards.day16.couponTitle",
+        "couponDescriptionKey": "rewards.day16.couponDescription",
+        "couponEmoji": "🚶",
+        "couponValidityKey": "rewards.day16.couponValidity",
+        "instructionKey": "rewards.day16.instruction"
       },
       "challengeData": {}
     },
