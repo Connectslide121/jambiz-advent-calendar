@@ -1086,7 +1086,7 @@
       "couponTitle": "Camera-off coupon",
       "couponDescription": "The bearer may turn their camera off for one meeting of their choice, no explanation needed. Bed hair, porridge on your jumper or a cat on the keyboard: nobody has to know.",
       "couponValidity": "Valid for one meeting, while the Christmas spirit lasts ✨",
-      "instruction": "Take a screenshot and save it for the right morning."
+      "instruction": "Take a screenshot and save it for a morning when you need it."
     },
     "day4": {
       "title": "🥠 Home-office fortune cookie",
@@ -1098,7 +1098,7 @@
         "5": "The neighbour's drill will take a break just as you start presenting.",
         "6": "Your blurred background will let you keep both ears all December.",
         "7": "You will find that file you've been looking for, in the folder you already checked three times.",
-        "8": "Before your most important call, the cat will choose to sleep somewhere other than your keyboard."
+        "8": "Your laptop will wait to install its updates until your most important meeting is over."
       }
     },
     "day5": {
@@ -1116,7 +1116,7 @@
         "2": "Which Christmas food could you skip forever?",
         "3": "Which Christmas film or series do you have to watch every year?",
         "4": "Which Christmas tradition from your childhood do you miss the most?",
-        "5": "If you had to choose: Christmas in a blizzard or Christmas on a beach?",
+        "5": "What smell means Christmas to you?",
         "6": "Which Christmas song can you not get out of your head once it starts?",
         "7": "What's the best thing on the Christmas table, and what do you always take too much of?",
         "8": "Who do you know that takes Christmas decorations the most seriously?",
@@ -1179,7 +1179,7 @@
         "3": "May you get out into the daylight at least once a day.",
         "4": "May your inbox shrink a little every day until Christmas.",
         "5": "May it snow just right: lovely outside the window, nothing to shovel.",
-        "6": "May your presents get wrapped in good time. Or at least get wrapped.",
+        "6": "May every tray of gingerbread come out just the right shade of brown.",
         "7": "May someone ask how you're doing, and wait for the answer.",
         "8": "May you get a quiet evening with candles lit and nothing in the calendar."
       }
@@ -1196,7 +1196,7 @@
       "couponTitle": "Walking coupon",
       "couponDescription": "The bearer may take their next one-⁠to-⁠one as a phone call on a winter walk instead of on camera. Fresh air and daylight included; a hat is recommended.",
       "couponValidity": "Valid for one call, while the Christmas spirit lasts ✨",
-      "instruction": "Ask the person you're meeting if they'd like to come along, each in their own town."
+      "instruction": "Ask the person you're meeting if they'd like to go for a walk too, wherever they are."
     },
     "day17": {
       "title": "🔍 Sherlock Holmes's Christmas case",
@@ -1210,9 +1210,9 @@
       "validity": "Valid in any chat with at least two opinions 🤔",
       "topics": {
         "1": "Ris à la Malta or warm rice porridge with cinnamon?",
-        "2": "Wrap every single present yourself, or only ever use gift bags?",
+        "2": "Only homemade Christmas sweets, or only shop-bought?",
         "3": "Christmas in a mountain cabin, or in a flat in the middle of the city?",
-        "4": "Donald Duck at three on Christmas Eve, like the Swedes, or no TV at all?",
+        "4": "Pyjamas all Christmas Eve, or dressed up by breakfast?",
         "5": "Gingerbread with blue cheese, or gingerbread on its own?",
         "6": "Christmas music all December, or none at all?",
         "7": "Put the tree up on the first of Advent, or the day before Christmas Eve?",
@@ -1257,7 +1257,7 @@
         "4": "Someone naps on the sofa",
         "5": "Someone finds the almond",
         "6": "Nobody can find the scissors",
-        "7": "A rhyme that doesn't rhyme",
+        "7": "A gift-tag rhyme that doesn't rhyme",
         "8": "“Who is this one for?”",
         "9": "A video call with family"
       }

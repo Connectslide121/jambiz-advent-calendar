@@ -1086,7 +1086,7 @@
       "couponTitle": "Kamera av-kupong",
       "couponDescription": "Innehavaren får stänga av kameran under ett valfritt möte, utan att förklara sig. Rufsigt hår, gröt på tröjan eller en katt på tangentbordet: ingen behöver veta.",
       "couponValidity": "Gäller ett möte, så länge julstämningen räcker ✨",
-      "instruction": "Ta en skärmbild och spara den till rätt morgon."
+      "instruction": "Ta en skärmbild och spara den till en morgon när du behöver den."
     },
     "day4": {
       "title": "🥠 Hemmakontorets lyckokaka",
@@ -1098,7 +1098,7 @@
         "5": "Grannens borrmaskin tar paus precis när du börjar presentera.",
         "6": "Den suddiga bakgrunden låter dig behålla båda öronen hela december.",
         "7": "Du kommer att hitta filen du letat efter, i mappen du redan kollat tre gånger.",
-        "8": "Inför ditt viktigaste samtal väljer katten att sova någon annanstans än på tangentbordet."
+        "8": "Datorn väntar med sina uppdateringar tills ditt viktigaste möte är över."
       }
     },
     "day5": {
@@ -1116,7 +1116,7 @@
         "2": "Vilken julmat skulle du kunna strunta i för alltid?",
         "3": "Vilken julfilm eller julserie måste du se varje år?",
         "4": "Vilken jultradition från din barndom saknar du mest?",
-        "5": "Om du fick välja: jul i snöstorm eller jul på en strand?",
+        "5": "Vilken doft betyder jul för dig?",
         "6": "Vilken julsång får du inte ur huvudet när den väl har börjat?",
         "7": "Vad är godast på julbordet, och vad tar du alltid för mycket av?",
         "8": "Vem i din närhet tar julpyntet allra mest på allvar?",
@@ -1179,7 +1179,7 @@
         "3": "Må du hinna ut i dagsljuset minst en gång om dagen.",
         "4": "Må din inkorg krympa lite varje dag fram till jul.",
         "5": "Må det snöa precis lagom: vackert utanför fönstret, inget att skotta.",
-        "6": "Må dina julklappar bli inslagna i god tid. Eller åtminstone bli inslagna.",
+        "6": "Må varje plåt pepparkakor bli precis lagom brun.",
         "7": "Må någon fråga hur du mår, och vänta på svaret.",
         "8": "Må du få en lugn kväll med levande ljus och ingenting i kalendern."
       }
@@ -1200,7 +1200,7 @@
     },
     "day17": {
       "title": "🔍 Sherlock Holmes julfall",
-      "text": "Sherlock Holmes har ett eget julfall: The Adventure of the Blue Carbuncle, på svenska Den blå karbunkeln. Det kom ut i The Strand Magazine i januari 1892.\n\nDet börjar på andra morgonen efter jul, med en sliten hatt och en julgås som någon har tappat på en gata i London. När gåsen ska tillagas hittar man en stulen ädelsten i dess kräva. Holmes följer gåsen bakåt, från ett värdshus via en gåshandlare i Covent Garden ända fram till tjuven.\n\nOch slutet? Holmes låter tjuven gå, för ”det är förlåtelsens tid”. Sedan sätter han sig till middag, där också en fågel spelar huvudrollen."
+      "text": "Sherlock Holmes har ett eget julfall: The Adventure of the Blue Carbuncle, på svenska Den blå karbunkeln. Det kom ut i The Strand Magazine i januari 1892.\n\nDet börjar på andra morgonen efter jul, med en sliten hatt och en julgås som någon har tappat på en gata i London. När gåsen ska tillagas hittar man en stulen ädelsten i dess kräva. Holmes följer gåsen bakåt, från ett värdshus via en gåshandlare i Covent Garden ända fram till tjuven.\n\nOch slutet? Holmes låter tjuven gå, för ”det är förlåtelsens tid”. Sedan sätter han sig till middag, där en fågel återigen spelar huvudrollen."
     },
     "day18": {
       "title": "🤔 Hellre eller?",
@@ -1210,9 +1210,9 @@
       "validity": "Gäller i alla chattar med minst två åsikter 🤔",
       "topics": {
         "1": "Ris à la Malta eller risgrynsgröt?",
-        "2": "Slå in varenda klapp själv eller bara använda presentpåsar?",
+        "2": "Bara hemgjort julgodis eller bara köpt?",
         "3": "Jul i en stuga i fjällen eller i en lägenhet mitt i stan?",
-        "4": "Kalle Anka klockan tre eller ingen tv alls på julafton?",
+        "4": "Julafton i pyjamas hela dagen eller uppklädd redan till frukost?",
         "5": "Pepparkaka med ädelost eller pepparkaka utan?",
         "6": "Julmusik hela december eller ingen julmusik alls?",
         "7": "Klä granen redan första advent eller först dagen före julafton?",
