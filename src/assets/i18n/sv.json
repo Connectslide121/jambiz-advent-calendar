@@ -1042,8 +1042,6 @@
     "day14": "Sprinta skapade CertumHub – en AI-driven plattform för e-lärande, efterlevnadshantering och hållbarhetscertifieringar med över 50 kurskategorier!",
     "day16": "Jambiz skapar trygghet, utveckling och tillväxt för medlemsbolagen genom samarbete och skalfördelar.",
     "day18": "Jambiz Groups vision: \"Framtidens företagande ligger i att sammanföra personer och bolag som vill utveckla sig själva och marknaden.\"",
-    "day21": "LearningLEADs instruktörer är SAFe® Program Consultants, PMP®-certifierade och LEGO® Serious Play®-certifierade facilitatorer.",
-    "day22": "Jambiz Development Center bildas av utvecklare från både Sprinta och Podium System som arbetar tillsammans med innovativa lösningar.",
     "day23": "Jambiz äger en lägenhet som heter 'Casa Progresso' i soliga Almuñecar, Spanien! Anställda kan boka den till ett specialpris för sin semester. ☀️🏖️",
     "day24": "Platshållar-fun fact för dag 24."
   },
@@ -1255,6 +1253,17 @@
         "4": "Varför tog pepparkaksgubben ledigt hela december?\nHan var helt bränd.",
         "5": "Vad kallar man en snögubbe i juli?\nEn vattenpöl."
       }
+    },
+    "day21": {
+      "title": "🌑 Årets mörkaste dag",
+      "text": "I dag är det vintersolstånd. Klockan 21.50 svensk tid vänder solen, och det här är årets kortaste dag.\n\nI Stockholm går solen upp 08.43 och ner 14.48: drygt sex timmar dagsljus. I Kiruna går den inte upp alls. Där är det polarnatt från den 11 december till nyår, men inte helt nattsvart: mitt på dagen ger skymningen ett blått ljus i drygt fem timmar.\n\nDen goda nyheten? Härifrån blir det bara ljusare. Först några sekunder om dagen, sedan minuter. I slutet av januari har Stockholm fått tillbaka två timmar, och i Kiruna tittar solen fram igen den 2 januari."
+    },
+    "day22": {
+      "title": "🎟️ Dagens kupong",
+      "couponTitle": "Soffkupong",
+      "couponDescription": "Innehavaren får tillbringa en hel kväll under en filt i soffan, med datorn stängd och telefonen på ljudlöst. Inga mejl, inget ”jag ska bara kolla en grej”, inget dåligt samvete.",
+      "couponValidity": "Gäller en kväll, så länge julstämningen räcker ✨",
+      "instruction": "Välj kvällen själv. Filt, något varmt att dricka och en julfilm rekommenderas."
     },
     "recipe": {
       "ingredients": "Du behöver",

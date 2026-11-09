@@ -425,18 +425,9 @@
       "gridPosition": 3,
       "challengeType": "snowGlobeJigsaw",
       "reward": {
-        "type": "magic8Ball",
-        "title": "rewards.magic8Ball.title",
-        "answers": [
-          "rewards.magic8Ball.answers.yes",
-          "rewards.magic8Ball.answers.no",
-          "rewards.magic8Ball.answers.maybe",
-          "rewards.magic8Ball.answers.askAgain",
-          "rewards.magic8Ball.answers.definitely",
-          "rewards.magic8Ball.answers.unlikely",
-          "rewards.magic8Ball.answers.santaSaysYes",
-          "rewards.magic8Ball.answers.elfSaysNo"
-        ]
+        "type": "text",
+        "title": "rewards.day21.title",
+        "textKey": "rewards.day21.text"
       },
       "challengeData": {}
     },
@@ -444,7 +435,15 @@
       "day": 22,
       "gridPosition": 13,
       "challengeType": "chimneySweeper",
-      "funFactKey": "funFacts.day22",
+      "reward": {
+        "type": "coupon",
+        "title": "rewards.day22.title",
+        "couponTitleKey": "rewards.day22.couponTitle",
+        "couponDescriptionKey": "rewards.day22.couponDescription",
+        "couponEmoji": "🛋️",
+        "couponValidityKey": "rewards.day22.couponValidity",
+        "instructionKey": "rewards.day22.instruction"
+      },
       "challengeData": {}
     },
     {

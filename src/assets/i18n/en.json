@@ -1042,8 +1042,6 @@
     "day14": "Sprinta created CertumHub – an AI-powered platform for e-learning, compliance management, and sustainability certifications with 50+ course categories!",
     "day16": "Jambiz provides security, development, and growth for member companies through collaboration and economies of scale.",
     "day18": "Jambiz Group's vision: \"The future of business lies in bringing together people and companies who want to develop themselves and the market.\"",
-    "day21": "LearningLEAD instructors are SAFe® Program Consultants, PMP® certified, and LEGO® Serious Play® certified facilitators.",
-    "day22": "The Jambiz Development Center is formed by developers from both Sprinta and Podium System working together on innovative solutions.",
     "day23": "Jambiz owns an apartment called 'Casa Progresso' in sunny Almuñecar, Spain! Employees can book it at a special price for their vacation getaways. ☀️🏖️",
     "day24": "Placeholder fun fact for day 24."
   },
@@ -1255,6 +1253,17 @@
         "4": "What do you call a snowman with a six-pack?\nAn abdominal snowman.",
         "5": "What do Santa's little helpers learn at school?\nThe elf-abet."
       }
+    },
+    "day21": {
+      "title": "🌑 The darkest day of the year",
+      "text": "Today is the winter solstice. At 21:50 Swedish time the sun turns, and this is the shortest day of the year.\n\nIn Stockholm the sun rises at 08:43 and sets at 14:48: just over six hours of daylight. In Kiruna it doesn't rise at all. There it's polar night from 11 December until New Year, but not pitch black: around midday the twilight gives a blue light for just over five hours.\n\nThe good news? It only gets lighter from here. A few seconds a day at first, then minutes. By the end of January Stockholm has two hours back, and in Kiruna the sun peeks out again on 2 January."
+    },
+    "day22": {
+      "title": "🎟️ Today's coupon",
+      "couponTitle": "Sofa coupon",
+      "couponDescription": "The bearer may spend one whole evening under a blanket on the sofa, laptop closed and phone on silent. No email, no “I'll just check one thing”, no guilt.",
+      "couponValidity": "Valid for one evening, while the Christmas spirit lasts ✨",
+      "instruction": "Pick the evening yourself. A blanket, a hot drink and a Christmas film are recommended."
     },
     "recipe": {
       "ingredients": "You need",
