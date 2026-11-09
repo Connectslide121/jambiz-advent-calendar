@@ -1037,8 +1037,6 @@
     "day3": "Jambiz Group har kontor i Malmö (Gustav Adolfs torg 51) och Göteborg/Kungsbacka (Magasinsgatan 8c).",
     "day4": "XBUS (Excellent Business Services) arbetar efter tre ledord: kompetens, hårt arbete och att ha roligt!",
     "day6": "ProgressLEAD specialiserar sig på strategi, transformation, projekt-, program- och portföljledning.",
-    "day7": "Visste du att det finns ett teaterproduktionsbolag på Jamaica som också heter Jambiz? Ett namn med internationell dragningskraft!",
-    "day8": "Exceed Consulting fokuserar på att göra skillnad genom att hjälpa organisationer med kvalitet, hållbarhet och affärsutveckling.",
     "day9": "SwCG (Swedish Consulting Group) fungerar som en mötesplats för hela IT-branschen och kopplar samman kunder med de bästa konsulterna.",
     "day10": "Podium System är hemvist för experter inom resa och transport, planering och optimering – och levererar skräddarsydda molnbaserade lösningar.",
     "day11": "AnalyticLEAD erbjuder djup expertis inom informationshantering, avancerad analys, datavetenskap och datastyrning.",
@@ -1138,6 +1136,32 @@
     "day5": {
       "title": "😄 Emoji-utmaningen",
       "text": "Beskriv din perfekta jul med tre emojis och posta dem i teamchatten. Sen gäller det att gissa vad de andra menar: är 🛋️⁠📺⁠🍫 en lugn julafton med Kalle Anka, eller bara en vanlig fredag?\n\nDen som gissar flest rätt får äran (och ingenting annat)."
+    },
+    "day7": {
+      "title": "💬 Mötesstartare",
+      "cardTitle": "Mötesstartare",
+      "instruction": "Öppna nästa Teams-möte med en av de här frågorna. Alla svarar, en mening var.",
+      "button": "Ny fråga",
+      "validity": "Gäller i alla möten med minst två 💬",
+      "topics": {
+        "1": "Vilken är den bästa eller sämsta julklapp du någonsin fått?",
+        "2": "Vilken julmat skulle du kunna strunta i för alltid?",
+        "3": "Vilken julfilm eller julserie måste du se varje år?",
+        "4": "Vilken jultradition från din barndom saknar du mest?",
+        "5": "Om du fick välja: jul i snöstorm eller jul på en strand?",
+        "6": "Vilken julsång får du inte ur huvudet när den väl har börjat?",
+        "7": "Vad är godast på julbordet, och vad tar du alltid för mycket av?",
+        "8": "Vem i din närhet tar julpyntet allra mest på allvar?",
+        "9": "Har du någon gång slagit in en julklapp riktigt, riktigt dåligt? Berätta!",
+        "10": "Vad gör du helst mellan jul och nyår, om du får bestämma helt själv?"
+      }
+    },
+    "day8": {
+      "title": "🎟️ Dagens kupong",
+      "couponTitle": "Notisfri timme",
+      "couponDescription": "Innehavaren får sätta Teams på Stör ej i en hel timme och jobba i lugn och ro. Inga plingar, inget dåligt samvete.",
+      "couponValidity": "Gäller en timme, så länge julstämningen räcker ✨",
+      "instruction": "Spara kupongen och lös in den när du behöver en lugn stund."
     },
     "day18": {
       "title": "🎵 Christmas at Jambiz 🎵",

@@ -118,7 +118,27 @@
       "day": 7,
       "gridPosition": 11,
       "challengeType": "nonogram",
-      "funFactKey": "funFacts.day7",
+      "reward": {
+        "type": "iceBreaker",
+        "title": "rewards.day7.title",
+        "iceBreakerTitleKey": "rewards.day7.cardTitle",
+        "iceBreakerInstructionKey": "rewards.day7.instruction",
+        "iceBreakerEmoji": "💬",
+        "iceBreakerButtonKey": "rewards.day7.button",
+        "iceBreakerValidityKey": "rewards.day7.validity",
+        "topics": [
+          "rewards.day7.topics.1",
+          "rewards.day7.topics.2",
+          "rewards.day7.topics.3",
+          "rewards.day7.topics.4",
+          "rewards.day7.topics.5",
+          "rewards.day7.topics.6",
+          "rewards.day7.topics.7",
+          "rewards.day7.topics.8",
+          "rewards.day7.topics.9",
+          "rewards.day7.topics.10"
+        ]
+      },
       "challengeData": {
         "puzzle": [
           "...##...",
@@ -148,7 +168,15 @@
       "day": 8,
       "gridPosition": 20,
       "challengeType": "giftMatch",
-      "funFactKey": "funFacts.day8",
+      "reward": {
+        "type": "coupon",
+        "title": "rewards.day8.title",
+        "couponTitleKey": "rewards.day8.couponTitle",
+        "couponDescriptionKey": "rewards.day8.couponDescription",
+        "couponEmoji": "🙉",
+        "couponValidityKey": "rewards.day8.couponValidity",
+        "instructionKey": "rewards.day8.instruction"
+      },
       "challengeData": {
         "cols": 7,
         "rows": 8,

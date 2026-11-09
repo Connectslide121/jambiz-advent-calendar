@@ -1037,8 +1037,6 @@
     "day3": "Jambiz Group has offices in Malmö (Gustav Adolfs torg 51) and Göteborg/Kungsbacka (Magasinsgatan 8c).",
     "day4": "XBUS (Excellent Business Services) works by three core values: competence, hard work, and having fun!",
     "day6": "ProgressLEAD specializes in strategy, transformation, project, program and portfolio management.",
-    "day7": "Did you know there is a theater production company in Jamaica also called Jambiz? Talk about a name with international appeal!",
-    "day8": "Exceed Consulting focuses on making a positive difference by helping organizations with quality, sustainability, and business development.",
     "day9": "SwCG (Swedish Consulting Group) serves as a meeting place for the entire IT industry, connecting clients with the best consultants.",
     "day10": "Podium System is home to experts in travel and transport, planning and optimization – delivering tailored cloud-based solutions.",
     "day11": "AnalyticLEAD offers deep expertise in information management, advanced analytics, data science and data governance.",
@@ -1138,6 +1136,32 @@
     "day5": {
       "title": "😄 The emoji challenge",
       "text": "Describe your perfect Christmas in three emojis and post them in the team chat. Then try to guess everyone else's: is 🛋️⁠📺⁠🍫 a lazy Christmas Eve in front of the telly, or just an ordinary Friday?\n\nWhoever guesses the most gets the glory (and nothing else)."
+    },
+    "day7": {
+      "title": "💬 Meeting starter",
+      "cardTitle": "Meeting starter",
+      "instruction": "Open your next Teams meeting with one of these questions. Everyone answers, one sentence each.",
+      "button": "New question",
+      "validity": "Valid in any meeting of two or more 💬",
+      "topics": {
+        "1": "What's the best or worst Christmas present you've ever had?",
+        "2": "Which Christmas food could you skip forever?",
+        "3": "Which Christmas film or series do you have to watch every year?",
+        "4": "Which Christmas tradition from your childhood do you miss the most?",
+        "5": "If you had to choose: Christmas in a blizzard or Christmas on a beach?",
+        "6": "Which Christmas song can you not get out of your head once it starts?",
+        "7": "What's the best thing on the Christmas table, and what do you always take too much of?",
+        "8": "Who do you know that takes Christmas decorations the most seriously?",
+        "9": "Have you ever wrapped a present really, really badly? Tell us!",
+        "10": "How would you spend the days between Christmas and New Year if it were entirely up to you?"
+      }
+    },
+    "day8": {
+      "title": "🎟️ Today's coupon",
+      "couponTitle": "Notification-free hour",
+      "couponDescription": "The bearer may set Teams to Do not disturb for a whole hour and work in peace. No pings, no guilt.",
+      "couponValidity": "Valid for one hour, while the Christmas spirit lasts ✨",
+      "instruction": "Save the coupon and use it when you need some quiet."
     },
     "day18": {
       "title": "🎵 Christmas at Jambiz 🎵",
