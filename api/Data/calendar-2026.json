@@ -7,10 +7,11 @@
       "gridPosition": 7,
       "challengeType": "juldle",
       "reward": {
-        "type": "video",
-        "videoUrl": "rewards/day1.mp4",
-        "videoType": "mp4",
-        "title": "challenges.success.videoLabel"
+        "type": "text",
+        "textFormat": "letter",
+        "title": "rewards.day1.title",
+        "textKey": "rewards.day1.letter",
+        "signatureKey": "rewards.day1.signature"
       },
       "challengeData": {
         "wordSv": "TOMTE",
@@ -35,11 +36,13 @@
       "gridPosition": 17,
       "challengeType": "tomteWhack",
       "reward": {
-        "type": "audio",
-        "audioUrl": "rewards/day3.mp3",
-        "audioType": "mp3",
+        "type": "coupon",
         "title": "rewards.day3.title",
-        "lyrics": "rewards.day3.lyrics"
+        "couponTitleKey": "rewards.day3.couponTitle",
+        "couponDescriptionKey": "rewards.day3.couponDescription",
+        "couponEmoji": "📷",
+        "couponValidityKey": "rewards.day3.couponValidity",
+        "instructionKey": "rewards.day3.instruction"
       },
       "challengeData": {
         "targetScore": 150,

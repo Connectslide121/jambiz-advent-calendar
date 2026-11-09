@@ -1110,9 +1110,17 @@
         "validity": "Valid until: The end of holiday spirit ✨"
       }
     },
+    "day1": {
+      "title": "✉️ A letter for you",
+      "letter": "Hi, and welcome to the Jambiz Advent Calendar 2026!\n\nEvery day until Christmas Eve a new door opens with a small game. Beat it and you get a reward: a coupon, a fortune, something to download or something to bring to your next Teams meeting.\n\nEvery door has its own scoreboard, and the big one adds up all your days. The faster you are, the more points you get. Play again as often as you like; only your best run counts. Missed a day? The doors stay open, so you can catch up whenever it suits you.\n\nWe're all working from different places, but this month we open the same doors. A little December together.\n\nSee you on the 24th!",
+      "signature": "Warm Christmas wishes\nJambiz 🎄"
+    },
     "day3": {
-      "title": "🎵 Jambiz Joy 🎵",
-      "lyrics": "Jingle bells on my desk\nJambiz glow no stress\nLaptops snowed in light\nWe clock in feeling bright\n\nCoffee steam and candy canes\nSlides and charts like reindeer trains\nYou need help you call my name\nWe high five in picture frames\n\nJambiz Jambiz holiday cheer\nTeamwork ringing loud and clear\nSide by side we crush this year\nFa la la we love it here\nJambiz Jambiz hearts at work\nLaughing while we go berserk\nTis the season we all shine\nYour joy plus mine our bottom line\n\nSecret Santa sticky notes\nUgly sweaters keynote jokes\nCalendar stuffed like it might explode\nBut we dance down every road\n\nSnow outside but inside glow\nJambiz fam on a sugar rush flow\nRaise your mugs let the emails wait\nWe make this workplace holidate"
+      "title": "🎟️ Today's coupon",
+      "couponTitle": "Camera-off coupon",
+      "couponDescription": "The bearer may turn their camera off for one meeting of their choice, no explanation needed. Bed hair, porridge on your jumper or a cat on the keyboard: nobody has to know.",
+      "couponValidity": "Valid for one meeting, while the Christmas spirit lasts ✨",
+      "instruction": "Take a screenshot and save it for the right morning."
     },
     "day18": {
       "title": "🎵 Christmas at Jambiz 🎵",

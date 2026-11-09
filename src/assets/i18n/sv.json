@@ -1110,9 +1110,17 @@
         "validity": "Giltig tills: Julstämningen tar slut ✨"
       }
     },
+    "day1": {
+      "title": "✉️ Ett brev till dig",
+      "letter": "Hej och välkommen till Jambiz julkalender 2026!\n\nVarje dag fram till julafton öppnas en ny lucka med ett litet spel. Klarar du det får du en belöning: en kupong, en spådom, något att ladda ner eller något att ta med till nästa Teams-möte.\n\nVarje lucka har en egen topplista, och den stora listan räknar ihop alla dagar. Ju snabbare du är, desto fler poäng. Spela om hur många gånger du vill, bara ditt bästa resultat räknas. Har du missat en dag? Luckorna förblir öppna, så du kan ta igen dem när det passar.\n\nVi sitter på var sitt håll, men den här månaden öppnar vi samma luckor. Lite december tillsammans, helt enkelt.\n\nVi ses den 24:e!",
+      "signature": "Varma julhälsningar\nJambiz 🎄"
+    },
     "day3": {
-      "title": "🎵 Jambiz Joy 🎵",
-      "lyrics": "Jingle bells on my desk\nJambiz glow no stress\nLaptops snowed in light\nWe clock in feeling bright\n\nCoffee steam and candy canes\nSlides and charts like reindeer trains\nYou need help you call my name\nWe high five in picture frames\n\nJambiz Jambiz holiday cheer\nTeamwork ringing loud and clear\nSide by side we crush this year\nFa la la we love it here\nJambiz Jambiz hearts at work\nLaughing while we go berserk\nTis the season we all shine\nYour joy plus mine our bottom line\n\nSecret Santa sticky notes\nUgly sweaters keynote jokes\nCalendar stuffed like it might explode\nBut we dance down every road\n\nSnow outside but inside glow\nJambiz fam on a sugar rush flow\nRaise your mugs let the emails wait\nWe make this workplace holidate"
+      "title": "🎟️ Dagens kupong",
+      "couponTitle": "Kamera av-kupong",
+      "couponDescription": "Innehavaren får stänga av kameran under ett valfritt möte, utan att förklara sig. Rufsigt hår, gröt på tröjan eller en katt på tangentbordet: ingen behöver veta.",
+      "couponValidity": "Gäller ett möte, så länge julstämningen räcker ✨",
+      "instruction": "Ta en skärmbild och spara den till rätt morgon."
     },
     "day18": {
       "title": "🎵 Christmas at Jambiz 🎵",
