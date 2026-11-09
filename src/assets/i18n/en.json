@@ -1042,7 +1042,6 @@
     "day12": "LearningLEAD offers coaching, mentorship, courses and workshops within Project Management, Facilitation, and Lean-Agile Transformation (SAFe®).",
     "day14": "Sprinta created CertumHub – an AI-powered platform for e-learning, compliance management, and sustainability certifications with 50+ course categories!",
     "day16": "Jambiz provides security, development, and growth for member companies through collaboration and economies of scale.",
-    "day17": "XBUS offers support services including HR, Recruitment, Finance, Marketing & Communication, and Office Support – all under one roof!",
     "day18": "Jambiz Group's vision: \"The future of business lies in bringing together people and companies who want to develop themselves and the market.\"",
     "day19": "Placeholder fun fact for day 19.",
     "day20": "Podium System's cloud platform delivers tailored solutions for customers in public sector, logistics, tourism and transport.",
@@ -1222,9 +1221,28 @@
       "couponValidity": "Valid for one call, while the Christmas spirit lasts ✨",
       "instruction": "Ask the person you're meeting if they'd like to come along, each in their own town."
     },
+    "day17": {
+      "title": "🔍 Sherlock Holmes's Christmas case",
+      "text": "Sherlock Holmes has a Christmas case of his own: The Adventure of the Blue Carbuncle, published in The Strand Magazine in January 1892.\n\nIt starts on the second morning after Christmas, with a battered hat and a Christmas goose dropped in a London street. When the goose is being got ready for the oven, a stolen gem turns up in its crop. Holmes follows the goose backwards, from a pub through a goose dealer in Covent Garden, all the way to the thief.\n\nAnd the ending? Holmes lets the thief go, because “it is the season of forgiveness”. Then he sits down to supper, where a bird is once again the chief feature."
+    },
     "day18": {
-      "title": "🎵 Christmas at Jambiz 🎵",
-      "lyrics": "Deck the halls with PowerPoints\nFa-la-la-la-la\nOh what a joint\nCoffee cups and donut crumbs\nWorkplace cheer\nHere it comes\n\nDeadlines jingling all the way\nLast-minute tasks on Santa's sleigh\n\nChristmas at Jambiz\nWe're feeling fine\nSippin' on lattes in a deadline line\nMeetings and greetings and snacks divine\nOh\nChristmas at Jambiz\nIt's grind-and-shine!\n\nSecret Santa\nPick your fate\nOh no\nBob got a stapler plate\nUgly sweaters\nOffice flair\nWho's got eggnog? Do we care?\n\nSpreadsheet elves are on the run\nAdding columns\nHaving fun\n\nChristmas at Jambiz\nWe're feeling fine\nSippin' on lattes in a deadline line\nMeetings and greetings and snacks divine\nOh\nChristmas at Jambiz\nIt's grind-and-shine!"
+      "title": "🤔 Would you rather?",
+      "cardTitle": "Would you rather?",
+      "instruction": "Drop a question in the team chat and make everyone pick a side. No sitting on the fence!",
+      "button": "New question",
+      "validity": "Valid in any chat with at least two opinions 🤔",
+      "topics": {
+        "1": "Ris à la Malta or warm rice porridge with cinnamon?",
+        "2": "Wrap every single present yourself, or only ever use gift bags?",
+        "3": "Christmas in a mountain cabin, or in a flat in the middle of the city?",
+        "4": "Donald Duck at three on Christmas Eve, like the Swedes, or no TV at all?",
+        "5": "Gingerbread with blue cheese, or gingerbread on its own?",
+        "6": "Christmas music all December, or none at all?",
+        "7": "Put the tree up on the first of Advent, or the day before Christmas Eve?",
+        "8": "Open all your presents at once, or one at a time with breaks in between?",
+        "9": "A snowstorm on Christmas Eve, or plus five and rain?",
+        "10": "Be Santa for an evening, or be the one Santa visits?"
+      }
     },
     "recipe": {
       "ingredients": "You need",

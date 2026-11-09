@@ -353,7 +353,11 @@
       "day": 17,
       "gridPosition": 10,
       "challengeType": "christmasDetective",
-      "funFactKey": "funFacts.day17",
+      "reward": {
+        "type": "text",
+        "title": "rewards.day17.title",
+        "textKey": "rewards.day17.text"
+      },
       "challengeData": {}
     },
     {
@@ -361,11 +365,25 @@
       "gridPosition": 6,
       "challengeType": "cookieDecorator",
       "reward": {
-        "type": "audio",
-        "audioUrl": "rewards/day18.mp3",
-        "audioType": "mp3",
+        "type": "iceBreaker",
         "title": "rewards.day18.title",
-        "lyrics": "rewards.day18.lyrics"
+        "iceBreakerTitleKey": "rewards.day18.cardTitle",
+        "iceBreakerInstructionKey": "rewards.day18.instruction",
+        "iceBreakerEmoji": "🤔",
+        "iceBreakerButtonKey": "rewards.day18.button",
+        "iceBreakerValidityKey": "rewards.day18.validity",
+        "topics": [
+          "rewards.day18.topics.1",
+          "rewards.day18.topics.2",
+          "rewards.day18.topics.3",
+          "rewards.day18.topics.4",
+          "rewards.day18.topics.5",
+          "rewards.day18.topics.6",
+          "rewards.day18.topics.7",
+          "rewards.day18.topics.8",
+          "rewards.day18.topics.9",
+          "rewards.day18.topics.10"
+        ]
       },
       "challengeData": {}
     },

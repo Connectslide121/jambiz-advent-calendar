@@ -1042,7 +1042,6 @@
     "day12": "LearningLEAD erbjuder coaching, mentorskap, kurser och workshops inom projektledning, facilitering och Lean-Agile-transformation (SAFe®).",
     "day14": "Sprinta skapade CertumHub – en AI-driven plattform för e-lärande, efterlevnadshantering och hållbarhetscertifieringar med över 50 kurskategorier!",
     "day16": "Jambiz skapar trygghet, utveckling och tillväxt för medlemsbolagen genom samarbete och skalfördelar.",
-    "day17": "XBUS erbjuder stödtjänster inom HR, Rekrytering, Ekonomi, Marknadsföring & Kommunikation och Office Support – allt under samma tak!",
     "day18": "Jambiz Groups vision: \"Framtidens företagande ligger i att sammanföra personer och bolag som vill utveckla sig själva och marknaden.\"",
     "day19": "Platshållar-fun fact för dag 19.",
     "day20": "Podium Systems molnplattform levererar skräddarsydda lösningar till kunder inom offentlig sektor, logistik, turism och transport.",
@@ -1222,9 +1221,28 @@
       "couponValidity": "Gäller ett samtal, så länge julstämningen räcker ✨",
       "instruction": "Fråga den du ska prata med om hen vill följa med ut, på var sitt håll."
     },
+    "day17": {
+      "title": "🔍 Sherlock Holmes julfall",
+      "text": "Sherlock Holmes har ett eget julfall: The Adventure of the Blue Carbuncle, på svenska Den blå karbunkeln. Det kom ut i The Strand Magazine i januari 1892.\n\nDet börjar på andra morgonen efter jul, med en sliten hatt och en julgås som någon har tappat på en gata i London. När gåsen ska tillagas hittar man en stulen ädelsten i dess kräva. Holmes följer gåsen bakåt, från ett värdshus via en gåshandlare i Covent Garden ända fram till tjuven.\n\nOch slutet? Holmes låter tjuven gå, för ”det är förlåtelsens tid”. Sedan sätter han sig till middag, där också en fågel spelar huvudrollen."
+    },
     "day18": {
-      "title": "🎵 Christmas at Jambiz 🎵",
-      "lyrics": "Deck the halls with PowerPoints\nFa-la-la-la-la\nOh what a joint\nCoffee cups and donut crumbs\nWorkplace cheer\nHere it comes\n\nDeadlines jingling all the way\nLast-minute tasks on Santa's sleigh\n\nChristmas at Jambiz\nWe're feeling fine\nSippin' on lattes in a deadline line\nMeetings and greetings and snacks divine\nOh\nChristmas at Jambiz\nIt's grind-and-shine!\n\nSecret Santa\nPick your fate\nOh no\nBob got a stapler plate\nUgly sweaters\nOffice flair\nWho's got eggnog? Do we care?\n\nSpreadsheet elves are on the run\nAdding columns\nHaving fun\n\nChristmas at Jambiz\nWe're feeling fine\nSippin' on lattes in a deadline line\nMeetings and greetings and snacks divine\nOh\nChristmas at Jambiz\nIt's grind-and-shine!"
+      "title": "🤔 Hellre eller?",
+      "cardTitle": "Hellre eller?",
+      "instruction": "Släpp en fråga i teamchatten och låt alla välja sida. Inga mellanting!",
+      "button": "Ny fråga",
+      "validity": "Gäller i alla chattar med minst två åsikter 🤔",
+      "topics": {
+        "1": "Ris à la Malta eller risgrynsgröt?",
+        "2": "Slå in varenda klapp själv eller bara använda presentpåsar?",
+        "3": "Jul i en stuga i fjällen eller i en lägenhet mitt i stan?",
+        "4": "Kalle Anka klockan tre eller ingen tv alls på julafton?",
+        "5": "Pepparkaka med ädelost eller pepparkaka utan?",
+        "6": "Julmusik hela december eller ingen julmusik alls?",
+        "7": "Klä granen redan första advent eller först dagen före julafton?",
+        "8": "Öppna alla klappar på en gång eller en i taget, med paus emellan?",
+        "9": "Snöstorm på julafton eller fem plusgrader och regn?",
+        "10": "Vara tomte en kväll eller vara den som tomten hälsar på?"
+      }
     },
     "recipe": {
       "ingredients": "Du behöver",
