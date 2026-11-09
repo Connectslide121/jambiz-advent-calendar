@@ -1038,7 +1038,6 @@
     "day4": "XBUS (Excellent Business Services) arbetar efter tre ledord: kompetens, hårt arbete och att ha roligt!",
     "day6": "ProgressLEAD specialiserar sig på strategi, transformation, projekt-, program- och portföljledning.",
     "day9": "SwCG (Swedish Consulting Group) fungerar som en mötesplats för hela IT-branschen och kopplar samman kunder med de bästa konsulterna.",
-    "day10": "Podium System är hemvist för experter inom resa och transport, planering och optimering – och levererar skräddarsydda molnbaserade lösningar.",
     "day11": "AnalyticLEAD erbjuder djup expertis inom informationshantering, avancerad analys, datavetenskap och datastyrning.",
     "day12": "LearningLEAD erbjuder coaching, mentorskap, kurser och workshops inom projektledning, facilitering och Lean-Agile-transformation (SAFe®).",
     "day13": "Addends erbjuder faciliteringstjänster med LEGO® Serious Play®-metodik – med övertygelsen att affärer kan göras bättre genom lekfullhet!",
@@ -1162,6 +1161,41 @@
       "couponDescription": "Innehavaren får sätta Teams på Stör ej i en hel timme och jobba i lugn och ro. Inga plingar, inget dåligt samvete.",
       "couponValidity": "Gäller en timme, så länge julstämningen räcker ✨",
       "instruction": "Spara kupongen och lös in den när du behöver en lugn stund."
+    },
+    "day9": {
+      "title": "☕ Fika mellan två möten",
+      "intro": "Kryddiga julnötter i en vanlig stekpanna: sju minuter vid spisen, sen får de svalna medan nästa möte börjar. Hela hemmakontoret doftar jul.\n\nInga nötter hemma, eller någon som inte tål dem? Pumpafrön fungerar lika bra, ta bara en minut kortare i pannan.",
+      "ingredients": {
+        "1": "150 g mandlar, cashewnötter eller blandade nötter (ca 2½ dl)",
+        "2": "3 msk farinsocker",
+        "3": "1 msk smör",
+        "4": "1 msk vatten",
+        "5": "1 tsk kanel och ½ tsk mald ingefära",
+        "6": "½ tsk flingsalt"
+      },
+      "steps": {
+        "1": "Lägg fram ett bakplåtspapper innan du börjar, sen går det fort.",
+        "2": "Smält smör, socker, vatten och kryddor i en stekpanna på medelvärme. Rör tills det bubblar, ungefär en minut.",
+        "3": "Häll i nötterna och rör hela tiden i 4–5 minuter, tills sockret har kokat in och sitter blankt på nötterna. Gå inte ifrån pannan: det bränns fort.",
+        "4": "Häll ut nötterna på pappret, dela isär dem med en gaffel och strö över flingsaltet.",
+        "5": "Låt svalna i tio minuter, för sockret är brännhett. Lagom till ett kort möte."
+      }
+    },
+    "day10": {
+      "title": "🎱 Tomtens spåkula",
+      "instruction": "Ställ en ja- eller nej-fråga om december och klicka på kulan.",
+      "answers": {
+        "1": "Tomten säger ja",
+        "2": "Nissarna säger nja",
+        "3": "Fråga efter fikat",
+        "4": "För mycket glitter",
+        "5": "Ja, om du varit snäll",
+        "6": "Inte före jul",
+        "7": "Räkna med det",
+        "8": "Tomten tvekar",
+        "9": "Svaret kommer i januari",
+        "10": "Ja! God jul!"
+      }
     },
     "day18": {
       "title": "🎵 Christmas at Jambiz 🎵",

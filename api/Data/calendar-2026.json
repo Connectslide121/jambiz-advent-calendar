@@ -190,10 +190,25 @@
       "gridPosition": 5,
       "challengeType": "chimneyDrop",
       "reward": {
-        "type": "video",
-        "videoUrl": "rewards/day19.mp4",
-        "videoType": "mp4",
-        "title": "challenges.success.videoLabel"
+        "type": "text",
+        "textFormat": "recipe",
+        "title": "rewards.day9.title",
+        "textKey": "rewards.day9.intro",
+        "ingredients": [
+          "rewards.day9.ingredients.1",
+          "rewards.day9.ingredients.2",
+          "rewards.day9.ingredients.3",
+          "rewards.day9.ingredients.4",
+          "rewards.day9.ingredients.5",
+          "rewards.day9.ingredients.6"
+        ],
+        "steps": [
+          "rewards.day9.steps.1",
+          "rewards.day9.steps.2",
+          "rewards.day9.steps.3",
+          "rewards.day9.steps.4",
+          "rewards.day9.steps.5"
+        ]
       },
       "challengeData": {
         "target": 4,
@@ -206,7 +221,23 @@
       "day": 10,
       "gridPosition": 12,
       "challengeType": "lightPath",
-      "funFactKey": "funFacts.day10",
+      "reward": {
+        "type": "magic8Ball",
+        "title": "rewards.day10.title",
+        "instructionKey": "rewards.day10.instruction",
+        "answers": [
+          "rewards.day10.answers.1",
+          "rewards.day10.answers.2",
+          "rewards.day10.answers.3",
+          "rewards.day10.answers.4",
+          "rewards.day10.answers.5",
+          "rewards.day10.answers.6",
+          "rewards.day10.answers.7",
+          "rewards.day10.answers.8",
+          "rewards.day10.answers.9",
+          "rewards.day10.answers.10"
+        ]
+      },
       "challengeData": {
         "cols": 5,
         "rows": 5,

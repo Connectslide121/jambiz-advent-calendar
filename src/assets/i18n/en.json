@@ -1038,7 +1038,6 @@
     "day4": "XBUS (Excellent Business Services) works by three core values: competence, hard work, and having fun!",
     "day6": "ProgressLEAD specializes in strategy, transformation, project, program and portfolio management.",
     "day9": "SwCG (Swedish Consulting Group) serves as a meeting place for the entire IT industry, connecting clients with the best consultants.",
-    "day10": "Podium System is home to experts in travel and transport, planning and optimization – delivering tailored cloud-based solutions.",
     "day11": "AnalyticLEAD offers deep expertise in information management, advanced analytics, data science and data governance.",
     "day12": "LearningLEAD offers coaching, mentorship, courses and workshops within Project Management, Facilitation, and Lean-Agile Transformation (SAFe®).",
     "day13": "Addends offers facilitation services using LEGO® Serious Play® methodology – believing business can be done better through playfulness!",
@@ -1162,6 +1161,41 @@
       "couponDescription": "The bearer may set Teams to Do not disturb for a whole hour and work in peace. No pings, no guilt.",
       "couponValidity": "Valid for one hour, while the Christmas spirit lasts ✨",
       "instruction": "Save the coupon and use it when you need some quiet."
+    },
+    "day9": {
+      "title": "☕ Fika between two meetings",
+      "intro": "Spiced Christmas nuts in an ordinary frying pan: seven minutes at the stove, then they cool while your next meeting starts. The whole home office smells of Christmas.\n\nNo nuts at home, or someone who can't have them? Pumpkin seeds work just as well; give them a minute less in the pan.",
+      "ingredients": {
+        "1": "150 g almonds, cashews or mixed nuts (about 1 cup)",
+        "2": "3 tbsp light brown sugar",
+        "3": "1 tbsp butter",
+        "4": "1 tbsp water",
+        "5": "1 tsp cinnamon and ½ tsp ground ginger",
+        "6": "½ tsp flaky salt"
+      },
+      "steps": {
+        "1": "Lay out a sheet of baking paper before you start; after that it goes quickly.",
+        "2": "Melt the butter, sugar, water and spices in a frying pan over medium heat. Stir until it bubbles, about a minute.",
+        "3": "Tip in the nuts and keep stirring for 4–5 minutes, until the syrup has cooked down into a glossy coat on the nuts. Don't leave the pan: sugar burns fast.",
+        "4": "Pour the nuts onto the paper, pull them apart with a fork and sprinkle over the flaky salt.",
+        "5": "Leave them to cool for ten minutes, because the sugar is scalding hot. Just long enough for a short meeting."
+      }
+    },
+    "day10": {
+      "title": "🎱 The tomte's magic ball",
+      "instruction": "Ask a yes-or-no question about December and click the ball.",
+      "answers": {
+        "1": "The tomte says yes",
+        "2": "The elves say maybe",
+        "3": "Ask again after fika",
+        "4": "Unclear: too much tinsel",
+        "5": "Yes, if you're good",
+        "6": "Not before the 24th",
+        "7": "Count on it",
+        "8": "The tomte hesitates",
+        "9": "Ask in January",
+        "10": "Yes! Ho ho ho!"
+      }
     },
     "day18": {
       "title": "🎵 Christmas at Jambiz 🎵",
