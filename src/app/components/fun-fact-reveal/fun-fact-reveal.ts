@@ -296,8 +296,12 @@ export class FunFactReveal implements OnInit {
     }, 600);
   }
 
+  get topicKeys(): string[] {
+    return this.effectiveReward?.topics?.length ? this.effectiveReward.topics : ['rewards.iceBreaker.topics.topic1'];
+  }
+
   private pickRandomTopic(): void {
-    const topics = this.effectiveReward?.topics || ['rewards.iceBreaker.topics.topic1'];
+    const topics = this.topicKeys;
     const randomIndex = Math.floor(Math.random() * topics.length);
     this.currentTopic = topics[randomIndex];
   }

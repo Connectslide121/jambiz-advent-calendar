@@ -265,7 +265,7 @@
 
       <!-- Instruction -->
       <p class="text-xs sm:text-sm text-text-muted mt-4">
-        {{ 'rewards.coupon.instruction' | translate }}
+        {{ (effectiveReward.instructionKey || 'rewards.coupon.instruction') | translate }}
       </p>
     </div>
     }
@@ -302,9 +302,10 @@
 
           <!-- Topic Display Card -->
           <div class="topic-card" [class.spinning]="isSpinningTopic">
-            <div class="topic-text text-base sm:text-lg font-medium text-text">
-              @if (currentTopic) {
-              {{ currentTopic | translate }}
+            <!-- Every topic sits in the same cell, so the card keeps the longest one's height -->
+            <div class="topic-text text-base sm:text-lg font-medium text-text" aria-live="polite">
+              @for (topic of topicKeys; track $index) {
+              <span [class.current]="topic === currentTopic" [attr.aria-hidden]="topic !== currentTopic">{{ topic | translate }}</span>
               }
             </div>
           </div>
