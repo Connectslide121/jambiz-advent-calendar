@@ -44,8 +44,7 @@
       "title": "Congratulations!",
       "funFactLabel": "Fun Fact:",
       "rewardLabel": "Your Reward:",
-      "imageLabel": "A little surprise for you:",
-      "videoLabel": "🎁 Enjoy today's reward! 🎁"
+      "imageLabel": "A little surprise for you:"
     },
     "juldle": {
       "title": "Juldle",
@@ -1041,9 +1040,7 @@
     "day12": "LearningLEAD offers coaching, mentorship, courses and workshops within Project Management, Facilitation, and Lean-Agile Transformation (SAFe®).",
     "day14": "Sprinta created CertumHub – an AI-powered platform for e-learning, compliance management, and sustainability certifications with 50+ course categories!",
     "day16": "Jambiz provides security, development, and growth for member companies through collaboration and economies of scale.",
-    "day18": "Jambiz Group's vision: \"The future of business lies in bringing together people and companies who want to develop themselves and the market.\"",
-    "day23": "Jambiz owns an apartment called 'Casa Progresso' in sunny Almuñecar, Spain! Employees can book it at a special price for their vacation getaways. ☀️🏖️",
-    "day24": "Placeholder fun fact for day 24."
+    "day18": "Jambiz Group's vision: \"The future of business lies in bringing together people and companies who want to develop themselves and the market.\""
   },
   "ui": {
     "close": "Close",
@@ -1264,6 +1261,28 @@
       "couponDescription": "The bearer may spend one whole evening under a blanket on the sofa, laptop closed and phone on silent. No email, no “I'll just check one thing”, no guilt.",
       "couponValidity": "Valid for one evening, while the Christmas spirit lasts ✨",
       "instruction": "Pick the evening yourself. A blanket, a hot drink and a Christmas film are recommended."
+    },
+    "day23": {
+      "title": "🎲 Christmas Eve bingo",
+      "intro": "Bring the card to Christmas Eve, wherever you celebrate. Three in a row and you get to shout BINGO, ideally a bit too loud.",
+      "squares": {
+        "1": "“Christmas again already?”",
+        "2": "Donald Duck at three",
+        "3": "A forgotten present",
+        "4": "Someone naps on the sofa",
+        "5": "Someone finds the almond",
+        "6": "Nobody can find the scissors",
+        "7": "A rhyme that doesn't rhyme",
+        "8": "“Who is this one for?”",
+        "9": "A video call with family"
+      }
+    },
+    "day24": {
+      "title": "🎄 God jul from Jambiz",
+      "cardCover": "God jul from Jambiz",
+      "cardMessage": "Thank you for this year, wherever you are. Merry Christmas and a happy New Year!",
+      "cardGreeting": "From all of us at Jambiz ❤️",
+      "instruction": "Open the card: a greeting for you, wherever you celebrate."
     },
     "recipe": {
       "ingredients": "You need",

@@ -450,7 +450,23 @@
       "day": 23,
       "gridPosition": 8,
       "challengeType": "gingerbreadBridge",
-      "funFactKey": "funFacts.day23",
+      "reward": {
+        "type": "text",
+        "textFormat": "bingo",
+        "title": "rewards.day23.title",
+        "textKey": "rewards.day23.intro",
+        "items": [
+          "rewards.day23.squares.1",
+          "rewards.day23.squares.2",
+          "rewards.day23.squares.3",
+          "rewards.day23.squares.4",
+          "rewards.day23.squares.5",
+          "rewards.day23.squares.6",
+          "rewards.day23.squares.7",
+          "rewards.day23.squares.8",
+          "rewards.day23.squares.9"
+        ]
+      },
       "challengeData": {}
     },
     {
@@ -458,10 +474,12 @@
       "gridPosition": 15,
       "challengeType": "christmasEveEscape",
       "reward": {
-        "type": "video",
-        "videoUrl": "rewards/day24.mp4",
-        "videoType": "mp4",
-        "title": "challenges.success.videoLabel"
+        "type": "popupCard",
+        "title": "rewards.day24.title",
+        "cardCoverKey": "rewards.day24.cardCover",
+        "cardMessageKey": "rewards.day24.cardMessage",
+        "cardGreetingKey": "rewards.day24.cardGreeting",
+        "instructionKey": "rewards.day24.instruction"
       },
       "challengeData": {}
     }

@@ -44,8 +44,7 @@
       "title": "Grattis!",
       "funFactLabel": "Rolig fakta:",
       "rewardLabel": "Din belöning:",
-      "imageLabel": "En liten överraskning till dig:",
-      "videoLabel": "🎁 Njut av dagens belöning! 🎁"
+      "imageLabel": "En liten överraskning till dig:"
     },
     "juldle": {
       "title": "Juldle",
@@ -1041,9 +1040,7 @@
     "day12": "LearningLEAD erbjuder coaching, mentorskap, kurser och workshops inom projektledning, facilitering och Lean-Agile-transformation (SAFe®).",
     "day14": "Sprinta skapade CertumHub – en AI-driven plattform för e-lärande, efterlevnadshantering och hållbarhetscertifieringar med över 50 kurskategorier!",
     "day16": "Jambiz skapar trygghet, utveckling och tillväxt för medlemsbolagen genom samarbete och skalfördelar.",
-    "day18": "Jambiz Groups vision: \"Framtidens företagande ligger i att sammanföra personer och bolag som vill utveckla sig själva och marknaden.\"",
-    "day23": "Jambiz äger en lägenhet som heter 'Casa Progresso' i soliga Almuñecar, Spanien! Anställda kan boka den till ett specialpris för sin semester. ☀️🏖️",
-    "day24": "Platshållar-fun fact för dag 24."
+    "day18": "Jambiz Groups vision: \"Framtidens företagande ligger i att sammanföra personer och bolag som vill utveckla sig själva och marknaden.\""
   },
   "ui": {
     "close": "Stäng",
@@ -1264,6 +1261,28 @@
       "couponDescription": "Innehavaren får tillbringa en hel kväll under en filt i soffan, med datorn stängd och telefonen på ljudlöst. Inga mejl, inget ”jag ska bara kolla en grej”, inget dåligt samvete.",
       "couponValidity": "Gäller en kväll, så länge julstämningen räcker ✨",
       "instruction": "Välj kvällen själv. Filt, något varmt att dricka och en julfilm rekommenderas."
+    },
+    "day23": {
+      "title": "🎲 Julaftonsbingo",
+      "intro": "Ta med brickan till julafton, var du än firar. Prickar du av tre i rad får du ropa BINGO, gärna lite för högt.",
+      "squares": {
+        "1": "”Nu är det jul igen!”",
+        "2": "Kalle Anka klockan tre",
+        "3": "En bortglömd julklapp",
+        "4": "Någon somnar i soffan",
+        "5": "Någon hittar mandeln",
+        "6": "Ingen hittar saxen",
+        "7": "Ett julklappsrim som inte rimmar",
+        "8": "”Vem är den här till?”",
+        "9": "Videosamtal med släkten"
+      }
+    },
+    "day24": {
+      "title": "🎄 God jul från Jambiz",
+      "cardCover": "God jul från Jambiz",
+      "cardMessage": "Tack för året, var du än sitter. God jul och gott nytt år!",
+      "cardGreeting": "Från alla oss på Jambiz ❤️",
+      "instruction": "Öppna kortet: en hälsning till dig, var du än firar."
     },
     "recipe": {
       "ingredients": "Du behöver",
