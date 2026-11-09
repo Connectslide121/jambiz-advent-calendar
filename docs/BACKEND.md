@@ -68,6 +68,13 @@ One logical partition per season (`2026`) contains:
   `Jambiz #<oid prefix>`; loading the calendar refreshes a stored name that has changed.
 - `attempt:<random id>`: owner, day, server start time and consumed flag; one-hour TTL.
 
+`rewardRevision` does the same for rewards: when the seed's value is higher than the stored
+document's, every day's `reward` and `funFactKey` are replaced from the seed once (a day without
+one in the seed loses the stored one). Games, grid positions, other fields and player documents are
+untouched, and both revisions are applied in the same ETag-conditional write. After that, later
+edits to rewards in Cosmos are kept until the next bump. Bump it once when a new set of rewards is
+ready, after the frontend that understands them is deployed. The seed holds `0` until then.
+
 Media stays under `public/rewards/`; Cosmos stores URLs/configuration rather than binary files.
 Those files and translation text are public assets. Reward metadata is withheld until the player
 completes that day, or December 25. This is a reveal mechanism, not confidential media storage.
@@ -90,6 +97,52 @@ the authenticated calendar and cloud progress. A banner identifies preview runs.
 Reward definitions for preview come from `/dev-preview/calendar-2026.json`, copied from the seed
 only by Angular's **development** build configuration. Production output does not contain this asset,
 and activation also requires a development build on `localhost`. Preview does not relax API checks.
+
+## Rewards
+
+Each day's `reward` in the seed is a `RewardConfig` (`src/app/models/calendar.models.ts`), rendered
+by `src/app/components/fun-fact-reveal/`. Every text is a translation key; put a day's texts under
+`rewards.dayN.*` in `src/assets/i18n/sv.json` and `en.json`. `title` is the small label above the
+reward and the reward's name in the gallery.
+
+**Text rewards** (`"type": "text"`) pick a layout with `textFormat`. Line breaks in translations are
+kept and a blank line starts a new paragraph.
+
+| `textFormat` | Fields | Looks like |
+|---|---|---|
+| `plain` (default) | `textKey` | One paragraph: a fun fact or a challenge |
+| `letter` | `textKey` (the letter), `signatureKey` | A ruled sheet of paper, sign-off on the right |
+| `recipe` | `textKey` (intro), `ingredients[]`, `steps[]` | Ingredients beside numbered steps; stacked on phones |
+| `jokes` | `textKey` (intro), `items[]` | Numbered cards; each key is `setup\npunchline` |
+| `bingo` | `textKey` (intro), `items[]` (9 keys) | A 3×3 card; tapping marks a square, three in a row shows BINGO! (not saved) |
+
+Bingo squares are about 85 px wide on a 390 px phone: keep each to four or five short words, and no
+single word longer than about 13 letters. In the gallery, letters, recipes, jokes and bingo open in
+the reward window; plain text shows inline.
+
+```json
+{ "type": "text", "textFormat": "recipe", "title": "rewards.day9.title",
+  "textKey": "rewards.day9.intro",
+  "ingredients": ["rewards.day9.ingredients.1", "rewards.day9.ingredients.2"],
+  "steps": ["rewards.day9.steps.1", "rewards.day9.steps.2"] }
+```
+
+**Interactive rewards** take per-day keys; every one is optional and falls back to the shared
+`rewards.<type>.*` text.
+
+| Type | Per-day fields |
+|---|---|
+| all of them | `title`, `instructionKey` (the hint under the reward) |
+| `popupCard` | `cardCoverKey` (closed cover), `cardMessageKey` (inside the lid), `cardGreetingKey` (bottom edge) |
+| `snowGlobe` | `wishes[]`: shaking shows one at random in the hint's place, in a slot of fixed height |
+| `fortuneCookie` | `fortunes[]` |
+| `magic8Ball` | `answers[]` |
+| `iceBreaker` | `topics[]`, `iceBreakerTitleKey`, `iceBreakerInstructionKey`, `iceBreakerEmoji`, `iceBreakerButtonKey`, `iceBreakerValidityKey` |
+| `coupon` | `couponTitleKey`, `couponDescriptionKey`, `couponEmoji`, `couponValidityKey` |
+
+To preview, run `npm start`, type `devtools` on the calendar, turn on dev mode and open a door, then
+**Show reward** (or open it from **All rewards**). Dev mode reads the seed in `api/Data`, so seed
+edits show after a reload.
 
 ## Scoring and reliability
 
