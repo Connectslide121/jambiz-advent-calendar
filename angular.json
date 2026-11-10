@@ -30,11 +30,6 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "/assets"
-              },
-              {
-                "glob": "CNAME",
-                "input": "src",
-                "output": "/"
               }
             ],
             "styles": ["src/styles.scss"]
@@ -59,7 +54,6 @@
               "assets": [
                 { "glob": "**/*", "input": "public" },
                 { "glob": "**/*", "input": "src/assets", "output": "/assets" },
-                { "glob": "CNAME", "input": "src", "output": "/" },
                 { "glob": "calendar-2026.json", "input": "api/Data", "output": "/dev-preview" }
               ],
               "optimization": false,

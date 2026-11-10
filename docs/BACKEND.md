@@ -24,8 +24,8 @@ are historical names, retained because Azure cannot rename them in place. They d
 a separate development environment. Keep these names in deployment scripts and infrastructure
 so future deployments update the same resources.
 
-`https://jambizadvent.se` serves the frontend through GitHub Pages. The SWA is another frontend
-for this same production backend and Cosmos database, not a second environment. Podium-ops resources are unchanged. There are no always-ready Function instances or provisioned
+The SWA is the only frontend. `https://jambizadvent.se` becomes its custom domain once the domain's
+nameservers point at the Azure DNS zone; GitHub Pages is closed. Podium-ops resources are unchanged. There are no always-ready Function instances or provisioned
 Cosmos throughput. Azure resources still have usage charges.
 
 ## Authentication and data access
@@ -253,9 +253,7 @@ Deploy builds/tests first, uploads the Angular output with SWA CLI, then publish
 including hidden host files. The frontend must understand the new game types before the API
 applies a calendar revision. Already-open browser tabs may need a reload after the update. The SWA deployment token is held only in a process environment variable
 and removed afterward. No Git push or automatic GitHub Actions deployment is configured here.
-`npm run deploy` builds and publishes the frontend to the existing `gh-pages` branch for
-`https://jambizadvent.se`. It uses the same public API configuration and Entra SPA as the SWA.
-Use the PowerShell script for Azure. Azure DevOps migration and pipeline setup are deferred.
+The PowerShell script is the only deployment path. Azure DevOps migration and pipeline setup are deferred.
 
 Optional live Cosmos tests create uniquely named test players/runs and clean them up:
 

@@ -48,7 +48,6 @@ npm start            # http://localhost:4200
 |---|---|
 | `npm start` | Dev server with live reload |
 | `npm run build` | Production build into `dist/` |
-| `npm run deploy` | Production build published to GitHub Pages (`jambizadvent.se`) |
 | `npm test` | Unit tests (Karma) |
 
 ### Testing the calendar outside December
@@ -120,21 +119,13 @@ Developer controls cannot reset cloud progress. See [backend guide](docs/BACKEND
 
 ## 🌐 Deployment
 
-There is one production environment. GitHub Pages at [jambizadvent.se](https://jambizadvent.se) and
-the Azure frontend share the same API and Cosmos database. Historical Azure resource names
-containing `dev` / `develop` are retained; their environment tags are `prod`.
+There is one production environment: an Azure Static Web App with its API and Cosmos database.
+Historical Azure resource names containing `dev` / `develop` are retained; their environment tags
+are `prod`. The custom domain [jambizadvent.se](https://jambizadvent.se) moves to the SWA once its
+DNS points at Azure; until then use the SWA address.
 
 Azure: [Open the 2026 calendar](https://calm-water-0b43e6903.5.azurestaticapps.net).
 Use ./scripts/deploy.ps1 from PowerShell. See [Azure setup and API guide](docs/BACKEND.md).
-
-The following command targets the existing GitHub Pages site:
-
-```bash
-npm run deploy
-```
-
-This builds for production and publishes `dist/jambiz-advent-calendar/browser` to the `gh-pages`
-branch. The custom domain comes from `src/CNAME`.
 
 ## 👥 Credits
 

@@ -5,7 +5,6 @@
     "ng": "ng",
     "start": "ng serve --open",
     "build": "ng build",
-    "deploy": "ng build --configuration production --base-href / && npx angular-cli-ghpages --dir=dist/jambiz-advent-calendar/browser",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
